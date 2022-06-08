@@ -1,3 +1,3 @@
-grow note
 
-* [data-struct](book/data-struct/main.md)
+1. [data-struct](book/data-struct/main.md)
+2. 
