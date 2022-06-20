@@ -1,0 +1,708 @@
+<div class="markdown_views prism-atom-one-dark" id="content_views">
+    <svg style="display: none;" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5,0 0,2.5 5,5z" id="raphael-marker-block" stroke-linecap="round" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
+    </svg>
+    <p></p>
+    <div class="toc">
+        <h3><a name="t0"></a>文章目录</h3>
+        <ul><li><a href="#_2" target="_self">一：队列基本概念</a></li><li><ul><li><a href="#1_3" target="_self">（1）队列的定义</a></li><li><a href="#2_14" target="_self">（2）入队和出队</a></li><li><a href="#3_28" target="_self">（3）队列的操作</a></li></ul>
+        </li><li><a href="#_41" target="_self">二：队列的顺序存储结构（循环队列）及其操作实现</a></li><li><ul><li><a href="#1fontrear_46" target="_self">（1）单纯的顺序存储的不足之处及font指针和rear指针</a></li><li><a href="#2_88" target="_self">（2）循环队列概念及队空队满条件</a></li><li><a href="#3_121" target="_self">（3）循环队列定义</a></li><li><a href="#4_145" target="_self">（4）入队</a></li><li><a href="#5_161" target="_self">（5）出队</a></li></ul>
+        </li><li><a href="#_179" target="_self">三：队列的链式存储结构及其操作实现</a></li><li><ul><li><a href="#1_180" target="_self">（1）链式队列的定义</a></li><li><a href="#2_204" target="_self">（2）入队</a></li><li><a href="#3_223" target="_self">（3）出队</a></li></ul>
+        </li><li><a href="#_249" target="_self">四：双端队列</a></li><li><ul><li><a href="#1_256" target="_self">（1）：双端队列基本概念</a></li><li><a href="#2_265" target="_self">（2）：双端队列输出序列合法性判断</a></li></ul>
+        </li></ul>
+    </div>
+    <p></p>
+    <h1><a name="t1"></a><a id="_2"></a>一：队列基本概念</h1>
+    <h2><a name="t2"></a><a id="1_3"></a>（1）队列的定义</h2>
+    <p><strong><font color="ff0000">队列(Queue)</font>：是一种<font color="0000ff">只允许在一端插入，在另一端删除</font>的线性表。我们把允许插入的一端称之为<font color="0000ff">队尾(rear)</font>，把允许删除的一端称之为<font color="0000ff">队头(front)</font>。不含任何数据元素的队列称之为<font color="0000ff">空队列</font>。队列遵循<font color="0000ff">先进先出(FIFO)</font>原则</strong></p>
+    <p><img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/50235da9c55d42c38d9db32ccdde8f68.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5oiR5pOm5LqGREo=,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+    <ul><li> <p>生活中的排队就是典型的队列<br> <img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/b913d5c223394e4c875449a2c7fedec9.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5oiR5pOm5LqGREo=,size_20,color_FFFFFF,t_70,g_se,x_16"></p> </li><li> <p>有时我们使用电脑时，会突然感觉电脑卡住了，乱点鼠标、乱按键盘也没有什么效果，然后突然它就像清醒了一般，把你刚才的所有操作全部执行了一遍。其实这是因为操作系统中的多个程序需要通过一个通道输出，而按先后次序排队等待造成的</p> </li></ul>
+    <h2><a name="t3"></a><a id="2_14"></a>（2）入队和出队</h2>
+    <p><strong><font color="ff0000">入队</font>：是队列的<font color="0000ff">插入</font>操作</strong></p>
+    <p><strong><font color="ff0000">出队</font>：是队列的<font color="0000ff">删除</font>操作</strong></p>
+    <p>如下</p>
+    <p><img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/430d8595f05d4a8394e26033d9769c84.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5oiR5pOm5LqGREo=,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+    <ul><li><strong>入队顺序</strong>：<span class="katex--inline"><span class="katex"><span class="katex-mathml">
+
+
+
+
+
+          a
+
+
+          1
+
+
+
+
+        a_{1}
+
+
+     </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.58056em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.301108em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span>-&gt;<span class="katex--inline"><span class="katex"><span class="katex-mathml">
+
+
+
+
+
+          a
+
+
+          2
+
+
+
+
+        a_{2}
+
+
+     </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.58056em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.301108em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span>-&gt;<span class="katex--inline"><span class="katex"><span class="katex-mathml">
+
+
+
+
+
+          a
+
+
+          3
+
+
+
+
+        a_{3}
+
+
+     </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.58056em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.301108em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span>-&gt;<span class="katex--inline"><span class="katex"><span class="katex-mathml">
+
+
+
+
+
+          a
+
+
+          4
+
+
+
+
+        a_{4}
+
+
+     </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.58056em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.301108em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">4</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span>-&gt;<span class="katex--inline"><span class="katex"><span class="katex-mathml">
+
+
+
+
+
+          a
+
+
+          5
+
+
+
+
+        a_{5}
+
+
+     </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.58056em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.301108em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">5</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span></li><li><strong>出队顺序</strong>：<span class="katex--inline"><span class="katex"><span class="katex-mathml">
+
+
+
+
+
+          a
+
+
+          1
+
+
+
+
+        a_{1}
+
+
+     </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.58056em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.301108em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span>-&gt;<span class="katex--inline"><span class="katex"><span class="katex-mathml">
+
+
+
+
+
+          a
+
+
+          2
+
+
+
+
+        a_{2}
+
+
+     </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.58056em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.301108em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span>-&gt;<span class="katex--inline"><span class="katex"><span class="katex-mathml">
+
+
+
+
+
+          a
+
+
+          3
+
+
+
+
+        a_{3}
+
+
+     </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.58056em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.301108em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span>-&gt;<span class="katex--inline"><span class="katex"><span class="katex-mathml">
+
+
+
+
+
+          a
+
+
+          4
+
+
+
+
+        a_{4}
+
+
+     </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.58056em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.301108em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">4</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span>-&gt;<span class="katex--inline"><span class="katex"><span class="katex-mathml">
+
+
+
+
+
+          a
+
+
+          5
+
+
+
+
+        a_{5}
+
+
+     </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.58056em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.301108em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">5</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span></li></ul>
+    <h2><a name="t4"></a><a id="3_28"></a>（3）队列的操作</h2>
+    <p>一个队列的基本操作如下</p>
+    <ul><li><strong><code>InitQueue(&amp;Q)</code></strong>：初始化队列</li><li><strong><code>DestoryQueue(&amp;Q)</code></strong>：销毁队列</li><li><strong><code>EnQueue(&amp;Q,x)</code></strong>：入队</li><li><strong><code>DeQueue(&amp;Q,&amp;x)</code></strong>：出队</li><li><strong><code>GetHead(Q,&amp;x)</code></strong>：读队头元素</li><li><strong><code>QueueEmpty(Q)</code></strong>：队列判空</li></ul>
+    <h1><a name="t5"></a><a id="_41"></a>二：队列的<a class="hl hl-1" data-pretit="顺序存储结构" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.7020&quot;,&quot;dest&quot;:&quot;https://so.csdn.net/so/search?q=%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84&amp;spm=1001.2101.3001.7020&quot;}" data-report-view="{&quot;spm&quot;:&quot;1001.2101.3001.7020&quot;,&quot;dest&quot;:&quot;https://so.csdn.net/so/search?q=%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84&amp;spm=1001.2101.3001.7020&quot;}" data-tit="顺序存储结构" href="https://so.csdn.net/so/search?q=%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84&amp;spm=1001.2101.3001.7020" target="_blank">顺序存储结构</a>（循环队列）及其操作实现</h1>
+    <p>使用数组来完成栈的顺序存储结构是没有什么太大问题的（除了容量），但是如果用数组来实现队列的顺序存储结构却会产生很大问题</p>
+    <h2><a name="t6"></a><a id="1fontrear_46"></a>（1）单纯的顺序存储的不足之处及font指针和rear指针</h2>
+    <p><strong><font color="0000ff">1：队列采用顺序存储结构，如何解决出队列时元素移动导致时间复杂度很大的问题？</font></strong></p>
+    <p>假设一个队列有<span class="katex--inline"><span class="katex"><span class="katex-mathml">
+
+
+
+
+        n
+
+
+
+       n
+
+
+    </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.43056em; vertical-align: 0em;"></span><span class="mord mathdefault">n</span></span></span></span></span>个元素，则顺序存储的队列需要建立一个大于<span class="katex--inline"><span class="katex"><span class="katex-mathml">
+
+
+
+
+        n
+
+
+
+       n
+
+
+    </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.43056em; vertical-align: 0em;"></span><span class="mord mathdefault">n</span></span></span></span></span>的数组，并把队列的所有元素存储在数组的前<span class="katex--inline"><span class="katex"><span class="katex-mathml">
+
+
+
+
+        n
+
+
+
+       n
+
+
+    </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.43056em; vertical-align: 0em;"></span><span class="mord mathdefault">n</span></span></span></span></span>个单元。<strong>数组下标为0的一端就是队头</strong>，如下</p>
+    <p><img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/1bf8e0f5459645d585f7331eab070f9c.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5oiR5pOm5LqGREo=,size_16,color_FFFFFF,t_70,g_se,x_16"><br> 那么<strong>入队列实际就是在队尾追加一个元素，不需要移动任何元素</strong>，这一点没什么问题<br> <img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/0e7adab8decb42aea4990dd5fa06af9e.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5oiR5pOm5LqGREo=,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+    <p>但是要命的地方在于出队列，因为它限制在了队头也即下标为0的地方进行删除，那么这意味着<strong>队头元素移出之后，剩余元素必须向前移动，以保证有元素始终处于队头位置，这样的话时间复杂度将达到<span class="katex--inline"><span class="katex"><span class="katex-mathml">
+
+
+
+
+         O
+
+
+         (
+
+
+         n
+
+
+         )
+
+
+
+        O(n)
+
+
+     </span><span class="katex-html"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></span></strong></p>
+    <p><img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/48c03a63c7dd4bf19922fb6091b2b3b2.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5oiR5pOm5LqGREo=,size_20,color_FFFFFF,t_70,g_se,x_16"><br> <strong>因此对于这一点解决方法是：<font color="0000ff">引入front指针指向队头元素，rear指针指向队尾元素的下一个位置</font></strong></p>
+    <ul><li><code>rear</code>必须要指向队尾元素的下一个位置，否则无法区分队满还是队空（当<code>rear=front</code>就是队空了）</li></ul>
+    <p>所以大家可以看到，在空队列时有<code>rear=front=0</code>。然后<span class="katex--inline"><span class="katex"><span class="katex-mathml">
+
+
+
+
+
+         a
+
+
+         1
+
+
+
+
+       a_{1}
+
+
+    </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.58056em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.301108em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span>、<span class="katex--inline"><span class="katex"><span class="katex-mathml">
+
+
+
+
+
+         a
+
+
+         2
+
+
+
+
+       a_{2}
+
+
+    </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.58056em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.301108em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span>、<span class="katex--inline"><span class="katex"><span class="katex-mathml">
+
+
+
+
+
+         a
+
+
+         3
+
+
+
+
+       a_{3}
+
+
+    </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.58056em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.301108em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span>、<span class="katex--inline"><span class="katex"><span class="katex-mathml">
+
+
+
+
+
+         a
+
+
+         4
+
+
+
+
+       a_{4}
+
+
+    </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.58056em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.301108em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">4</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span>依次入队。此时<code>front</code>指针不动，而<code>rear</code>指针指向了队尾元素的下一个位置</p>
+    <p><img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/0aee45f2ad4749d8975f5290a2535a7c.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5oiR5pOm5LqGREo=,size_20,color_FFFFFF,t_70,g_se,x_16"><br> 接着出队<span class="katex--inline"><span class="katex"><span class="katex-mathml">
+
+
+
+
+
+         a
+
+
+         1
+
+
+
+
+       a_{1}
+
+
+    </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.58056em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.301108em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span>、<span class="katex--inline"><span class="katex"><span class="katex-mathml">
+
+
+
+
+
+         a
+
+
+         2
+
+
+
+
+       a_{2}
+
+
+    </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.58056em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.301108em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span>，于是<code>front</code>指针指向下标为2的位置，而<code>rear</code>不变</p>
+    <p><img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/3a7fe6cfb7024211aefd50af12333f99.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5oiR5pOm5LqGREo=,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+    <hr>
+    <p><strong><font color="0000ff">2：出队、入队都有可能导致数组越界，如何解决？</font></strong></p>
+    <p>紧接着上面那种情况，<strong><code>rear</code>已经指向了4，如果再入队一个元素<span class="katex--inline"><span class="katex"><span class="katex-mathml">
+
+
+
+
+
+          a
+
+
+          5
+
+
+
+
+        a_{5}
+
+
+     </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.58056em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.301108em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">5</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span>，那么<code>rear</code>岂不是越界了？</strong></p>
+    <p><img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/22e15dbc8ceb4726b181328ac0b64135.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5oiR5pOm5LqGREo=,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+    <p>如果反映在数组上，我们知道编译器一定会给我们反馈“越界”的信息，但是很明显上面还有空余位置，<strong>所以这是一种假溢出</strong></p>
+    <p>因此如果要完美的实现队列的顺序存储结构就必须要做一定的改进——<strong>循环队列</strong></p>
+    <h2><a name="t7"></a><a id="2_88"></a>（2）循环队列概念及队空队满条件</h2>
+    <p><strong><font color="ff0000">循环队列</font>：为了解决假溢出问题，可以将数组<font color="0000ff">“头尾相接”</font>形成一种逻辑上的环形结构</strong></p>
+    <p><img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/9fe7d8ba886e442a86035be79ab15580.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5oiR5pOm5LqGREo=,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+    <p>这种“环形”只是一种<strong>逻辑</strong>上的感觉，其底层仍然是连续的空间，想要实现操作上的环形那么就必须<strong>要对其下标的变换做一定的文章</strong>（具体为什么是下面这样我就不细说了，其实就是利用了<code>%</code>元素，例如<code>1%12</code>会把结果映射到0~11这个范围）</p>
+    <ul><li><strong><font color="0000ff"><code>rear</code>移动时</font>：<code>rear=(rear+1)%Maxsize)</code></strong></li><li><strong><font color="0000ff"><code>front</code>移动时</font>：<code>front=(front+1)%Maxsize)</code></strong></li></ul>
+    <p>所以使用这种方式，当<span class="katex--inline"><span class="katex"><span class="katex-mathml">
+
+
+
+
+
+         a
+
+
+         5
+
+
+
+
+       a_{5}
+
+
+    </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.58056em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.301108em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">5</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span>插入时，<code>rear</code>=(4+1)%5=0，于是就又回到了开头</p>
+    <p><img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/8b09eb54900847f38d90f7f4cb83d2ef.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5oiR5pOm5LqGREo=,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+    <hr>
+    <p>数组空间毕竟是有限的，那么这样的结构其<strong>队空队满</strong>的条件是什么呢？如下</p>
+    <ul><li><strong><font color="0000ff">队空</font>：<code>rear=front</code></strong></li><li><strong><font color="0000ff">队满</font>：<code>front=(rear+1)%Maxsize</code></strong></li></ul>
+    <p>比如下面，<code>rear</code>开始为1，插入<span class="katex--inline"><span class="katex"><span class="katex-mathml">
+
+
+
+
+
+         a
+
+
+         7
+
+
+
+
+       a_{7}
+
+
+    </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.58056em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.301108em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">7</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span>后,<code>rear</code>=(1+1)%5=3=<code>front</code>，此时队满<br> <img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/a019e685ea2e47e2ab2099c2e944f2fa.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5oiR5pOm5LqGREo=,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+    <hr>
+    <p>另外还有一种问题就是求队列长度，其<strong>通用的公式为:<code>（rear-front+Maxsize）%Maxsize</code></strong></p>
+    <h2><a name="t8"></a><a id="3_121"></a>（3）循环队列定义</h2>
+    <p>循环队列结构定义如下</p>
+    <pre class="prettyprint"><code class="prism language-c has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;"><span class="token keyword">typedef</span> <span class="token keyword">struct</span>
+<span class="token punctuation">{<!-- --></span>
+	DataType data<span class="token punctuation">[</span>MaxSize<span class="token punctuation">]</span><span class="token punctuation">;</span>
+	<span class="token keyword">int</span> front<span class="token punctuation">;</span><span class="token comment">//头指针</span>
+	<span class="token keyword">int</span> rear<span class="token punctuation">;</span><span class="token comment">//尾指针。若队列不空，指向队尾元素的下一个位置</span>
+<span class="token punctuation">}</span>SqQueue<span class="token punctuation">;</span>
+<div class="hljs-button {2}" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}" data-title="复制"></div></code><ul class="pre-numbering" style=""><li style="color: rgb(153, 153, 153);">1</li><li style="color: rgb(153, 153, 153);">2</li><li style="color: rgb(153, 153, 153);">3</li><li style="color: rgb(153, 153, 153);">4</li><li style="color: rgb(153, 153, 153);">5</li><li style="color: rgb(153, 153, 153);">6</li></ul></pre>
+    <p>初始化代码如下</p>
+    <pre class="prettyprint"><code class="prism language-c has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">bool <span class="token function">InitQueue</span><span class="token punctuation">(</span>SqQueue<span class="token operator">&amp;</span> Q<span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span>
+	Q<span class="token punctuation">.</span>front<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+	Q<span class="token punctuation">.</span>rear<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+	<span class="token keyword">return</span> true<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<div class="hljs-button {2}" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}" data-title="复制"></div></code><ul class="pre-numbering" style=""><li style="color: rgb(153, 153, 153);">1</li><li style="color: rgb(153, 153, 153);">2</li><li style="color: rgb(153, 153, 153);">3</li><li style="color: rgb(153, 153, 153);">4</li><li style="color: rgb(153, 153, 153);">5</li><li style="color: rgb(153, 153, 153);">6</li></ul></pre>
+    <h2><a name="t9"></a><a id="4_145"></a>（4）入队</h2>
+    <p><strong><font color="ff0000">入队</font>：入队时，先<font color="0000ff">元素赋值</font>，后<font color="0000ff"><code>rear</code>指针+1</font>（因为要保证<code>rear</code>指向队尾下一个位置）</strong></p>
+    <pre class="prettyprint"><code class="prism language-c has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">bool <span class="token function">EnQueue</span><span class="token punctuation">(</span>SqQueue<span class="token operator">&amp;</span> Q<span class="token punctuation">,</span>DataType e<span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span>
+	<span class="token keyword">if</span><span class="token punctuation">(</span>Q<span class="token punctuation">.</span>front<span class="token operator">==</span><span class="token punctuation">(</span>Q<span class="token punctuation">.</span>rear<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">%</span>MaxSize<span class="token punctuation">)</span>
+		<span class="token keyword">return</span> false<span class="token punctuation">;</span><span class="token comment">//队满</span>
+	Q<span class="token punctuation">.</span>data<span class="token punctuation">[</span>Q<span class="token punctuation">.</span>rear<span class="token punctuation">]</span><span class="token operator">=</span>e<span class="token punctuation">;</span>
+	Q<span class="token punctuation">.</span>rear<span class="token operator">=</span><span class="token punctuation">(</span>Q<span class="token punctuation">.</span>rear<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">%</span>MaxSize<span class="token punctuation">;</span>
+
+	<span class="token keyword">return</span> true<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<div class="hljs-button {2}" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}" data-title="复制"></div></code><ul class="pre-numbering" style=""><li style="color: rgb(153, 153, 153);">1</li><li style="color: rgb(153, 153, 153);">2</li><li style="color: rgb(153, 153, 153);">3</li><li style="color: rgb(153, 153, 153);">4</li><li style="color: rgb(153, 153, 153);">5</li><li style="color: rgb(153, 153, 153);">6</li><li style="color: rgb(153, 153, 153);">7</li><li style="color: rgb(153, 153, 153);">8</li><li style="color: rgb(153, 153, 153);">9</li></ul></pre>
+    <h2><a name="t10"></a><a id="5_161"></a>（5）出队</h2>
+    <p><strong><font color="ff0000">出队</font>：出队时，直接<font color="0000ff"><code>front</code>+1即可</font>（<code>front</code>要始终指向队头元素）</strong></p>
+    <pre class="prettyprint"><code class="prism language-c has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">bool <span class="token function">DeQueue</span><span class="token punctuation">(</span>SqQueue<span class="token operator">&amp;</span> Q<span class="token punctuation">,</span>DataType<span class="token operator">&amp;</span> e<span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span>
+	<span class="token keyword">if</span><span class="token punctuation">(</span>Q<span class="token punctuation">.</span>front<span class="token operator">==</span>Q<span class="token punctuation">.</span>rear<span class="token punctuation">)</span>
+		<span class="token keyword">return</span> false<span class="token punctuation">;</span><span class="token comment">//队空</span>
+	<span class="token operator">*</span>e<span class="token operator">=</span>Q<span class="token punctuation">.</span>data<span class="token punctuation">[</span>Q<span class="token punctuation">.</span>front<span class="token punctuation">]</span><span class="token punctuation">;</span>
+	Q<span class="token punctuation">.</span>front<span class="token operator">=</span><span class="token punctuation">(</span>Q<span class="token punctuation">.</span>front<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">%</span>MaxSize<span class="token punctuation">;</span>
+	<span class="token keyword">return</span> true<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<div class="hljs-button {2}" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}" data-title="复制"></div></code><ul class="pre-numbering" style=""><li style="color: rgb(153, 153, 153);">1</li><li style="color: rgb(153, 153, 153);">2</li><li style="color: rgb(153, 153, 153);">3</li><li style="color: rgb(153, 153, 153);">4</li><li style="color: rgb(153, 153, 153);">5</li><li style="color: rgb(153, 153, 153);">6</li><li style="color: rgb(153, 153, 153);">7</li><li style="color: rgb(153, 153, 153);">8</li></ul></pre>
+    <h1><a name="t11"></a><a id="_179"></a>三：队列的链式<a class="hl hl-1" data-pretit="存储结构" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.7020&quot;,&quot;dest&quot;:&quot;https://so.csdn.net/so/search?q=%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84&amp;spm=1001.2101.3001.7020&quot;}" data-report-view="{&quot;spm&quot;:&quot;1001.2101.3001.7020&quot;,&quot;dest&quot;:&quot;https://so.csdn.net/so/search?q=%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84&amp;spm=1001.2101.3001.7020&quot;}" data-tit="存储结构" href="https://so.csdn.net/so/search?q=%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84&amp;spm=1001.2101.3001.7020" target="_blank">存储结构</a>及其操作实现</h1>
+    <h2><a name="t12"></a><a id="1_180"></a>（1）链式队列的定义</h2>
+    <p><strong><font color="ff0000">链式队列</font>：其本质仍然是单链表，不过只能<font color="0000ff">尾进头出</font>。为了操作方便，将<font color="0000ff"><code>front</code>指针指向头结点</font>,将<font color="0000ff"><code>rear</code>指针指向队尾结点</font></strong></p>
+    <p><img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/b011689662d44e0890bfd9e05c2bb76c.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5oiR5pOm5LqGREo=,size_20,color_FFFFFF,t_70,g_se,x_16"><br> 于是，在<strong>队列为空</strong>时，<code>front</code>和<code>rear</code>都将指向头结点<br> <img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/2dbf571451f04ea5ba9488bc31c86b78.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5oiR5pOm5LqGREo=,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+    <p>因此<strong>链式队列结构定义如下</strong></p>
+    <pre class="prettyprint"><code class="prism language-c has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;"><span class="token keyword">typedef</span> <span class="token keyword">struct</span> <span class="token class-name">QNode</span><span class="token comment">//结点</span>
+<span class="token punctuation">{<!-- --></span>
+	DateType data<span class="token punctuation">;</span>
+	<span class="token keyword">struct</span> <span class="token class-name">QNode</span><span class="token operator">*</span> next<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>QNode<span class="token punctuation">;</span>
+
+<span class="token keyword">typedef</span> <span class="token keyword">struct</span> <span class="token class-name">LinkQueue</span><span class="token comment">//链式栈</span>
+<span class="token punctuation">{<!-- --></span>
+	QNode<span class="token operator">*</span> rear<span class="token punctuation">;</span><span class="token comment">//队尾指针</span>
+	QNode<span class="token operator">&amp;</span> front<span class="token punctuation">;</span><span class="token comment">//队头指针</span>
+<span class="token punctuation">}</span>LinkQueue<span class="token punctuation">;</span>
+<div class="hljs-button {2}" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}" data-title="复制"></div></code><ul class="pre-numbering" style=""><li style="color: rgb(153, 153, 153);">1</li><li style="color: rgb(153, 153, 153);">2</li><li style="color: rgb(153, 153, 153);">3</li><li style="color: rgb(153, 153, 153);">4</li><li style="color: rgb(153, 153, 153);">5</li><li style="color: rgb(153, 153, 153);">6</li><li style="color: rgb(153, 153, 153);">7</li><li style="color: rgb(153, 153, 153);">8</li><li style="color: rgb(153, 153, 153);">9</li><li style="color: rgb(153, 153, 153);">10</li><li style="color: rgb(153, 153, 153);">11</li></ul></pre>
+    <h2><a name="t13"></a><a id="2_204"></a>（2）入队</h2>
+    <p><strong>入队时，在链表尾部插入结点</strong></p>
+    <p><img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/06d8e0d794b94157a866eb4215899d6f.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5oiR5pOm5LqGREo=,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+    <pre class="prettyprint"><code class="prism language-c has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">bool <span class="token function">EnQueue</span><span class="token punctuation">(</span>LinkQueue<span class="token operator">&amp;</span> Q<span class="token punctuation">,</span>DataType e<span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span>
+	QNode<span class="token operator">*</span> NewNode<span class="token operator">=</span><span class="token punctuation">(</span>QNode<span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>QNode<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">if</span><span class="token punctuation">(</span>NewNode<span class="token operator">==</span><span class="token constant">NULL</span><span class="token punctuation">)</span>
+		<span class="token keyword">return</span> false<span class="token punctuation">;</span>
+	NewNode<span class="token operator">-&gt;</span>data<span class="token operator">=</span>e<span class="token punctuation">;</span>
+	NewNode<span class="token operator">-&gt;</span>next<span class="token operator">=</span><span class="token constant">NULL</span><span class="token punctuation">;</span>
+	Q<span class="token operator">-&gt;</span>rear<span class="token operator">-&gt;</span>next<span class="token operator">=</span>NewNode<span class="token punctuation">;</span>
+	Q<span class="token operator">-&gt;</span>rear<span class="token operator">=</span>NewNode<span class="token punctuation">;</span><span class="token comment">//新节点作为队尾结点</span>
+<span class="token punctuation">}</span>
+<div class="hljs-button {2}" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}" data-title="复制"></div></code><ul class="pre-numbering" style=""><li style="color: rgb(153, 153, 153);">1</li><li style="color: rgb(153, 153, 153);">2</li><li style="color: rgb(153, 153, 153);">3</li><li style="color: rgb(153, 153, 153);">4</li><li style="color: rgb(153, 153, 153);">5</li><li style="color: rgb(153, 153, 153);">6</li><li style="color: rgb(153, 153, 153);">7</li><li style="color: rgb(153, 153, 153);">8</li><li style="color: rgb(153, 153, 153);">9</li><li style="color: rgb(153, 153, 153);">10</li></ul></pre>
+    <h2><a name="t14"></a><a id="3_223"></a>（3）出队</h2>
+    <p><strong>删除时相当于链表的头删</strong></p>
+    <p><img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/fdc33567950e46eea2aab974f5add3fc.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5oiR5pOm5LqGREo=,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+    <pre class="prettyprint"><code class="prism language-c has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">bool <span class="token function">DeQueue</span><span class="token punctuation">(</span>LinkQueue<span class="token operator">&amp;</span> Q<span class="token punctuation">,</span>DataType<span class="token operator">&amp;</span> e<span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span>
+	Node<span class="token operator">*</span> p<span class="token punctuation">;</span><span class="token comment">//用于释放</span>
+	<span class="token keyword">if</span><span class="token punctuation">(</span>Q<span class="token punctuation">.</span>front<span class="token operator">==</span>Q<span class="token punctuation">.</span>rear<span class="token punctuation">)</span>
+		<span class="token keyword">return</span> false<span class="token punctuation">;</span>
+	p<span class="token operator">=</span>Q<span class="token punctuation">.</span>front<span class="token operator">-&gt;</span>next<span class="token punctuation">;</span>
+	<span class="token operator">*</span>e<span class="token operator">=</span>p<span class="token operator">-&gt;</span>data<span class="token punctuation">;</span>
+	Q<span class="token punctuation">.</span>front<span class="token operator">-&gt;</span>next<span class="token operator">=</span>p<span class="token operator">-&gt;</span>next<span class="token punctuation">;</span>
+
+	<span class="token keyword">if</span><span class="token punctuation">(</span>p<span class="token operator">==</span>Q<span class="token punctuation">.</span>rear<span class="token punctuation">)</span><span class="token comment">//注意如果队头就是队尾，那么删除是空队列</span>
+		Q<span class="token punctuation">.</span>rear<span class="token operator">=</span>Q<span class="token punctuation">.</span>frontl
+	<span class="token function">free</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">return</span> true<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<div class="hljs-button {2}" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.4259&quot;}" data-title="复制"></div></code><ul class="pre-numbering" style=""><li style="color: rgb(153, 153, 153);">1</li><li style="color: rgb(153, 153, 153);">2</li><li style="color: rgb(153, 153, 153);">3</li><li style="color: rgb(153, 153, 153);">4</li><li style="color: rgb(153, 153, 153);">5</li><li style="color: rgb(153, 153, 153);">6</li><li style="color: rgb(153, 153, 153);">7</li><li style="color: rgb(153, 153, 153);">8</li><li style="color: rgb(153, 153, 153);">9</li><li style="color: rgb(153, 153, 153);">10</li><li style="color: rgb(153, 153, 153);">11</li><li style="color: rgb(153, 153, 153);">12</li><li style="color: rgb(153, 153, 153);">13</li><li style="color: rgb(153, 153, 153);">14</li></ul></pre>
+    <h1><a name="t15"></a><a id="_249"></a>四：双端队列</h1>
+    <ul><li>双端队列考点主要在<strong>输出合法次序的判断</strong>上</li><li>双端队列在C++是作为了STL容器中<code>deque</code>的底层结构，有兴趣可以了解：<a href="https://blog.csdn.net/qq_39183034/article/details/117675751?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522163680422716780274173380%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&amp;request_id=163680422716780274173380&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_v2~rank_v29-1-117675751.pc_v2_rank_blog_default&amp;utm_term=%E5%8F%8C%E7%AB%AF%E9%98%9F%E5%88%97&amp;spm=1018.2226.3001.4450">6-5-2：STL之stack和queue——双端队列deque</a></li></ul>
+    <h2><a name="t16"></a><a id="1_256"></a>（1）：双端队列基本概念</h2>
+    <p><strong><font color="ff0000">双端队列(Deque)</font>：是一种<font color="0000ff">可以在两端插入、删除</font>的线性表。其中把允许一端插入、两端删除的称为<font color="0000ff">输入受限的双端队列</font>，把允许两端插入、一端删除的称为<font color="0000ff">输出受限的双端队列</font></strong></p>
+    <p><img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/d17255d91d1243c4841dc016ab3d4345.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5oiR5pOm5LqGREo=,size_20,color_FFFFFF,t_70,g_se,x_16"><br> 如下<br> <img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/7ddd27f5232c446d8f1dc1be8554934f.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5oiR5pOm5LqGREo=,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+    <h2><a name="t17"></a><a id="2_265"></a>（2）：双端队列输出序列合法性判断</h2>
+    <p>双端队列是一种非常特殊的<a class="hl hl-1" data-pretit="线性表" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.7020&quot;,&quot;dest&quot;:&quot;https://so.csdn.net/so/search?q=%E7%BA%BF%E6%80%A7%E8%A1%A8&amp;spm=1001.2101.3001.7020&quot;}" data-report-view="{&quot;spm&quot;:&quot;1001.2101.3001.7020&quot;,&quot;dest&quot;:&quot;https://so.csdn.net/so/search?q=%E7%BA%BF%E6%80%A7%E8%A1%A8&amp;spm=1001.2101.3001.7020&quot;}" data-tit="线性表" href="https://so.csdn.net/so/search?q=%E7%BA%BF%E6%80%A7%E8%A1%A8&amp;spm=1001.2101.3001.7020" target="_blank">线性表</a>，<strong>如果将其限制在只能在一端插入、删除那么它就退化为了栈结构</strong>，在这种基础上又有两个变化方向</p>
+    <ul><li><strong>如果继续限制另一端只能删除那么就是输入受限的双端队列</strong></li><li><strong>如果继续限制另一端只能插入那么就是输出受限的双端队列</strong></li></ul>
+    <p><strong>如果输入数据的顺序为<span class="katex--inline"><span class="katex"><span class="katex-mathml">
+
+
+
+
+         1
+
+
+
+        1
+
+
+     </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">1</span></span></span></span></span>、<span class="katex--inline"><span class="katex"><span class="katex-mathml">
+
+
+
+
+         2
+
+
+
+        2
+
+
+     </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">2</span></span></span></span></span>、<span class="katex--inline"><span class="katex"><span class="katex-mathml">
+
+
+
+
+         3
+
+
+
+        3
+
+
+     </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">3</span></span></span></span></span>、<span class="katex--inline"><span class="katex"><span class="katex-mathml">
+
+
+
+
+         4
+
+
+
+        4
+
+
+     </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">4</span></span></span></span></span></strong>，先不管输出是否合法，总的输出的可能性总共有：<span class="katex--inline"><span class="katex"><span class="katex-mathml">
+
+
+
+
+
+         A
+
+
+         4
+
+
+         4
+
+
+
+        =
+
+
+        4
+
+
+        !
+
+
+        =
+
+
+        24
+
+
+
+       A^{4}_{4}=4!=24
+
+
+    </span><span class="katex-html"><span class="base"><span class="strut" style="height: 1.06222em; vertical-align: -0.248108em;"></span><span class="mord"><span class="mord mathdefault">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.814108em;"><span class="" style="top: -2.45189em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">4</span></span></span></span><span class="" style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">4</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.248108em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em;"></span><span class="mord">4</span><span class="mclose">!</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">2</span><span class="mord">4</span></span></span></span></span>种，如下</p>
+    <p><img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/2908a9ff630b4785902772854e4c60ff.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5oiR5pOm5LqGREo=,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+    <p>既然栈是一种特殊的双端队列，那么对于<strong>栈来说是合法的次序，自然对双端队列也是合法的次序（输入受限和输出受限肯定都满足）</strong>，根据卡特兰数计算可知<span class="katex--inline"><span class="katex"><span class="katex-mathml">
+
+
+
+
+        N
+
+
+        =
+
+
+
+         1
+
+
+
+          n
+
+
+          +
+
+
+          1
+
+
+
+
+
+         C
+
+
+
+          2
+
+
+          n
+
+
+
+         n
+
+
+
+        =
+
+
+
+         1
+
+
+
+          4
+
+
+          +
+
+
+          1
+
+
+
+
+
+         C
+
+
+         8
+
+
+         4
+
+
+
+        =
+
+
+        14
+
+
+
+       N=\frac{1}{n+1}C^{n}_{2n}=\frac{1}{4+1}C_{8}^{4}=14
+
+
+    </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.68333em; vertical-align: 0em;"></span><span class="mord mathdefault" style="margin-right: 0.10903em;">N</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 1.24844em; vertical-align: -0.403331em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.845108em;"><span class="" style="top: -2.655em;"><span class="pstrut" style="height: 3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span><span class="" style="top: -3.23em;"><span class="pstrut" style="height: 3em;"></span><span class="frac-line" style="border-bottom-width: 0.04em;"></span></span><span class="" style="top: -3.394em;"><span class="pstrut" style="height: 3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.403331em;"><span class=""></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord"><span class="mord mathdefault" style="margin-right: 0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.664392em;"><span class="" style="top: -2.45189em; margin-left: -0.07153em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mathdefault mtight">n</span></span></span></span><span class="" style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.248108em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 1.24844em; vertical-align: -0.403331em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.845108em;"><span class="" style="top: -2.655em;"><span class="pstrut" style="height: 3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">4</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span><span class="" style="top: -3.23em;"><span class="pstrut" style="height: 3em;"></span><span class="frac-line" style="border-bottom-width: 0.04em;"></span></span><span class="" style="top: -3.394em;"><span class="pstrut" style="height: 3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.403331em;"><span class=""></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord"><span class="mord mathdefault" style="margin-right: 0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.814108em;"><span class="" style="top: -2.45189em; margin-left: -0.07153em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">8</span></span></span></span><span class="" style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">4</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.248108em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">1</span><span class="mord">4</span></span></span></span></span>种，于是下面绿色部分是肯定是合理的</p>
+    <p><img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/64da06366a2f4212912ace6cb4c5c935.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5oiR5pOm5LqGREo=,size_20,color_FFFFFF,t_70,g_se,x_16"><br> 接着需要判断红色部分的序列，<strong>因为红色部分在输入受限和输出受限中可能会不满足</strong></p>
+    <ul><li> <p>输入受限双端队列合理序列：<font color="00ff00">绿色部分+<u>绿色部分</u></font><br> <img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/eeb2d7fa24d744f1935ba223382b68c2.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5oiR5pOm5LqGREo=,size_20,color_FFFFFF,t_70,g_se,x_16"></p> </li><li> <p>输出受限双端队列合理序列：<font color="00ff00">绿色部分+<u>绿色部分</u></font><br> <img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/3aed1eb0a1404c6d9231d0266d9e9d30.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5oiR5pOm5LqGREo=,size_20,color_FFFFFF,t_70,g_se,x_16"></p> </li></ul>
+</div>
