@@ -70,6 +70,7 @@ void printList(LinkList L) {
 }
 
 int main() {
+    system("chcp 65001");
     vector<char> dataA = {'l', 'o', 'a', 'd'};
     vector<char> dataB = {'b', 'e'};
     vector<char> dataC = {'i', 'n', 'g'};
