@@ -54,3 +54,71 @@ void InsertSort_HalfInsert(int A[], int n) {
         A[high + 1] = A[0];  // 插入元素
     }
 }
+
+// ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+/**
+ *  快速排序★★★★
+ * 1. 选基准元素
+ * 2. 小基左提，大基右提
+ * 3. low、high相等，一分为二
+ * 4. 递归至完成
+ */
+
+/**
+ * 一分为二
+ * 用第一个元素（基准元素）将待排序序列划分为左右两个部分
+ */
+int Partition(int A[], int low, int high) {
+    int pivot = A[low];   // 第一个元素作为枢轴
+    while (low < high) {  // 用low、high搜索枢轴的最终位置
+        while (low < high && A[high] >= pivot) {
+            --high;
+        }
+        A[low] = A[high];  // 比枢轴小的元素移动到左端
+        while (low < high && A[low] <= pivot) {
+            ++low;
+        }
+        A[high] = A[low];  // 比枢轴大的元素移动到右端
+    }
+
+    A[low] = pivot;  // 枢轴元素存放到最终位置
+    return low;      // 返回存放枢轴的最终位置
+}
+
+// 快速排序算法
+void QuickSort(int A[], int low, int high) {
+    if (low < high) {
+        int pivotPos = Partition(A, low, high);  // 一次划分
+        QuickSort(A, low, pivotPos - 1);         // 划分左子表
+        QuickSort(A, pivotPos + 1, high);        // 划分右子表
+    }
+}
+// ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+
+/**
+ * 简单选择排序
+ * 稳定性：不稳定
+ * 适用性：顺序表、链表
+ * 空间复杂度：O（1）
+ * 时间复杂度：无论是否有序，时间复杂度均为O（n^2)
+ *
+ **/
+void swap(int& a, int& b) {
+    int temp = a;
+    a = b;
+    b = temp;
+}
+void SelectSort(int A[], int n) {
+    for (int i = 0; i < n - 1; i++) {  // 一共进行n-1趟比较
+        int min = i;                   //记录最小元素的位置
+        for (int j = i + 1; j < n; j++) {  // 在A[i,...,n-1]中选择最小的元素
+            if (A[i] < A[min]) {
+                min = j;  // 更新最小元素的位置
+            }
+        }
+
+        if (min != i) {
+            swap(A[i], A[min]);
+        }
+    }
+}
