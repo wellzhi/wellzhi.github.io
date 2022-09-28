@@ -1,3 +1,3 @@
 
-1. [data-struct](book/data-struct/main.md)
-2. [拷贝CSDN全文](https://www.liuhaiying.cn/28703.html)
+1. [data-struct](data-struct/main.md)
+2. [jz](jz/main.md)
