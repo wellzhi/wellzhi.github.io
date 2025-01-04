@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://wellzhi.github.io/posts/2025-01-04-cfg-gihub-theme-as-hugo/</loc>
+    <loc>https://wellzhi.github.io/posts/config-github-theme-as-hugo/</loc>
     <lastmod>2025-01-04T15:09:06+08:00</lastmod>
   </url><url>
     <loc>https://wellzhi.github.io/posts/</loc>
@@ -11,7 +11,7 @@
     <loc>https://wellzhi.github.io/</loc>
     <lastmod>2025-01-04T15:09:06+08:00</lastmod>
   </url><url>
-    <loc>https://wellzhi.github.io/posts/2025-01-04-llm-agent/</loc>
+    <loc>https://wellzhi.github.io/posts/llm-agent/</loc>
     <lastmod>2025-01-04T14:51:27+08:00</lastmod>
   </url><url>
     <loc>https://wellzhi.github.io/categories/</loc>
