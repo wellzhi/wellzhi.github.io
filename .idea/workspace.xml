@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e25fad88-a4df-4020-bc93-4afeba63bc82" name="Changes" comment="deploy">
+      <change afterPath="$PROJECT_DIR$/.gitmodules" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/content/archives.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/content/search.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/themes/hugo-PaperMod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/404.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/404.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/categories/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/categories/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/categories/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/public/categories/index.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/page/1/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/page/1/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/posts/2025-01-04_config-github-theme-as-hugo/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/posts/2025-01-04_config-github-theme-as-hugo/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/posts/2025-01-04_llm-agent/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/posts/2025-01-04_llm-agent/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/posts/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/posts/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/posts/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/public/posts/index.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/posts/page/1/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/posts/page/1/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/sitemap.xml" beforeDir="false" afterPath="$PROJECT_DIR$/public/sitemap.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/tags/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/public/tags/index.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="gh-pages" />
+                    <option name="lastUsedInstant" value="1735974050" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="main" />
+                    <option name="lastUsedInstant" value="1735974049" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$/public" />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 6
+}]]></component>
+  <component name="ProjectId" id="2r9ZEfU5jXu7IyyaWi18B17dVBS" />
+  <component name="ProjectViewState">
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showVisibilityIcons" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/wellzhi/projects/code/my-github/wellzhi.github.io",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.218" />
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.218" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e25fad88-a4df-4020-bc93-4afeba63bc82" name="Changes" comment="" />
+      <created>1735973140484</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1735973140484</updated>
+      <workItem from="1735973141578" duration="7191000" />
+    </task>
+    <task id="LOCAL-00001" summary="deploy">
+      <option name="closed" value="true" />
+      <created>1735976392354</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1735976392354</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="deploy" />
+    <option name="LAST_COMMIT_MESSAGE" value="deploy" />
+  </component>
+</project>
