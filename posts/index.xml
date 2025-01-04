@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Posts on Wellzhi</title>
+    <link>https://wellzhi.github.io/posts/</link>
+    <description>Recent content in Posts on Wellzhi</description>
+    <generator>Hugo -- 0.140.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 04 Jan 2025 14:51:27 +0800</lastBuildDate>
+    <atom:link href="https://wellzhi.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>2025 01 04 Llm Agent</title>
+      <link>https://wellzhi.github.io/posts/2025-01-04-llm-agent/</link>
+      <pubDate>Sat, 04 Jan 2025 14:51:27 +0800</pubDate>
+      <guid>https://wellzhi.github.io/posts/2025-01-04-llm-agent/</guid>
+      <description>&lt;p&gt;测试&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
