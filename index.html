@@ -213,6 +213,30 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">uv, a fast package manage tool
+      <span class="entry-hint" title="Draft">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" fill="currentColor">
+          <path
+            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
+        </svg>
+      </span>
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>以下是 uv 工具的核心用法整理，涵盖安装、项目管理、依赖管理、Python 版本控制等场景，方便快速查阅。
+一、安装与配置 一键安装
+# macOS/Linux curl -LsSf https://astral.sh/uv/install.sh | sh # Windows irm https://astral.sh/uv/install.ps1 | iex 支持通过 pip 安装：pip install uv 版本验证与更新
+uv --version # 检查版本 uv self update # 自动更新到最新版本 二、项目管理 初始化项目
+uv init my_project # 创建项目目录并生成配置文件 uv init . --python 3.12 # 在当前目录初始化并指定 Python 版本 生成文件：pyproject.toml（主依赖）、uv.lock（精确锁文件） 依赖管理
+uv add requests # 添加主依赖 uv add --dev pytest # 添加开发依赖 uv remove flask # 移除依赖 uv lock # 生成/更新锁文件 uv sync # 同步依赖到虚拟环境 运行脚本
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-03-10 11:51:06 +0800 CST'>March 10, 2025</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;261 words&nbsp;·&nbsp;wellzhi</footer>
+  <a class="entry-link" aria-label="post link to uv, a fast package manage tool" href="https://wellzhi.github.io/posts/2025-03-10_uv_a_fast_package_manage_tool/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">金句收藏
       <span class="entry-hint" title="Draft">
         <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" fill="currentColor">
@@ -227,9 +251,10 @@
 风起于青萍之末，浪成于微澜之间。 【举例】
 “风起于青萍之末，浪成于微澜之间。” 要做好群众工作，成就一番事业，必须用真情，不功夫、出实招，切实推进乡村振兴、城市发展与治理、生态环境保护等多项民生工程，以点滴之力给人民群众的“幸福蓝”。 工作做得好不好，人民说了算，要摒弃“身在曹营心在汉”的心态，驱除下基层“艔金”的想法，不拘轻怕重，沉下心来。
 【适用主题：注重细节，努力、积累】
+奋楫笃行 汉语成语，拼音fèn jí dǔ xíng，是指齐心协力共同奋斗。做任何事情都要勇往直前，尽最大的努力才会成功。
 </p>
   </div>
-  <footer class="entry-footer"><span title='2025-01-21 20:09:42 +0800 CST'>January 21, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;7 words&nbsp;·&nbsp;wellzhi</footer>
+  <footer class="entry-footer"><span title='2025-01-21 20:09:42 +0800 CST'>January 21, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;12 words&nbsp;·&nbsp;wellzhi</footer>
   <a class="entry-link" aria-label="post link to 金句收藏" href="https://wellzhi.github.io/posts/2025-01-21_good_sentence/"></a>
 </article>
 
