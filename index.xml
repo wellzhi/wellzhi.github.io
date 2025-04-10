@@ -6,8 +6,65 @@
     <description>Recent content on Wellzhi</description>
     <generator>Hugo -- 0.140.2</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 10 Mar 2025 11:51:06 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 10 Apr 2025 16:16:12 +0800</lastBuildDate>
     <atom:link href="https://wellzhi.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Number Sequence</title>
+      <link>https://wellzhi.github.io/posts/2025-04-06_number-sequence/</link>
+      <pubDate>Thu, 10 Apr 2025 16:16:12 +0800</pubDate>
+      <guid>https://wellzhi.github.io/posts/2025-04-06_number-sequence/</guid>
+      <description>&lt;h3 id=&#34;100以内与200以内的质数合数及对应数量&#34;&gt;100以内与200以内的质数、合数及对应数量&lt;/h3&gt;
+&lt;h4 id=&#34;一100以内&#34;&gt;&lt;strong&gt;一、100以内&lt;/strong&gt;&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;质数（共25个）&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;合数（共74个）&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;4, 6, 8, 9, 10, 12, &amp;hellip;, 98, 99, 100&lt;br&gt;
+&lt;strong&gt;说明&lt;/strong&gt;：100以内共有100个自然数，除去25个质数和1（非质非合），剩余74个均为合数。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;二200以内&#34;&gt;&lt;strong&gt;二、200以内&lt;/strong&gt;&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;质数（共46个）&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;100以内质数（25个）&lt;/strong&gt;：同上。&lt;br&gt;
+&lt;strong&gt;101-200之间新增质数（21个）&lt;/strong&gt;：&lt;br&gt;
+101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;合数（共153个）&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1-200中非质数且非1的数&lt;/strong&gt;，包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;100以内的74个合数；&lt;/li&gt;
+&lt;li&gt;101-200中除21个质数外的数（共79个），例如：102, 104, 105, &amp;hellip;, 198, 200。&lt;br&gt;
+&lt;strong&gt;总数计算&lt;/strong&gt;：200以内自然数共200个，减去46个质数和1，剩余153个为合数。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;特殊注意点&#34;&gt;&lt;strong&gt;特殊注意点&lt;/strong&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;易混淆的合数&lt;/strong&gt;：如91（=7×13）、121（=11²）、&lt;strong&gt;143（=11×13）&lt;/strong&gt;、169（=13²）等看似像质数，实为合数。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;最小与最大&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;最小质数：2（唯一偶质数）；&lt;/li&gt;
+&lt;li&gt;200以内最大质数：199；&lt;/li&gt;
+&lt;li&gt;最小合数：4&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;质数规律数列&#34;&gt;质数规律数列&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;2，3，5，7，11，13，17&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;4, 7, 13, 19, 31, ()
+质数列x3-2=37&lt;/p&gt;</description>
+    </item>
     <item>
       <title>uv, a fast package manage tool</title>
       <link>https://wellzhi.github.io/posts/2025-03-10_uv_a_fast_package_manage_tool/</link>
