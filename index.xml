@@ -6,8 +6,145 @@
     <description>Recent content on Wellzhi</description>
     <generator>Hugo -- 0.140.2</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 10 Apr 2025 16:16:12 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 27 Apr 2025 11:11:45 +0800</lastBuildDate>
     <atom:link href="https://wellzhi.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Strengthening AI Agent Hijacking Evaluations</title>
+      <link>https://wellzhi.github.io/posts/2025-04-27_strengthening-ai-agent-hijacking-evaluations/</link>
+      <pubDate>Sun, 27 Apr 2025 11:11:45 +0800</pubDate>
+      <guid>https://wellzhi.github.io/posts/2025-04-27_strengthening-ai-agent-hijacking-evaluations/</guid>
+      <description>&lt;h2 id=&#34;文章来源&#34;&gt;文章来源&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;%5BURL_ADDRESS.org/abs/2305.15733%5D(https://www.nist.gov/news-events/news/2025/01/technical-blog-strengthening-ai-agent-hijacking-evaluations)&#34;&gt;Strengthening AI Agent Hijacking Evaluations&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Large AI models are increasingly used to power agentic systems, or “agents,” which can automate complex tasks on behalf of users. AI agents could have a wide range of potential benefits, such as automating scientific research or serving as personal assistants.&lt;/p&gt;
+&lt;p&gt;However, to fully realize the potential of AI agents, it is essential to identify and measure — in order to ultimately mitigate — the security risks these systems could introduce.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>material Analysis</title>
+      <link>https://wellzhi.github.io/posts/2025-04-22_material-analysis/</link>
+      <pubDate>Tue, 22 Apr 2025 17:07:31 +0800</pubDate>
+      <guid>https://wellzhi.github.io/posts/2025-04-22_material-analysis/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;基期&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;现期&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;增长率&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;增长率比大小&lt;/li&gt;
+&lt;li&gt;年均增长率&lt;/li&gt;
+&lt;li&gt;间隔增长率&lt;/li&gt;
+&lt;li&gt;间隔增长倍数&lt;/li&gt;
+&lt;li&gt;混合增长率&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;增长量&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;增长量比大小&lt;/li&gt;
+&lt;li&gt;年均增长量&lt;/li&gt;
+&lt;li&gt;间隔增长量&lt;/li&gt;
+&lt;li&gt;间隔增长倍数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;平均数&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;现期平均数&lt;/li&gt;
+&lt;li&gt;基期平均数&lt;/li&gt;
+&lt;li&gt;平均增长率&lt;/li&gt;
+&lt;li&gt;平均增长倍数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;基尼系数
+衡量收入分配差距&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;取值范围在0到1之间：&lt;/li&gt;
+&lt;li&gt;0表示收入完全平等（所有人收入相同）&lt;/li&gt;
+&lt;li&gt;1表示收入完全不平等（一个人占有全部收入）&lt;/li&gt;
+&lt;li&gt;国际警戒线为0.4&lt;/li&gt;
+&lt;li&gt;基尼系数越大，表示收入分配差距越大&lt;/li&gt;
+&lt;li&gt;通常用来衡量一个国家或地区的贫富差距程度&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;恩格尔系数
+食品支出总额占个人消费支出总额的比重&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;60%以上：贫困&lt;/li&gt;
+&lt;li&gt;50-59%：温饱&lt;/li&gt;
+&lt;li&gt;40-49%：小康&lt;/li&gt;
+&lt;li&gt;30-39%：富裕&lt;/li&gt;
+&lt;li&gt;20-29%：极其富裕&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>material Analysis</title>
+      <link>https://wellzhi.github.io/posts/2025-04-16_material-analysis/</link>
+      <pubDate>Wed, 16 Apr 2025 10:40:03 +0800</pubDate>
+      <guid>https://wellzhi.github.io/posts/2025-04-16_material-analysis/</guid>
+      <description>&lt;h2 id=&#34;来源&#34;&gt;来源&lt;/h2&gt;
+&lt;p&gt;资料分析题目材料一般有以下两个来源&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.stats.gov.cn/&#34;&gt;国家统计局&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;地方统计局&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;难点&#34;&gt;难点&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;看不懂&lt;/li&gt;
+&lt;li&gt;列不对&lt;/li&gt;
+&lt;li&gt;算得慢&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;统计学概念&#34;&gt;统计学概念&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;基期&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;现期&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;基期量&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;现期量&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;增长量&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;同比&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;环比&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;增长率&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;增幅&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;增长幅度&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;年均增长率&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;同比增长率&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;环比增长率&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
     <item>
       <title>Number Sequence</title>
       <link>https://wellzhi.github.io/posts/2025-04-06_number-sequence/</link>
