@@ -21,16 +21,53 @@
 &lt;p&gt;However, to fully realize the potential of AI agents, it is essential to identify and measure — in order to ultimately mitigate — the security risks these systems could introduce.&lt;/p&gt;</description>
     </item>
     <item>
-      <title>material Analysis</title>
-      <link>https://wellzhi.github.io/posts/2025-04-22_material-analysis/</link>
-      <pubDate>Tue, 22 Apr 2025 17:07:31 +0800</pubDate>
-      <guid>https://wellzhi.github.io/posts/2025-04-22_material-analysis/</guid>
-      <description>&lt;ul&gt;
+      <title>Material Analysis</title>
+      <link>https://wellzhi.github.io/posts/2025-04-16_material-analysis/</link>
+      <pubDate>Wed, 16 Apr 2025 10:40:03 +0800</pubDate>
+      <guid>https://wellzhi.github.io/posts/2025-04-16_material-analysis/</guid>
+      <description>&lt;h2 id=&#34;来源&#34;&gt;来源&lt;/h2&gt;
+&lt;p&gt;资料分析题目材料一般有以下两个来源&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.stats.gov.cn/&#34;&gt;国家统计局&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;地方统计局&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;难点&#34;&gt;难点&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;看不懂&lt;/li&gt;
+&lt;li&gt;列不对&lt;/li&gt;
+&lt;li&gt;算得慢&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;统计学概念&#34;&gt;统计学概念&lt;/h2&gt;
+&lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;基期&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;现期&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;基期量&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;现期量&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;增长量&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;同比&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;环比&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;增长率&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;增幅&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;增长幅度&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;增长率&lt;/p&gt;
@@ -82,66 +119,6 @@
 &lt;li&gt;30-39%：富裕&lt;/li&gt;
 &lt;li&gt;20-29%：极其富裕&lt;/li&gt;
 &lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;</description>
-    </item>
-    <item>
-      <title>material Analysis</title>
-      <link>https://wellzhi.github.io/posts/2025-04-16_material-analysis/</link>
-      <pubDate>Wed, 16 Apr 2025 10:40:03 +0800</pubDate>
-      <guid>https://wellzhi.github.io/posts/2025-04-16_material-analysis/</guid>
-      <description>&lt;h2 id=&#34;来源&#34;&gt;来源&lt;/h2&gt;
-&lt;p&gt;资料分析题目材料一般有以下两个来源&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.stats.gov.cn/&#34;&gt;国家统计局&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;地方统计局&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;难点&#34;&gt;难点&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;看不懂&lt;/li&gt;
-&lt;li&gt;列不对&lt;/li&gt;
-&lt;li&gt;算得慢&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;统计学概念&#34;&gt;统计学概念&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;基期&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;现期&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;基期量&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;现期量&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;增长量&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;同比&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;环比&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;增长率&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;增幅&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;增长幅度&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;年均增长率&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;同比增长率&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;环比增长率&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;</description>
     </item>
