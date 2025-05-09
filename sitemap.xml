@@ -2,51 +2,51 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://wellzhi.github.io/posts/2025-05-09_criminal-law/</loc>
+    <loc>http://localhost:1313/posts/2025-05-09_criminal-law/</loc>
     <lastmod>2025-05-09T11:14:46+08:00</lastmod>
   </url><url>
-    <loc>https://wellzhi.github.io/posts/</loc>
+    <loc>http://localhost:1313/posts/</loc>
     <lastmod>2025-05-09T11:14:46+08:00</lastmod>
   </url><url>
-    <loc>https://wellzhi.github.io/</loc>
+    <loc>http://localhost:1313/</loc>
     <lastmod>2025-05-09T11:14:46+08:00</lastmod>
   </url><url>
-    <loc>https://wellzhi.github.io/posts/2025-05-08_judge/</loc>
+    <loc>http://localhost:1313/posts/2025-05-08_judge/</loc>
     <lastmod>2025-05-08T14:52:34+08:00</lastmod>
   </url><url>
-    <loc>https://wellzhi.github.io/posts/2025-04-27_strengthening-ai-agent-hijacking-evaluations/</loc>
+    <loc>http://localhost:1313/posts/2025-04-27_strengthening-ai-agent-hijacking-evaluations/</loc>
     <lastmod>2025-04-27T11:11:45+08:00</lastmod>
   </url><url>
-    <loc>https://wellzhi.github.io/posts/2025-04-16_material-analysis/</loc>
+    <loc>http://localhost:1313/posts/2025-04-16_material-analysis/</loc>
     <lastmod>2025-04-16T10:40:03+08:00</lastmod>
   </url><url>
-    <loc>https://wellzhi.github.io/posts/2025-04-06_number-sequence/</loc>
+    <loc>http://localhost:1313/posts/2025-04-06_number-sequence/</loc>
     <lastmod>2025-04-10T16:16:12+08:00</lastmod>
   </url><url>
-    <loc>https://wellzhi.github.io/posts/2025-03-10_uv_a_fast_package_manage_tool/</loc>
+    <loc>http://localhost:1313/posts/2025-03-10_uv_a_fast_package_manage_tool/</loc>
     <lastmod>2025-03-10T11:51:06+08:00</lastmod>
   </url><url>
-    <loc>https://wellzhi.github.io/posts/2025-01-21_good_sentence/</loc>
+    <loc>http://localhost:1313/posts/2025-01-21_good_sentence/</loc>
     <lastmod>2025-01-21T20:09:42+08:00</lastmod>
   </url><url>
-    <loc>https://wellzhi.github.io/posts/2025-01-09_common-sense/</loc>
+    <loc>http://localhost:1313/posts/2025-01-09_common-sense/</loc>
     <lastmod>2025-01-09T19:20:48+08:00</lastmod>
   </url><url>
-    <loc>https://wellzhi.github.io/posts/2025-01-07_llm-prompt-trick/</loc>
+    <loc>http://localhost:1313/posts/2025-01-07_llm-prompt-trick/</loc>
     <lastmod>2025-01-07T20:42:05+08:00</lastmod>
   </url><url>
-    <loc>https://wellzhi.github.io/posts/2025-01-04_config-github-theme-as-hugo/</loc>
+    <loc>http://localhost:1313/posts/2025-01-04_config-github-theme-as-hugo/</loc>
     <lastmod>2025-01-04T15:09:06+08:00</lastmod>
   </url><url>
-    <loc>https://wellzhi.github.io/posts/2025-01-04_llm-agent/</loc>
+    <loc>http://localhost:1313/posts/2025-01-04_llm-agent/</loc>
     <lastmod>2025-01-04T14:51:27+08:00</lastmod>
   </url><url>
-    <loc>https://wellzhi.github.io/archives/</loc>
+    <loc>http://localhost:1313/archives/</loc>
   </url><url>
-    <loc>https://wellzhi.github.io/categories/</loc>
+    <loc>http://localhost:1313/categories/</loc>
   </url><url>
-    <loc>https://wellzhi.github.io/archive/</loc>
+    <loc>http://localhost:1313/archive/</loc>
   </url><url>
-    <loc>https://wellzhi.github.io/tags/</loc>
+    <loc>http://localhost:1313/tags/</loc>
   </url>
 </urlset>
