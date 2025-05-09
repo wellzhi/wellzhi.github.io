@@ -64,7 +64,7 @@
       <link>https://wellzhi.github.io/posts/2025-05-08_judge/</link>
       <pubDate>Thu, 08 May 2025 14:52:34 +0800</pubDate>
       <guid>https://wellzhi.github.io/posts/2025-05-08_judge/</guid>
-      <description>&lt;h2 id=&#34;逻辑关系一览表&#34;&gt;逻辑关系一览表&lt;/h2&gt;
+      <description>&lt;h3 id=&#34;逻辑关系一览表&#34;&gt;逻辑关系一览表&lt;/h3&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-mermaid&#34; data-lang=&#34;mermaid&#34;&gt;graph LR
     A[逻辑关系] --&amp;gt; B[全同关系]
     A --&amp;gt; C[并列关系]
