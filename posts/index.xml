@@ -2,20 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Posts on Wellzhi</title>
-    <link>http://localhost:1313/posts/</link>
+    <link>https://wellzhi.github.io/posts/</link>
     <description>Recent content in Posts on Wellzhi</description>
     <generator>Hugo -- 0.147.2</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 09 May 2025 11:14:46 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://wellzhi.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>常识-刑法</title>
-      <link>http://localhost:1313/posts/2025-05-09_criminal-law/</link>
+      <link>https://wellzhi.github.io/posts/2025-05-09_criminal-law/</link>
       <pubDate>Fri, 09 May 2025 11:14:46 +0800</pubDate>
-      <guid>http://localhost:1313/posts/2025-05-09_criminal-law/</guid>
-      <description>&lt;h1 id=&#34;犯罪论&#34;&gt;犯罪论&lt;/h1&gt;
-&lt;h2 id=&#34;犯罪构成&#34;&gt;犯罪构成&lt;/h2&gt;
-&lt;h3 id=&#34;犯罪主体&#34;&gt;犯罪主体&lt;/h3&gt;
+      <guid>https://wellzhi.github.io/posts/2025-05-09_criminal-law/</guid>
+      <description>&lt;h3 id=&#34;犯罪主体&#34;&gt;犯罪主体&lt;/h3&gt;
 &lt;h4 id=&#34;1-自然人犯罪&#34;&gt;1. 自然人犯罪&lt;/h4&gt;
 &lt;h5 id=&#34;1刑事责任年龄&#34;&gt;（1）刑事责任年龄&lt;/h5&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-mermaid&#34; data-lang=&#34;mermaid&#34;&gt;graph TD
@@ -62,11 +60,30 @@
 &lt;p&gt;指的是犯罪主体对自己危害社会的行为及危害社会的结果所抱的心理态度，包括：&lt;/p&gt;</description>
     </item>
     <item>
-      <title>判断-常见全同关系</title>
-      <link>http://localhost:1313/posts/2025-05-08_judge/</link>
+      <title>类比推理-逻辑关系</title>
+      <link>https://wellzhi.github.io/posts/2025-05-08_judge/</link>
       <pubDate>Thu, 08 May 2025 14:52:34 +0800</pubDate>
-      <guid>http://localhost:1313/posts/2025-05-08_judge/</guid>
-      <description>&lt;p&gt;全同关系&lt;/p&gt;
+      <guid>https://wellzhi.github.io/posts/2025-05-08_judge/</guid>
+      <description>&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-mermaid&#34; data-lang=&#34;mermaid&#34;&gt;graph LR
+    A[逻辑关系] --&amp;gt; B[全同关系]
+    A --&amp;gt; C[并列关系]
+    A --&amp;gt; D[包容关系]
+    A --&amp;gt; E[交叉关系]
+    A --&amp;gt; F[对应关系]
+
+    C --&amp;gt; G[矛盾关系]
+    C --&amp;gt; H[反对关系]
+    D --&amp;gt; I[种属关系]
+    D --&amp;gt; J[组成关系]
+
+    F --&amp;gt; K[材料]
+    F --&amp;gt; L[工艺对应]
+    F --&amp;gt; M[功能对应]
+    F --&amp;gt; N[属性对应]
+    F --&amp;gt; O[时间顺序]
+    F --&amp;gt; P[必要条件]
+    F --&amp;gt; Q[因果关系]
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;全同关系&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;花鲈:鲈鱼&lt;/li&gt;
 &lt;li&gt;杜鹃鸟:杜鹃:子规:谢豹&lt;/li&gt;
@@ -75,9 +92,9 @@
     </item>
     <item>
       <title>Strengthening AI Agent Hijacking Evaluations</title>
-      <link>http://localhost:1313/posts/2025-04-27_strengthening-ai-agent-hijacking-evaluations/</link>
+      <link>https://wellzhi.github.io/posts/2025-04-27_strengthening-ai-agent-hijacking-evaluations/</link>
       <pubDate>Sun, 27 Apr 2025 11:11:45 +0800</pubDate>
-      <guid>http://localhost:1313/posts/2025-04-27_strengthening-ai-agent-hijacking-evaluations/</guid>
+      <guid>https://wellzhi.github.io/posts/2025-04-27_strengthening-ai-agent-hijacking-evaluations/</guid>
       <description>&lt;h2 id=&#34;文章来源&#34;&gt;文章来源&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;%5BURL_ADDRESS.org/abs/2305.15733%5D(https://www.nist.gov/news-events/news/2025/01/technical-blog-strengthening-ai-agent-hijacking-evaluations)&#34;&gt;Strengthening AI Agent Hijacking Evaluations&lt;/a&gt;&lt;/li&gt;
@@ -87,9 +104,9 @@
     </item>
     <item>
       <title>Material Analysis</title>
-      <link>http://localhost:1313/posts/2025-04-16_material-analysis/</link>
+      <link>https://wellzhi.github.io/posts/2025-04-16_material-analysis/</link>
       <pubDate>Wed, 16 Apr 2025 10:40:03 +0800</pubDate>
-      <guid>http://localhost:1313/posts/2025-04-16_material-analysis/</guid>
+      <guid>https://wellzhi.github.io/posts/2025-04-16_material-analysis/</guid>
       <description>&lt;h2 id=&#34;来源&#34;&gt;来源&lt;/h2&gt;
 &lt;p&gt;资料分析题目材料一般有以下两个来源&lt;/p&gt;
 &lt;ul&gt;
@@ -189,9 +206,9 @@
     </item>
     <item>
       <title>Number Sequence</title>
-      <link>http://localhost:1313/posts/2025-04-06_number-sequence/</link>
+      <link>https://wellzhi.github.io/posts/2025-04-06_number-sequence/</link>
       <pubDate>Thu, 10 Apr 2025 16:16:12 +0800</pubDate>
-      <guid>http://localhost:1313/posts/2025-04-06_number-sequence/</guid>
+      <guid>https://wellzhi.github.io/posts/2025-04-06_number-sequence/</guid>
       <description>&lt;h3 id=&#34;100以内与200以内的质数合数及对应数量&#34;&gt;100以内与200以内的质数、合数及对应数量&lt;/h3&gt;
 &lt;h4 id=&#34;一100以内&#34;&gt;&lt;strong&gt;一、100以内&lt;/strong&gt;&lt;/h4&gt;
 &lt;ol&gt;
@@ -220,9 +237,9 @@
     </item>
     <item>
       <title>uv, a fast package manage tool</title>
-      <link>http://localhost:1313/posts/2025-03-10_uv_a_fast_package_manage_tool/</link>
+      <link>https://wellzhi.github.io/posts/2025-03-10_uv_a_fast_package_manage_tool/</link>
       <pubDate>Mon, 10 Mar 2025 11:51:06 +0800</pubDate>
-      <guid>http://localhost:1313/posts/2025-03-10_uv_a_fast_package_manage_tool/</guid>
+      <guid>https://wellzhi.github.io/posts/2025-03-10_uv_a_fast_package_manage_tool/</guid>
       <description>&lt;p&gt;以下是 &lt;code&gt;uv&lt;/code&gt; 工具的核心用法整理，涵盖安装、项目管理、依赖管理、Python 版本控制等场景，方便快速查阅。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h3 id=&#34;一安装与配置&#34;&gt;&lt;strong&gt;一、安装与配置&lt;/strong&gt;&lt;/h3&gt;
@@ -268,9 +285,9 @@
     </item>
     <item>
       <title>金句收藏</title>
-      <link>http://localhost:1313/posts/2025-01-21_good_sentence/</link>
+      <link>https://wellzhi.github.io/posts/2025-01-21_good_sentence/</link>
       <pubDate>Tue, 21 Jan 2025 20:09:42 +0800</pubDate>
-      <guid>http://localhost:1313/posts/2025-01-21_good_sentence/</guid>
+      <guid>https://wellzhi.github.io/posts/2025-01-21_good_sentence/</guid>
       <description>&lt;p&gt;图片中的文字如下：&lt;/p&gt;
 &lt;h3 id=&#34;风起于青萍之末浪成于微澜之间&#34;&gt;风起于青萍之末，浪成于微澜之间。&lt;/h3&gt;
 &lt;p&gt;【举例】&lt;/p&gt;
@@ -283,9 +300,9 @@
     </item>
     <item>
       <title>Common Sense</title>
-      <link>http://localhost:1313/posts/2025-01-09_common-sense/</link>
+      <link>https://wellzhi.github.io/posts/2025-01-09_common-sense/</link>
       <pubDate>Thu, 09 Jan 2025 19:20:48 +0800</pubDate>
-      <guid>http://localhost:1313/posts/2025-01-09_common-sense/</guid>
+      <guid>https://wellzhi.github.io/posts/2025-01-09_common-sense/</guid>
       <description>&lt;h3 id=&#34;好词好句&#34;&gt;好词好句&lt;/h3&gt;
 &lt;h4 id=&#34;圣人之心如明镜只是一个明则随感而应无物不照&#34;&gt;圣人之心如明镜，只是一个明，则随感而应，无物不照&lt;/h4&gt;
 &lt;p&gt;出自王阳明的《传习录》，意思是圣人的心就像明镜，清清明明，任何事物来了都可以照见。&lt;/p&gt;
@@ -384,17 +401,17 @@ D. 某公司的破产清算公告(不必须，在报纸上或者国家企业信�
     </item>
     <item>
       <title>LLM Prompt Trick</title>
-      <link>http://localhost:1313/posts/2025-01-07_llm-prompt-trick/</link>
+      <link>https://wellzhi.github.io/posts/2025-01-07_llm-prompt-trick/</link>
       <pubDate>Tue, 07 Jan 2025 20:42:05 +0800</pubDate>
-      <guid>http://localhost:1313/posts/2025-01-07_llm-prompt-trick/</guid>
+      <guid>https://wellzhi.github.io/posts/2025-01-07_llm-prompt-trick/</guid>
       <description>&lt;p&gt;A recent paper, “Principled Instructions Are All You Need for Questioning LLaMA-1/2, GPT-3.5/4,” introduces 26 guiding principles designed to streamline the process of querying and prompting large language models. Here’s the list of these prompt engineering tricks with examples.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://www.superannotate.com/blog/llm-prompting-tricks&#34;&gt;https://www.superannotate.com/blog/llm-prompting-tricks&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>Config Gihub Theme as Hugo</title>
-      <link>http://localhost:1313/posts/2025-01-04_config-github-theme-as-hugo/</link>
+      <link>https://wellzhi.github.io/posts/2025-01-04_config-github-theme-as-hugo/</link>
       <pubDate>Sat, 04 Jan 2025 15:09:06 +0800</pubDate>
-      <guid>http://localhost:1313/posts/2025-01-04_config-github-theme-as-hugo/</guid>
+      <guid>https://wellzhi.github.io/posts/2025-01-04_config-github-theme-as-hugo/</guid>
       <description>&lt;p&gt;将 GitHub Pages 配置为使用 Hugo 主题 PaperMod，需要以下步骤：&lt;/p&gt;
 &lt;h3 id=&#34;1-安装和配置-hugo&#34;&gt;1. 安装和配置 Hugo&lt;/h3&gt;
 &lt;p&gt;如果尚未安装 Hugo，先完成以下操作：&lt;/p&gt;
@@ -442,9 +459,9 @@ D. 某公司的破产清算公告(不必须，在报纸上或者国家企业信�
     </item>
     <item>
       <title>LLM Agent</title>
-      <link>http://localhost:1313/posts/2025-01-04_llm-agent/</link>
+      <link>https://wellzhi.github.io/posts/2025-01-04_llm-agent/</link>
       <pubDate>Sat, 04 Jan 2025 14:51:27 +0800</pubDate>
-      <guid>http://localhost:1313/posts/2025-01-04_llm-agent/</guid>
+      <guid>https://wellzhi.github.io/posts/2025-01-04_llm-agent/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://lilianweng.github.io/posts/2023-06-23-agent/&#34;&gt;LLM Powered Autonomous Agents&lt;/a&gt;&lt;/p&gt;</description>
     </item>
   </channel>
