@@ -64,17 +64,27 @@
       <link>https://wellzhi.github.io/posts/2025-05-08_judge/</link>
       <pubDate>Thu, 08 May 2025 14:52:34 +0800</pubDate>
       <guid>https://wellzhi.github.io/posts/2025-05-08_judge/</guid>
-      <description>&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-mermaid&#34; data-lang=&#34;mermaid&#34;&gt;graph LR
+      <description>&lt;h2 id=&#34;逻辑关系一览表&#34;&gt;逻辑关系一览表&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-mermaid&#34; data-lang=&#34;mermaid&#34;&gt;graph LR
     A[逻辑关系] --&amp;gt; B[全同关系]
     A --&amp;gt; C[并列关系]
     A --&amp;gt; D[包容关系]
     A --&amp;gt; E[交叉关系]
     A --&amp;gt; F[对应关系]
 
+    B --&amp;gt; BB[A=B] --&amp;gt; BBB[花鲈:鲈鱼]
+    E --&amp;gt; EE[有的A是B，有的A不是B，有的B是A，有的B不是A] --&amp;gt; EEE[青年:学生]
+
     C --&amp;gt; G[矛盾关系]
+    G --&amp;gt; GG[除了A就是B，没有其他]
     C --&amp;gt; H[反对关系]
+    H --&amp;gt; HH[除了A和B外，还有其他]
+    
     D --&amp;gt; I[种属关系]
+    I --&amp;gt; II[A是B的一种] --&amp;gt;|用&amp;lt;b&amp;gt;是&amp;lt;/b&amp;gt;字造句|III[苹果:水果]
     D --&amp;gt; J[组成关系]
+    J --&amp;gt; JJ[A是B的一个组成部分] 
+    JJ --&amp;gt; JJJ[轮胎:汽车]
 
     F --&amp;gt; K[材料]
     F --&amp;gt; L[工艺对应]
@@ -83,7 +93,16 @@
     F --&amp;gt; O[时间顺序]
     F --&amp;gt; P[必要条件]
     F --&amp;gt; Q[因果关系]
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;全同关系&lt;/p&gt;
+
+    K --&amp;gt; KK[小麦：馒头、大豆：酱油、甘蔗：红糖]
+    L --&amp;gt; LL[白酒：发酵、丝线：编制：花边、竹木：铺设：浮桥]
+    M --&amp;gt; MM[手机：通讯、灯：照明：装饰、水：浇灌：饮用]
+    N --&amp;gt; NN[糖：甜、盐：咸、花椒：麻、火焰：热]
+    O --&amp;gt; OO[购票：乘车、考试：阅卷、颁奖：领奖、行贿：受贿]
+    P --&amp;gt; PP[沸点：沸腾、护照：签证、可燃物：燃烧]
+    Q --&amp;gt; QQ[炎热：中暑、人去：楼空、鸟尽：弓藏]
+    
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;全同关系词表&#34;&gt;全同关系词表&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;花鲈:鲈鱼&lt;/li&gt;
 &lt;li&gt;杜鹃鸟:杜鹃:子规:谢豹&lt;/li&gt;
