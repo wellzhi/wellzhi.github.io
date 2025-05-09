@@ -6,8 +6,68 @@
     <description>Recent content in Posts on Wellzhi</description>
     <generator>Hugo -- 0.140.2</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 27 Apr 2025 11:11:45 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 09 May 2025 11:14:46 +0800</lastBuildDate>
     <atom:link href="https://wellzhi.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>criminal Law</title>
+      <link>https://wellzhi.github.io/posts/2025-05-09_criminal-law/</link>
+      <pubDate>Fri, 09 May 2025 11:14:46 +0800</pubDate>
+      <guid>https://wellzhi.github.io/posts/2025-05-09_criminal-law/</guid>
+      <description>&lt;h1 id=&#34;犯罪论&#34;&gt;犯罪论&lt;/h1&gt;
+&lt;h2 id=&#34;犯罪构成&#34;&gt;犯罪构成&lt;/h2&gt;
+&lt;h3 id=&#34;犯罪主体&#34;&gt;犯罪主体&lt;/h3&gt;
+&lt;h4 id=&#34;1-自然人犯罪&#34;&gt;1. 自然人犯罪&lt;/h4&gt;
+&lt;h5 id=&#34;1刑事责任年龄&#34;&gt;（1）刑事责任年龄&lt;/h5&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-mermaid&#34; data-lang=&#34;mermaid&#34;&gt;graph TD
+    A[刑事责任年龄划分] --&amp;gt; B[年龄 &amp;lt; 12周岁]
+    A --&amp;gt; C[12周岁 ≤ 年龄 &amp;lt; 14周岁]
+    A --&amp;gt; D[14周岁 ≤ 年龄 &amp;lt; 16周岁]
+    A --&amp;gt; E[年龄 ≥ 16周岁]
+    
+    B --&amp;gt; B1[不负刑事责任]
+    
+    C --&amp;gt; C1[经&amp;lt;b&amp;gt;最高人民检察院&amp;lt;/b&amp;gt;核准追诉、应负刑事责任]
+    C1 --&amp;gt; C2[适用罪名:&amp;lt;br&amp;gt;1. 故意杀人罪&amp;lt;br&amp;gt;2. 故意伤害罪&amp;lt;br&amp;gt;3. 致人死亡或以特别残忍手段&amp;lt;br&amp;gt;致人重伤造成严重残疾，情节恶劣]
+    
+    D --&amp;gt; D1[应负刑事责任]
+    D1 --&amp;gt; D2[适用罪名:&amp;lt;br&amp;gt;1. 故意杀人罪&amp;lt;br&amp;gt;2. 故意伤害罪致人重伤或者死亡&amp;lt;br&amp;gt;3. 强奸&amp;lt;br&amp;gt;4. 抢劫&amp;lt;br&amp;gt;5. 贩卖毒品&amp;lt;br&amp;gt;6. 放火&amp;lt;br&amp;gt;7. 爆炸&amp;lt;br&amp;gt;8. 投放危险物质罪&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;速记：杀、伤、奸、抢、毒、放、投、爆&amp;lt;/b&amp;gt;]
+    
+    E --&amp;gt; E1[负刑事责任]
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&#34;2-刑事责任能力&#34;&gt;(2) 刑事责任能力&lt;/h5&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-mermaid&#34; data-lang=&#34;mermaid&#34;&gt;graph TD
+    A[刑事责任能力] --&amp;gt; B[精神病人]
+    B --&amp;gt; C[不能辨认或不能控制自己行为时]
+    B --&amp;gt; D[间歇性精神病人在精神正常时犯罪]
+    B --&amp;gt; E[尚未完全丧失辨认或控制能力犯罪]
+    
+    C --&amp;gt; F[经法定程序鉴定确认]
+    F --&amp;gt; G[不负刑事责任]
+    
+    D --&amp;gt; H[应当负刑事责任]
+    
+    E --&amp;gt; I[应当负刑事责任]
+    I --&amp;gt; J[可以从轻或减轻处罚]
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;2-单位犯罪&#34;&gt;2. 单位犯罪&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-mermaid&#34; data-lang=&#34;mermaid&#34;&gt;graph TD
+    A[单位犯罪处罚原则] --&amp;gt; B[双罚制&amp;lt;br&amp;gt;主要原则]
+    A --&amp;gt; C[单罚制&amp;lt;br&amp;gt;辅助原则]
+    
+    B --&amp;gt; D[对单位判处罚金]
+    B --&amp;gt; E[对直接负责的主管人员&amp;lt;br&amp;gt;和其他直接责任人员判处刑罚]
+    
+    C --&amp;gt; F[只处罚直接责任人员]
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>2025 05 08_judge</title>
+      <link>https://wellzhi.github.io/posts/2025-05-08_judge/</link>
+      <pubDate>Thu, 08 May 2025 14:52:34 +0800</pubDate>
+      <guid>https://wellzhi.github.io/posts/2025-05-08_judge/</guid>
+      <description>&lt;p&gt;全同关系：
+花鲈:鲈鱼
+杜鹃鸟:杜鹃:子规:谢豹
+读书人:秀才:学伯:生员&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Strengthening AI Agent Hijacking Evaluations</title>
       <link>https://wellzhi.github.io/posts/2025-04-27_strengthening-ai-agent-hijacking-evaluations/</link>
