@@ -211,15 +211,14 @@ graph LR
     
     classDef red stroke:#f00,stroke-width:2px,color:#f00;
 &lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
-&lt;h3 id=&#34;已知增长量和现期量不算基期量可以比较r大小&#34;&gt;已知增长量和现期量，不算基期量可以比较r大小&lt;/h3&gt;
-&lt;p&gt;一、核心原理：增长率与增量/现期比值的数学关系&lt;br&gt;
-增长率公式变形后：&lt;/p&gt;
+&lt;h3 id=&#34;已知增长量和现期量不算基期量可以比较大小&#34;&gt;已知增长量和现期量，不算基期量可以比较\(r\)大小？&lt;/h3&gt;
 $$
 r = \frac{增量}{基期量} = \frac{增量}{现期量 - 增量} = \frac{\frac{增量}{现期量}}{1 - \frac{增量}{现期量}}
 = \frac{k}{1 - k}
 $$&lt;p&gt;
-则 &lt;/p&gt;
-$$k 越大 → r 越大$$&lt;p&gt;&lt;!-- raw HTML omitted --&gt;增量为负数时，结论依然成立&lt;!-- raw HTML omitted --&gt;：增量越大（更接近0的负数）， \(Δ/Q\) 比值越大，对应增长率 r 下降幅度越小（即 r 相对更大）。数学逻辑未改变，但需注意负数大小比较的方向。&lt;/p&gt;
+则 \(k 越大 → r 越大\)&lt;/p&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;增量为负数时，结论依然成立&lt;!-- raw HTML omitted --&gt;：
+增量越大（更接近0的负数）， \(Δ/Q\) 比值越大，对应增长率 r 下降幅度越小（即 r 相对更大）。数学逻辑未改变，但需注意负数大小比较的方向。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;1-特殊增长率&#34;&gt;1. 特殊增长率&lt;/h2&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-mermaid&#34; data-lang=&#34;mermaid&#34;&gt;graph LR
