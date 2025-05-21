@@ -14,6 +14,25 @@
 地方统计局
 
 题型
+0. 增长率比较
+识别：增长率排序或增长&#43;最快/慢
+
+graph LR
+    A[增长率比较] --&gt; B[现期量&#43;基期量]--&gt; B1[现期量/基期量,倍数越大r越大]
+    A --&gt; C[现期量&#43;增长量]
+    C --&gt; |注意：不需要计算基期量| E[增长量/现期量,值越大r越大]:::red
+    
+    classDef red fill:#fff,stroke:#f00,stroke-width:2px,color:#f00;
+已知增长量和现期量，可以不计算基期量，而比较增长量/现期量大小
+
+一、核心原理：增长率与增量/现期比值的数学关系
+增长率公式变形后：
+$$
+r = \frac{增量}{基期量} = \frac{增量}{现期量 - 增量} = \frac{\frac{增量}{现期量}}{1 - \frac{增量}{现期量}}
+= \frac{k}{1 - k}
+$$
+则 
+$$k 越大 → r 越大$$
 1. 特殊增长率
 graph LR
     A[特殊增长率] --&gt; B[间隔增长率]
@@ -88,7 +107,10 @@ A.16% B.23% C.29% D.31%
   <meta property="og:site_name" content="Wellzhi">
   <meta property="og:title" content="Material Analysis">
   <meta property="og:description" content="来源 资料分析题目材料一般有以下两个来源
-国家统计局 地方统计局 题型 1. 特殊增长率 graph LR A[特殊增长率] --&gt; B[间隔增长率] A --&gt; C[年均增长率] A --&gt; D[混合增长率] 1.1 间隔增长率 【例 1】（2024 四川）2022年，全国软件和信息技术服务业规模以上企业超 3.5 万家，累计完成软件业务收入 108126 亿元，同比增长 11.2%，增速较上年同期回落 6.5 个百分点。 2022 年，全国软件和信息技术服务业规模以上企业累计完成软件业务收入约比 2020 年增长了： A.16% B.23% C.29% D.31% 1. 2021年的增长率: 11.2%&#43;6.5%=17.7% ​2. ​复合增长率计算​​： 假设2020年收入为A，则： 2021年收入：A×(1&#43;17.7%) 2022年收入：A×(1&#43;17.7%)×(1&#43;11.2%) 总增长率：(1&#43;17.7%)×(1&#43;11.2%)−1=1.177×1.112−1≈1.3088−1=30.88% ​3. 答案：D 速算技巧：\(r_{间隔} = r_1 &#43; r_2 &#43; r_1 \cdot r_2\) 重要说明：如果\(r_1\)和\(r_2\)均小于10%（\(r_1*r_2 &lt; 1\% \)）， 可以忽略\(r_1 \cdot r_2\)计算，上述公式变为：\(r_{间隔} = r_1 &#43; r_2\) 解题： \(r_1 = 17.7\%\)和\(r_2=11.2\%\)，则 \(r_{间隔} = r_1 &#43; r_2 = 28.9\%\)，排除 AB \(r_1 \cdot r_2 ≈ 1.8 \% \)，排除 C，D 正确">
+国家统计局 地方统计局 题型 0. 增长率比较 识别：增长率排序或增长&#43;最快/慢
+graph LR A[增长率比较] --&gt; B[现期量&#43;基期量]--&gt; B1[现期量/基期量,倍数越大r越大] A --&gt; C[现期量&#43;增长量] C --&gt; |注意：不需要计算基期量| E[增长量/现期量,值越大r越大]:::red classDef red fill:#fff,stroke:#f00,stroke-width:2px,color:#f00; 已知增长量和现期量，可以不计算基期量，而比较增长量/现期量大小 一、核心原理：增长率与增量/现期比值的数学关系
+增长率公式变形后：
+$$ r = \frac{增量}{基期量} = \frac{增量}{现期量 - 增量} = \frac{\frac{增量}{现期量}}{1 - \frac{增量}{现期量}} = \frac{k}{1 - k} $$ 则 $$k 越大 → r 越大$$ 1. 特殊增长率 graph LR A[特殊增长率] --&gt; B[间隔增长率] A --&gt; C[年均增长率] A --&gt; D[混合增长率] 1.1 间隔增长率 【例 1】（2024 四川）2022年，全国软件和信息技术服务业规模以上企业超 3.5 万家，累计完成软件业务收入 108126 亿元，同比增长 11.2%，增速较上年同期回落 6.5 个百分点。 2022 年，全国软件和信息技术服务业规模以上企业累计完成软件业务收入约比 2020 年增长了： A.16% B.23% C.29% D.31% 1. 2021年的增长率: 11.2%&#43;6.5%=17.7% ​2. ​复合增长率计算​​： 假设2020年收入为A，则： 2021年收入：A×(1&#43;17.7%) 2022年收入：A×(1&#43;17.7%)×(1&#43;11.2%) 总增长率：(1&#43;17.7%)×(1&#43;11.2%)−1=1.177×1.112−1≈1.3088−1=30.88% ​3. 答案：D 速算技巧：\(r_{间隔} = r_1 &#43; r_2 &#43; r_1 \cdot r_2\) 重要说明：如果\(r_1\)和\(r_2\)均小于10%（\(r_1*r_2 &lt; 1\% \)）， 可以忽略\(r_1 \cdot r_2\)计算，上述公式变为：\(r_{间隔} = r_1 &#43; r_2\) 解题： \(r_1 = 17.7\%\)和\(r_2=11.2\%\)，则 \(r_{间隔} = r_1 &#43; r_2 = 28.9\%\)，排除 AB \(r_1 \cdot r_2 ≈ 1.8 \% \)，排除 C，D 正确">
   <meta property="og:locale" content="en-us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -103,6 +125,25 @@ A.16% B.23% C.29% D.31%
 地方统计局
 
 题型
+0. 增长率比较
+识别：增长率排序或增长&#43;最快/慢
+
+graph LR
+    A[增长率比较] --&gt; B[现期量&#43;基期量]--&gt; B1[现期量/基期量,倍数越大r越大]
+    A --&gt; C[现期量&#43;增长量]
+    C --&gt; |注意：不需要计算基期量| E[增长量/现期量,值越大r越大]:::red
+    
+    classDef red fill:#fff,stroke:#f00,stroke-width:2px,color:#f00;
+已知增长量和现期量，可以不计算基期量，而比较增长量/现期量大小
+
+一、核心原理：增长率与增量/现期比值的数学关系
+增长率公式变形后：
+$$
+r = \frac{增量}{基期量} = \frac{增量}{现期量 - 增量} = \frac{\frac{增量}{现期量}}{1 - \frac{增量}{现期量}}
+= \frac{k}{1 - k}
+$$
+则 
+$$k 越大 → r 越大$$
 1. 特殊增长率
 graph LR
     A[特殊增长率] --&gt; B[间隔增长率]
@@ -153,12 +194,12 @@ A.16% B.23% C.29% D.31%
   "@type": "BlogPosting",
   "headline": "Material Analysis",
   "name": "Material Analysis",
-  "description": "来源 资料分析题目材料一般有以下两个来源\n国家统计局 地方统计局 题型 1. 特殊增长率 graph LR A[特殊增长率] --\u0026gt; B[间隔增长率] A --\u0026gt; C[年均增长率] A --\u0026gt; D[混合增长率] 1.1 间隔增长率 【例 1】（2024 四川）2022年，全国软件和信息技术服务业规模以上企业超 3.5 万家，累计完成软件业务收入 108126 亿元，同比增长 11.2%，增速较上年同期回落 6.5 个百分点。 2022 年，全国软件和信息技术服务业规模以上企业累计完成软件业务收入约比 2020 年增长了： A.16% B.23% C.29% D.31% 1. 2021年的增长率: 11.2%+6.5%=17.7% ​2. ​复合增长率计算​​： 假设2020年收入为A，则： 2021年收入：A×(1+17.7%) 2022年收入：A×(1+17.7%)×(1+11.2%) 总增长率：(1+17.7%)×(1+11.2%)−1=1.177×1.112−1≈1.3088−1=30.88% ​3. 答案：D 速算技巧：\\(r_{间隔} = r_1 + r_2 + r_1 \\cdot r_2\\) 重要说明：如果\\(r_1\\)和\\(r_2\\)均小于10%（\\(r_1*r_2 \u003c 1\\% \\)）， 可以忽略\\(r_1 \\cdot r_2\\)计算，上述公式变为：\\(r_{间隔} = r_1 + r_2\\) 解题： \\(r_1 = 17.7\\%\\)和\\(r_2=11.2\\%\\)，则 \\(r_{间隔} = r_1 + r_2 = 28.9\\%\\)，排除 AB \\(r_1 \\cdot r_2 ≈ 1.8 \\% \\)，排除 C，D 正确\n",
+  "description": "来源 资料分析题目材料一般有以下两个来源\n国家统计局 地方统计局 题型 0. 增长率比较 识别：增长率排序或增长+最快/慢\ngraph LR A[增长率比较] --\u0026gt; B[现期量+基期量]--\u0026gt; B1[现期量/基期量,倍数越大r越大] A --\u0026gt; C[现期量+增长量] C --\u0026gt; |注意：不需要计算基期量| E[增长量/现期量,值越大r越大]:::red classDef red fill:#fff,stroke:#f00,stroke-width:2px,color:#f00; 已知增长量和现期量，可以不计算基期量，而比较增长量/现期量大小 一、核心原理：增长率与增量/现期比值的数学关系\n增长率公式变形后：\n$$ r = \\frac{增量}{基期量} = \\frac{增量}{现期量 - 增量} = \\frac{\\frac{增量}{现期量}}{1 - \\frac{增量}{现期量}} = \\frac{k}{1 - k} $$ 则 $$k 越大 → r 越大$$ 1. 特殊增长率 graph LR A[特殊增长率] --\u0026gt; B[间隔增长率] A --\u0026gt; C[年均增长率] A --\u0026gt; D[混合增长率] 1.1 间隔增长率 【例 1】（2024 四川）2022年，全国软件和信息技术服务业规模以上企业超 3.5 万家，累计完成软件业务收入 108126 亿元，同比增长 11.2%，增速较上年同期回落 6.5 个百分点。 2022 年，全国软件和信息技术服务业规模以上企业累计完成软件业务收入约比 2020 年增长了： A.16% B.23% C.29% D.31% 1. 2021年的增长率: 11.2%+6.5%=17.7% ​2. ​复合增长率计算​​： 假设2020年收入为A，则： 2021年收入：A×(1+17.7%) 2022年收入：A×(1+17.7%)×(1+11.2%) 总增长率：(1+17.7%)×(1+11.2%)−1=1.177×1.112−1≈1.3088−1=30.88% ​3. 答案：D 速算技巧：\\(r_{间隔} = r_1 + r_2 + r_1 \\cdot r_2\\) 重要说明：如果\\(r_1\\)和\\(r_2\\)均小于10%（\\(r_1*r_2 \u003c 1\\% \\)）， 可以忽略\\(r_1 \\cdot r_2\\)计算，上述公式变为：\\(r_{间隔} = r_1 + r_2\\) 解题： \\(r_1 = 17.7\\%\\)和\\(r_2=11.2\\%\\)，则 \\(r_{间隔} = r_1 + r_2 = 28.9\\%\\)，排除 AB \\(r_1 \\cdot r_2 ≈ 1.8 \\% \\)，排除 C，D 正确\n",
   "keywords": [
     
   ],
-  "articleBody": "来源 资料分析题目材料一般有以下两个来源\n国家统计局 地方统计局 题型 1. 特殊增长率 graph LR A[特殊增长率] --\u003e B[间隔增长率] A --\u003e C[年均增长率] A --\u003e D[混合增长率] 1.1 间隔增长率 【例 1】（2024 四川）2022年，全国软件和信息技术服务业规模以上企业超 3.5 万家，累计完成软件业务收入 108126 亿元，同比增长 11.2%，增速较上年同期回落 6.5 个百分点。 2022 年，全国软件和信息技术服务业规模以上企业累计完成软件业务收入约比 2020 年增长了： A.16% B.23% C.29% D.31% 1. 2021年的增长率: 11.2%+6.5%=17.7% ​2. ​复合增长率计算​​： 假设2020年收入为A，则： 2021年收入：A×(1+17.7%) 2022年收入：A×(1+17.7%)×(1+11.2%) 总增长率：(1+17.7%)×(1+11.2%)−1=1.177×1.112−1≈1.3088−1=30.88% ​3. 答案：D 速算技巧：\\(r_{间隔} = r_1 + r_2 + r_1 \\cdot r_2\\) 重要说明：如果\\(r_1\\)和\\(r_2\\)均小于10%（\\(r_1*r_2 \u003c 1\\% \\)）， 可以忽略\\(r_1 \\cdot r_2\\)计算，上述公式变为：\\(r_{间隔} = r_1 + r_2\\) 解题： \\(r_1 = 17.7\\%\\)和\\(r_2=11.2\\%\\)，则 \\(r_{间隔} = r_1 + r_2 = 28.9\\%\\)，排除 AB \\(r_1 \\cdot r_2 ≈ 1.8 \\% \\)，排除 C，D 正确\n难点 读不懂 —— 统计术语 找不着 —— 结构阅读 列不对 —— 重点题型 算得慢 —— 速算技巧 统计学概念 基期\n现期\n基期量\n现期量\n增长量\n同比\n环比\n增长率\n增幅\n增长幅度\n增长率\n增长率比大小 年均增长率 间隔增长率 间隔增长倍数 混合增长率 增长量\n增长量比大小 年均增长量 间隔增长量 间隔增长倍数 平均数\n现期平均数 基期平均数 平均增长率 平均增长倍数 基尼系数 衡量收入分配差距\n取值范围在0到1之间： 0表示收入完全平等（所有人收入相同） 1表示收入完全不平等（一个人占有全部收入） 国际警戒线为0.4 基尼系数越大，表示收入分配差距越大 通常用来衡量一个国家或地区的贫富差距程度 恩格尔系数 食品支出总额占个人消费支出总额的比重\n60%以上：贫困 50-59%：温饱 40-49%：小康 30-39%：富裕 20-29%：极其富裕 截位直除法 flowchart LR A[截位直除法] --\u003e B[看选项] B --\u003e C{首项相同？} C --\u003e|否| D[差距大，截两位] C --\u003e|是| E{看第二位差} E --\u003e|第二位差 \u003e 首位| F[差距大，截两位] E --\u003e|第二位差 \u003c= 首位| G[差距小，截三位] 看选项，差距大截两位、差距小截三位 看式子，一步除截分母、多步除都要截 看答案，能不算就不算 ",
-  "wordCount" : "173",
+  "articleBody": "来源 资料分析题目材料一般有以下两个来源\n国家统计局 地方统计局 题型 0. 增长率比较 识别：增长率排序或增长+最快/慢\ngraph LR A[增长率比较] --\u003e B[现期量+基期量]--\u003e B1[现期量/基期量,倍数越大r越大] A --\u003e C[现期量+增长量] C --\u003e |注意：不需要计算基期量| E[增长量/现期量,值越大r越大]:::red classDef red fill:#fff,stroke:#f00,stroke-width:2px,color:#f00; 已知增长量和现期量，可以不计算基期量，而比较增长量/现期量大小 一、核心原理：增长率与增量/现期比值的数学关系\n增长率公式变形后：\n$$ r = \\frac{增量}{基期量} = \\frac{增量}{现期量 - 增量} = \\frac{\\frac{增量}{现期量}}{1 - \\frac{增量}{现期量}} = \\frac{k}{1 - k} $$ 则 $$k 越大 → r 越大$$ 1. 特殊增长率 graph LR A[特殊增长率] --\u003e B[间隔增长率] A --\u003e C[年均增长率] A --\u003e D[混合增长率] 1.1 间隔增长率 【例 1】（2024 四川）2022年，全国软件和信息技术服务业规模以上企业超 3.5 万家，累计完成软件业务收入 108126 亿元，同比增长 11.2%，增速较上年同期回落 6.5 个百分点。 2022 年，全国软件和信息技术服务业规模以上企业累计完成软件业务收入约比 2020 年增长了： A.16% B.23% C.29% D.31% 1. 2021年的增长率: 11.2%+6.5%=17.7% ​2. ​复合增长率计算​​： 假设2020年收入为A，则： 2021年收入：A×(1+17.7%) 2022年收入：A×(1+17.7%)×(1+11.2%) 总增长率：(1+17.7%)×(1+11.2%)−1=1.177×1.112−1≈1.3088−1=30.88% ​3. 答案：D 速算技巧：\\(r_{间隔} = r_1 + r_2 + r_1 \\cdot r_2\\) 重要说明：如果\\(r_1\\)和\\(r_2\\)均小于10%（\\(r_1*r_2 \u003c 1\\% \\)）， 可以忽略\\(r_1 \\cdot r_2\\)计算，上述公式变为：\\(r_{间隔} = r_1 + r_2\\) 解题： \\(r_1 = 17.7\\%\\)和\\(r_2=11.2\\%\\)，则 \\(r_{间隔} = r_1 + r_2 = 28.9\\%\\)，排除 AB \\(r_1 \\cdot r_2 ≈ 1.8 \\% \\)，排除 C，D 正确\n1.2 年均增长率 1.3 混合增长率 ## 难点 - 读不懂 —— 统计术语 - 找不着 —— 结构阅读 - 列不对 —— 重点题型 - 算得慢 —— 速算技巧 ## 统计学概念 - 基期 - 现期 - 基期量 - 现期量 - 增长量 - 同比 - 环比 - 增长率 - 增幅 - 增长幅度 - 增长率 - 增长率比大小 - 年均增长率 - 间隔增长率 - 间隔增长倍数 - 混合增长率 - 增长量 - 增长量比大小 - 年均增长量 - 间隔增长量 - 间隔增长倍数 - 平均数 - 现期平均数 - 基期平均数 - 平均增长率 - 平均增长倍数 - 基尼系数 衡量收入分配差距 - 取值范围在0到1之间： - 0表示收入完全平等（所有人收入相同） - 1表示收入完全不平等（一个人占有全部收入） - 国际警戒线为0.4 - 基尼系数越大，表示收入分配差距越大 - 通常用来衡量一个国家或地区的贫富差距程度 - 恩格尔系数 食品支出总额占个人消费支出总额的比重 - 60%以上：贫困 - 50-59%：温饱 - 40-49%：小康 - 30-39%：富裕 - 20-29%：极其富裕 ## 截位直除法 ```mermaid flowchart LR A[截位直除法] --\u003e B[看选项] B --\u003e C{首项相同？} C --\u003e|否| D[差距大，截两位] C --\u003e|是| E{看第二位差} E --\u003e|第二位差 \u003e 首位| F[差距大，截两位] E --\u003e|第二位差 \u003c= 首位| G[差距小，截三位] 看选项，差距大截两位、差距小截三位 看式子，一步除截分母、多步除都要截 看答案，能不算就不算 ",
+  "wordCount" : "269",
   "inLanguage": "en",
   "datePublished": "2025-04-16T10:40:03+08:00",
   "dateModified": "2025-04-16T10:40:03+08:00",
@@ -279,7 +320,7 @@ A.16% B.23% C.29% D.31%
         </svg>
       </span>
     </h1>
-    <div class="post-meta"><span title='2025-04-16 10:40:03 +0800 CST'>April 16, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;173 words&nbsp;·&nbsp;wellzhi
+    <div class="post-meta"><span title='2025-04-16 10:40:03 +0800 CST'>April 16, 2025</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;269 words&nbsp;·&nbsp;wellzhi
 
 </div>
   </header> <div class="toc">
@@ -296,18 +337,23 @@ A.16% B.23% C.29% D.31%
                     <a href="#%e9%a2%98%e5%9e%8b" aria-label="题型">题型</a><ul>
                         
                 <li>
+                    <a href="#0-%e5%a2%9e%e9%95%bf%e7%8e%87%e6%af%94%e8%be%83" aria-label="0. 增长率比较">0. 增长率比较</a><ul>
+                        
+                <li>
+                    <a href="#%e5%b7%b2%e7%9f%a5%e5%a2%9e%e9%95%bf%e9%87%8f%e5%92%8c%e7%8e%b0%e6%9c%9f%e9%87%8f%e5%8f%af%e4%bb%a5%e4%b8%8d%e8%ae%a1%e7%ae%97%e5%9f%ba%e6%9c%9f%e9%87%8f%e8%80%8c%e6%af%94%e8%be%83%e5%a2%9e%e9%95%bf%e9%87%8f%e7%8e%b0%e6%9c%9f%e9%87%8f%e5%a4%a7%e5%b0%8f" aria-label="已知增长量和现期量，可以不计算基期量，而比较增长量/现期量大小">已知增长量和现期量，可以不计算基期量，而比较增长量/现期量大小</a></li></ul>
+                </li>
+                <li>
                     <a href="#1-%e7%89%b9%e6%ae%8a%e5%a2%9e%e9%95%bf%e7%8e%87" aria-label="1. 特殊增长率">1. 特殊增长率</a><ul>
                         
                 <li>
-                    <a href="#11-%e9%97%b4%e9%9a%94%e5%a2%9e%e9%95%bf%e7%8e%87" aria-label="1.1 间隔增长率">1.1 间隔增长率</a></li></ul>
+                    <a href="#11-%e9%97%b4%e9%9a%94%e5%a2%9e%e9%95%bf%e7%8e%87" aria-label="1.1 间隔增长率">1.1 间隔增长率</a></li>
+                <li>
+                    <a href="#12-%e5%b9%b4%e5%9d%87%e5%a2%9e%e9%95%bf%e7%8e%87" aria-label="1.2 年均增长率">1.2 年均增长率</a></li>
+                <li>
+                    <a href="#13-%e6%b7%b7%e5%90%88%e5%a2%9e%e9%95%bf%e7%8e%87" aria-label="1.3 混合增长率">1.3 混合增长率</a>
                 </li>
-                <li>
-                    <a href="#%e9%9a%be%e7%82%b9" aria-label="难点">难点</a></li>
-                <li>
-                    <a href="#%e7%bb%9f%e8%ae%a1%e5%ad%a6%e6%a6%82%e5%bf%b5" aria-label="统计学概念">统计学概念</a></li>
-                <li>
-                    <a href="#%e6%88%aa%e4%bd%8d%e7%9b%b4%e9%99%a4%e6%b3%95" aria-label="截位直除法">截位直除法</a>
-                </li>
+            </ul>
+            </li>
             </ul>
             </li>
             </ul>
@@ -322,6 +368,25 @@ A.16% B.23% C.29% D.31%
 <li>地方统计局</li>
 </ul>
 <h1 id="题型">题型<a hidden class="anchor" aria-hidden="true" href="#题型">#</a></h1>
+<h2 id="0-增长率比较">0. 增长率比较<a hidden class="anchor" aria-hidden="true" href="#0-增长率比较">#</a></h2>
+<p>识别：增长率排序或增长+最快/慢</p>
+<pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">
+graph LR
+    A[增长率比较] --&gt; B[现期量+基期量]--&gt; B1[现期量/基期量,倍数越大r越大]
+    A --&gt; C[现期量+增长量]
+    C --&gt; |注意：不需要计算基期量| E[增长量/现期量,值越大r越大]:::red
+    
+    classDef red fill:#fff,stroke:#f00,stroke-width:2px,color:#f00;
+</code></pre><h3 id="已知增长量和现期量可以不计算基期量而比较增长量现期量大小">已知增长量和现期量，可以不计算基期量，而比较增长量/现期量大小<a hidden class="anchor" aria-hidden="true" href="#已知增长量和现期量可以不计算基期量而比较增长量现期量大小">#</a></h3>
+<hr>
+<p>一、核心原理：增长率与增量/现期比值的数学关系<br>
+增长率公式变形后：</p>
+$$
+r = \frac{增量}{基期量} = \frac{增量}{现期量 - 增量} = \frac{\frac{增量}{现期量}}{1 - \frac{增量}{现期量}}
+= \frac{k}{1 - k}
+$$<p>
+则 </p>
+$$k 越大 → r 越大$$<hr>
 <h2 id="1-特殊增长率">1. 特殊增长率<a hidden class="anchor" aria-hidden="true" href="#1-特殊增长率">#</a></h2>
 <pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">graph LR
     A[特殊增长率] --&gt; B[间隔增长率]
@@ -344,108 +409,85 @@ A.16% B.23% C.29% D.31%
 <!-- raw HTML omitted -->解题<!-- raw HTML omitted -->：
 \(r_1 = 17.7\%\)和\(r_2=11.2\%\)，则 \(r_{间隔} = r_1 + r_2 =  28.9\%\)，排除 AB
 \(r_1 \cdot r_2 ≈ 1.8 \% \)，排除 C，D 正确</p>
-<h2 id="难点">难点<a hidden class="anchor" aria-hidden="true" href="#难点">#</a></h2>
-<ul>
-<li>读不懂 —— 统计术语</li>
-<li>找不着 —— 结构阅读</li>
-<li>列不对 —— 重点题型</li>
-<li>算得慢 —— 速算技巧</li>
-</ul>
-<h2 id="统计学概念">统计学概念<a hidden class="anchor" aria-hidden="true" href="#统计学概念">#</a></h2>
-<ul>
-<li>
-<p>基期</p>
-</li>
-<li>
-<p>现期</p>
-</li>
-<li>
-<p>基期量</p>
-</li>
-<li>
-<p>现期量</p>
-</li>
-<li>
-<p>增长量</p>
-</li>
-<li>
-<p>同比</p>
-</li>
-<li>
-<p>环比</p>
-</li>
-<li>
-<p>增长率</p>
-</li>
-<li>
-<p>增幅</p>
-</li>
-<li>
-<p>增长幅度</p>
-</li>
-<li>
-<p>增长率</p>
-<ul>
-<li>增长率比大小</li>
-<li>年均增长率</li>
-<li>间隔增长率</li>
-<li>间隔增长倍数</li>
-<li>混合增长率</li>
-</ul>
-</li>
-<li>
-<p>增长量</p>
-<ul>
-<li>增长量比大小</li>
-<li>年均增长量</li>
-<li>间隔增长量</li>
-<li>间隔增长倍数</li>
-</ul>
-</li>
-<li>
-<p>平均数</p>
-<ul>
-<li>现期平均数</li>
-<li>基期平均数</li>
-<li>平均增长率</li>
-<li>平均增长倍数</li>
-</ul>
-</li>
-<li>
-<p>基尼系数
-衡量收入分配差距</p>
-<ul>
-<li>取值范围在0到1之间：</li>
-<li>0表示收入完全平等（所有人收入相同）</li>
-<li>1表示收入完全不平等（一个人占有全部收入）</li>
-<li>国际警戒线为0.4</li>
-<li>基尼系数越大，表示收入分配差距越大</li>
-<li>通常用来衡量一个国家或地区的贫富差距程度</li>
-</ul>
-</li>
-<li>
-<p>恩格尔系数
-食品支出总额占个人消费支出总额的比重</p>
-<ul>
-<li>60%以上：贫困</li>
-<li>50-59%：温饱</li>
-<li>40-49%：小康</li>
-<li>30-39%：富裕</li>
-<li>20-29%：极其富裕</li>
-</ul>
-</li>
-</ul>
-<h2 id="截位直除法">截位直除法<a hidden class="anchor" aria-hidden="true" href="#截位直除法">#</a></h2>
-<pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">flowchart LR
-    A[截位直除法] --&gt; B[看选项]
-    
-    B --&gt; C{首项相同？}
-    C --&gt;|否| D[差距大，截两位]
-    C --&gt;|是| E{看第二位差}
-
-    E --&gt;|第二位差 &gt; 首位| F[差距大，截两位]
-    E --&gt;|第二位差 &lt;= 首位| G[差距小，截三位]
-</code></pre><ol>
+<h3 id="12-年均增长率">1.2 年均增长率<a hidden class="anchor" aria-hidden="true" href="#12-年均增长率">#</a></h3>
+<h3 id="13-混合增长率">1.3 混合增长率<a hidden class="anchor" aria-hidden="true" href="#13-混合增长率">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-plaintext" data-lang="plaintext"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>## 难点
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- 读不懂 —— 统计术语
+</span></span><span style="display:flex;"><span>- 找不着 —— 结构阅读
+</span></span><span style="display:flex;"><span>- 列不对 —— 重点题型
+</span></span><span style="display:flex;"><span>- 算得慢 —— 速算技巧
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>## 统计学概念
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- 基期
+</span></span><span style="display:flex;"><span>- 现期
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- 基期量
+</span></span><span style="display:flex;"><span>- 现期量
+</span></span><span style="display:flex;"><span>- 增长量
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- 同比
+</span></span><span style="display:flex;"><span>- 环比
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- 增长率
+</span></span><span style="display:flex;"><span>- 增幅
+</span></span><span style="display:flex;"><span>- 增长幅度
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- 增长率
+</span></span><span style="display:flex;"><span>  - 增长率比大小
+</span></span><span style="display:flex;"><span>  - 年均增长率
+</span></span><span style="display:flex;"><span>  - 间隔增长率
+</span></span><span style="display:flex;"><span>  - 间隔增长倍数
+</span></span><span style="display:flex;"><span>  - 混合增长率
+</span></span><span style="display:flex;"><span>- 增长量
+</span></span><span style="display:flex;"><span>  - 增长量比大小
+</span></span><span style="display:flex;"><span>  - 年均增长量
+</span></span><span style="display:flex;"><span>  - 间隔增长量
+</span></span><span style="display:flex;"><span>  - 间隔增长倍数
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- 平均数
+</span></span><span style="display:flex;"><span>  - 现期平均数
+</span></span><span style="display:flex;"><span>  - 基期平均数
+</span></span><span style="display:flex;"><span>  - 平均增长率
+</span></span><span style="display:flex;"><span>  - 平均增长倍数
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- 基尼系数
+</span></span><span style="display:flex;"><span>衡量收入分配差距
+</span></span><span style="display:flex;"><span>  - 取值范围在0到1之间：
+</span></span><span style="display:flex;"><span>  - 0表示收入完全平等（所有人收入相同）
+</span></span><span style="display:flex;"><span>  - 1表示收入完全不平等（一个人占有全部收入）
+</span></span><span style="display:flex;"><span>  - 国际警戒线为0.4
+</span></span><span style="display:flex;"><span>  - 基尼系数越大，表示收入分配差距越大
+</span></span><span style="display:flex;"><span>  - 通常用来衡量一个国家或地区的贫富差距程度
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- 恩格尔系数
+</span></span><span style="display:flex;"><span>  食品支出总额占个人消费支出总额的比重
+</span></span><span style="display:flex;"><span>  - 60%以上：贫困
+</span></span><span style="display:flex;"><span>  - 50-59%：温饱
+</span></span><span style="display:flex;"><span>  - 40-49%：小康
+</span></span><span style="display:flex;"><span>  - 30-39%：富裕
+</span></span><span style="display:flex;"><span>  - 20-29%：极其富裕
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>## 截位直除法
+</span></span><span style="display:flex;"><span>```mermaid
+</span></span><span style="display:flex;"><span>flowchart LR
+</span></span><span style="display:flex;"><span>    A[截位直除法] --&gt; B[看选项]
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    B --&gt; C{首项相同？}
+</span></span><span style="display:flex;"><span>    C --&gt;|否| D[差距大，截两位]
+</span></span><span style="display:flex;"><span>    C --&gt;|是| E{看第二位差}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    E --&gt;|第二位差 &gt; 首位| F[差距大，截两位]
+</span></span><span style="display:flex;"><span>    E --&gt;|第二位差 &lt;= 首位| G[差距小，截三位]
+</span></span></code></pre></div><ol>
 <li>看选项，差距大截两位、差距小截三位</li>
 <li>看式子，一步除截分母、多步除都要截</li>
 <li>看答案，能不算就不算</li>
