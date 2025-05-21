@@ -194,14 +194,37 @@
       <link>https://wellzhi.github.io/posts/2025-04-16_material-analysis/</link>
       <pubDate>Wed, 16 Apr 2025 10:40:03 +0800</pubDate>
       <guid>https://wellzhi.github.io/posts/2025-04-16_material-analysis/</guid>
-      <description>&lt;h2 id=&#34;来源&#34;&gt;来源&lt;/h2&gt;
+      <description>&lt;h2 id=&#34;一来源&#34;&gt;一、来源&lt;/h2&gt;
 &lt;p&gt;资料分析题目材料一般有以下两个来源&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.stats.gov.cn/&#34;&gt;国家统计局&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;地方统计局&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h1 id=&#34;题型&#34;&gt;题型&lt;/h1&gt;
-&lt;h2 id=&#34;增长率比较排序&#34;&gt;增长率比较排序&lt;/h2&gt;
+&lt;h2 id=&#34;二难点&#34;&gt;二、难点&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;读不懂 —— 统计术语&lt;/li&gt;
+&lt;li&gt;找不着 —— 结构阅读&lt;/li&gt;
+&lt;li&gt;列不对 —— 重点题型&lt;/li&gt;
+&lt;li&gt;算得慢 —— 速算技巧&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;三速算&#34;&gt;三、速算&lt;/h2&gt;
+&lt;h2 id=&#34;1截位直除法&#34;&gt;1.截位直除法&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-mermaid&#34; data-lang=&#34;mermaid&#34;&gt;flowchart LR
+    A[截位直除法] --&amp;gt; B[看选项]
+    
+    B --&amp;gt; C{首项相同？}
+    C --&amp;gt;|否| D[差距大，截两位]
+    C --&amp;gt;|是| E{看第二位差}
+
+    E --&amp;gt;|第二位差 &amp;gt; 首位| F[差距大，截两位]
+    E --&amp;gt;|第二位差 &amp;lt;= 首位| G[差距小，截三位]
+&lt;/code&gt;&lt;/pre&gt;&lt;ol&gt;
+&lt;li&gt;看选项，差距大截两位、差距小截三位&lt;/li&gt;
+&lt;li&gt;看式子，一步除截分母、多步除都要截&lt;/li&gt;
+&lt;li&gt;看答案，能不算就不算&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;四题型&#34;&gt;四、题型&lt;/h2&gt;
+&lt;h2 id=&#34;1增长率比较&#34;&gt;1.增长率比较&lt;/h2&gt;
 &lt;p&gt;识别：增长率排序或增长+最快/慢&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-mermaid&#34; data-lang=&#34;mermaid&#34;&gt;
 graph LR
@@ -209,47 +232,10 @@ graph LR
     A --&amp;gt; C[现期量+增长量]
     C --&amp;gt; |注意：不需要计算基期量| E[增长量/现期量,值越大r越大]:::red
     
-    classDef red stroke:#f00,stroke-width:2px,color:#f00;
+    classDef red fill:#eeffee,stroke:#f00,stroke-width:2px,color:#f00;
 &lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
 &lt;h3 id=&#34;已知增长量和现期量不算基期量可以比较大小&#34;&gt;已知增长量和现期量，不算基期量可以比较\(r\)大小？&lt;/h3&gt;
-&lt;p&gt;\(r = \frac{增量}{基期量} = \frac{增量}{现期量 - 增量} = \frac{\frac{增量}{现期量}}{1 - \frac{增量}{现期量}} = \frac{k}{1 - k}\)&lt;/p&gt;
-&lt;p&gt;则 \(k 越大 → r 越大\)&lt;/p&gt;
-&lt;p&gt;增量为负数时，结论依然成立：
-增量越大（更接近0的负数）， \(Δ/Q\) 比值越大，对应增长率\(r\)下降幅度越小（即\(r\)相对更大）。数学逻辑未改变，但需注意负数大小比较的方向。&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;2021年数据​​：
-​企业​​：参保人数23317万人，比上年增加1050万人
-​​机关事业​​：参保人数6387万人，比上年增加155万人
-​​灵活就业等其他​​：参保人数4751万人，比上年增加325万人
-
-判断“2020年，三类职工医保参保人员中，灵活就业等其他人员参保人数同比增速最快。”（A）
-A. 正确　　　B. 错误
-
-
-题型：问三类人员谁的同比增速最快--增长率比较
-方法：直接比 增长量/现期量 大小
-&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
-&lt;h2 id=&#34;1-特殊增长率&#34;&gt;1. 特殊增长率&lt;/h2&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-mermaid&#34; data-lang=&#34;mermaid&#34;&gt;graph LR
-    A[特殊增长率] --&amp;gt; B[间隔增长率]
-    A --&amp;gt; C[年均增长率]
-    A --&amp;gt; D[混合增长率]
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;11-间隔增长率&#34;&gt;1.1 间隔增长率&lt;/h3&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-plaintext&#34; data-lang=&#34;plaintext&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;【例 1】（2024 四川）2022年，全国软件和信息技术服务业规模以上企业超 3.5 万家，累计完成软件业务收入 108126 亿元，同比增长 11.2%，增速较上年同期回落 6.5 个百分点。
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;2022 年，全国软件和信息技术服务业规模以上企业累计完成软件业务收入约比 2020 年增长了：
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;A.16% B.23% C.29% D.31%
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;1. 2021年的增长率: 11.2%+6.5%=17.7%
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;​2. ​复合增长率计算​​：
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    假设2020年收入为A，则：
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    2021年收入：A×(1+17.7%)
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    2022年收入：A×(1+17.7%)×(1+11.2%)
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    总增长率：(1+17.7%)×(1+11.2%)−1=1.177×1.112−1≈1.3088−1=30.88%
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;​3. 答案：D
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;!-- raw HTML omitted --&gt;速算技巧&lt;!-- raw HTML omitted --&gt;：\(r_{间隔} = r_1 + r_2 + r_1 \cdot r_2\)
-&lt;!-- raw HTML omitted --&gt;重要说明&lt;!-- raw HTML omitted --&gt;：如果\(r_1\)和\(r_2\)均小于10%（\(r_1*r_2 &lt; 1\% \)）， 可以忽略\(r_1 \cdot r_2\)计算，上述公式变为：\(r_{间隔} = r_1 + r_2\)
-&lt;!-- raw HTML omitted --&gt;解题&lt;!-- raw HTML omitted --&gt;：
-\(r_1 = 17.7\%\)和\(r_2=11.2\%\)，则 \(r_{间隔} = r_1 + r_2 =  28.9\%\)，排除 AB
-\(r_1 \cdot r_2 ≈ 1.8 \% \)，排除 C，D 正确&lt;/p&gt;</description>
+&lt;p&gt;\(r = \frac{增量}{基期量} = \frac{增量}{现期量 - 增量} = \frac{\frac{增量}{现期量}}{1 - \frac{增量}{现期量}} = \frac{k}{1 - k}\)&lt;/p&gt;</description>
     </item>
     <item>
       <title>Number Sequence</title>
