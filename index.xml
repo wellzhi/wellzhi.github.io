@@ -208,7 +208,7 @@
 &lt;li&gt;算得慢 —— 速算技巧&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;三速算&#34;&gt;三、速算&lt;/h2&gt;
-&lt;h2 id=&#34;1截位直除法&#34;&gt;1.截位直除法&lt;/h2&gt;
+&lt;h3 id=&#34;1截位直除法&#34;&gt;1.截位直除法&lt;/h3&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-mermaid&#34; data-lang=&#34;mermaid&#34;&gt;flowchart LR
     A[截位直除法] --&amp;gt; B[看选项]
     
@@ -224,7 +224,7 @@
 &lt;li&gt;看答案，能不算就不算&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2 id=&#34;四题型&#34;&gt;四、题型&lt;/h2&gt;
-&lt;h2 id=&#34;1增长率比较&#34;&gt;1.增长率比较&lt;/h2&gt;
+&lt;h3 id=&#34;1增长率比较&#34;&gt;1.增长率比较&lt;/h3&gt;
 &lt;p&gt;识别：增长率排序或增长+最快/慢&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-mermaid&#34; data-lang=&#34;mermaid&#34;&gt;
 graph LR
