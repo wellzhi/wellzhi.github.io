@@ -256,8 +256,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;练习3：老邓体重200斤，同比减少25%，求同比减少量？
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;解答：N=4, 200/(4-1)约为66斤
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;增长量比大小&#34;&gt;增长量比大小&lt;/h3&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-mermaid&#34; data-lang=&#34;mermaid&#34;&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;1增长率比较&#34;&gt;1.增长率比较&lt;/h3&gt;
-&lt;p&gt;识别：增长率排序或增长+最快/慢&lt;/p&gt;</description>
+&lt;p&gt;已知一组数据，每个数据已知现期量、增长率（有正负），比较增长量大小&lt;/p&gt;</description>
     </item>
     <item>
       <title>Number Sequence</title>
