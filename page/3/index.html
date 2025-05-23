@@ -169,26 +169,6 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">LLM Prompt Trick
-      <span class="entry-hint" title="Draft">
-        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" fill="currentColor">
-          <path
-            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
-        </svg>
-      </span>
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>A recent paper, “Principled Instructions Are All You Need for Questioning LLaMA-1/2, GPT-3.5/4,” introduces 26 guiding principles designed to streamline the process of querying and prompting large language models. Here’s the list of these prompt engineering tricks with examples.
-https://www.superannotate.com/blog/llm-prompting-tricks
-</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-01-07 20:42:05 +0800 CST'>January 7, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;40 words&nbsp;·&nbsp;wellzhi</footer>
-  <a class="entry-link" aria-label="post link to LLM Prompt Trick" href="https://wellzhi.github.io/posts/2025-01-07_llm-prompt-trick/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
     <h2 class="entry-hint-parent">Config Gihub Theme as Hugo
       <span class="entry-hint" title="Draft">
         <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" fill="currentColor">
@@ -249,6 +229,31 @@ $$a^*=x-b^*$$$$ a^*=x-b^* $$$$ a^*=x-b^* $$</p>
   </div>
   <footer class="entry-footer"><span title='2024-01-24 18:09:49 -0800 -0800'>January 24, 2024</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;24 words&nbsp;·&nbsp;wellzhi</footer>
   <a class="entry-link" aria-label="post link to Math examples" href="https://wellzhi.github.io/posts/1900-01-01_math-examples/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">GitLab CI/CD自动化部署流程详解
+      <span class="entry-hint" title="Draft">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" fill="currentColor">
+          <path
+            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
+        </svg>
+      </span>
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>基于GitLab CI/CD的XXX系统自动化部署流程详解 本文将详细介绍基于GitLab CI/CD的xxxx系统后端自动化部署流程。整个流程采用了多阶段部署策略，实现了从代码构建到多环境部署的全自动化。
+一、部署流程概述 整个部署流程分为以下几个阶段：
+安装阶段：编译打包Java项目 构建镜像阶段：使用Kaniko构建Docker镜像 生成CI配置阶段：动态生成子流水线配置 部署阶段：触发子流水线，将应用部署到Kubernetes集群 二、流水线配置详解 2.1 流水线阶段定义 在.gitlab-ci.yml文件中，定义了整个流水线的阶段：
+stages: - install - build-image - generate-ci - deploy 2.2 全局变量配置 variables: PROJECT_PATH: &#34;$CI_PROJECT_DIR&#34; MAVEN_OPTS: &#34;-Dmaven.repo.local=$PROJECT_PATH/.m2/repository&#34; REPO_NAME: &#34;ikc-backend-v1&#34; MAVEN_CACHE_DIR: &#34;$PROJECT_PATH/.m2/repository&#34; BUILD_CACHE_DIR: &#34;$PROJECT_PATH/cache&#34; VERSION: &#34;$CI_PIPELINE_IID&#34; 关键变量说明：
+PROJECT_PATH：项目路径，使用GitLab内置变量CI_PROJECT_DIR REPO_NAME：镜像仓库名称 VERSION：版本号，使用GitLab流水线ID作为版本号 三、部署流程详解 3.1 安装阶段（Install） 这个阶段负责编译和打包Java项目：
+install: &lt;&lt;: *install_template install_template模板定义了具体的执行步骤：
+.install_template: &amp;install_template image: 172.22.121.50/gzhu/library/maven:3.8-openjdk-8 stage: install # 仅在 variant/* release/* 分支运行 rules: - if: &#39;$CI_COMMIT_REF_NAME =~ /^release\/.&#43;$/ || $CI_COMMIT_REF_NAME =~ /^variant\/.&#43;$/&#39; when: always - if: &#39;$CI_PIPELINE_SOURCE == &#34;merge_request_event&#34;&#39; when: always - when: never &lt;&lt;: *cache_maven tags: - &#34;k8s_runner_persionnel_matching&#34; script: - cp -b settings.xml /usr/share/maven/conf/settings.xml - mvn clean package -Dmaven.test.skip=true artifacts: expire_in: 1 day paths: - agileboot-admin/target/agileboot-admin-1.0.0.jar 关键步骤：
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-09-01 15:11:47 +0800 CST'>September 1, 2023</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;578 words&nbsp;·&nbsp;wellzhi</footer>
+  <a class="entry-link" aria-label="post link to GitLab CI/CD自动化部署流程详解" href="https://wellzhi.github.io/posts/2023-09-01_work_ikc-pipline-analysis/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
