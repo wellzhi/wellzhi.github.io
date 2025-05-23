@@ -6,8 +6,73 @@
     <description>Recent content in Posts on Wellzhi</description>
     <generator>Hugo -- 0.147.2</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 09 May 2025 18:11:52 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 23 May 2025 15:11:47 +0800</lastBuildDate>
     <atom:link href="https://wellzhi.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>2023 09 01_work 1_ikc Pipline Analysis</title>
+      <link>https://wellzhi.github.io/posts/2023-09-01_work_ikc-pipline-analysis/</link>
+      <pubDate>Fri, 23 May 2025 15:11:47 +0800</pubDate>
+      <guid>https://wellzhi.github.io/posts/2023-09-01_work_ikc-pipline-analysis/</guid>
+      <description>&lt;h2 id=&#34;基于gitlab-cicd的xxx系统自动化部署流程详解&#34;&gt;基于GitLab CI/CD的XXX系统自动化部署流程详解&lt;/h2&gt;
+&lt;p&gt;本文将详细介绍基于GitLab CI/CD的xxxx系统后端自动化部署流程。整个流程采用了多阶段部署策略，实现了从代码构建到多环境部署的全自动化。&lt;/p&gt;
+&lt;h2 id=&#34;一部署流程概述&#34;&gt;一、部署流程概述&lt;/h2&gt;
+&lt;p&gt;整个部署流程分为以下几个阶段：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;安装阶段&lt;/strong&gt;：编译打包Java项目&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;构建镜像阶段&lt;/strong&gt;：使用Kaniko构建Docker镜像&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;生成CI配置阶段&lt;/strong&gt;：动态生成子流水线配置&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;部署阶段&lt;/strong&gt;：触发子流水线，将应用部署到Kubernetes集群&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;二流水线配置详解&#34;&gt;二、流水线配置详解&lt;/h2&gt;
+&lt;h3 id=&#34;21-流水线阶段定义&#34;&gt;2.1 流水线阶段定义&lt;/h3&gt;
+&lt;p&gt;在&lt;code&gt;.gitlab-ci.yml&lt;/code&gt;文件中，定义了整个流水线的阶段：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;stages&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  - &lt;span style=&#34;color:#ae81ff&#34;&gt;install&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  - &lt;span style=&#34;color:#ae81ff&#34;&gt;build-image&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  - &lt;span style=&#34;color:#ae81ff&#34;&gt;generate-ci&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  - &lt;span style=&#34;color:#ae81ff&#34;&gt;deploy&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;22-全局变量配置&#34;&gt;2.2 全局变量配置&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;variables&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;PROJECT_PATH&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;$CI_PROJECT_DIR&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;MAVEN_OPTS&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;-Dmaven.repo.local=$PROJECT_PATH/.m2/repository&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;REPO_NAME&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ikc-backend-v1&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;MAVEN_CACHE_DIR&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;$PROJECT_PATH/.m2/repository&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;BUILD_CACHE_DIR&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;$PROJECT_PATH/cache&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;VERSION&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;$CI_PIPELINE_IID&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;关键变量说明：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;PROJECT_PATH&lt;/code&gt;：项目路径，使用GitLab内置变量&lt;code&gt;CI_PROJECT_DIR&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;REPO_NAME&lt;/code&gt;：镜像仓库名称&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;VERSION&lt;/code&gt;：版本号，使用GitLab流水线ID作为版本号&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;三部署流程详解&#34;&gt;三、部署流程详解&lt;/h2&gt;
+&lt;h3 id=&#34;31-安装阶段install&#34;&gt;3.1 安装阶段（Install）&lt;/h3&gt;
+&lt;p&gt;这个阶段负责编译和打包Java项目：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;install&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt;: &lt;span style=&#34;color:#75715e&#34;&gt;*install_template&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;install_template&lt;/code&gt;模板定义了具体的执行步骤：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.install_template&lt;/span&gt;: &lt;span style=&#34;color:#75715e&#34;&gt;&amp;amp;install_template&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;image&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;172.22.121.50&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;/gzhu/library/maven:3.8-openjdk-8&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;stage&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;install&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;# 仅在 variant/*  release/* 分支运行&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;rules&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    - &lt;span style=&#34;color:#f92672&#34;&gt;if&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;$CI_COMMIT_REF_NAME =~ /^release\/.+$/ || $CI_COMMIT_REF_NAME =~ /^variant\/.+$/&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;when&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;always&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    - &lt;span style=&#34;color:#f92672&#34;&gt;if&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;$CI_PIPELINE_SOURCE == &amp;#34;merge_request_event&amp;#34;&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;when&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;always&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    - &lt;span style=&#34;color:#f92672&#34;&gt;when&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;never&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt;: &lt;span style=&#34;color:#75715e&#34;&gt;*cache_maven&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;tags&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    - &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;k8s_runner_persionnel_matching&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;script&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    - &lt;span style=&#34;color:#ae81ff&#34;&gt;cp -b settings.xml /usr/share/maven/conf/settings.xml&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    - &lt;span style=&#34;color:#ae81ff&#34;&gt;mvn clean package -Dmaven.test.skip=true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;artifacts&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;expire_in&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;day&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;paths&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - &lt;span style=&#34;color:#ae81ff&#34;&gt;agileboot-admin/target/agileboot-admin-1.0.0.jar&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;关键步骤：&lt;/p&gt;</description>
+    </item>
     <item>
       <title></title>
       <link>https://wellzhi.github.io/posts/2999-01-01_0/</link>
