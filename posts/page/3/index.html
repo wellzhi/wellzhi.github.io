@@ -277,7 +277,7 @@ install: &lt;&lt;: *install_template install_template模板定义了具体的执
 .install_template: &amp;install_template image: 172.22.121.50/gzhu/library/maven:3.8-openjdk-8 stage: install # 仅在 variant/* release/* 分支运行 rules: - if: &#39;$CI_COMMIT_REF_NAME =~ /^release\/.&#43;$/ || $CI_COMMIT_REF_NAME =~ /^variant\/.&#43;$/&#39; when: always - if: &#39;$CI_PIPELINE_SOURCE == &#34;merge_request_event&#34;&#39; when: always - when: never &lt;&lt;: *cache_maven tags: - &#34;k8s_runner_persionnel_matching&#34; script: - cp -b settings.xml /usr/share/maven/conf/settings.xml - mvn clean package -Dmaven.test.skip=true artifacts: expire_in: 1 day paths: - agileboot-admin/target/agileboot-admin-1.0.0.jar 关键步骤：
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2023-09-01 15:11:47 +0800 CST'>September 1, 2023</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;578 words&nbsp;·&nbsp;wellzhi</footer>
+  <footer class="entry-footer"><span title='2023-09-01 15:11:47 +0800 CST'>September 1, 2023</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;580 words&nbsp;·&nbsp;wellzhi</footer>
   <a class="entry-link" aria-label="post link to GitLab CI/CD自动化部署流程详解" href="https://wellzhi.github.io/posts/2023-09-01_work_ikc-pipline-analysis/"></a>
 </article>
 <footer class="page-footer">

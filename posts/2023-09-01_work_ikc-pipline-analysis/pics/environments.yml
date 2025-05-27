@@ -1,0 +1,61 @@
+# environments.yml
+university:
+  gzhu:
+    context_path: "/university-gzhu"
+  scnu:
+    context_path: "/university-scnu"
+  sysu:
+    context_path: "/university-sysu"
+  xidian:
+    context_path: "/university-xidian"
+  scut:
+    context_path: "/university-scut"
+  lnu:
+    context_path: "/university-lnu"
+  gpnu:
+    context_path: "/university-gpnu"
+  cqu:
+    context_path: "/university-cqu"
+  hnu:
+    context_path: "/university-hnu"
+  zju:
+    context_path: "/university-zju"
+  zstu:
+    context_path: "/university-zstu"
+  hdu:
+    context_path: "/university-hdu"
+  hainanu:
+    context_path: "/university-hainanu"
+  cqust:
+    context_path: "/university-cqust"
+
+common:
+  common:
+    context_path: "/common"
+  gdpmaa:
+    context_path: "/gdpmaa"
+  shuangliu:
+    context_path: "/shuangliu"
+
+# 苏州相城部署
+xiangcheng:
+  xiangcheng:
+    context_path: "/xiangcheng"
+
+gzsti:
+  gzsti:
+    context_path: ""
+
+area:
+  guangzhou:
+    context_path: "/guangzhou"
+  shunde:
+    context_path: "/shunde"
+  liwan:
+    context_path: "/liwan"
+
+bqwgc:
+  bqwgc:
+    context_path: "/bqwgc"
+  tcm:
+    context_path: "/tcm"
