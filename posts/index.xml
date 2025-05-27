@@ -142,20 +142,21 @@
 &lt;p&gt;&lt;!-- raw HTML omitted --&gt;先翻译，再推理，注意：尽量不要通过理解语义来解题，会有偏差&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
 &lt;h3 id=&#34;3-翻译规则&#34;&gt;3. 翻译规则&lt;/h3&gt;
 &lt;h4 id=&#34;31-前推后&#34;&gt;3.1 前推后&lt;/h4&gt;
-&lt;p&gt;&lt;strong&gt;(1)&lt;/strong&gt; 如果······那么······
-&lt;strong&gt;(2)&lt;/strong&gt; 若······则······
-&lt;strong&gt;(3)&lt;/strong&gt; 只要······就······
-&lt;strong&gt;(4)&lt;/strong&gt; 所有······都······
-&lt;strong&gt;(5)&lt;/strong&gt; 为了······一定······&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;(1)&lt;/strong&gt; 如果······那么······&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;(2)&lt;/strong&gt; 若······则······&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;(3)&lt;/strong&gt; 只要······就······&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;(4)&lt;/strong&gt; 所有······都······&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;(5)&lt;/strong&gt; 为了······一定······&lt;/p&gt;
 &lt;h4 id=&#34;32-后推前&#34;&gt;3.2 后推前&lt;/h4&gt;
-&lt;p&gt;&lt;strong&gt;(1)&lt;/strong&gt; 只有······才······
-&lt;strong&gt;(2)&lt;/strong&gt; 不······不······
-&lt;strong&gt;(3)&lt;/strong&gt; 除非······否则不······
-&lt;strong&gt;(4)&lt;/strong&gt; ······是······的基础/假设/前提/关键
-&lt;strong&gt;(5)&lt;/strong&gt; ······是······的必要条件/必不可少的条件&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;(1)&lt;/strong&gt; 只有······才······&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;(2)&lt;/strong&gt; 不······不······&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;(3)&lt;/strong&gt; 除非······否则不······&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;(4)&lt;/strong&gt; ······是······的基础/假设/前提/关键&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;(5)&lt;/strong&gt; ······是······的必要条件/必不可少的条件&lt;/p&gt;
 &lt;h4 id=&#34;33-易错点&#34;&gt;3.3 易错点&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;谁是必要条件，谁放在箭头后&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;除非······否则······&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;4-推理规则&#34;&gt;4. 推理规则&lt;/h3&gt;
