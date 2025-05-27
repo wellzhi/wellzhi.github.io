@@ -130,6 +130,79 @@
 &lt;p&gt;指的是犯罪主体对自己危害社会的行为及危害社会的结果所抱的心理态度，包括：&lt;/p&gt;</description>
     </item>
     <item>
+      <title>判断推理-逻辑判断</title>
+      <link>https://wellzhi.github.io/posts/2025-05-08_logical-judgment/</link>
+      <pubDate>Thu, 08 May 2025 14:52:34 +0800</pubDate>
+      <guid>https://wellzhi.github.io/posts/2025-05-08_logical-judgment/</guid>
+      <description>&lt;h2 id=&#34;翻译推理&#34;&gt;翻译推理&lt;/h2&gt;
+&lt;h3 id=&#34;1-题型识别&#34;&gt;1. 题型识别&lt;/h3&gt;
+&lt;p&gt;（1）题干出现明显的逻辑关联词
+（2）提问方式为&amp;quot;可以推出&amp;quot;、&amp;ldquo;不可以推出&amp;rdquo;&lt;/p&gt;
+&lt;h3 id=&#34;2-解题思维&#34;&gt;2. 解题思维&lt;/h3&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;先翻译，再推理，注意：尽量不要通过理解语义来解题，会有偏差&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;h3 id=&#34;3-翻译规则&#34;&gt;3. 翻译规则&lt;/h3&gt;
+&lt;h4 id=&#34;31-前推后&#34;&gt;3.1 前推后&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;(1)&lt;/strong&gt; 如果······那么······
+&lt;strong&gt;(2)&lt;/strong&gt; 若······则······
+&lt;strong&gt;(3)&lt;/strong&gt; 只要······就······
+&lt;strong&gt;(4)&lt;/strong&gt; 所有······都······
+&lt;strong&gt;(5)&lt;/strong&gt; 为了······一定······&lt;/p&gt;
+&lt;h4 id=&#34;32-后推前&#34;&gt;3.2 后推前&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;(1)&lt;/strong&gt; 只有······才······
+&lt;strong&gt;(2)&lt;/strong&gt; 不······不······
+&lt;strong&gt;(3)&lt;/strong&gt; 除非······否则不······
+&lt;strong&gt;(4)&lt;/strong&gt; ······是······的基础/假设/前提/关键
+&lt;strong&gt;(5)&lt;/strong&gt; ······是······的必要条件/必不可少的条件&lt;/p&gt;
+&lt;h4 id=&#34;33-易错点&#34;&gt;3.3 易错点&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;谁是必要条件，谁放在箭头后&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;除非······否则······&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;4-推理规则&#34;&gt;4. 推理规则&lt;/h3&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-mermaid&#34; data-lang=&#34;mermaid&#34;&gt;graph LR
+    %% 定义节点样式
+    classDef default fill:#f9f9f9,stroke:#333,stroke-width:1px
+    classDef main fill:#e1f5fe,stroke:#01579b,stroke-width:2px,font-weight:bold
+    classDef rule fill:#fff8e1,stroke:#ff8f00,stroke-width:1px
+    classDef formula fill:#f3e5f5,stroke:#7b1fa2,stroke-width:1px
+
+    %% 主节点
+    A[推理规则] --&amp;gt; B[逆否等价]
+    A --&amp;gt; C[传递规则]
+
+    %% 逆否等价分支
+    B --&amp;gt; D[&amp;#34;A→B=-B→-A&amp;#34;]
+    D --&amp;gt; E[&amp;#34;肯前必肯后，否后必否前，否前肯后不必然&amp;#34;]
+
+    %% 传递规则分支
+    C --&amp;gt; |&amp;#34;穿串&amp;#34;|F[&amp;#34;①→②, ②→③ ⇒ ①→③&amp;#34;]
+
+    %% 应用样式
+    class A main
+    class B,C rule
+    class D,E,F formula
+
+    %% 调整布局
+    linkStyle default stroke:#666,stroke-width:1px
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;5-且或关系&#34;&gt;5. 且或关系&lt;/h3&gt;
+&lt;h4 id=&#34;51-且类系&#34;&gt;5.1. &amp;ldquo;且&amp;quot;类系&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;和&lt;/li&gt;
+&lt;li&gt;并且&lt;/li&gt;
+&lt;li&gt;既&amp;hellip;&amp;hellip;又&amp;hellip;&amp;hellip;&lt;/li&gt;
+&lt;li&gt;不仅&amp;hellip;&amp;hellip;而且&amp;hellip;&amp;hellip;&lt;/li&gt;
+&lt;li&gt;虽然&amp;hellip;&amp;hellip;但是&amp;hellip;&amp;hellip;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;52-或类系&#34;&gt;5.2. &amp;ldquo;或&amp;quot;类系&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&amp;hellip;&amp;hellip;或者&amp;hellip;&amp;hellip;&lt;/li&gt;
+&lt;li&gt;或者&amp;hellip;&amp;hellip;或者&amp;hellip;&amp;hellip;&lt;/li&gt;
+&lt;li&gt;&amp;hellip;&amp;hellip;和&amp;hellip;&amp;hellip;至少有一个&lt;/li&gt;
+&lt;li&gt;当&amp;quot;或&amp;quot;类系为真时，&lt;!-- raw HTML omitted --&gt;否定一项可以得到另一项&lt;!-- raw HTML omitted --&gt;，即是：“否1推1”&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;5.3. 德·摩根定律&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>类比推理-逻辑关系</title>
       <link>https://wellzhi.github.io/posts/2025-05-08_judge/</link>
       <pubDate>Thu, 08 May 2025 14:52:34 +0800</pubDate>
