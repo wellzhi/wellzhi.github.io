@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{REPO_NAME}}-{{ENV}}-{{SUB_ENV}}
+  labels:
+    app: {{REPO_NAME}}-{{ENV}}-{{SUB_ENV}}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{REPO_NAME}}-{{ENV}}-{{SUB_ENV}}
+  template:
+    metadata:
+      labels:
+        app: {{REPO_NAME}}-{{ENV}}-{{SUB_ENV}}
+    spec:
+      containers:
+        - name: {{REPO_NAME}}-{{ENV}}-{{SUB_ENV}}-service
+          image: 172.22.121.50/personnel-matching/{{REPO_NAME}}:{{VERSION}}
+          ports:
+            - containerPort: 10010
+          volumeMounts:
+            # 挂载微信小程序相关配置
+            - name: {{REPO_NAME}}-{{ENV}}-yaml
+              readOnly: true
+              mountPath: /home/BOOT-INF/classes/wechat-wxm-common.yml
+              subPath: wechat-wxm-common.yml
+            # 挂载base配置
+            - name: {{REPO_NAME}}-{{ENV}}-yaml
+              readOnly: true
+              mountPath: /home/BOOT-INF/classes/application-base.yml
+              subPath: application-base.yml
+            # 挂载 membership 配置
+            - name: {{REPO_NAME}}-{{ENV}}-yaml
+              readOnly: true
+              mountPath: /home/BOOT-INF/classes/membership-rules.yml
+              subPath: membership-rules.yml
+            # 挂载 application 配置
+            - name: {{REPO_NAME}}-{{ENV}}-yaml
+              readOnly: true
+              mountPath: /home/BOOT-INF/classes/application.yml
+              subPath: application.yml
+            # 挂载扩展配置
+            - name: {{REPO_NAME}}-{{ENV}}-yaml
+              readOnly: true
+              mountPath: /home/BOOT-INF/classes/application-extended.yml
+              subPath: application-{{ENV}}.yml
+          livenessProbe:
+            httpGet:
+              path: {{CONTEXT_PATH}}/health
+              port: 10010
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: {{CONTEXT_PATH}}/health
+              port: 10010
+            initialDelaySeconds: 30
+            periodSeconds: 10
+      volumes:
+        - name: {{REPO_NAME}}-{{ENV}}-yaml
+          configMap:
+            name: {{REPO_NAME}}-conf-{{SUB_ENV}}
+            defaultMode: 420
+      imagePullSecrets:
+        - name: harbor-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{REPO_NAME}}-{{ENV}}-{{SUB_ENV}}-service
+spec:
+  type: NodePort
+  selector:
+    app: {{REPO_NAME}}-{{ENV}}-{{SUB_ENV}}
+  ports:
+    - protocol: TCP
+      port: 10010
+      targetPort: 10010

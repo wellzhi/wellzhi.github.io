@@ -1,0 +1,120 @@
+stages:
+  - install
+  - build-image
+  - generate-ci
+  - deploy
+
+default:
+  retry: 2
+
+variables:
+  PROJECT_PATH: "$CI_PROJECT_DIR"
+  MAVEN_OPTS: "-Dmaven.repo.local=$PROJECT_PATH/.m2/repository"
+  REPO_NAME: "ikc-backend-v1"
+  MAVEN_CACHE_DIR: "$PROJECT_PATH/.m2/repository"
+  BUILD_CACHE_DIR: "$PROJECT_PATH/cache"
+  VERSION: "$CI_PIPELINE_IID"
+
+# 缓存 Maven 依赖
+.cache_maven: &cache_maven
+  cache:
+    key: "ikc-backend-v1-maven"
+    paths:
+      - ${MAVEN_CACHE_DIR}
+
+# 安装阶段模板
+.install_template: &install_template
+  image: 172.22.121.50/gzhu/library/maven:3.8-openjdk-8
+  stage: install
+  # 仅在 variant/*  release/* 分支运行
+  rules:
+    - if: '$CI_COMMIT_REF_NAME =~ /^release\/.+$/ || $CI_COMMIT_REF_NAME =~ /^variant\/.+$/'
+      when: always
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: always
+    - when: never
+  <<: *cache_maven
+  tags:
+    - "k8s_runner_persionnel_matching"
+  script:
+    - cp -b settings.xml /usr/share/maven/conf/settings.xml
+    - mvn clean package -Dmaven.test.skip=true
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - agileboot-admin/target/agileboot-admin-1.0.0.jar
+
+# 构建阶段模板
+.build_template: &build_template
+  image:
+    name: 172.22.121.50/gcr/kaniko-project/executor:v1.21.0-debug
+    entrypoint: [""]
+  stage: build-image
+  tags:
+    - "k8s_runner_persionnel_matching"
+  cache:
+    key: "ikc-backend-v1-build"
+    paths:
+      - ${BUILD_CACHE_DIR}
+  rules:
+    - if: '$CI_COMMIT_REF_NAME =~ /^release\/.+$/ || $CI_COMMIT_REF_NAME =~ /^variant\/.+$/'
+  script:
+    - |
+      # 配置 Docker 认证信息
+      echo "{\"auths\":{\"${KCI_REGISTRY}\":{\"auth\":\"$(printf "%s:%s" "${KCI_REGISTRY_USER}" "${KCI_REGISTRY_PASSWORD}" | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
+
+      # 预热缓存
+      /kaniko/warmer \
+      --skip-tls-verify-pull \
+      --dockerfile Dockerfile \
+      --cache-dir=${BUILD_CACHE_DIR} \
+      --skip-tls-verify-registry 172.22.121.50
+
+      # 执行构建
+      /kaniko/executor \
+      --cache=true \
+      --skip-tls-verify \
+      --cache-dir=${BUILD_CACHE_DIR} \
+      --dockerfile Dockerfile \
+      --context $PROJECT_PATH \
+      --destination 172.22.121.50/personnel-matching/${REPO_NAME}:${VERSION}
+
+# 安装阶段
+install:
+  <<: *install_template
+
+# 构建阶段
+build:
+  <<: *build_template
+  dependencies:
+    - install
+
+
+# 生成动态的部署 CI 配置文件
+generate-ci-pipeline:
+  image: 172.22.121.50/gzhu/alpine-delpoy:3.12
+  stage: generate-ci
+  dependencies:
+    - build
+  artifacts:
+    paths:
+      - child-ci.yml
+  rules:
+    - if: '$CI_COMMIT_REF_NAME =~ /^release\/.+$/ || $CI_COMMIT_REF_NAME =~ /^variant\/.+$/'
+  script:
+    - chmod +x generate-deploy-ci-config.sh
+    - bash -x generate-deploy-ci-config.sh
+    - cat child-ci.yml
+
+# 执行生成的部署流水线
+deploy-pipeline:
+  stage: deploy
+  rules:
+    - if: '$CI_COMMIT_REF_NAME =~ /^release\/.+$/ || $CI_COMMIT_REF_NAME =~ /^variant\/.+$/'
+      when: always
+    - when: never
+  trigger:
+    include:
+      - artifact: child-ci.yml
+        job: generate-ci-pipeline
+    strategy: depend
