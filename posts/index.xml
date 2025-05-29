@@ -330,9 +330,9 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;解答：N=5, 2.4/(5+1)=40厘米
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;练习3：老邓体重200斤，同比减少25%，求同比减少量？
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;解答：N=4, 200/(4-1)约为66斤
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;增长量比大小&#34;&gt;增长量比大小&lt;/h3&gt;
-&lt;p&gt;已知一组数据，每个数据已知现期量、增长率（有正负），比较增长量大小
-应用口诀：大大则大，一大一小看乘积，例外情况需验算&lt;/p&gt;</description>
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;增长率百化分之取中法&#34;&gt;增长率百化分之取中法&lt;/h4&gt;
+&lt;p&gt;如果遇到百分数左右难取舍，取中即可
+\(15.4\% ≈ \frac{1}{6.5}\)&lt;/p&gt;</description>
     </item>
     <item>
       <title>Number Sequence</title>
