@@ -218,7 +218,8 @@ generate-ci-pipeline:
 ### 3.5 动态配置生成脚本解析
 
 `generate-deploy-ci-config.sh`脚本负责根据分支名称动态生成部署配置：
-![repository-branches.png](2023-09-01_work_ikc-pipline-analysis/repository-branches.png)
+
+![代码分支图示](./pics/repository-branches.png){ width=500 }
 
 ```bash
 # 确定 GROUP 和 SUB_ENV 基于分支名称
@@ -373,5 +374,3 @@ common:
 2. **自动化程度高**：从编译到部署全自动化
 3. **灵活性强**：可以轻松添加新的部署环境
 4. **安全可控**：测试环境自动部署，生产环境手动确认
-
-通过这种CI/CD流水线设计，实现了XXX系统后端的高效自动化部署。
