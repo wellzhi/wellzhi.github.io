@@ -134,8 +134,10 @@
       <link>https://wellzhi.github.io/posts/2025-06-10_pattern/</link>
       <pubDate>Thu, 08 May 2025 23:52:34 +0800</pubDate>
       <guid>https://wellzhi.github.io/posts/2025-06-10_pattern/</guid>
-      <description>&lt;p&gt;记n封信的错位重排数为Dn，\(则D_1=0，D_2=1，D_3=2，D_4=9，D_5=44\)。&lt;/p&gt;
-&lt;p&gt;公式： \(D_n=（n-1）（D_{n-2}+D_{n-1}）\) 此处\(n-2、n-1\)为下标，\(n＞2\)&lt;/p&gt;
+      <description>&lt;p&gt;记n封信的错位重排数为\(D_n\)，则:&lt;/p&gt;
+&lt;p&gt;\(D_1=0，D_2=1，D_3=2，D_4=9，D_5=44\)。&lt;/p&gt;
+&lt;p&gt;公式： \(D_n=（n-1）（D_{n-2}+D_{n-1}）\) \(n＞2\)
+，\(n-2、n-1\)为下标&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;【例题】四位厨师聚餐时各做了一道拿手菜。要求每人去品尝一道菜，但不能尝自己做的那道菜。问共有几种不同的尝法？（B）
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;A．6种 B．9种 C．12种 D．15种
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;【例题】某汽车品牌在 5 个不同的 4S 店分别售出不同型号的汽车各 1 辆， 现由于
