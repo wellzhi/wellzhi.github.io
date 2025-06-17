@@ -158,6 +158,27 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     <item>
+      <title>Quantity Relationship</title>
+      <link>https://wellzhi.github.io/posts/2025-05-08_quantity_relationship/</link>
+      <pubDate>Thu, 08 May 2025 20:40:03 +0800</pubDate>
+      <guid>https://wellzhi.github.io/posts/2025-05-08_quantity_relationship/</guid>
+      <description>&lt;h2 id=&#34;相似关系&#34;&gt;相似关系&lt;/h2&gt;
+&lt;p&gt;如果两个图形A、B相似，相似比为\(1:r\)，其中\(r&gt;0\)，则有
+面积比：\(S_A:S_B=1:r^2\)
+体积比：\(V_A:V_B=1:r^3\)&lt;/p&gt;
+&lt;h2 id=&#34;蝴蝶定理&#34;&gt;蝴蝶定理&lt;/h2&gt;
+&lt;p&gt;&lt;img alt=&#34;蝴蝶定理&#34; loading=&#34;lazy&#34; src=&#34;https://wellzhi.github.io/posts/2025-05-08_quantity_relationship/pics/butterfly.png&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;特征&#34;&gt;特征：&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;梯形 + 交叉线
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;规律&#34;&gt;规律：&lt;/h3&gt;
+&lt;p&gt;面积比：\(S_1:S_2:S_3:S_4=a^2:a^2:ab:ab\)&lt;/p&gt;
+&lt;h3 id=&#34;证明&#34;&gt;证明：&lt;/h3&gt;
+&lt;p&gt;\(S_1\)和\(S_2\)的三角形是相似的，所以面积比=边长比的平方即a²︰b²。
+\(S_1\)和\(S_4\)三角形等高，可知\(S_1\)︰\(S_4\)=OA︰OC ，
+又因为\(S_1\)和\(S_2\)是相似三角形，相似比=a︰b，所以\(S_1︰S_4=OA︰OC=a︰b=a²︰ab\) ；同理\(S_1\)︰\(S_3\)=a²︰ab。所以S1︰S2︰S3︰S4=a²︰b²︰ab︰ab&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>判断推理-逻辑判断</title>
       <link>https://wellzhi.github.io/posts/2025-05-08_logical-judgment/</link>
       <pubDate>Thu, 08 May 2025 14:52:34 +0800</pubDate>
