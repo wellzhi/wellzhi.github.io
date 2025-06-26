@@ -90,4 +90,4 @@ keys = [ "title", "permalink", "summary", "content" ]
         enable = true
         [markup.goldmark.extensions.passthrough.delimiters]
           block = [['\[', '\]'], ['$$', '$$']]
-          inline = [['\(', '\)']]
+          inline = [['$', '$']]

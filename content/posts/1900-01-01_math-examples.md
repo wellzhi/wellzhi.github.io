@@ -5,7 +5,7 @@ title = 'Math examples'
   math = true
 +++
 
-This is an inline \(a^*=x-b^*\) equation.
+This is an inline $a^*=x-b^*$ equation.
 
 These are block equations:
 
