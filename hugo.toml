@@ -20,7 +20,7 @@ math = true
 
 [params.homeInfoParams]
 Title = "Hi"
-Content = "I'm a software engineer. I write about programming, software development, and technology. I'm passionate about learning and sharing knowledge. I hope you find my blog helpful."
+# Content = "I'm a software engineer. I write about programming, software development, and technology. I'm passionate about learning and sharing knowledge. I hope you find my blog helpful."
 
 # 社交图标配置
 [[params.socialIcons]]
