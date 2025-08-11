@@ -1,2 +1,2 @@
-./content/posts/add_article_folder.sh docker-compose
+./content/posts/add_article_folder.sh example
 

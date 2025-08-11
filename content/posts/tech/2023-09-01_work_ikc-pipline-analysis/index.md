@@ -1,8 +1,11 @@
 +++
 date = '2023-09-01T15:11:47+08:00'
 draft = false
+tocOpen = true
 title = 'GitLab CI/CD自动化部署流程详解'
 tags = ["CI/CD", "自动化部署", "流水线", "Kubernetes"]
+hideMeta = true
+comments = true
 +++
 
 

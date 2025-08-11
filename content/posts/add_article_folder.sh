@@ -9,11 +9,15 @@ mkdir -p ./$ARTICLE_FOLDER_NAME
 
 # 创建文章文件并写入front matter
 cat > ./$ARTICLE_FOLDER_NAME/index.md << EOF
-+++
-date = '2020-01-01T00:00:00+08:00'
-draft = true
-title = '$1'
-+++
+---
+date: 2010-01-01T04:14:54-08:00
+draft: false
+params:
+  author: wellzhi
+title: Example
+weight: 10
+hideMeta: true
+---
 
 EOF
 

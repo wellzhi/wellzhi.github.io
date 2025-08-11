@@ -1,7 +1,10 @@
 +++
-date = '2025-01-04T15:09:06+08:00'
-draft = true
+date = '2010-01-04T15:09:06+08:00'
+draft = false
 title = 'Config Gihub Theme as Hugo'
+tocOpen = true
+tags = ["Hugo", "PaperMod", "GitHub Pages"]
+hideMeta = true
 +++
 
 将 GitHub Pages 配置为使用 Hugo 主题 PaperMod，需要以下步骤：
