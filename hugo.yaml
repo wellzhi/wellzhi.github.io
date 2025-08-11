@@ -106,10 +106,10 @@ markup:
     anchorLineNos: false
     codeFences: true
     guessSyntax: false
-    hl_Lines: 1
-    lineAnchors: ""
-    lineNoStart: 1
-    lineNos: true
+    # hl_Lines: 1
+    # lineAnchors: ""
+    # lineNoStart: 1
+    lineNos: false
     lineNumbersInTable: true
     noClasses: true
     style: monokai

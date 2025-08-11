@@ -1,15 +1,15 @@
 +++
 date = '2025-03-10T11:51:06+08:00'
-draft = true
+draft = false
 title = 'uv, a fast package manage tool'
+tags = ["Python","uv"]
+tocOpen = true
 +++
 
 
-以下是 `uv` 工具的核心用法整理，涵盖安装、项目管理、依赖管理、Python 版本控制等场景，方便快速查阅。
-
----
 
 ### **一、安装与配置**
+
 1. **一键安装**  
    ```bash
    # macOS/Linux
