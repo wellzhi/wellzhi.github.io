@@ -32,8 +32,8 @@ params:
   
   # 添加以下配置使所有文章默认启用评论
   defaultContentType: "posts"
-  homeInfoParams:
-    Title: "Hi"
+  # homeInfoParams:
+  #   Title: "Hi"
     # Content: "I'm a software engineer. I write about programming, software development, and technology. I'm passionate about learning and sharing knowledge. I hope you find my blog helpful."
   comments: true  # 这行已存在，但需要确保文章也启用
   # Twikoo 评论系统配置
