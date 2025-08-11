@@ -36,9 +36,9 @@ params:
     # - name: "LinkedIn"
     #   url: "https://github.com/wellzhi"
     #   icon: "fa-brands fa-linkedin"
-    - name: "GitHub"
-      url: "https://github.com/wellzhi"
-      icon: "fa-brands fa-github"
+    # - name: "GitHub"
+    #   url: "https://github.com/wellzhi"
+    #   icon: "fa-brands fa-github"
 
   fuseOpts:
     isCaseSensitive: false
