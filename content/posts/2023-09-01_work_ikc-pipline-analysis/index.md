@@ -1,12 +1,10 @@
 +++
 date = '2023-09-01T15:11:47+08:00'
-draft = true
+draft = false
 title = 'GitLab CI/CD自动化部署流程详解'
+tags = ["CI/CD", "自动化部署", "流水线", "Kubernetes"]
 +++
 
-
-          
-## 基于GitLab CI/CD的XXX系统自动化部署流程详解
 
 本文将详细介绍基于GitLab CI/CD的xxxx系统后端自动化部署流程。整个流程采用了多阶段部署策略，实现了从代码构建到多环境部署的全自动化。
 

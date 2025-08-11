@@ -1,0 +1,83 @@
+baseURL: 'https://wellzhi.github.io'
+# languageCode: 'en-us'
+languageCode: 'zh-cn'
+title: 'wellzhi'
+theme: "hugo-PaperMod"
+
+params:
+  defaultTheme: "auto"  # 主题模式 (auto, light, dark)
+  showReadingTime: true
+  showWordCount: true
+  showDate: true
+  authors: true
+  disableSearch: false
+  ShowCodeCopyButtons: true
+  ShowShareButtons: true
+  ShowToc: true
+  TocOpen: false
+  author: ["wellzhi"]
+  math: true
+  buildDrafts: false
+  homeInfoParams:
+    Title: "Hi"
+    # Content: "I'm a software engineer. I write about programming, software development, and technology. I'm passionate about learning and sharing knowledge. I hope you find my blog helpful."
+
+  # 社交图标配置
+  socialIcons:
+    # - name: "Twitter"
+    #   url: "https://github.com/wellzhi"
+    #   icon: "fa-brands fa-twitter"
+    # - name: "StackOverflow"
+    #   url: "https://github.com/wellzhi"
+    #   icon: "fa-brands fa-stack-overflow"
+    # - name: "CodePen"
+    #   url: "https://codepen.io/your_username"
+    #   icon: "fa-brands fa-codepen"
+    # - name: "LinkedIn"
+    #   url: "https://github.com/wellzhi"
+    #   icon: "fa-brands fa-linkedin"
+    - name: "GitHub"
+      url: "https://github.com/wellzhi"
+      icon: "fa-brands fa-github"
+
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    keys: ["title", "permalink", "summary", "content"]
+
+menu:
+  main:
+    - name: "Home"
+      url: "/"
+      weight: 1
+    - name: "Post"
+      url: "/posts/"
+      weight: 2
+    - name: "Archive"
+      url: "/archives"
+      weight: 3
+    - name: "Tags"
+      url: "/tags"
+      weight: 4
+    - name: "Search"
+      url: "/search"
+      weight: 5
+    - name: "About"
+      url: "/about/"
+      weight: 6
+
+outputs:
+  home: ["HTML", "RSS", "JSON"]
+
+markup:
+  goldmark:
+    extensions:
+      passthrough:
+        enable: true
+        delimiters:
+          block: [['\\[', '\\]'], ['$$', '$$']]
+          inline: [['$', '$']]
