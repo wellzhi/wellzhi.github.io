@@ -1,11 +1,11 @@
 ---
-title: "技术"
+title: "tech"
 hideMeta: true
 ShowBreadCrumbs: true
 weight: 10
 showToc: true
 TocOpen: true
-tags: ["技术"]
-summary: "技术"
+tags: ["tech"]
+summary: "汇集日常开发中的实践总结与学习笔记，记录技术探索过程中的思考与解决方案。"
 comments: true
 ---
