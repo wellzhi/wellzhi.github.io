@@ -1,2 +1,2 @@
-./content/posts/add_article_folder.sh example
+./content/posts/add_article_folder.sh Milvus
 
