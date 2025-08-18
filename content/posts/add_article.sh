@@ -1,2 +1,3 @@
-./content/posts/add_article_folder.sh Milvus
+./content/posts/add_article_folder.sh Verbal-Comprehension
+
 

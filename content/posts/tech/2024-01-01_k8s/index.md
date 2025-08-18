@@ -384,6 +384,11 @@ kubectl scale deployment nginx-deployment --replicas=5
 
 ### 5.3 StatefulSet
 
+无状态服务和有状态服务分别适用于哪些场景？
+
+- 无状态服务适用于不需要数据持久化的场景，例如Nginx和Tomcat。
+- 有状态服务适用于需要数据持久化的场景，例如MySQL数据库。Kafka 和ZooKeeper
+
 管理有状态应用：
 
 ```yaml

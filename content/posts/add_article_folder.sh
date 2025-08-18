@@ -10,11 +10,11 @@ mkdir -p ./$ARTICLE_FOLDER_NAME
 # 创建文章文件并写入front matter
 cat > ./$ARTICLE_FOLDER_NAME/index.md << EOF
 ---
-date: 2010-01-01T04:14:54-08:00
+date: ${CURRENT_DATE}T04:14:54-08:00
 draft: false
 params:
   author: wellzhi
-title: Example
+title: ${ARTICLE_TITLE}
 weight: 10
 hideMeta: true
 ---
