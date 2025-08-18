@@ -5,6 +5,7 @@ tocOpen: true
 title: "idioms"
 weight: 10
 hideMeta: true
+showbreadcrumbs: false
 ---
 
 
