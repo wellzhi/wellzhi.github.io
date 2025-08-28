@@ -29,7 +29,7 @@ title = '易错易混常识概念'
 - （五）行政拘留；
 - （六）法律、行政法规规定的其他行政处罚。
 
-![行政处罚的方式](./pics/1.png)
+![行政处罚的方式](https://notespace.oss-cn-guangzhou.aliyuncs.com/images/1.png)
 
 ### 1.3 行政处罚程序
 
@@ -43,7 +43,7 @@ title = '易错易混常识概念'
 - 6、作出行政处罚决定；
 - 7、送达行政处罚决定书。
 
-![行政处罚程序](./pics/6.png)
+![行政处罚程序](https://notespace.oss-cn-guangzhou.aliyuncs.com/images/6.png)
 
 ## 2. 政府信息公开
 
@@ -58,15 +58,15 @@ title = '易错易混常识概念'
 - 行政机关在履行行政管理职能过程中形成的***讨论记录、过程稿、磋商信函、请示报告***等过程性信息以及**行政执法案卷**信息，可以不予公开。法律、法规、规章规定上述信息应当公开的，从其规定。
 - 行政机关的内部事务信息，包括人事管理、后勤管理、内部工作流程等方面的信息，可以不予公开。
 
-![政府信息公开](./pics/2.png)
+![政府信息公开](https://notespace.oss-cn-guangzhou.aliyuncs.com/images/2.png)
 
 ## 3. 民事诉讼 与 行政诉讼
 
-![民事诉讼 与 行政诉讼](./pics/3.png)
+![民事诉讼 与 行政诉讼](https://notespace.oss-cn-guangzhou.aliyuncs.com/images/3.png)
 
 ## 4. 行政复议机关
 
-![行政复议机关](./pics/4.png)
+![行政复议机关](https://notespace.oss-cn-guangzhou.aliyuncs.com/images/4.png)
 
 ### 行政复议机关速记口诀
 
@@ -103,7 +103,7 @@ title = '易错易混常识概念'
 
 ## 5. 民间借贷纠纷处理规则
 
-![民间借贷纠纷处理规则](./pics/5.png)
+![民间借贷纠纷处理规则](https://notespace.oss-cn-guangzhou.aliyuncs.com/images/5.png)
 
 ### 📊 **速查对比表（看约定、看借期、看LPR）**
 

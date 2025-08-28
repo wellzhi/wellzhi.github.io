@@ -18,7 +18,7 @@ hideMeta: true
 
 ### 因果倒置
 
-![因果倒置](./pics/reverse.png)
+![因果倒置](https://notespace.oss-cn-guangzhou.aliyuncs.com/images/reverse.png)
 
 **论点**：玩过暴力游戏的儿童，在与同伴相处时，更容易表现出攻击性倾向。（玩暴力游戏  ——>  表现攻击性倾向）
 

@@ -5,7 +5,7 @@ title = '判断推理-逻辑判断'
 +++
 ## 翻译推理
 
-![思维导图](./pics/mind.png)
+![思维导图](https://notespace.oss-cn-guangzhou.aliyuncs.com/images/mind.png)
 
 ### 1. 题型识别
 

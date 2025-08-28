@@ -287,7 +287,7 @@ $r_1 \cdot r_2 ≈ 1.8 \% $，排除 C，D 正确
 | 1/18 | 5.6%       | ↑同上                   |
 | 1/19 | 5.3%       | ↑同上                   |
 
-![baihuafen.png](pics/baihuafen.png)
+![baihuafen.png](https://notespace.oss-cn-guangzhou.aliyuncs.com/images/baihuafen.png)
 
 
 

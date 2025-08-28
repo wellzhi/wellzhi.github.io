@@ -220,7 +220,7 @@ generate-ci-pipeline:
 
 `generate-deploy-ci-config.sh`脚本负责根据分支名称动态生成部署配置：
 
-![代码分支图示](./pics/repository-branches.png){ width=500 }
+![代码分支图示](https://notespace.oss-cn-guangzhou.aliyuncs.com/images/repository-branches.png){ width=500 }
 
 ```bash
 # 确定 GROUP 和 SUB_ENV 基于分支名称

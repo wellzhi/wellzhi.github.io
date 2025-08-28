@@ -81,7 +81,7 @@ $7月＞\dfrac{1\sim7月}{7}------>5132>\dfrac{32552}{7}成立$
 
 ### 6. 混合比例问题(增长率、比重、平均数)
 
-<img src="./pics/20250827_104825@2x.png" alt="混合比例问题" width="50%">
+<img src="https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250827_104825@2x.png" alt="混合比例问题" width="50%">
 
 ```
 题目：2022年居民收入支出数据
@@ -96,7 +96,7 @@ $7月＞\dfrac{1\sim7月}{7}------>5132>\dfrac{32552}{7}成立$
 问题 ：我国城镇居民与农村居民人数之比接近（）
 选项 ：A.2：3  B.3：2  C.3：4  D.4：3
 ```
-![线段法与十字交叉法](./pics/2025-06-26-1516.png)
+![线段法与十字交叉法](https://notespace.oss-cn-guangzhou.aliyuncs.com/images/2025-06-26-1516.png)
 
 
 ### 7. 已知现期量A、B以及对应增长率$r_A$、$r_B$，求两者基期量之比

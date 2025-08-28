@@ -1,0 +1,9 @@
+# Ignore pics directories and their contents anywhere in the project
+pics/
+**/pics/
+
+# Common Hugo/Git ignores
+.hugo_build.lock
+public/
+resources/_gen/
+.DS_Store

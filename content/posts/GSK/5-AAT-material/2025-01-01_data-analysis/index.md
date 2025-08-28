@@ -28,7 +28,7 @@ title = '资分'
 
 ### 1.1.1 尾数法
 
-![尾数法](pics/尾数法.png)
+![尾数法](https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153735_be08103d.png)
 
 
 ```
@@ -43,35 +43,35 @@ C．76215 件 D．79585 件
 
 ### 1.1.2 高位叠加
 
-![高位叠加](pics/高位叠加.png)
+![高位叠加](https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153735_0229e0fd.png)
 
 ## 1.2 减法技巧--分段法 
 
 将多位数（三位、四位）的减法分成两段，尽可能保证不用借位；若无法保证不借位，可以用负数代替借位。
 
-![分段法](pics/分段法.png)
+![分段法](https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153735_f6be231a.png)
 
 ## 1.3 乘法技巧--小分互换法、拆分法、放缩法
 
 ### 1.3.1 小分互换法
  
 若乘法中有某个乘数可以近似的转化为某个常见分数，我们可以将多位数乘法转化为简单除法计算;一个数字乘以 5、25、125，可转化为除 2、4、8.
-![常用小数表](pics/常用小数表.png)
+![常用小数表](https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153735_4ce9b939.png)
 
-![小分互换法](pics/小分互换法-例题.png)
+![小分互换法](https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153735_f006b0ea.png)
 
 ### 1.3.2 拆分法
 
 若乘法中有某个乘数为百分数且能拆成两个简单数值（50%、10%、5%等），我们可以将该百分数拆成两部分相乘，要擅用“1%”。
 
-![乘法拆分](pics/乘法拆分.png)
-![乘法拆分例12](pics/乘法拆分例1-2.png)
-![乘法拆分例](pics/乘法拆分例3-1.png)
-![乘法拆分例](pics/乘法拆分例3-2.png)
+![乘法拆分](https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153735_7bab44d5.png)
+![乘法拆分例12](https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153736_4c31c62e.png)
+![乘法拆分例](https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153736_ccae186f.png)
+![乘法拆分例](https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153736_563e8b70.png)
 
 ### 1.3.3 放缩法
 
-![放缩法](pics/乘法放缩.png)
+![放缩法](https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153736_877d5a8e.png)
 
 ## 1.4 除法技巧--拆分法、放缩法
 
@@ -83,9 +83,9 @@ C．76215 件 D．79585 件
 二、如果分数大小约等于 1（分子分母相差不大），可先拆出 100%；
 三、如果分子很小，可根据实际情况拆出 10%或 5%或 1%;
 
-![除法拆分法例子](pics/除法拆分法例子.png)
+![除法拆分法例子](https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153736_0ccb97eb.png)
 
-![除法拆分法例子2](pics/除法拆分法例子2.png)
+![除法拆分法例子2](https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153736_7f7bc57e.png)
 
 ### 1.4.2 除法放缩 
 
@@ -95,7 +95,7 @@ C．76215 件 D．79585 件
 ②多个数乘除中分子分母接近整数倍。
 【注意】分子分母同舍同进。
 
-![除法放缩法](pics/除法放缩法.png)
+![除法放缩法](https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153736_d024319c.png)
 
 ## 1.5 415 份数法
 

@@ -13,7 +13,7 @@ title = 'Quantity Relationship'
 
 ## 蝴蝶定理
 
-![蝴蝶定理](./pics/butterfly.png)
+![蝴蝶定理](https://notespace.oss-cn-guangzhou.aliyuncs.com/images/butterfly.png)
 
 
 ### 特征：

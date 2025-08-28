@@ -1,0 +1,512 @@
+{
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/4-AAT-judge/2025-01-01_graphic-reasoning/pics/00.png": {
+    "hash": "d27cba4b48a332878095641b6b9309ce",
+    "oss_key": "images/00.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/00.png",
+    "upload_time": "2025-08-28T15:37:13.429742"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/4-AAT-judge/2025-01-01_graphic-reasoning/pics/01.png": {
+    "hash": "e54984409268b96f13d11c5aeed2a3c1",
+    "oss_key": "images/01.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/01.png",
+    "upload_time": "2025-08-28T15:37:14.111969"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/4-AAT-judge/2025-01-01_graphic-reasoning/pics/02.png": {
+    "hash": "d76d8e9e961c99b22af56a842d4f0f91",
+    "oss_key": "images/02.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/02.png",
+    "upload_time": "2025-08-28T15:37:14.866288"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/4-AAT-judge/2025-01-01_graphic-reasoning/pics/03.png": {
+    "hash": "6f34b0e654da5a1caeefbed8245a55a6",
+    "oss_key": "images/03.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/03.png",
+    "upload_time": "2025-08-28T15:37:15.595289"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/4-AAT-judge/2025-01-01_graphic-reasoning/pics/04.png": {
+    "hash": "a8bfafdde885d2405e9b2f49673c272a",
+    "oss_key": "images/04.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/04.png",
+    "upload_time": "2025-08-28T15:37:16.153080"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/4-AAT-judge/2025-01-01_graphic-reasoning/pics/05.png": {
+    "hash": "0d03977598944673326e53580bdc08fc",
+    "oss_key": "images/05.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/05.png",
+    "upload_time": "2025-08-28T15:37:16.765078"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/4-AAT-judge/2025-01-01_graphic-reasoning/pics/06.png": {
+    "hash": "295ea31e155314d99d32b69843e22436",
+    "oss_key": "images/06.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/06.png",
+    "upload_time": "2025-08-28T15:37:17.103321"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/4-AAT-judge/2025-01-01_graphic-reasoning/pics/07.png": {
+    "hash": "5ac635f640b225068507f29a846dd4c8",
+    "oss_key": "images/07.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/07.png",
+    "upload_time": "2025-08-28T15:37:17.776639"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/4-AAT-judge/2025-01-01_graphic-reasoning/pics/08.png": {
+    "hash": "0733141fe6f1459266a5104552e52ba7",
+    "oss_key": "images/08.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/08.png",
+    "upload_time": "2025-08-28T15:37:18.463028"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/4-AAT-judge/2025-01-01_graphic-reasoning/pics/09.png": {
+    "hash": "18d655c2cdfc60a511c81e656bd8c64a",
+    "oss_key": "images/09.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/09.png",
+    "upload_time": "2025-08-28T15:37:19.407778"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/4-AAT-judge/2025-01-01_graphic-reasoning/pics/10.png": {
+    "hash": "14cc24510e228c4c5fa4da9d4e29d488",
+    "oss_key": "images/10.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/10.png",
+    "upload_time": "2025-08-28T15:37:20.092960"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/4-AAT-judge/2025-01-01_graphic-reasoning/pics/11.png": {
+    "hash": "56de07ac1d7c4f77176142fc7906bc2e",
+    "oss_key": "images/11.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/11.png",
+    "upload_time": "2025-08-28T15:37:20.794973"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/4-AAT-judge/2025-01-01_graphic-reasoning/pics/12.png": {
+    "hash": "ce8db908119de7d0459ded6ad6695245",
+    "oss_key": "images/12.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/12.png",
+    "upload_time": "2025-08-28T15:37:21.473789"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/4-AAT-judge/2025-01-01_graphic-reasoning/pics/13.png": {
+    "hash": "4077dd03ddaf2513745cac13e106cc39",
+    "oss_key": "images/13.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/13.png",
+    "upload_time": "2025-08-28T15:37:22.099314"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/4-AAT-judge/2025-01-01_graphic-reasoning/pics/14.png": {
+    "hash": "7009467b83da37654fd95e6552360f1d",
+    "oss_key": "images/14.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/14.png",
+    "upload_time": "2025-08-28T15:37:22.780096"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/4-AAT-judge/2025-01-01_graphic-reasoning/pics/15.png": {
+    "hash": "ca1b07172101abcb113e4ced780b9a00",
+    "oss_key": "images/15.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/15.png",
+    "upload_time": "2025-08-28T15:37:23.454429"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/4-AAT-judge/2025-01-01_graphic-reasoning/pics/16.png": {
+    "hash": "3668cf4352eb0ae8278772dd2a6d6213",
+    "oss_key": "images/16.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/16.png",
+    "upload_time": "2025-08-28T15:37:24.029757"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/4-AAT-judge/2025-01-01_graphic-reasoning/pics/17.png": {
+    "hash": "78c8d6caa2570063e00a47e030d17fcf",
+    "oss_key": "images/17.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/17.png",
+    "upload_time": "2025-08-28T15:37:24.671083"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/4-AAT-judge/2025-01-01_graphic-reasoning/pics/18.png": {
+    "hash": "4611b142993c84c336f54678d5298e65",
+    "oss_key": "images/18.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/18.png",
+    "upload_time": "2025-08-28T15:37:25.297697"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/4-AAT-judge/2025-01-01_graphic-reasoning/pics/19.png": {
+    "hash": "a6ad562a166bb05ba07047e0741ad2be",
+    "oss_key": "images/19.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/19.png",
+    "upload_time": "2025-08-28T15:37:25.934709"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/4-AAT-judge/2025-01-01_graphic-reasoning/pics/20.png": {
+    "hash": "6979ba0a38c258a074ff190544eae618",
+    "oss_key": "images/20.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20.png",
+    "upload_time": "2025-08-28T15:37:26.607951"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/4-AAT-judge/2025-01-01_graphic-reasoning/pics/21.png": {
+    "hash": "ff03632a1b4be9882490959f68bc96b2",
+    "oss_key": "images/21.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/21.png",
+    "upload_time": "2025-08-28T15:37:27.235622"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/4-AAT-judge/2025-01-01_graphic-reasoning/pics/22.png": {
+    "hash": "10af450ccf3c3a4f3b468b2710237737",
+    "oss_key": "images/22.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/22.png",
+    "upload_time": "2025-08-28T15:37:27.845428"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/4-AAT-judge/2025-01-01_graphic-reasoning/pics/23.png": {
+    "hash": "2ad432ed9d6c2d645d4f3659e0547fd2",
+    "oss_key": "images/23.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/23.png",
+    "upload_time": "2025-08-28T15:37:28.496106"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/4-AAT-judge/2025-08-16_Judgement-Logical-Reasoning/pics/reverse.png": {
+    "hash": "f9b5676a105d4f73213e0517f320737b",
+    "oss_key": "images/reverse.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/reverse.png",
+    "upload_time": "2025-08-28T15:37:28.624603"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/4-AAT-judge/2025-05-08_logical-judgment/pics/mind.png": {
+    "hash": "24cdda88b981d268aac506968887d503",
+    "oss_key": "images/mind.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/mind.png",
+    "upload_time": "2025-08-28T15:37:28.874133"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-01-01_shuliang/pics/00.png": {
+    "hash": "7ed65d26acf8c9e24721904a6f56bb75",
+    "oss_key": "images/00.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/00.png",
+    "upload_time": "2025-08-28T15:37:28.890143"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-01-01_shuliang/pics/01.png": {
+    "hash": "a2e2f4ecdd4f89131c2ea9322d178e92",
+    "oss_key": "images/01.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/01.png",
+    "upload_time": "2025-08-28T15:37:28.938478"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-01-01_shuliang/pics/02.png": {
+    "hash": "1c00e14824952adc2a878a88aac9af91",
+    "oss_key": "images/02.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/02.png",
+    "upload_time": "2025-08-28T15:37:29.003507"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-01-01_shuliang/pics/03.png": {
+    "hash": "ef3d1b9a331338e08f72ea553b831727",
+    "oss_key": "images/03.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/03.png",
+    "upload_time": "2025-08-28T15:37:29.043527"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-01-01_shuliang/pics/04.png": {
+    "hash": "ded0e469ac665685d242afe5295b6144",
+    "oss_key": "images/04.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/04.png",
+    "upload_time": "2025-08-28T15:37:29.097880"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-01-01_shuliang/pics/05.png": {
+    "hash": "df6b1199b85ac55b8187001aed561e0d",
+    "oss_key": "images/05.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/05.png",
+    "upload_time": "2025-08-28T15:37:29.158634"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-01-01_shuliang/pics/06.png": {
+    "hash": "1db34afcc317efa1f274291833196b0e",
+    "oss_key": "images/06.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/06.png",
+    "upload_time": "2025-08-28T15:37:29.205313"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-01-01_shuliang/pics/07.png": {
+    "hash": "ae7f971a19c7da0797e77038d0105cff",
+    "oss_key": "images/07.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/07.png",
+    "upload_time": "2025-08-28T15:37:29.256423"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-01-01_shuliang/pics/08.png": {
+    "hash": "a72e09525ccaaeafa018c5a42d5beb01",
+    "oss_key": "images/08.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/08.png",
+    "upload_time": "2025-08-28T15:37:29.338805"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-01-01_shuliang/pics/09.png": {
+    "hash": "2665207bf0332c5c7defb6c3fad6da24",
+    "oss_key": "images/09.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/09.png",
+    "upload_time": "2025-08-28T15:37:29.397174"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-01-01_shuliang/pics/10.png": {
+    "hash": "6d57b2aa77c06d3a51777fbbc00c5b32",
+    "oss_key": "images/10.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/10.png",
+    "upload_time": "2025-08-28T15:37:29.449270"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-01-01_shuliang/pics/11.png": {
+    "hash": "8521f799f9b0587faa37b38a94f4d2e6",
+    "oss_key": "images/11.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/11.png",
+    "upload_time": "2025-08-28T15:37:29.492868"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-01-01_shuliang/pics/12.png": {
+    "hash": "e0ff7b56ef58f78849f208ed6dd2c1a4",
+    "oss_key": "images/12.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/12.png",
+    "upload_time": "2025-08-28T15:37:29.546623"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-01-01_shuliang/pics/13.png": {
+    "hash": "95b6792b5f4c2cc554672c57e1ec8659",
+    "oss_key": "images/13.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/13.png",
+    "upload_time": "2025-08-28T15:37:29.612099"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-01-01_shuliang/pics/14.png": {
+    "hash": "48a3bd0384f43e03edc3dd8f245513d4",
+    "oss_key": "images/14.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/14.png",
+    "upload_time": "2025-08-28T15:37:29.668780"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-01-01_shuliang/pics/15.png": {
+    "hash": "2b9dd7de73250f0a9268e270567c79f5",
+    "oss_key": "images/15.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/15.png",
+    "upload_time": "2025-08-28T15:37:29.719466"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-01-01_shuliang/pics/16.png": {
+    "hash": "1b0916c90d1101f078f8b61a3f12365c",
+    "oss_key": "images/16.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/16.png",
+    "upload_time": "2025-08-28T15:37:29.766851"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-01-01_shuliang/pics/17.png": {
+    "hash": "d83bc3d1ec37f76fa9e5c17b3eae0a57",
+    "oss_key": "images/17.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/17.png",
+    "upload_time": "2025-08-28T15:37:29.819382"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-01-01_shuliang/pics/18.png": {
+    "hash": "fbd181f4d04812cf4781e370d18bfb0e",
+    "oss_key": "images/18.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/18.png",
+    "upload_time": "2025-08-28T15:37:29.876020"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-01-01_shuliang/pics/19.png": {
+    "hash": "622bdaac5c9e046e8c760a3ae1f78f62",
+    "oss_key": "images/19.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/19.png",
+    "upload_time": "2025-08-28T15:37:29.943671"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-01-01_shuliang/pics/20.png": {
+    "hash": "4586b14ed2981ebabd8f6382fae9fe38",
+    "oss_key": "images/20.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20.png",
+    "upload_time": "2025-08-28T15:37:29.985549"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-01-01_shuliang/pics/21.png": {
+    "hash": "21c7165fe476f4052382087ab0dd876f",
+    "oss_key": "images/21.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/21.png",
+    "upload_time": "2025-08-28T15:37:30.035338"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-01-01_shuliang/pics/22.png": {
+    "hash": "1c2f49f243fc6a71c4913cac8cd8c6e4",
+    "oss_key": "images/22.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/22.png",
+    "upload_time": "2025-08-28T15:37:30.095475"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-01-01_shuliang/pics/23.png": {
+    "hash": "d95e323dff6311e6454fb520d09ed8b8",
+    "oss_key": "images/23.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/23.png",
+    "upload_time": "2025-08-28T15:37:30.154567"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-01-01_shuliang/pics/24.png": {
+    "hash": "c6b8bb9b8a2f2af789e17b3ce8490173",
+    "oss_key": "images/24.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/24.png",
+    "upload_time": "2025-08-28T15:37:30.478764"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-01-01_shuliang/pics/25.png": {
+    "hash": "ad00d2f4641d3943c6654901e98ef39d",
+    "oss_key": "images/25.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/25.png",
+    "upload_time": "2025-08-28T15:37:30.854912"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-01-01_shuliang/pics/26.png": {
+    "hash": "c6dbb79c97705581ef9db814e06cfd61",
+    "oss_key": "images/26.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/26.png",
+    "upload_time": "2025-08-28T15:37:31.220773"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-01-01_shuliang/pics/27.png": {
+    "hash": "422a2ea30ce3c99648097be3dbf6c428",
+    "oss_key": "images/27.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/27.png",
+    "upload_time": "2025-08-28T15:37:31.480333"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-01-01_shuliang/pics/28.png": {
+    "hash": "6709ce100abcba945e6f1fbc2a08ded5",
+    "oss_key": "images/28.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/28.png",
+    "upload_time": "2025-08-28T15:37:32.214975"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-01-01_shuliang/pics/29.png": {
+    "hash": "160d6c5bcded0a26739c95c516e11a20",
+    "oss_key": "images/29.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/29.png",
+    "upload_time": "2025-08-28T15:37:32.457335"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-01-01_shuliang/pics/30.png": {
+    "hash": "8bf5ac07361d5eec98eeee5b8353e15a",
+    "oss_key": "images/30.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/30.png",
+    "upload_time": "2025-08-28T15:37:32.828867"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-01-01_shuliang/pics/31.png": {
+    "hash": "66788ac279f223fd17c183b784082613",
+    "oss_key": "images/31.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/31.png",
+    "upload_time": "2025-08-28T15:37:33.081440"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-01-01_shuliang/pics/32.png": {
+    "hash": "ecefba57cdaedf9f6db259265c25d92b",
+    "oss_key": "images/32.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/32.png",
+    "upload_time": "2025-08-28T15:37:33.322764"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-01-01_shuliang/pics/33.png": {
+    "hash": "0f46d1dea02f7ab9360023123546d454",
+    "oss_key": "images/33.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/33.png",
+    "upload_time": "2025-08-28T15:37:33.672303"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-01-01_shuliang/pics/34.png": {
+    "hash": "739982bd861a1294db3d56f82f2ce773",
+    "oss_key": "images/34.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/34.png",
+    "upload_time": "2025-08-28T15:37:33.754180"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/6-AAT-quantity/2025-05-08_quantity_relationship/pics/butterfly.png": {
+    "hash": "e1055fa16946055c858c2e2cf9c10c19",
+    "oss_key": "images/butterfly.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/butterfly.png",
+    "upload_time": "2025-08-28T15:37:33.823343"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/2-AAT-common/2025-08-10_common-sense/pics/1.png": {
+    "hash": "6f372a6b570df4eceb0bebfd475bee64",
+    "oss_key": "images/1.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/1.png",
+    "upload_time": "2025-08-28T15:37:34.079634"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/2-AAT-common/2025-08-10_common-sense/pics/6.png": {
+    "hash": "6505b823fa0e62369d9f1bd30b002fe1",
+    "oss_key": "images/6.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/6.png",
+    "upload_time": "2025-08-28T15:37:34.212578"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/2-AAT-common/2025-08-10_common-sense/pics/2.png": {
+    "hash": "ae2a5872ffb01144416225aa1160d88f",
+    "oss_key": "images/2.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/2.png",
+    "upload_time": "2025-08-28T15:37:34.756691"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/2-AAT-common/2025-08-10_common-sense/pics/3.png": {
+    "hash": "d7b8084f04bfd134632ac41870364d2d",
+    "oss_key": "images/3.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/3.png",
+    "upload_time": "2025-08-28T15:37:35.053384"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/2-AAT-common/2025-08-10_common-sense/pics/4.png": {
+    "hash": "25d75daf8e6ea366913914b3869bddb6",
+    "oss_key": "images/4.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/4.png",
+    "upload_time": "2025-08-28T15:37:35.151753"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/2-AAT-common/2025-08-10_common-sense/pics/5.png": {
+    "hash": "433325fb964731a4823542153829041b",
+    "oss_key": "images/5.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/5.png",
+    "upload_time": "2025-08-28T15:37:35.282141"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/5-AAT-material/2025-01-01_data-analysis/pics/尾数法.png": {
+    "hash": "be08103dd28f010de5728a66eb6ad1b2",
+    "oss_key": "images/20250828_153735_be08103d.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153735_be08103d.png",
+    "upload_time": "2025-08-28T15:37:35.451163"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/5-AAT-material/2025-01-01_data-analysis/pics/高位叠加.png": {
+    "hash": "0229e0fd9c3108ba6e4e06a83bf6b77a",
+    "oss_key": "images/20250828_153735_0229e0fd.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153735_0229e0fd.png",
+    "upload_time": "2025-08-28T15:37:35.690132"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/5-AAT-material/2025-01-01_data-analysis/pics/分段法.png": {
+    "hash": "f6be231ac6b824dd7a5d07ed80279141",
+    "oss_key": "images/20250828_153735_f6be231a.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153735_f6be231a.png",
+    "upload_time": "2025-08-28T15:37:35.788183"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/5-AAT-material/2025-01-01_data-analysis/pics/常用小数表.png": {
+    "hash": "4ce9b939d95acd572b5ddb41b29f7232",
+    "oss_key": "images/20250828_153735_4ce9b939.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153735_4ce9b939.png",
+    "upload_time": "2025-08-28T15:37:35.861127"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/5-AAT-material/2025-01-01_data-analysis/pics/小分互换法-例题.png": {
+    "hash": "f006b0eaa099610107e88cd23cf31f3c",
+    "oss_key": "images/20250828_153735_f006b0ea.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153735_f006b0ea.png",
+    "upload_time": "2025-08-28T15:37:35.937649"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/5-AAT-material/2025-01-01_data-analysis/pics/乘法拆分.png": {
+    "hash": "7bab44d52174c31dc28cc86e70e8129c",
+    "oss_key": "images/20250828_153735_7bab44d5.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153735_7bab44d5.png",
+    "upload_time": "2025-08-28T15:37:36.011929"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/5-AAT-material/2025-01-01_data-analysis/pics/乘法拆分例1-2.png": {
+    "hash": "4c31c62e6734e75ee08e66e30ac606f6",
+    "oss_key": "images/20250828_153736_4c31c62e.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153736_4c31c62e.png",
+    "upload_time": "2025-08-28T15:37:36.092264"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/5-AAT-material/2025-01-01_data-analysis/pics/乘法拆分例3-1.png": {
+    "hash": "ccae186f1c2135eb3652c321e063b5fb",
+    "oss_key": "images/20250828_153736_ccae186f.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153736_ccae186f.png",
+    "upload_time": "2025-08-28T15:37:36.175500"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/5-AAT-material/2025-01-01_data-analysis/pics/乘法拆分例3-2.png": {
+    "hash": "563e8b70780762e67fb242040ee4fa48",
+    "oss_key": "images/20250828_153736_563e8b70.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153736_563e8b70.png",
+    "upload_time": "2025-08-28T15:37:36.315130"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/5-AAT-material/2025-01-01_data-analysis/pics/乘法放缩.png": {
+    "hash": "877d5a8e5912eb0762f0d7bc0d697383",
+    "oss_key": "images/20250828_153736_877d5a8e.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153736_877d5a8e.png",
+    "upload_time": "2025-08-28T15:37:36.437512"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/5-AAT-material/2025-01-01_data-analysis/pics/除法拆分法例子.png": {
+    "hash": "0ccb97eb6ceb14ed7e2dfdd463c70143",
+    "oss_key": "images/20250828_153736_0ccb97eb.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153736_0ccb97eb.png",
+    "upload_time": "2025-08-28T15:37:36.583330"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/5-AAT-material/2025-01-01_data-analysis/pics/除法拆分法例子2.png": {
+    "hash": "7f7bc57e4d2f0065bce4b7c9ffe2ae02",
+    "oss_key": "images/20250828_153736_7f7bc57e.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153736_7f7bc57e.png",
+    "upload_time": "2025-08-28T15:37:36.683854"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/5-AAT-material/2025-01-01_data-analysis/pics/除法放缩法.png": {
+    "hash": "d024319c335df7367255beb69a810b1f",
+    "oss_key": "images/20250828_153736_d024319c.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153736_d024319c.png",
+    "upload_time": "2025-08-28T15:37:36.811321"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/5-AAT-material/2025-04-16_material-analysis/pics/2025-06-26-1516.png": {
+    "hash": "89df3cdc4342e8f3ca18bb1f64b1a340",
+    "oss_key": "images/2025-06-26-1516.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/2025-06-26-1516.png",
+    "upload_time": "2025-08-28T15:37:37.033725"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/5-AAT-material/2025-04-16_material-analysis/pics/20250827_104825@2x.png": {
+    "hash": "1f116650316d21aefdf31d7733d8cf29",
+    "oss_key": "images/20250827_104825@2x.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250827_104825@2x.png",
+    "upload_time": "2025-08-28T15:37:37.148713"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/GSK/5-AAT-material/2025-04-16_material-analysis/pics/baihuafen.png": {
+    "hash": "54dcbff46230ed129890ba4ffcc756ea",
+    "oss_key": "images/baihuafen.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/baihuafen.png",
+    "upload_time": "2025-08-28T15:37:37.302567"
+  },
+  "/Users/wellzhi/Documents/code/my-github/wellzhi.github.io/content/posts/tech/2023-09-01_work_ikc-pipline-analysis/pics/repository-branches.png": {
+    "hash": "d56806070d782c7c428425d762decbf3",
+    "oss_key": "images/repository-branches.png",
+    "url": "https://notespace.oss-cn-guangzhou.aliyuncs.com/images/repository-branches.png",
+    "upload_time": "2025-08-28T15:37:37.430248"
+  }
+}
