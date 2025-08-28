@@ -1,0 +1,7 @@
+{{ $file := .Get 0 }}
+{{ with .Page.Resources.GetMatch $file }}
+  {{ .Content }}
+{{ else }}
+  <p style="color:red;">资源未找到：{{ $file }}</p>
+{{ end }}
+

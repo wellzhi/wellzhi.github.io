@@ -1,0 +1,14 @@
+{{ $file := .Get 0 }}
+{{ $title := .Get 1 }}
+{{ $path := path.Join .Page.File.Dir $file }}
+
+{{ if fileExists $path }}
+<details class="collapsible-block">
+  <summary>{{ $title }}</summary>
+  <div class="collapsible-content">
+    {{ readFile $path | markdownify }}
+  </div>
+</details>
+{{ else }}
+<p style="color:red;">❌ 未找到资源：{{ $file }}</p>
+{{ end }}
