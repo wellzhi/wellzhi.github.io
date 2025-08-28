@@ -1,3 +1,3 @@
-./content/posts/add_article_folder.sh Verbal-Comprehension
+./content/posts/add_article_folder.sh 2013-09-01_nginx
 
 

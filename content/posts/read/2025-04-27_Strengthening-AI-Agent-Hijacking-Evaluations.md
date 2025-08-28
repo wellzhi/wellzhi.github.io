@@ -1,6 +1,6 @@
 +++
 date = '2025-04-27T11:11:45+08:00'
-draft = true
+draft = false
 title = 'Strengthening AI Agent Hijacking Evaluations'
 +++
 
