@@ -2,7 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/public" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/themes/hugo-PaperMod" vcs="Git" />
+    <!-- 移除这行：<mapping directory="$PROJECT_DIR$/public" vcs="Git" /> -->
   </component>
 </project>
