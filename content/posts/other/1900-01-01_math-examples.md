@@ -9,16 +9,6 @@ comments = true
 
 This is an inline $a^*=x-b^*$ equation.
 
-These are block equations:
-
-\[a^*=x-b^*\]
-
-\[ a^*=x-b^* \]
-
-\[
-a^*=x-b^*
-\]
-
 These are also block equations:
 
 $$a^*=x-b^*$$
@@ -28,3 +18,22 @@ $$ a^*=x-b^* $$
 $$
 a^*=x-b^*
 $$
+
+
+
+
+## 思维导图
+
+```mermaid
+mindmap
+  root((思维导图))
+    主题1
+      子主题1.1
+      子主题1.2
+    主题2
+      子主题2.1
+      子主题2.2
+    主题3
+      子主题3.1
+        子主题3.1.1
+```

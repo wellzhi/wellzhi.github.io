@@ -7,7 +7,7 @@ showToc: true
 TocOpen: true
 tags: ["GSK"]
 summary: ""
-draft: false
+draft: true
 comments: true
 
 ---
