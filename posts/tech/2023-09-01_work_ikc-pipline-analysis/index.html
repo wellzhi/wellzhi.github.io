@@ -1,0 +1,325 @@
+<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>GitLab CI/CD自动化部署流程详解 | wellzhi</title>
+<meta name=keywords content="CI/CD,自动化部署,流水线,Kubernetes"><meta name=description content='本文将详细介绍基于GitLab CI/CD的xxxx系统后端自动化部署流程。整个流程采用了多阶段部署策略，实现了从代码构建到多环境部署的全自动化。
+一、部署流程概述
+整个部署流程分为以下几个阶段：
+
+安装阶段：编译打包Java项目
+构建镜像阶段：使用Kaniko构建Docker镜像
+生成CI配置阶段：动态生成子流水线配置
+部署阶段：触发子流水线，将应用部署到Kubernetes集群
+
+二、流水线配置详解
+2.1 流水线阶段定义
+在.gitlab-ci.yml文件中，定义了整个流水线的阶段：
+stages:
+  - install
+  - build-image
+  - generate-ci
+  - deploy
+2.2 全局变量配置
+variables:
+  PROJECT_PATH: "$CI_PROJECT_DIR"
+  MAVEN_OPTS: "-Dmaven.repo.local=$PROJECT_PATH/.m2/repository"
+  REPO_NAME: "ikc-backend-v1"
+  MAVEN_CACHE_DIR: "$PROJECT_PATH/.m2/repository"
+  BUILD_CACHE_DIR: "$PROJECT_PATH/cache"
+  VERSION: "$CI_PIPELINE_IID"
+关键变量说明：
+
+PROJECT_PATH：项目路径，使用GitLab内置变量CI_PROJECT_DIR
+REPO_NAME：镜像仓库名称
+VERSION：版本号，使用GitLab流水线ID作为版本号
+
+三、部署流程详解
+3.1 安装阶段（Install）
+这个阶段负责编译和打包Java项目：
+install:
+  <<: *install_template
+install_template模板定义了具体的执行步骤：
+.install_template: &amp;install_template
+  image: 172.22.121.50/gzhu/library/maven:3.8-openjdk-8
+  stage: install
+  # 仅在 variant/*  release/* 分支运行
+  rules:
+    - if: &#39;$CI_COMMIT_REF_NAME =~ /^release\/.+$/ || $CI_COMMIT_REF_NAME =~ /^variant\/.+$/&#39;
+      when: always
+    - if: &#39;$CI_PIPELINE_SOURCE == "merge_request_event"&#39;
+      when: always
+    - when: never
+  <<: *cache_maven
+  tags:
+    - "k8s_runner_persionnel_matching"
+  script:
+    - cp -b settings.xml /usr/share/maven/conf/settings.xml
+    - mvn clean package -Dmaven.test.skip=true
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - agileboot-admin/target/agileboot-admin-1.0.0.jar
+关键步骤：'><meta name=author content="wellzhi"><link rel=canonical href=https://wellzhi.github.io/posts/tech/2023-09-01_work_ikc-pipline-analysis/><link crossorigin=anonymous href=/assets/css/stylesheet.b54291e20a5b433add2181af00208e3e72d99f37b405cd9f3ff373c992518ba6.css integrity="sha256-tUKR4gpbQzrdIYGvACCOPnLZnze0Bc2fP/NzyZJRi6Y=" rel="preload stylesheet" as=style><script crossorigin=anonymous src=/assets/js/mermaid.min.af2e2ae7d64e037e8a582c3ba35b128209a6f8350c3825cda07833979e0d827c.js></script><link rel=icon href=https://wellzhi.github.io/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://wellzhi.github.io/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://wellzhi.github.io/favicon-32x32.png><link rel=apple-touch-icon href=https://wellzhi.github.io/apple-touch-icon.png><link rel=mask-icon href=https://wellzhi.github.io/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=en href=https://wellzhi.github.io/posts/tech/2023-09-01_work_ikc-pipline-analysis/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><meta property="og:url" content="https://wellzhi.github.io/posts/tech/2023-09-01_work_ikc-pipline-analysis/"><meta property="og:site_name" content="wellzhi"><meta property="og:title" content="GitLab CI/CD自动化部署流程详解"><meta property="og:description" content='本文将详细介绍基于GitLab CI/CD的xxxx系统后端自动化部署流程。整个流程采用了多阶段部署策略，实现了从代码构建到多环境部署的全自动化。
+一、部署流程概述 整个部署流程分为以下几个阶段：
+安装阶段：编译打包Java项目 构建镜像阶段：使用Kaniko构建Docker镜像 生成CI配置阶段：动态生成子流水线配置 部署阶段：触发子流水线，将应用部署到Kubernetes集群 二、流水线配置详解 2.1 流水线阶段定义 在.gitlab-ci.yml文件中，定义了整个流水线的阶段：
+stages: - install - build-image - generate-ci - deploy 2.2 全局变量配置 variables: PROJECT_PATH: "$CI_PROJECT_DIR" MAVEN_OPTS: "-Dmaven.repo.local=$PROJECT_PATH/.m2/repository" REPO_NAME: "ikc-backend-v1" MAVEN_CACHE_DIR: "$PROJECT_PATH/.m2/repository" BUILD_CACHE_DIR: "$PROJECT_PATH/cache" VERSION: "$CI_PIPELINE_IID" 关键变量说明：
+PROJECT_PATH：项目路径，使用GitLab内置变量CI_PROJECT_DIR REPO_NAME：镜像仓库名称 VERSION：版本号，使用GitLab流水线ID作为版本号 三、部署流程详解 3.1 安装阶段（Install） 这个阶段负责编译和打包Java项目：
+install: <<: *install_template install_template模板定义了具体的执行步骤：
+.install_template: &amp;install_template image: 172.22.121.50/gzhu/library/maven:3.8-openjdk-8 stage: install # 仅在 variant/* release/* 分支运行 rules: - if: &#39;$CI_COMMIT_REF_NAME =~ /^release\/.+$/ || $CI_COMMIT_REF_NAME =~ /^variant\/.+$/&#39; when: always - if: &#39;$CI_PIPELINE_SOURCE == "merge_request_event"&#39; when: always - when: never <<: *cache_maven tags: - "k8s_runner_persionnel_matching" script: - cp -b settings.xml /usr/share/maven/conf/settings.xml - mvn clean package -Dmaven.test.skip=true artifacts: expire_in: 1 day paths: - agileboot-admin/target/agileboot-admin-1.0.0.jar 关键步骤：'><meta property="og:locale" content="zh-cn"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2023-09-01T15:11:47+08:00"><meta property="article:modified_time" content="2023-09-01T15:11:47+08:00"><meta property="article:tag" content="CI/CD"><meta property="article:tag" content="自动化部署"><meta property="article:tag" content="流水线"><meta property="article:tag" content="Kubernetes"><meta name=twitter:card content="summary"><meta name=twitter:title content="GitLab CI/CD自动化部署流程详解"><meta name=twitter:description content='本文将详细介绍基于GitLab CI/CD的xxxx系统后端自动化部署流程。整个流程采用了多阶段部署策略，实现了从代码构建到多环境部署的全自动化。
+一、部署流程概述
+整个部署流程分为以下几个阶段：
+
+安装阶段：编译打包Java项目
+构建镜像阶段：使用Kaniko构建Docker镜像
+生成CI配置阶段：动态生成子流水线配置
+部署阶段：触发子流水线，将应用部署到Kubernetes集群
+
+二、流水线配置详解
+2.1 流水线阶段定义
+在.gitlab-ci.yml文件中，定义了整个流水线的阶段：
+stages:
+  - install
+  - build-image
+  - generate-ci
+  - deploy
+2.2 全局变量配置
+variables:
+  PROJECT_PATH: "$CI_PROJECT_DIR"
+  MAVEN_OPTS: "-Dmaven.repo.local=$PROJECT_PATH/.m2/repository"
+  REPO_NAME: "ikc-backend-v1"
+  MAVEN_CACHE_DIR: "$PROJECT_PATH/.m2/repository"
+  BUILD_CACHE_DIR: "$PROJECT_PATH/cache"
+  VERSION: "$CI_PIPELINE_IID"
+关键变量说明：
+
+PROJECT_PATH：项目路径，使用GitLab内置变量CI_PROJECT_DIR
+REPO_NAME：镜像仓库名称
+VERSION：版本号，使用GitLab流水线ID作为版本号
+
+三、部署流程详解
+3.1 安装阶段（Install）
+这个阶段负责编译和打包Java项目：
+install:
+  <<: *install_template
+install_template模板定义了具体的执行步骤：
+.install_template: &amp;install_template
+  image: 172.22.121.50/gzhu/library/maven:3.8-openjdk-8
+  stage: install
+  # 仅在 variant/*  release/* 分支运行
+  rules:
+    - if: &#39;$CI_COMMIT_REF_NAME =~ /^release\/.+$/ || $CI_COMMIT_REF_NAME =~ /^variant\/.+$/&#39;
+      when: always
+    - if: &#39;$CI_PIPELINE_SOURCE == "merge_request_event"&#39;
+      when: always
+    - when: never
+  <<: *cache_maven
+  tags:
+    - "k8s_runner_persionnel_matching"
+  script:
+    - cp -b settings.xml /usr/share/maven/conf/settings.xml
+    - mvn clean package -Dmaven.test.skip=true
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - agileboot-admin/target/agileboot-admin-1.0.0.jar
+关键步骤：'><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://wellzhi.github.io/posts/"},{"@type":"ListItem","position":2,"name":"Tech","item":"https://wellzhi.github.io/posts/tech/"},{"@type":"ListItem","position":3,"name":"GitLab CI/CD自动化部署流程详解","item":"https://wellzhi.github.io/posts/tech/2023-09-01_work_ikc-pipline-analysis/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"GitLab CI/CD自动化部署流程详解","name":"GitLab CI\/CD自动化部署流程详解","description":"本文将详细介绍基于GitLab CI/CD的xxxx系统后端自动化部署流程。整个流程采用了多阶段部署策略，实现了从代码构建到多环境部署的全自动化。\n一、部署流程概述 整个部署流程分为以下几个阶段：\n安装阶段：编译打包Java项目 构建镜像阶段：使用Kaniko构建Docker镜像 生成CI配置阶段：动态生成子流水线配置 部署阶段：触发子流水线，将应用部署到Kubernetes集群 二、流水线配置详解 2.1 流水线阶段定义 在.gitlab-ci.yml文件中，定义了整个流水线的阶段：\nstages: - install - build-image - generate-ci - deploy 2.2 全局变量配置 variables: PROJECT_PATH: \u0026#34;$CI_PROJECT_DIR\u0026#34; MAVEN_OPTS: \u0026#34;-Dmaven.repo.local=$PROJECT_PATH/.m2/repository\u0026#34; REPO_NAME: \u0026#34;ikc-backend-v1\u0026#34; MAVEN_CACHE_DIR: \u0026#34;$PROJECT_PATH/.m2/repository\u0026#34; BUILD_CACHE_DIR: \u0026#34;$PROJECT_PATH/cache\u0026#34; VERSION: \u0026#34;$CI_PIPELINE_IID\u0026#34; 关键变量说明：\nPROJECT_PATH：项目路径，使用GitLab内置变量CI_PROJECT_DIR REPO_NAME：镜像仓库名称 VERSION：版本号，使用GitLab流水线ID作为版本号 三、部署流程详解 3.1 安装阶段（Install） 这个阶段负责编译和打包Java项目：\ninstall: \u0026lt;\u0026lt;: *install_template install_template模板定义了具体的执行步骤：\n.install_template: \u0026amp;install_template image: 172.22.121.50/gzhu/library/maven:3.8-openjdk-8 stage: install # 仅在 variant/* release/* 分支运行 rules: - if: \u0026#39;$CI_COMMIT_REF_NAME =~ /^release\\/.+$/ || $CI_COMMIT_REF_NAME =~ /^variant\\/.+$/\u0026#39; when: always - if: \u0026#39;$CI_PIPELINE_SOURCE == \u0026#34;merge_request_event\u0026#34;\u0026#39; when: always - when: never \u0026lt;\u0026lt;: *cache_maven tags: - \u0026#34;k8s_runner_persionnel_matching\u0026#34; script: - cp -b settings.xml /usr/share/maven/conf/settings.xml - mvn clean package -Dmaven.test.skip=true artifacts: expire_in: 1 day paths: - agileboot-admin/target/agileboot-admin-1.0.0.jar 关键步骤：\n","keywords":["CI/CD","自动化部署","流水线","Kubernetes"],"articleBody":"本文将详细介绍基于GitLab CI/CD的xxxx系统后端自动化部署流程。整个流程采用了多阶段部署策略，实现了从代码构建到多环境部署的全自动化。\n一、部署流程概述 整个部署流程分为以下几个阶段：\n安装阶段：编译打包Java项目 构建镜像阶段：使用Kaniko构建Docker镜像 生成CI配置阶段：动态生成子流水线配置 部署阶段：触发子流水线，将应用部署到Kubernetes集群 二、流水线配置详解 2.1 流水线阶段定义 在.gitlab-ci.yml文件中，定义了整个流水线的阶段：\nstages: - install - build-image - generate-ci - deploy 2.2 全局变量配置 variables: PROJECT_PATH: \"$CI_PROJECT_DIR\" MAVEN_OPTS: \"-Dmaven.repo.local=$PROJECT_PATH/.m2/repository\" REPO_NAME: \"ikc-backend-v1\" MAVEN_CACHE_DIR: \"$PROJECT_PATH/.m2/repository\" BUILD_CACHE_DIR: \"$PROJECT_PATH/cache\" VERSION: \"$CI_PIPELINE_IID\" 关键变量说明：\nPROJECT_PATH：项目路径，使用GitLab内置变量CI_PROJECT_DIR REPO_NAME：镜像仓库名称 VERSION：版本号，使用GitLab流水线ID作为版本号 三、部署流程详解 3.1 安装阶段（Install） 这个阶段负责编译和打包Java项目：\ninstall: \u003c\u003c: *install_template install_template模板定义了具体的执行步骤：\n.install_template: \u0026install_template image: 172.22.121.50/gzhu/library/maven:3.8-openjdk-8 stage: install # 仅在 variant/* release/* 分支运行 rules: - if: '$CI_COMMIT_REF_NAME =~ /^release\\/.+$/ || $CI_COMMIT_REF_NAME =~ /^variant\\/.+$/' when: always - if: '$CI_PIPELINE_SOURCE == \"merge_request_event\"' when: always - when: never \u003c\u003c: *cache_maven tags: - \"k8s_runner_persionnel_matching\" script: - cp -b settings.xml /usr/share/maven/conf/settings.xml - mvn clean package -Dmaven.test.skip=true artifacts: expire_in: 1 day paths: - agileboot-admin/target/agileboot-admin-1.0.0.jar 关键步骤：\n使用Maven 3.8和OpenJDK 8的镜像 复制Maven配置文件 执行Maven打包命令，跳过测试 将构建产物（JAR包）保存为构建产物 3.2 构建镜像阶段（Build Image） 这个阶段负责构建Docker镜像：\nbuild: \u003c\u003c: *build_template dependencies: - install build_template模板定义了具体的执行步骤：\n.build_template: \u0026build_template image: name: 172.22.121.50/gcr/kaniko-project/executor:v1.21.0-debug entrypoint: [\"\"] stage: build-image tags: - \"k8s_runner_persionnel_matching\" cache: key: \"ikc-backend-v1-build\" paths: - ${BUILD_CACHE_DIR} rules: - if: '$CI_COMMIT_REF_NAME =~ /^release\\/.+$/ || $CI_COMMIT_REF_NAME =~ /^variant\\/.+$/' script: - | # 配置 Docker 认证信息 echo \"{\\\"auths\\\":{\\\"${KCI_REGISTRY}\\\":{\\\"auth\\\":\\\"$(printf \"%s:%s\" \"${KCI_REGISTRY_USER}\" \"${KCI_REGISTRY_PASSWORD}\" | base64 | tr -d '\\n')\\\"}}}\" \u003e /kaniko/.docker/config.json # 预热缓存 /kaniko/warmer \\ --skip-tls-verify-pull \\ --dockerfile Dockerfile \\ --cache-dir=${BUILD_CACHE_DIR} \\ --skip-tls-verify-registry 172.22.121.50 # 执行构建 /kaniko/executor \\ --cache=true \\ --skip-tls-verify \\ --cache-dir=${BUILD_CACHE_DIR} \\ --dockerfile Dockerfile \\ --context $PROJECT_PATH \\ --destination 172.22.121.50/personnel-matching/${REPO_NAME}:${VERSION} 关键步骤：\n使用Kaniko构建镜像（无需Docker守护进程） 配置Docker认证信息 预热构建缓存 执行镜像构建并推送到私有仓库 3.3 Dockerfile解析 Dockerfile采用了多阶段构建策略：\n# 第一阶段：构建阶段 FROM 172.22.121.50/gzhu/library/openjdk:8 as builder ENV BASE_DIR=\"/home\" WORKDIR /$BASE_DIR ADD ./agileboot-admin/target/*.jar ./app.jar RUN java -Djarmode=layertools -jar app.jar extract # 第二阶段：运行阶段 FROM 172.22.121.50/gzhu/library/openjdk:8-slim ENV BASE_DIR=\"/home\" WORKDIR /$BASE_DIR RUN apt-get update \u0026\u0026 apt-get install -y fontconfig libfreetype6 \u0026\u0026 apt-get install -y fonts-wqy-zenhei RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \u0026\u0026 echo 'Asia/Shanghai' \u003e/etc/timezone COPY --from=builder $BASE_DIR/dependencies/ ./ COPY --from=builder $BASE_DIR/spring-boot-loader/ ./ COPY --from=builder $BASE_DIR/snapshot-dependencies/ ./ COPY --from=builder $BASE_DIR/application/ ./ EXPOSE 10010 # 使用占位符替换 Spring profiles ENTRYPOINT [\"java\", \"-Dspring.profiles.active=basic,base,extended\", \"org.springframework.boot.loader.JarLauncher\"] 关键步骤：\n第一阶段：使用Spring Boot的layertools提取JAR包分层 第二阶段：使用轻量级基础镜像，复制分层文件，设置时区和字体 暴露10010端口并设置启动命令 3.4 生成CI配置阶段（Generate CI） 这个阶段负责动态生成子流水线配置：\ngenerate-ci-pipeline: image: 172.22.121.50/gzhu/alpine-delpoy:3.12 stage: generate-ci dependencies: - build artifacts: paths: - child-ci.yml rules: - if: '$CI_COMMIT_REF_NAME =~ /^release\\/.+$/ || $CI_COMMIT_REF_NAME =~ /^variant\\/.+$/' script: - chmod +x generate-deploy-ci-config.sh - bash -x generate-deploy-ci-config.sh - cat child-ci.yml 关键步骤：\n使用Alpine基础镜像 执行generate-deploy-ci-config.sh脚本生成子流水线配置 将生成的child-ci.yml保存为构建产物 3.5 动态配置生成脚本解析 generate-deploy-ci-config.sh脚本负责根据分支名称动态生成部署配置：\n{ width=500 }\n# 确定 GROUP 和 SUB_ENV 基于分支名称 if [[ \"$CI_COMMIT_REF_NAME\" =~ ^variant/(.+)$ ]]; then SUB_ENV=test GROUP=\"${BASH_REMATCH[1]}\" elif [[ \"$CI_COMMIT_REF_NAME\" =~ ^release/(.+)$ ]]; then SUB_ENV=prod GROUP=\"${BASH_REMATCH[1]}\" else echo \"Unrecognized branch: $CI_COMMIT_REF_NAME\" exit 1 fi # 使用 yq 获取对应 GROUP 下的所有 ENVS ENVS=$(yq e \".${GROUP} | keys | .[]\" environments.yml) 关键逻辑：\n根据分支名称确定部署环境类型（test/prod）和分组 variant/*分支对应测试环境 release/*分支对应生产环境 从environments.yml中获取对应分组下的所有环境 为每个环境生成对应的部署任务 3.6 部署阶段（Deploy） 这个阶段负责触发子流水线执行部署：\ndeploy-pipeline: stage: deploy rules: - if: '$CI_COMMIT_REF_NAME =~ /^release\\/.+$/ || $CI_COMMIT_REF_NAME =~ /^variant\\/.+$/' when: always - when: never trigger: include: - artifact: child-ci.yml job: generate-ci-pipeline strategy: depend 关键步骤：\n使用trigger指令触发子流水线 子流水线配置来自generate-ci-pipeline任务生成的child-ci.yml 3.7 子流水线部署任务 子流水线中的部署任务示例：\ndeploy_${ENV}_${SUB_ENV}: stage: deploy-child image: name: 172.22.121.50/dockerio/bitnami/kubectl:1.23 entrypoint: [\"\"] tags: - \"k8s_runner_persionnel_matching\" rules: - if: '\\$CI_COMMIT_REF_NAME =~ /^variant\\/.+$/' when: on_success - if: '\\$CI_COMMIT_REF_NAME =~ /^release\\/.+$/' when: manual - when: never script: - echo \"Deploying ${REPO_NAME} to ${ENV}/${SUB_ENV} with CONTEXT_PATH=${CONTEXT_PATH} APP=${ENV}\" - sed -i 's#{{REPO_NAME}}#${REPO_NAME}#g' $PROJECT_PATH/deployment.yaml - sed -i 's#{{ENV}}#${ENV}#g' $PROJECT_PATH/deployment.yaml - sed -i 's#{{SUB_ENV}}#${SUB_ENV}#g' $PROJECT_PATH/deployment.yaml - sed -i 's#{{CONTEXT_PATH}}#${CONTEXT_PATH}#g' $PROJECT_PATH/deployment.yaml - sed -i 's#{{VERSION}}#${VERSION}#g' $PROJECT_PATH/deployment.yaml - kubectl apply -f $PROJECT_PATH/deployment.yaml allow_failure: true 关键步骤：\n使用kubectl镜像 替换deployment.yaml中的占位符 使用kubectl apply命令部署到Kubernetes集群 测试环境自动部署，生产环境手动触发 3.8 Kubernetes部署配置 deployment.yaml定义了Kubernetes部署配置：\napiVersion: apps/v1 kind: Deployment metadata: name: {{REPO_NAME}}-{{ENV}}-{{SUB_ENV}} labels: app: {{REPO_NAME}}-{{ENV}}-{{SUB_ENV}} spec: replicas: 1 selector: matchLabels: app: {{REPO_NAME}}-{{ENV}}-{{SUB_ENV}} template: metadata: labels: app: {{REPO_NAME}}-{{ENV}}-{{SUB_ENV}} spec: containers: - name: {{REPO_NAME}}-{{ENV}}-{{SUB_ENV}}-service image: 172.22.121.50/personnel-matching/{{REPO_NAME}}:{{VERSION}} ports: - containerPort: 10010 volumeMounts: # 挂载各种配置文件... 关键配置：\n定义了Deployment和Service资源 使用ConfigMap挂载多个配置文件 配置了健康检查 四、环境配置管理 environments.yml文件定义了多个部署环境的配置：\nuniversity: gzhu: context_path: \"/university-gzhu\" scnu: context_path: \"/university-scnu\" # 更多大学环境... common: common: context_path: \"/common\" # 更多通用环境... # 更多环境分组... 这个文件定义了不同分组下的环境及其上下文路径，用于动态生成部署配置。\n五、部署流程总结 整个部署流程可以总结为以下步骤：\n代码编译打包：使用Maven编译Java项目并生成JAR包 构建Docker镜像：使用Kaniko构建多阶段Docker镜像并推送到私有仓库 生成部署配置：根据分支名称和环境配置动态生成子流水线配置 执行部署：触发子流水线，为每个目标环境执行Kubernetes部署 这种设计具有以下优点：\n环境隔离：不同环境的部署配置完全隔离 自动化程度高：从编译到部署全自动化 灵活性强：可以轻松添加新的部署环境 安全可控：测试环境自动部署，生产环境手动确认 ","wordCount":"578","inLanguage":"en","datePublished":"2023-09-01T15:11:47+08:00","dateModified":"2023-09-01T15:11:47+08:00","author":[{"@type":"Person","name":"wellzhi"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://wellzhi.github.io/posts/tech/2023-09-01_work_ikc-pipline-analysis/"},"publisher":{"@type":"Organization","name":"wellzhi","logo":{"@type":"ImageObject","url":"https://wellzhi.github.io/favicon.ico"}}}</script><script id=MathJax-script async src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js></script><script>MathJax={tex:{displayMath:[["\\[","\\]"],["$$","$$"]],inlineMath:[["\\(","\\)"],["$","$"]]}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://wellzhi.github.io/ accesskey=h title="wellzhi (Alt + H)">wellzhi</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme"><svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu><li><a href=https://wellzhi.github.io/ title=Home><span>Home</span></a></li><li><a href=https://wellzhi.github.io/posts/ title=Post><span>Post</span></a></li><li><a href=https://wellzhi.github.io/archives title=Archive><span>Archive</span></a></li><li><a href=https://wellzhi.github.io/tags title=Tags><span>Tags</span></a></li><li><a href=https://wellzhi.github.io/search title="Search (Alt + /)" accesskey=/><span>Search</span></a></li><li><a href=https://wellzhi.github.io/about/ title=About><span>About</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><div class=breadcrumbs><a href=https://wellzhi.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://wellzhi.github.io/posts/>Posts</a>&nbsp;»&nbsp;<a href=https://wellzhi.github.io/posts/tech/>Tech</a></div><h1 class="post-title entry-hint-parent">GitLab CI/CD自动化部署流程详解</h1></header><div class=toc><details open><summary accesskey=c title="(Alt + C)"><span class=details>Table of Contents</span></summary><div class=inner><ul><li><a href=#%e4%b8%80%e9%83%a8%e7%bd%b2%e6%b5%81%e7%a8%8b%e6%a6%82%e8%bf%b0 aria-label=一、部署流程概述>一、部署流程概述</a></li><li><a href=#%e4%ba%8c%e6%b5%81%e6%b0%b4%e7%ba%bf%e9%85%8d%e7%bd%ae%e8%af%a6%e8%a7%a3 aria-label=二、流水线配置详解>二、流水线配置详解</a><ul><li><a href=#21-%e6%b5%81%e6%b0%b4%e7%ba%bf%e9%98%b6%e6%ae%b5%e5%ae%9a%e4%b9%89 aria-label="2.1 流水线阶段定义">2.1 流水线阶段定义</a></li><li><a href=#22-%e5%85%a8%e5%b1%80%e5%8f%98%e9%87%8f%e9%85%8d%e7%bd%ae aria-label="2.2 全局变量配置">2.2 全局变量配置</a></li></ul></li><li><a href=#%e4%b8%89%e9%83%a8%e7%bd%b2%e6%b5%81%e7%a8%8b%e8%af%a6%e8%a7%a3 aria-label=三、部署流程详解>三、部署流程详解</a><ul><li><a href=#31-%e5%ae%89%e8%a3%85%e9%98%b6%e6%ae%b5install aria-label="3.1 安装阶段（Install）">3.1 安装阶段（Install）</a></li><li><a href=#32-%e6%9e%84%e5%bb%ba%e9%95%9c%e5%83%8f%e9%98%b6%e6%ae%b5build-image aria-label="3.2 构建镜像阶段（Build Image）">3.2 构建镜像阶段（Build Image）</a></li><li><a href=#33-dockerfile%e8%a7%a3%e6%9e%90 aria-label="3.3 Dockerfile解析">3.3 Dockerfile解析</a></li><li><a href=#34-%e7%94%9f%e6%88%90ci%e9%85%8d%e7%bd%ae%e9%98%b6%e6%ae%b5generate-ci aria-label="3.4 生成CI配置阶段（Generate CI）">3.4 生成CI配置阶段（Generate CI）</a></li><li><a href=#35-%e5%8a%a8%e6%80%81%e9%85%8d%e7%bd%ae%e7%94%9f%e6%88%90%e8%84%9a%e6%9c%ac%e8%a7%a3%e6%9e%90 aria-label="3.5 动态配置生成脚本解析">3.5 动态配置生成脚本解析</a></li><li><a href=#36-%e9%83%a8%e7%bd%b2%e9%98%b6%e6%ae%b5deploy aria-label="3.6 部署阶段（Deploy）">3.6 部署阶段（Deploy）</a></li><li><a href=#37-%e5%ad%90%e6%b5%81%e6%b0%b4%e7%ba%bf%e9%83%a8%e7%bd%b2%e4%bb%bb%e5%8a%a1 aria-label="3.7 子流水线部署任务">3.7 子流水线部署任务</a></li><li><a href=#38-kubernetes%e9%83%a8%e7%bd%b2%e9%85%8d%e7%bd%ae aria-label="3.8 Kubernetes部署配置">3.8 Kubernetes部署配置</a></li></ul></li><li><a href=#%e5%9b%9b%e7%8e%af%e5%a2%83%e9%85%8d%e7%bd%ae%e7%ae%a1%e7%90%86 aria-label=四、环境配置管理>四、环境配置管理</a></li><li><a href=#%e4%ba%94%e9%83%a8%e7%bd%b2%e6%b5%81%e7%a8%8b%e6%80%bb%e7%bb%93 aria-label=五、部署流程总结>五、部署流程总结</a></li></ul></div></details></div><div class=post-content><p>本文将详细介绍基于GitLab CI/CD的xxxx系统后端自动化部署流程。整个流程采用了多阶段部署策略，实现了从代码构建到多环境部署的全自动化。</p><h2 id=一部署流程概述>一、部署流程概述<a hidden class=anchor aria-hidden=true href=#一部署流程概述>#</a></h2><p>整个部署流程分为以下几个阶段：</p><ol><li><strong>安装阶段</strong>：编译打包Java项目</li><li><strong>构建镜像阶段</strong>：使用Kaniko构建Docker镜像</li><li><strong>生成CI配置阶段</strong>：动态生成子流水线配置</li><li><strong>部署阶段</strong>：触发子流水线，将应用部署到Kubernetes集群</li></ol><h2 id=二流水线配置详解>二、流水线配置详解<a hidden class=anchor aria-hidden=true href=#二流水线配置详解>#</a></h2><h3 id=21-流水线阶段定义>2.1 流水线阶段定义<a hidden class=anchor aria-hidden=true href=#21-流水线阶段定义>#</a></h3><p>在<code>.gitlab-ci.yml</code>文件中，定义了整个流水线的阶段：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>stages</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#ae81ff>install</span>
+</span></span><span style=display:flex><span>  - <span style=color:#ae81ff>build-image</span>
+</span></span><span style=display:flex><span>  - <span style=color:#ae81ff>generate-ci</span>
+</span></span><span style=display:flex><span>  - <span style=color:#ae81ff>deploy</span>
+</span></span></code></pre></div><h3 id=22-全局变量配置>2.2 全局变量配置<a hidden class=anchor aria-hidden=true href=#22-全局变量配置>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>variables</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>PROJECT_PATH</span>: <span style=color:#e6db74>&#34;$CI_PROJECT_DIR&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>MAVEN_OPTS</span>: <span style=color:#e6db74>&#34;-Dmaven.repo.local=$PROJECT_PATH/.m2/repository&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>REPO_NAME</span>: <span style=color:#e6db74>&#34;ikc-backend-v1&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>MAVEN_CACHE_DIR</span>: <span style=color:#e6db74>&#34;$PROJECT_PATH/.m2/repository&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>BUILD_CACHE_DIR</span>: <span style=color:#e6db74>&#34;$PROJECT_PATH/cache&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>VERSION</span>: <span style=color:#e6db74>&#34;$CI_PIPELINE_IID&#34;</span>
+</span></span></code></pre></div><p>关键变量说明：</p><ul><li><code>PROJECT_PATH</code>：项目路径，使用GitLab内置变量<code>CI_PROJECT_DIR</code></li><li><code>REPO_NAME</code>：镜像仓库名称</li><li><code>VERSION</code>：版本号，使用GitLab流水线ID作为版本号</li></ul><h2 id=三部署流程详解>三、部署流程详解<a hidden class=anchor aria-hidden=true href=#三部署流程详解>#</a></h2><h3 id=31-安装阶段install>3.1 安装阶段（Install）<a hidden class=anchor aria-hidden=true href=#31-安装阶段install>#</a></h3><p>这个阶段负责编译和打包Java项目：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>install</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&lt;&lt;</span>: <span style=color:#75715e>*install_template</span>
+</span></span></code></pre></div><p><code>install_template</code>模板定义了具体的执行步骤：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>.install_template</span>: <span style=color:#75715e>&amp;install_template</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>image</span>: <span style=color:#ae81ff>172.22.121.50</span><span style=color:#ae81ff>/gzhu/library/maven:3.8-openjdk-8</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>stage</span>: <span style=color:#ae81ff>install</span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e># 仅在 variant/*  release/* 分支运行</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>rules</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>if</span>: <span style=color:#e6db74>&#39;$CI_COMMIT_REF_NAME =~ /^release\/.+$/ || $CI_COMMIT_REF_NAME =~ /^variant\/.+$/&#39;</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>when</span>: <span style=color:#ae81ff>always</span>
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>if</span>: <span style=color:#e6db74>&#39;$CI_PIPELINE_SOURCE == &#34;merge_request_event&#34;&#39;</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>when</span>: <span style=color:#ae81ff>always</span>
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>when</span>: <span style=color:#ae81ff>never</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&lt;&lt;</span>: <span style=color:#75715e>*cache_maven</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>tags</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#e6db74>&#34;k8s_runner_persionnel_matching&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>script</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>cp -b settings.xml /usr/share/maven/conf/settings.xml</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>mvn clean package -Dmaven.test.skip=true</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>artifacts</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>expire_in</span>: <span style=color:#ae81ff>1</span> <span style=color:#ae81ff>day</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>paths</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>agileboot-admin/target/agileboot-admin-1.0.0.jar</span>
+</span></span></code></pre></div><p>关键步骤：</p><ol><li>使用Maven 3.8和OpenJDK 8的镜像</li><li>复制Maven配置文件</li><li>执行Maven打包命令，跳过测试</li><li>将构建产物（JAR包）保存为构建产物</li></ol><h3 id=32-构建镜像阶段build-image>3.2 构建镜像阶段（Build Image）<a hidden class=anchor aria-hidden=true href=#32-构建镜像阶段build-image>#</a></h3><p>这个阶段负责构建Docker镜像：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>build</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&lt;&lt;</span>: <span style=color:#75715e>*build_template</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>dependencies</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>install</span>
+</span></span></code></pre></div><p><code>build_template</code>模板定义了具体的执行步骤：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>.build_template</span>: <span style=color:#75715e>&amp;build_template</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>image</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>name</span>: <span style=color:#ae81ff>172.22.121.50</span><span style=color:#ae81ff>/gcr/kaniko-project/executor:v1.21.0-debug</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>entrypoint</span>: [<span style=color:#e6db74>&#34;&#34;</span>]
+</span></span><span style=display:flex><span>  <span style=color:#f92672>stage</span>: <span style=color:#ae81ff>build-image</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>tags</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#e6db74>&#34;k8s_runner_persionnel_matching&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>cache</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>key</span>: <span style=color:#e6db74>&#34;ikc-backend-v1-build&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>paths</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>${BUILD_CACHE_DIR}</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>rules</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>if</span>: <span style=color:#e6db74>&#39;$CI_COMMIT_REF_NAME =~ /^release\/.+$/ || $CI_COMMIT_REF_NAME =~ /^variant\/.+$/&#39;</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>script</span>:
+</span></span><span style=display:flex><span>    - |<span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      # 配置 Docker 认证信息
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      echo &#34;{\&#34;auths\&#34;:{\&#34;${KCI_REGISTRY}\&#34;:{\&#34;auth\&#34;:\&#34;$(printf &#34;%s:%s&#34; &#34;${KCI_REGISTRY_USER}&#34; &#34;${KCI_REGISTRY_PASSWORD}&#34; | base64 | tr -d &#39;\n&#39;)\&#34;}}}&#34; &gt; /kaniko/.docker/config.json
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      # 预热缓存
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      /kaniko/warmer \
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      --skip-tls-verify-pull \
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      --dockerfile Dockerfile \
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      --cache-dir=${BUILD_CACHE_DIR} \
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      --skip-tls-verify-registry 172.22.121.50
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      # 执行构建
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      /kaniko/executor \
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      --cache=true \
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      --skip-tls-verify \
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      --cache-dir=${BUILD_CACHE_DIR} \
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      --dockerfile Dockerfile \
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      --context $PROJECT_PATH \
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      --destination 172.22.121.50/personnel-matching/${REPO_NAME}:${VERSION}</span>
+</span></span></code></pre></div><p>关键步骤：</p><ol><li>使用Kaniko构建镜像（无需Docker守护进程）</li><li>配置Docker认证信息</li><li>预热构建缓存</li><li>执行镜像构建并推送到私有仓库</li></ol><h3 id=33-dockerfile解析>3.3 Dockerfile解析<a hidden class=anchor aria-hidden=true href=#33-dockerfile解析>#</a></h3><p>Dockerfile采用了多阶段构建策略：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-dockerfile data-lang=dockerfile><span style=display:flex><span><span style=color:#75715e># 第一阶段：构建阶段</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span><span style=color:#66d9ef>FROM</span><span style=color:#e6db74> 172.22.121.50/gzhu/library/openjdk:8 as builder</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span><span style=color:#66d9ef>ENV</span> BASE_DIR<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/home&#34;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span><span style=color:#66d9ef>WORKDIR</span><span style=color:#e6db74> /$BASE_DIR</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span><span style=color:#66d9ef>ADD</span> ./agileboot-admin/target/*.jar ./app.jar<span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span><span style=color:#66d9ef>RUN</span> java -Djarmode<span style=color:#f92672>=</span>layertools -jar app.jar extract<span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span><span style=color:#75715e># 第二阶段：运行阶段</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span><span style=color:#66d9ef>FROM</span><span style=color:#e6db74> 172.22.121.50/gzhu/library/openjdk:8-slim</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span><span style=color:#66d9ef>ENV</span> BASE_DIR<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/home&#34;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span><span style=color:#66d9ef>WORKDIR</span><span style=color:#e6db74> /$BASE_DIR</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span><span style=color:#66d9ef>RUN</span> apt-get update <span style=color:#f92672>&amp;&amp;</span> apt-get install -y fontconfig libfreetype6 <span style=color:#f92672>&amp;&amp;</span> apt-get install -y fonts-wqy-zenhei<span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span><span style=color:#66d9ef>RUN</span> ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime <span style=color:#f92672>&amp;&amp;</span> echo <span style=color:#e6db74>&#39;Asia/Shanghai&#39;</span> &gt;/etc/timezone<span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span><span style=color:#66d9ef>COPY</span> --from<span style=color:#f92672>=</span>builder $BASE_DIR/dependencies/ ./<span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span><span style=color:#66d9ef>COPY</span> --from<span style=color:#f92672>=</span>builder $BASE_DIR/spring-boot-loader/ ./<span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span><span style=color:#66d9ef>COPY</span> --from<span style=color:#f92672>=</span>builder $BASE_DIR/snapshot-dependencies/ ./<span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span><span style=color:#66d9ef>COPY</span> --from<span style=color:#f92672>=</span>builder $BASE_DIR/application/ ./<span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span><span style=color:#66d9ef>EXPOSE</span><span style=color:#e6db74> 10010</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span><span style=color:#75715e># 使用占位符替换 Spring profiles</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span><span style=color:#66d9ef>ENTRYPOINT</span> [<span style=color:#e6db74>&#34;java&#34;</span>, <span style=color:#e6db74>&#34;-Dspring.profiles.active=basic,base,extended&#34;</span>, <span style=color:#e6db74>&#34;org.springframework.boot.loader.JarLauncher&#34;</span>]<span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><p>关键步骤：</p><ol><li>第一阶段：使用Spring Boot的layertools提取JAR包分层</li><li>第二阶段：使用轻量级基础镜像，复制分层文件，设置时区和字体</li><li>暴露10010端口并设置启动命令</li></ol><h3 id=34-生成ci配置阶段generate-ci>3.4 生成CI配置阶段（Generate CI）<a hidden class=anchor aria-hidden=true href=#34-生成ci配置阶段generate-ci>#</a></h3><p>这个阶段负责动态生成子流水线配置：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>generate-ci-pipeline</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>image</span>: <span style=color:#ae81ff>172.22.121.50</span><span style=color:#ae81ff>/gzhu/alpine-delpoy:3.12</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>stage</span>: <span style=color:#ae81ff>generate-ci</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>dependencies</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>build</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>artifacts</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>paths</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>child-ci.yml</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>rules</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>if</span>: <span style=color:#e6db74>&#39;$CI_COMMIT_REF_NAME =~ /^release\/.+$/ || $CI_COMMIT_REF_NAME =~ /^variant\/.+$/&#39;</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>script</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>chmod +x generate-deploy-ci-config.sh</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>bash -x generate-deploy-ci-config.sh</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>cat child-ci.yml</span>
+</span></span></code></pre></div><p>关键步骤：</p><ol><li>使用Alpine基础镜像</li><li>执行<code>generate-deploy-ci-config.sh</code>脚本生成子流水线配置</li><li>将生成的<code>child-ci.yml</code>保存为构建产物</li></ol><h3 id=35-动态配置生成脚本解析>3.5 动态配置生成脚本解析<a hidden class=anchor aria-hidden=true href=#35-动态配置生成脚本解析>#</a></h3><p><code>generate-deploy-ci-config.sh</code>脚本负责根据分支名称动态生成部署配置：</p><p><img alt=代码分支图示 loading=lazy src=https://notespace.oss-cn-guangzhou.aliyuncs.com/images/repository-branches.png>{ width=500 }</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 确定 GROUP 和 SUB_ENV 基于分支名称</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> <span style=color:#f92672>[[</span> <span style=color:#e6db74>&#34;</span>$CI_COMMIT_REF_NAME<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>=</span>~ ^variant/<span style=color:#f92672>(</span>.+<span style=color:#f92672>)</span>$ <span style=color:#f92672>]]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>  SUB_ENV<span style=color:#f92672>=</span>test
+</span></span><span style=display:flex><span>  GROUP<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>${</span>BASH_REMATCH[1]<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>elif</span> <span style=color:#f92672>[[</span> <span style=color:#e6db74>&#34;</span>$CI_COMMIT_REF_NAME<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>=</span>~ ^release/<span style=color:#f92672>(</span>.+<span style=color:#f92672>)</span>$ <span style=color:#f92672>]]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>  SUB_ENV<span style=color:#f92672>=</span>prod
+</span></span><span style=display:flex><span>  GROUP<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>${</span>BASH_REMATCH[1]<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>else</span>
+</span></span><span style=display:flex><span>  echo <span style=color:#e6db74>&#34;Unrecognized branch: </span>$CI_COMMIT_REF_NAME<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>  exit <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 使用 yq 获取对应 GROUP 下的所有 ENVS</span>
+</span></span><span style=display:flex><span>ENVS<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>yq e <span style=color:#e6db74>&#34;.</span><span style=color:#e6db74>${</span>GROUP<span style=color:#e6db74>}</span><span style=color:#e6db74> | keys | .[]&#34;</span> environments.yml<span style=color:#66d9ef>)</span>
+</span></span></code></pre></div><p>关键逻辑：</p><ol><li>根据分支名称确定部署环境类型（test/prod）和分组<ul><li><code>variant/*</code>分支对应测试环境</li><li><code>release/*</code>分支对应生产环境</li></ul></li><li>从<code>environments.yml</code>中获取对应分组下的所有环境</li><li>为每个环境生成对应的部署任务</li></ol><h3 id=36-部署阶段deploy>3.6 部署阶段（Deploy）<a hidden class=anchor aria-hidden=true href=#36-部署阶段deploy>#</a></h3><p>这个阶段负责触发子流水线执行部署：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>deploy-pipeline</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>stage</span>: <span style=color:#ae81ff>deploy</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>rules</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>if</span>: <span style=color:#e6db74>&#39;$CI_COMMIT_REF_NAME =~ /^release\/.+$/ || $CI_COMMIT_REF_NAME =~ /^variant\/.+$/&#39;</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>when</span>: <span style=color:#ae81ff>always</span>
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>when</span>: <span style=color:#ae81ff>never</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>trigger</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>include</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>artifact</span>: <span style=color:#ae81ff>child-ci.yml</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>job</span>: <span style=color:#ae81ff>generate-ci-pipeline</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>strategy</span>: <span style=color:#ae81ff>depend</span>
+</span></span></code></pre></div><p>关键步骤：</p><ol><li>使用<code>trigger</code>指令触发子流水线</li><li>子流水线配置来自<code>generate-ci-pipeline</code>任务生成的<code>child-ci.yml</code></li></ol><h3 id=37-子流水线部署任务>3.7 子流水线部署任务<a hidden class=anchor aria-hidden=true href=#37-子流水线部署任务>#</a></h3><p>子流水线中的部署任务示例：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#ae81ff>deploy_${ENV}_${SUB_ENV}:</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>stage</span>: <span style=color:#ae81ff>deploy-child</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>image</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>name</span>: <span style=color:#ae81ff>172.22.121.50</span><span style=color:#ae81ff>/dockerio/bitnami/kubectl:1.23</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>entrypoint</span>: [<span style=color:#e6db74>&#34;&#34;</span>]
+</span></span><span style=display:flex><span>  <span style=color:#f92672>tags</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#e6db74>&#34;k8s_runner_persionnel_matching&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>rules</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>if</span>: <span style=color:#e6db74>&#39;\$CI_COMMIT_REF_NAME =~ /^variant\/.+$/&#39;</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>when</span>: <span style=color:#ae81ff>on_success</span>
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>if</span>: <span style=color:#e6db74>&#39;\$CI_COMMIT_REF_NAME =~ /^release\/.+$/&#39;</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>when</span>: <span style=color:#ae81ff>manual</span>
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>when</span>: <span style=color:#ae81ff>never</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>script</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>echo &#34;Deploying ${REPO_NAME} to ${ENV}/${SUB_ENV} with CONTEXT_PATH=${CONTEXT_PATH} APP=${ENV}&#34;</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>sed -i &#39;s#{{REPO_NAME}}#${REPO_NAME}#g&#39; $PROJECT_PATH/deployment.yaml</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>sed -i &#39;s#{{ENV}}#${ENV}#g&#39; $PROJECT_PATH/deployment.yaml</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>sed -i &#39;s#{{SUB_ENV}}#${SUB_ENV}#g&#39; $PROJECT_PATH/deployment.yaml</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>sed -i &#39;s#{{CONTEXT_PATH}}#${CONTEXT_PATH}#g&#39; $PROJECT_PATH/deployment.yaml</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>sed -i &#39;s#{{VERSION}}#${VERSION}#g&#39; $PROJECT_PATH/deployment.yaml</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>kubectl apply -f $PROJECT_PATH/deployment.yaml</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>allow_failure</span>: <span style=color:#66d9ef>true</span>
+</span></span></code></pre></div><p>关键步骤：</p><ol><li>使用kubectl镜像</li><li>替换<code>deployment.yaml</code>中的占位符</li><li>使用<code>kubectl apply</code>命令部署到Kubernetes集群</li><li>测试环境自动部署，生产环境手动触发</li></ol><h3 id=38-kubernetes部署配置>3.8 Kubernetes部署配置<a hidden class=anchor aria-hidden=true href=#38-kubernetes部署配置>#</a></h3><p><code>deployment.yaml</code>定义了Kubernetes部署配置：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>apps/v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Deployment</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: {{<span style=color:#ae81ff>REPO_NAME}}-{{ENV}}-{{SUB_ENV}}</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>labels</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>app</span>: {{<span style=color:#ae81ff>REPO_NAME}}-{{ENV}}-{{SUB_ENV}}</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>replicas</span>: <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>selector</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>matchLabels</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>app</span>: {{<span style=color:#ae81ff>REPO_NAME}}-{{ENV}}-{{SUB_ENV}}</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>template</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>labels</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>app</span>: {{<span style=color:#ae81ff>REPO_NAME}}-{{ENV}}-{{SUB_ENV}}</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>containers</span>:
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>name</span>: {{<span style=color:#ae81ff>REPO_NAME}}-{{ENV}}-{{SUB_ENV}}-service</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>image</span>: <span style=color:#ae81ff>172.22.121.50</span><span style=color:#ae81ff>/personnel-matching/{{REPO_NAME}}:{{VERSION}}</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>ports</span>:
+</span></span><span style=display:flex><span>            - <span style=color:#f92672>containerPort</span>: <span style=color:#ae81ff>10010</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>volumeMounts</span>:
+</span></span><span style=display:flex><span>            <span style=color:#75715e># 挂载各种配置文件...</span>
+</span></span></code></pre></div><p>关键配置：</p><ol><li>定义了Deployment和Service资源</li><li>使用ConfigMap挂载多个配置文件</li><li>配置了健康检查</li></ol><h2 id=四环境配置管理>四、环境配置管理<a hidden class=anchor aria-hidden=true href=#四环境配置管理>#</a></h2><p><code>environments.yml</code>文件定义了多个部署环境的配置：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>university</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>gzhu</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>context_path</span>: <span style=color:#e6db74>&#34;/university-gzhu&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>scnu</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>context_path</span>: <span style=color:#e6db74>&#34;/university-scnu&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e># 更多大学环境...</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>common</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>common</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>context_path</span>: <span style=color:#e6db74>&#34;/common&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e># 更多通用环境...</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 更多环境分组...</span>
+</span></span></code></pre></div><p>这个文件定义了不同分组下的环境及其上下文路径，用于动态生成部署配置。</p><h2 id=五部署流程总结>五、部署流程总结<a hidden class=anchor aria-hidden=true href=#五部署流程总结>#</a></h2><p>整个部署流程可以总结为以下步骤：</p><ol><li><strong>代码编译打包</strong>：使用Maven编译Java项目并生成JAR包</li><li><strong>构建Docker镜像</strong>：使用Kaniko构建多阶段Docker镜像并推送到私有仓库</li><li><strong>生成部署配置</strong>：根据分支名称和环境配置动态生成子流水线配置</li><li><strong>执行部署</strong>：触发子流水线，为每个目标环境执行Kubernetes部署</li></ol><p>这种设计具有以下优点：</p><ol><li><strong>环境隔离</strong>：不同环境的部署配置完全隔离</li><li><strong>自动化程度高</strong>：从编译到部署全自动化</li><li><strong>灵活性强</strong>：可以轻松添加新的部署环境</li><li><strong>安全可控</strong>：测试环境自动部署，生产环境手动确认</li></ol></div><footer class=post-footer><ul class=post-tags><li><a href=https://wellzhi.github.io/tags/ci/cd/>CI/CD</a></li><li><a href=https://wellzhi.github.io/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/>自动化部署</a></li><li><a href=https://wellzhi.github.io/tags/%E6%B5%81%E6%B0%B4%E7%BA%BF/>流水线</a></li><li><a href=https://wellzhi.github.io/tags/kubernetes/>Kubernetes</a></li></ul></footer><div class=comments-section><div class=comments-header><h3 class=comments-title><svg class="comments-icon" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+评论区</h3><div class=comments-divider></div></div><div id=twikoo-loading class=twikoo-loading><div class=loading-spinner></div><p>评论加载中...</p></div><div id=twikoo class=twikoo-container></div><div id=twikoo-error class=twikoo-error style=display:none><div class=error-content><svg class="error-icon" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg><p>评论加载失败，请刷新页面重试</p></div></div></div><style>.comments-section{margin:3rem 0 2rem;padding:0;max-width:100%}.comments-header{margin-bottom:2rem}.comments-title{display:flex;align-items:center;gap:.5rem;font-size:1.5rem;font-weight:600;color:var(--primary,#1a1a1a);margin:0 0 1rem}.comments-icon{width:1.5rem;height:1.5rem;color:var(--theme,#007acc)}.comments-divider{height:2px;background:linear-gradient(90deg,var(--theme,#007acc) 0%,transparent 100%);border-radius:1px;width:60px}.twikoo-container{background:var(--code-bg,#f8f9fa);border-radius:12px;padding:1.5rem;border:1px solid var(--border,#e1e5e9);transition:all .3s ease;min-height:200px}.twikoo-container:hover{border-color:var(--theme,#007acc);box-shadow:0 4px 12px rgba(0,122,204,.1)}.twikoo-loading{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 1rem;color:var(--secondary,#666)}.loading-spinner{width:32px;height:32px;border:3px solid var(--border,#e1e5e9);border-top:3px solid var(--theme,#007acc);border-radius:50%;animation:spin 1s linear infinite;margin-bottom:1rem}@keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}.twikoo-error{text-align:center;padding:2rem;color:var(--secondary,#666)}.error-content{display:flex;flex-direction:column;align-items:center;gap:1rem}.error-icon{width:2rem;height:2rem;color:#dc3545}@media(prefers-color-scheme:dark){.comments-title{color:var(--primary,#ffffff)}.twikoo-container{background:var(--code-bg,#2d3748);border-color:var(--border,#4a5568)}}@media(max-width:768px){.comments-section{margin:2rem 0 1rem}.twikoo-container{padding:1rem;border-radius:8px}.comments-title{font-size:1.25rem}}</style><script src=https://cdn.staticfile.org/twikoo/1.6.16/twikoo.all.min.js></script><script>(function(){const e=document.getElementById("twikoo-loading"),t=document.getElementById("twikoo-error"),n=document.getElementById("twikoo");twikoo.init({envId:"https://twikoo-vercel-navy.vercel.app/",el:"#twikoo",onCommentLoaded:function(){e&&(e.style.display="none")}}).then(function(){e&&(e.style.display="none")}).catch(function(n){console.error("Twikoo 初始化失败:",n),e&&(e.style.display="none"),t&&(t.style.display="block")}),setTimeout(function(){e&&e.style.display!=="none"&&(e.style.display="none",t&&(t.style.display="block"))},5e3)})()</script></article></main><footer class=footer><span>&copy; 2025 <a href=https://wellzhi.github.io/>wellzhi</a></span> ·
+<span>Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light"),theme=""):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"),theme="dark"),mermaidTextContents.forEach((e,t)=>{document.getElementsByClassName("language-mermaid")[t].removeAttribute("data-processed"),document.getElementsByClassName("language-mermaid")[t].innerHTML=e}),mermaid.initialize({theme,startOnLoad:!0}),mermaid.init(void 0,".language-mermaid")})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="copy";function s(){t.innerHTML="copied!",setTimeout(()=>{t.innerHTML="copy"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script><script>localStorage.getItem("pref-theme")=="dark"?theme="dark":theme="",mermaidTextContents=Array.from(document.getElementsByClassName("language-mermaid")).map(e=>e.innerHTML),mermaid.initialize({theme,startOnLoad:!0}),mermaid.init(void 0,".language-mermaid")</script></body></html>

@@ -1,0 +1,443 @@
+<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>Docker Compose 常用命令 | wellzhi</title>
+<meta name=keywords content="Docker,Compose,命令"><meta name=description content="以下是 Docker Compose 的常用命令分类整理，结合功能场景归纳为 5 类核心操作，并附关键参数说明与示例，方便快速查阅：
+
+🚀 一、核心生命周期管理
+
+  
+      
+          命令
+          功能
+          常用参数
+          示例
+      
+  
+  
+      
+          docker compose up
+          构建镜像、创建并启动所有服务
+          -d 后台运行--build 强制重建镜像--force-recreate 强制重建容器--scale SERVICE=NUM 扩缩容
+          docker compose up -d --build
+      
+      
+          docker compose down
+          停止并删除容器、网络、卷
+          -v 删除数据卷--rmi all 删除所有镜像--remove-orphans 清理未定义容器
+          docker compose down -v --remove-orphans
+      
+  
+
+
+⚙️ 二、服务状态控制
+
+  
+      
+          命令
+          功能
+          常用参数
+          示例
+      
+  
+  
+      
+          docker compose start
+          启动已存在的容器
+          <服务名> 指定服务
+          docker compose start web
+      
+      
+          docker compose stop
+          停止运行中的容器（保留容器）
+          -t <秒> 超时时间
+          docker compose stop -t 5
+      
+      
+          docker compose restart
+          重启服务（先停后启）
+          -t <秒> 超时时间
+          docker compose restart api
+      
+      
+          docker compose pausedocker compose unpause
+          暂停/恢复服务运行
+          -
+          docker compose pause db
+      
+  
+
+
+🔍 三、日志与调试
+
+  
+      
+          命令
+          功能
+          常用参数
+          示例
+      
+  
+  
+      
+          docker compose logs
+          查看服务日志
+          -f 实时跟踪--tail <行数> 显示最后N行<服务名> 指定服务
+          docker compose logs -f --tail 100 web
+      
+      
+          docker compose exec
+          在运行中的容器内执行命令
+          -d 后台执行--user 指定用户-T 禁用TTY
+          docker compose exec -u root db psql -U postgres
+      
+      
+          docker compose ps
+          列出所有服务的运行状态
+          -a 显示所有容器
+          docker compose ps -a
+      
+      
+          docker compose port
+          查看容器端口映射的宿主机端口
+          --protocol=tcp/udp 指定协议
+          docker compose port web 80
+      
+  
+
+
+🛠️ 四、构建与配置
+
+  
+      
+          命令
+          功能
+          常用参数
+          示例
+      
+  
+  
+      
+          docker compose build
+          构建或重新构建服务镜像
+          --no-cache 禁用缓存--pull 拉取最新基础镜像
+          docker compose build --no-cache api
+      
+      
+          docker compose pull
+          拉取服务依赖的镜像
+          --ignore-pull-failures 忽略错误
+          docker compose pull --ignore-pull-failures
+      
+      
+          docker compose config
+          验证并输出最终配置（调试YAML文件）
+          -q 仅验证--services 列出服务
+          docker compose config --services
+      
+      
+          docker compose run
+          启动新容器执行一次性命令（如数据库迁移）
+          --rm 执行后删除容器-e KEY=VAL 设置环境变量
+          docker compose run --rm web python manage.py migrate
+      
+  
+
+
+🧩 五、其他实用命令
+
+  
+      
+          命令
+          功能
+          说明
+      
+  
+  
+      
+          docker compose scale
+          设置服务副本数（旧版）
+          新版推荐用 up --scale
+      
+      
+          docker compose kill
+          强制终止服务（发送SIGKILL）
+          -s SIGNAL 指定信号，如 SIGINT
+      
+      
+          docker compose images
+          列出服务使用的镜像
+          -
+      
+      
+          docker compose push
+          推送服务镜像到仓库
+          --ignore-push-failures 忽略推送错误
+      
+  
+
+
+📌 速查表：高频命令组合
+
+  
+      
+          场景
+          命令示例
+      
+  
+  
+      
+          启动服务（后台运行）
+          docker compose up -d
+      
+      
+          停止并清理所有资源
+          docker compose down -v --rmi all
+      
+      
+          查看实时日志
+          docker compose logs -f --tail 50 web
+      
+      
+          进入容器执行命令
+          docker compose exec web bash
+      
+      
+          验证配置文件语法
+          docker compose config -q（无输出表示正确）
+      
+  
+
+
+💡 使用技巧
+
+
+多环境配置：用 -f 指定多个文件（如开发/生产环境）："><meta name=author content="wellzhi"><link rel=canonical href=https://wellzhi.github.io/posts/tech/2010-08-07_docker-compose/><link crossorigin=anonymous href=/assets/css/stylesheet.b54291e20a5b433add2181af00208e3e72d99f37b405cd9f3ff373c992518ba6.css integrity="sha256-tUKR4gpbQzrdIYGvACCOPnLZnze0Bc2fP/NzyZJRi6Y=" rel="preload stylesheet" as=style><script crossorigin=anonymous src=/assets/js/mermaid.min.af2e2ae7d64e037e8a582c3ba35b128209a6f8350c3825cda07833979e0d827c.js></script><link rel=icon href=https://wellzhi.github.io/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://wellzhi.github.io/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://wellzhi.github.io/favicon-32x32.png><link rel=apple-touch-icon href=https://wellzhi.github.io/apple-touch-icon.png><link rel=mask-icon href=https://wellzhi.github.io/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=en href=https://wellzhi.github.io/posts/tech/2010-08-07_docker-compose/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><meta property="og:url" content="https://wellzhi.github.io/posts/tech/2010-08-07_docker-compose/"><meta property="og:site_name" content="wellzhi"><meta property="og:title" content="Docker Compose 常用命令"><meta property="og:description" content="以下是 Docker Compose 的常用命令分类整理，结合功能场景归纳为 5 类核心操作，并附关键参数说明与示例，方便快速查阅：
+🚀 一、核心生命周期管理 命令 功能 常用参数 示例 docker compose up 构建镜像、创建并启动所有服务 -d 后台运行
+--build 强制重建镜像
+--force-recreate 强制重建容器
+--scale SERVICE=NUM 扩缩容 docker compose up -d --build docker compose down 停止并删除容器、网络、卷 -v 删除数据卷
+--rmi all 删除所有镜像
+--remove-orphans 清理未定义容器 docker compose down -v --remove-orphans ⚙️ 二、服务状态控制 命令 功能 常用参数 示例 docker compose start 启动已存在的容器 <服务名> 指定服务 docker compose start web docker compose stop 停止运行中的容器（保留容器） -t <秒> 超时时间 docker compose stop -t 5 docker compose restart 重启服务（先停后启） -t <秒> 超时时间 docker compose restart api docker compose pause
+docker compose unpause 暂停/恢复服务运行 - docker compose pause db 🔍 三、日志与调试 命令 功能 常用参数 示例 docker compose logs 查看服务日志 -f 实时跟踪
+--tail <行数> 显示最后N行
+<服务名> 指定服务 docker compose logs -f --tail 100 web docker compose exec 在运行中的容器内执行命令 -d 后台执行
+--user 指定用户
+-T 禁用TTY docker compose exec -u root db psql -U postgres docker compose ps 列出所有服务的运行状态 -a 显示所有容器 docker compose ps -a docker compose port 查看容器端口映射的宿主机端口 --protocol=tcp/udp 指定协议 docker compose port web 80 🛠️ 四、构建与配置 命令 功能 常用参数 示例 docker compose build 构建或重新构建服务镜像 --no-cache 禁用缓存
+--pull 拉取最新基础镜像 docker compose build --no-cache api docker compose pull 拉取服务依赖的镜像 --ignore-pull-failures 忽略错误 docker compose pull --ignore-pull-failures docker compose config 验证并输出最终配置（调试YAML文件） -q 仅验证
+--services 列出服务 docker compose config --services docker compose run 启动新容器执行一次性命令（如数据库迁移） --rm 执行后删除容器
+-e KEY=VAL 设置环境变量 docker compose run --rm web python manage.py migrate 🧩 五、其他实用命令 命令 功能 说明 docker compose scale 设置服务副本数（旧版） 新版推荐用 up --scale docker compose kill 强制终止服务（发送SIGKILL） -s SIGNAL 指定信号，如 SIGINT docker compose images 列出服务使用的镜像 - docker compose push 推送服务镜像到仓库 --ignore-push-failures 忽略推送错误 📌 速查表：高频命令组合 场景 命令示例 启动服务（后台运行） docker compose up -d 停止并清理所有资源 docker compose down -v --rmi all 查看实时日志 docker compose logs -f --tail 50 web 进入容器执行命令 docker compose exec web bash 验证配置文件语法 docker compose config -q（无输出表示正确） 💡 使用技巧 多环境配置：用 -f 指定多个文件（如开发/生产环境）："><meta property="og:locale" content="zh-cn"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2010-08-07T00:00:00+00:00"><meta property="article:modified_time" content="2010-08-07T00:00:00+00:00"><meta property="article:tag" content="Docker"><meta property="article:tag" content="Compose"><meta property="article:tag" content="命令"><meta name=twitter:card content="summary"><meta name=twitter:title content="Docker Compose 常用命令"><meta name=twitter:description content="以下是 Docker Compose 的常用命令分类整理，结合功能场景归纳为 5 类核心操作，并附关键参数说明与示例，方便快速查阅：
+
+🚀 一、核心生命周期管理
+
+  
+      
+          命令
+          功能
+          常用参数
+          示例
+      
+  
+  
+      
+          docker compose up
+          构建镜像、创建并启动所有服务
+          -d 后台运行--build 强制重建镜像--force-recreate 强制重建容器--scale SERVICE=NUM 扩缩容
+          docker compose up -d --build
+      
+      
+          docker compose down
+          停止并删除容器、网络、卷
+          -v 删除数据卷--rmi all 删除所有镜像--remove-orphans 清理未定义容器
+          docker compose down -v --remove-orphans
+      
+  
+
+
+⚙️ 二、服务状态控制
+
+  
+      
+          命令
+          功能
+          常用参数
+          示例
+      
+  
+  
+      
+          docker compose start
+          启动已存在的容器
+          <服务名> 指定服务
+          docker compose start web
+      
+      
+          docker compose stop
+          停止运行中的容器（保留容器）
+          -t <秒> 超时时间
+          docker compose stop -t 5
+      
+      
+          docker compose restart
+          重启服务（先停后启）
+          -t <秒> 超时时间
+          docker compose restart api
+      
+      
+          docker compose pausedocker compose unpause
+          暂停/恢复服务运行
+          -
+          docker compose pause db
+      
+  
+
+
+🔍 三、日志与调试
+
+  
+      
+          命令
+          功能
+          常用参数
+          示例
+      
+  
+  
+      
+          docker compose logs
+          查看服务日志
+          -f 实时跟踪--tail <行数> 显示最后N行<服务名> 指定服务
+          docker compose logs -f --tail 100 web
+      
+      
+          docker compose exec
+          在运行中的容器内执行命令
+          -d 后台执行--user 指定用户-T 禁用TTY
+          docker compose exec -u root db psql -U postgres
+      
+      
+          docker compose ps
+          列出所有服务的运行状态
+          -a 显示所有容器
+          docker compose ps -a
+      
+      
+          docker compose port
+          查看容器端口映射的宿主机端口
+          --protocol=tcp/udp 指定协议
+          docker compose port web 80
+      
+  
+
+
+🛠️ 四、构建与配置
+
+  
+      
+          命令
+          功能
+          常用参数
+          示例
+      
+  
+  
+      
+          docker compose build
+          构建或重新构建服务镜像
+          --no-cache 禁用缓存--pull 拉取最新基础镜像
+          docker compose build --no-cache api
+      
+      
+          docker compose pull
+          拉取服务依赖的镜像
+          --ignore-pull-failures 忽略错误
+          docker compose pull --ignore-pull-failures
+      
+      
+          docker compose config
+          验证并输出最终配置（调试YAML文件）
+          -q 仅验证--services 列出服务
+          docker compose config --services
+      
+      
+          docker compose run
+          启动新容器执行一次性命令（如数据库迁移）
+          --rm 执行后删除容器-e KEY=VAL 设置环境变量
+          docker compose run --rm web python manage.py migrate
+      
+  
+
+
+🧩 五、其他实用命令
+
+  
+      
+          命令
+          功能
+          说明
+      
+  
+  
+      
+          docker compose scale
+          设置服务副本数（旧版）
+          新版推荐用 up --scale
+      
+      
+          docker compose kill
+          强制终止服务（发送SIGKILL）
+          -s SIGNAL 指定信号，如 SIGINT
+      
+      
+          docker compose images
+          列出服务使用的镜像
+          -
+      
+      
+          docker compose push
+          推送服务镜像到仓库
+          --ignore-push-failures 忽略推送错误
+      
+  
+
+
+📌 速查表：高频命令组合
+
+  
+      
+          场景
+          命令示例
+      
+  
+  
+      
+          启动服务（后台运行）
+          docker compose up -d
+      
+      
+          停止并清理所有资源
+          docker compose down -v --rmi all
+      
+      
+          查看实时日志
+          docker compose logs -f --tail 50 web
+      
+      
+          进入容器执行命令
+          docker compose exec web bash
+      
+      
+          验证配置文件语法
+          docker compose config -q（无输出表示正确）
+      
+  
+
+
+💡 使用技巧
+
+
+多环境配置：用 -f 指定多个文件（如开发/生产环境）："><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://wellzhi.github.io/posts/"},{"@type":"ListItem","position":2,"name":"Tech","item":"https://wellzhi.github.io/posts/tech/"},{"@type":"ListItem","position":3,"name":"Docker Compose 常用命令","item":"https://wellzhi.github.io/posts/tech/2010-08-07_docker-compose/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Docker Compose 常用命令","name":"Docker Compose 常用命令","description":"以下是 Docker Compose 的常用命令分类整理，结合功能场景归纳为 5 类核心操作，并附关键参数说明与示例，方便快速查阅：\n🚀 一、核心生命周期管理 命令 功能 常用参数 示例 docker compose up 构建镜像、创建并启动所有服务 -d 后台运行\n--build 强制重建镜像\n--force-recreate 强制重建容器\n--scale SERVICE=NUM 扩缩容 docker compose up -d --build docker compose down 停止并删除容器、网络、卷 -v 删除数据卷\n--rmi all 删除所有镜像\n--remove-orphans 清理未定义容器 docker compose down -v --remove-orphans ⚙️ 二、服务状态控制 命令 功能 常用参数 示例 docker compose start 启动已存在的容器 \u0026lt;服务名\u0026gt; 指定服务 docker compose start web docker compose stop 停止运行中的容器（保留容器） -t \u0026lt;秒\u0026gt; 超时时间 docker compose stop -t 5 docker compose restart 重启服务（先停后启） -t \u0026lt;秒\u0026gt; 超时时间 docker compose restart api docker compose pause\ndocker compose unpause 暂停/恢复服务运行 - docker compose pause db 🔍 三、日志与调试 命令 功能 常用参数 示例 docker compose logs 查看服务日志 -f 实时跟踪\n--tail \u0026lt;行数\u0026gt; 显示最后N行\n\u0026lt;服务名\u0026gt; 指定服务 docker compose logs -f --tail 100 web docker compose exec 在运行中的容器内执行命令 -d 后台执行\n--user 指定用户\n-T 禁用TTY docker compose exec -u root db psql -U postgres docker compose ps 列出所有服务的运行状态 -a 显示所有容器 docker compose ps -a docker compose port 查看容器端口映射的宿主机端口 --protocol=tcp/udp 指定协议 docker compose port web 80 🛠️ 四、构建与配置 命令 功能 常用参数 示例 docker compose build 构建或重新构建服务镜像 --no-cache 禁用缓存\n--pull 拉取最新基础镜像 docker compose build --no-cache api docker compose pull 拉取服务依赖的镜像 --ignore-pull-failures 忽略错误 docker compose pull --ignore-pull-failures docker compose config 验证并输出最终配置（调试YAML文件） -q 仅验证\n--services 列出服务 docker compose config --services docker compose run 启动新容器执行一次性命令（如数据库迁移） --rm 执行后删除容器\n-e KEY=VAL 设置环境变量 docker compose run --rm web python manage.py migrate 🧩 五、其他实用命令 命令 功能 说明 docker compose scale 设置服务副本数（旧版） 新版推荐用 up --scale docker compose kill 强制终止服务（发送SIGKILL） -s SIGNAL 指定信号，如 SIGINT docker compose images 列出服务使用的镜像 - docker compose push 推送服务镜像到仓库 --ignore-push-failures 忽略推送错误 📌 速查表：高频命令组合 场景 命令示例 启动服务（后台运行） docker compose up -d 停止并清理所有资源 docker compose down -v --rmi all 查看实时日志 docker compose logs -f --tail 50 web 进入容器执行命令 docker compose exec web bash 验证配置文件语法 docker compose config -q（无输出表示正确） 💡 使用技巧 多环境配置：用 -f 指定多个文件（如开发/生产环境）：\n","keywords":["Docker","Compose","命令"],"articleBody":"以下是 Docker Compose 的常用命令分类整理，结合功能场景归纳为 5 类核心操作，并附关键参数说明与示例，方便快速查阅：\n🚀 一、核心生命周期管理 命令 功能 常用参数 示例 docker compose up 构建镜像、创建并启动所有服务 -d 后台运行\n--build 强制重建镜像\n--force-recreate 强制重建容器\n--scale SERVICE=NUM 扩缩容 docker compose up -d --build docker compose down 停止并删除容器、网络、卷 -v 删除数据卷\n--rmi all 删除所有镜像\n--remove-orphans 清理未定义容器 docker compose down -v --remove-orphans ⚙️ 二、服务状态控制 命令 功能 常用参数 示例 docker compose start 启动已存在的容器 \u003c服务名\u003e 指定服务 docker compose start web docker compose stop 停止运行中的容器（保留容器） -t \u003c秒\u003e 超时时间 docker compose stop -t 5 docker compose restart 重启服务（先停后启） -t \u003c秒\u003e 超时时间 docker compose restart api docker compose pause\ndocker compose unpause 暂停/恢复服务运行 - docker compose pause db 🔍 三、日志与调试 命令 功能 常用参数 示例 docker compose logs 查看服务日志 -f 实时跟踪\n--tail \u003c行数\u003e 显示最后N行\n\u003c服务名\u003e 指定服务 docker compose logs -f --tail 100 web docker compose exec 在运行中的容器内执行命令 -d 后台执行\n--user 指定用户\n-T 禁用TTY docker compose exec -u root db psql -U postgres docker compose ps 列出所有服务的运行状态 -a 显示所有容器 docker compose ps -a docker compose port 查看容器端口映射的宿主机端口 --protocol=tcp/udp 指定协议 docker compose port web 80 🛠️ 四、构建与配置 命令 功能 常用参数 示例 docker compose build 构建或重新构建服务镜像 --no-cache 禁用缓存\n--pull 拉取最新基础镜像 docker compose build --no-cache api docker compose pull 拉取服务依赖的镜像 --ignore-pull-failures 忽略错误 docker compose pull --ignore-pull-failures docker compose config 验证并输出最终配置（调试YAML文件） -q 仅验证\n--services 列出服务 docker compose config --services docker compose run 启动新容器执行一次性命令（如数据库迁移） --rm 执行后删除容器\n-e KEY=VAL 设置环境变量 docker compose run --rm web python manage.py migrate 🧩 五、其他实用命令 命令 功能 说明 docker compose scale 设置服务副本数（旧版） 新版推荐用 up --scale docker compose kill 强制终止服务（发送SIGKILL） -s SIGNAL 指定信号，如 SIGINT docker compose images 列出服务使用的镜像 - docker compose push 推送服务镜像到仓库 --ignore-push-failures 忽略推送错误 📌 速查表：高频命令组合 场景 命令示例 启动服务（后台运行） docker compose up -d 停止并清理所有资源 docker compose down -v --rmi all 查看实时日志 docker compose logs -f --tail 50 web 进入容器执行命令 docker compose exec web bash 验证配置文件语法 docker compose config -q（无输出表示正确） 💡 使用技巧 多环境配置：用 -f 指定多个文件（如开发/生产环境）：\ndocker compose -f docker-compose.yml -f docker-compose.prod.yml up -d 项目命名：避免资源冲突，用 -p 指定项目名：\ndocker compose -p my_project up -d 版本兼容：\ndocker compose（v2）替代旧版 docker-compose（v1），命令格式更简洁。 ⚠️ 提示：完整命令列表可通过 docker compose --help 查看，或使用 docker compose help \u003c命令\u003e 获取详细参数说明（如 docker compose help up）。\n","wordCount":"326","inLanguage":"en","datePublished":"2010-08-07T00:00:00Z","dateModified":"2010-08-07T00:00:00Z","author":[{"@type":"Person","name":"wellzhi"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://wellzhi.github.io/posts/tech/2010-08-07_docker-compose/"},"publisher":{"@type":"Organization","name":"wellzhi","logo":{"@type":"ImageObject","url":"https://wellzhi.github.io/favicon.ico"}}}</script><script id=MathJax-script async src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js></script><script>MathJax={tex:{displayMath:[["\\[","\\]"],["$$","$$"]],inlineMath:[["\\(","\\)"],["$","$"]]}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://wellzhi.github.io/ accesskey=h title="wellzhi (Alt + H)">wellzhi</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme"><svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu><li><a href=https://wellzhi.github.io/ title=Home><span>Home</span></a></li><li><a href=https://wellzhi.github.io/posts/ title=Post><span>Post</span></a></li><li><a href=https://wellzhi.github.io/archives title=Archive><span>Archive</span></a></li><li><a href=https://wellzhi.github.io/tags title=Tags><span>Tags</span></a></li><li><a href=https://wellzhi.github.io/search title="Search (Alt + /)" accesskey=/><span>Search</span></a></li><li><a href=https://wellzhi.github.io/about/ title=About><span>About</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><div class=breadcrumbs><a href=https://wellzhi.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://wellzhi.github.io/posts/>Posts</a>&nbsp;»&nbsp;<a href=https://wellzhi.github.io/posts/tech/>Tech</a></div><h1 class="post-title entry-hint-parent">Docker Compose 常用命令</h1></header><div class=toc><details><summary accesskey=c title="(Alt + C)"><span class=details>Table of Contents</span></summary><div class=inner><ul><li><a href=#-%e4%b8%80%e6%a0%b8%e5%bf%83%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f%e7%ae%a1%e7%90%86 aria-label="🚀 一、核心生命周期管理">🚀 一、核心生命周期管理</a></li><li><a href=#-%e4%ba%8c%e6%9c%8d%e5%8a%a1%e7%8a%b6%e6%80%81%e6%8e%a7%e5%88%b6 aria-label="⚙️ 二、服务状态控制">⚙️ 二、服务状态控制</a></li><li><a href=#-%e4%b8%89%e6%97%a5%e5%bf%97%e4%b8%8e%e8%b0%83%e8%af%95 aria-label="🔍 三、日志与调试">🔍 三、日志与调试</a></li><li><a href=#-%e5%9b%9b%e6%9e%84%e5%bb%ba%e4%b8%8e%e9%85%8d%e7%bd%ae aria-label="🛠️ 四、构建与配置">🛠️ 四、构建与配置</a></li><li><a href=#-%e4%ba%94%e5%85%b6%e4%bb%96%e5%ae%9e%e7%94%a8%e5%91%bd%e4%bb%a4 aria-label="🧩 五、其他实用命令">🧩 五、其他实用命令</a></li><li><a href=#-%e9%80%9f%e6%9f%a5%e8%a1%a8%e9%ab%98%e9%a2%91%e5%91%bd%e4%bb%a4%e7%bb%84%e5%90%88 aria-label="📌 速查表：高频命令组合">📌 速查表：高频命令组合</a></li><li><a href=#-%e4%bd%bf%e7%94%a8%e6%8a%80%e5%b7%a7 aria-label="💡 使用技巧">💡 使用技巧</a></li></ul></div></details></div><div class=post-content><p>以下是 <strong>Docker Compose</strong> 的常用命令分类整理，结合功能场景归纳为 <strong>5 类核心操作</strong>，并附关键参数说明与示例，方便快速查阅：</p><hr><h3 id=-一核心生命周期管理>🚀 <strong>一、核心生命周期管理</strong><a hidden class=anchor aria-hidden=true href=#-一核心生命周期管理>#</a></h3><table><thead><tr><th style=text-align:left>命令</th><th style=text-align:left>功能</th><th style=text-align:left>常用参数</th><th style=text-align:left>示例</th></tr></thead><tbody><tr><td style=text-align:left><code>docker compose up</code></td><td style=text-align:left>构建镜像、创建并启动所有服务</td><td style=text-align:left><code>-d</code> 后台运行<br><code>--build</code> 强制重建镜像<br><code>--force-recreate</code> 强制重建容器<br><code>--scale SERVICE=NUM</code> 扩缩容</td><td style=text-align:left><code>docker compose up -d --build</code></td></tr><tr><td style=text-align:left><code>docker compose down</code></td><td style=text-align:left>停止并删除容器、网络、卷</td><td style=text-align:left><code>-v</code> 删除数据卷<br><code>--rmi all</code> 删除所有镜像<br><code>--remove-orphans</code> 清理未定义容器</td><td style=text-align:left><code>docker compose down -v --remove-orphans</code></td></tr></tbody></table><hr><h3 id=-二服务状态控制>⚙️ <strong>二、服务状态控制</strong><a hidden class=anchor aria-hidden=true href=#-二服务状态控制>#</a></h3><table><thead><tr><th style=text-align:left>命令</th><th style=text-align:left>功能</th><th style=text-align:left>常用参数</th><th style=text-align:left>示例</th></tr></thead><tbody><tr><td style=text-align:left><code>docker compose start</code></td><td style=text-align:left>启动已存在的容器</td><td style=text-align:left><code>&lt;服务名></code> 指定服务</td><td style=text-align:left><code>docker compose start web</code></td></tr><tr><td style=text-align:left><code>docker compose stop</code></td><td style=text-align:left>停止运行中的容器（保留容器）</td><td style=text-align:left><code>-t &lt;秒></code> 超时时间</td><td style=text-align:left><code>docker compose stop -t 5</code></td></tr><tr><td style=text-align:left><code>docker compose restart</code></td><td style=text-align:left>重启服务（先停后启）</td><td style=text-align:left><code>-t &lt;秒></code> 超时时间</td><td style=text-align:left><code>docker compose restart api</code></td></tr><tr><td style=text-align:left><code>docker compose pause</code><br><code>docker compose unpause</code></td><td style=text-align:left>暂停/恢复服务运行</td><td style=text-align:left>-</td><td style=text-align:left><code>docker compose pause db</code></td></tr></tbody></table><hr><h3 id=-三日志与调试>🔍 <strong>三、日志与调试</strong><a hidden class=anchor aria-hidden=true href=#-三日志与调试>#</a></h3><table><thead><tr><th style=text-align:left>命令</th><th style=text-align:left>功能</th><th style=text-align:left>常用参数</th><th style=text-align:left>示例</th></tr></thead><tbody><tr><td style=text-align:left><code>docker compose logs</code></td><td style=text-align:left>查看服务日志</td><td style=text-align:left><code>-f</code> 实时跟踪<br><code>--tail &lt;行数></code> 显示最后N行<br><code>&lt;服务名></code> 指定服务</td><td style=text-align:left><code>docker compose logs -f --tail 100 web</code></td></tr><tr><td style=text-align:left><code>docker compose exec</code></td><td style=text-align:left>在运行中的容器内执行命令</td><td style=text-align:left><code>-d</code> 后台执行<br><code>--user</code> 指定用户<br><code>-T</code> 禁用TTY</td><td style=text-align:left><code>docker compose exec -u root db psql -U postgres</code></td></tr><tr><td style=text-align:left><code>docker compose ps</code></td><td style=text-align:left>列出所有服务的运行状态</td><td style=text-align:left><code>-a</code> 显示所有容器</td><td style=text-align:left><code>docker compose ps -a</code></td></tr><tr><td style=text-align:left><code>docker compose port</code></td><td style=text-align:left>查看容器端口映射的宿主机端口</td><td style=text-align:left><code>--protocol=tcp/udp</code> 指定协议</td><td style=text-align:left><code>docker compose port web 80</code></td></tr></tbody></table><hr><h3 id=-四构建与配置>🛠️ <strong>四、构建与配置</strong><a hidden class=anchor aria-hidden=true href=#-四构建与配置>#</a></h3><table><thead><tr><th style=text-align:left>命令</th><th style=text-align:left>功能</th><th style=text-align:left>常用参数</th><th style=text-align:left>示例</th></tr></thead><tbody><tr><td style=text-align:left><code>docker compose build</code></td><td style=text-align:left>构建或重新构建服务镜像</td><td style=text-align:left><code>--no-cache</code> 禁用缓存<br><code>--pull</code> 拉取最新基础镜像</td><td style=text-align:left><code>docker compose build --no-cache api</code></td></tr><tr><td style=text-align:left><code>docker compose pull</code></td><td style=text-align:left>拉取服务依赖的镜像</td><td style=text-align:left><code>--ignore-pull-failures</code> 忽略错误</td><td style=text-align:left><code>docker compose pull --ignore-pull-failures</code></td></tr><tr><td style=text-align:left><code>docker compose config</code></td><td style=text-align:left>验证并输出最终配置（调试YAML文件）</td><td style=text-align:left><code>-q</code> 仅验证<br><code>--services</code> 列出服务</td><td style=text-align:left><code>docker compose config --services</code></td></tr><tr><td style=text-align:left><code>docker compose run</code></td><td style=text-align:left>启动新容器执行一次性命令（如数据库迁移）</td><td style=text-align:left><code>--rm</code> 执行后删除容器<br><code>-e KEY=VAL</code> 设置环境变量</td><td style=text-align:left><code>docker compose run --rm web python manage.py migrate</code></td></tr></tbody></table><hr><h3 id=-五其他实用命令>🧩 <strong>五、其他实用命令</strong><a hidden class=anchor aria-hidden=true href=#-五其他实用命令>#</a></h3><table><thead><tr><th style=text-align:left>命令</th><th style=text-align:left>功能</th><th style=text-align:left>说明</th></tr></thead><tbody><tr><td style=text-align:left><code>docker compose scale</code></td><td style=text-align:left>设置服务副本数（旧版）</td><td style=text-align:left>新版推荐用 <code>up --scale</code></td></tr><tr><td style=text-align:left><code>docker compose kill</code></td><td style=text-align:left>强制终止服务（发送SIGKILL）</td><td style=text-align:left><code>-s SIGNAL</code> 指定信号，如 <code>SIGINT</code></td></tr><tr><td style=text-align:left><code>docker compose images</code></td><td style=text-align:left>列出服务使用的镜像</td><td style=text-align:left>-</td></tr><tr><td style=text-align:left><code>docker compose push</code></td><td style=text-align:left>推送服务镜像到仓库</td><td style=text-align:left><code>--ignore-push-failures</code> 忽略推送错误</td></tr></tbody></table><hr><h3 id=-速查表高频命令组合>📌 <strong>速查表：高频命令组合</strong><a hidden class=anchor aria-hidden=true href=#-速查表高频命令组合>#</a></h3><table><thead><tr><th style=text-align:left>场景</th><th style=text-align:left>命令示例</th></tr></thead><tbody><tr><td style=text-align:left>启动服务（后台运行）</td><td style=text-align:left><code>docker compose up -d</code></td></tr><tr><td style=text-align:left>停止并清理所有资源</td><td style=text-align:left><code>docker compose down -v --rmi all</code></td></tr><tr><td style=text-align:left>查看实时日志</td><td style=text-align:left><code>docker compose logs -f --tail 50 web</code></td></tr><tr><td style=text-align:left>进入容器执行命令</td><td style=text-align:left><code>docker compose exec web bash</code></td></tr><tr><td style=text-align:left>验证配置文件语法</td><td style=text-align:left><code>docker compose config -q</code>（无输出表示正确）</td></tr></tbody></table><hr><h3 id=-使用技巧>💡 <strong>使用技巧</strong><a hidden class=anchor aria-hidden=true href=#-使用技巧>#</a></h3><ol><li><p><strong>多环境配置</strong>：用 <code>-f</code> 指定多个文件（如开发/生产环境）：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+</span></span></code></pre></div></li><li><p><strong>项目命名</strong>：避免资源冲突，用 <code>-p</code> 指定项目名：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>docker compose -p my_project up -d
+</span></span></code></pre></div></li><li><p><strong>版本兼容</strong>：</p><ul><li><code>docker compose</code>（v2）替代旧版 <code>docker-compose</code>（v1），命令格式更简洁。</li></ul></li></ol><blockquote><p>⚠️ <strong>提示</strong>：完整命令列表可通过 <code>docker compose --help</code> 查看，或使用 <code>docker compose help &lt;命令></code> 获取详细参数说明（如 <code>docker compose help up</code>）。</p></blockquote></div><footer class=post-footer><ul class=post-tags><li><a href=https://wellzhi.github.io/tags/docker/>Docker</a></li><li><a href=https://wellzhi.github.io/tags/compose/>Compose</a></li><li><a href=https://wellzhi.github.io/tags/%E5%91%BD%E4%BB%A4/>命令</a></li></ul></footer><div class=comments-section><div class=comments-header><h3 class=comments-title><svg class="comments-icon" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+评论区</h3><div class=comments-divider></div></div><div id=twikoo-loading class=twikoo-loading><div class=loading-spinner></div><p>评论加载中...</p></div><div id=twikoo class=twikoo-container></div><div id=twikoo-error class=twikoo-error style=display:none><div class=error-content><svg class="error-icon" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg><p>评论加载失败，请刷新页面重试</p></div></div></div><style>.comments-section{margin:3rem 0 2rem;padding:0;max-width:100%}.comments-header{margin-bottom:2rem}.comments-title{display:flex;align-items:center;gap:.5rem;font-size:1.5rem;font-weight:600;color:var(--primary,#1a1a1a);margin:0 0 1rem}.comments-icon{width:1.5rem;height:1.5rem;color:var(--theme,#007acc)}.comments-divider{height:2px;background:linear-gradient(90deg,var(--theme,#007acc) 0%,transparent 100%);border-radius:1px;width:60px}.twikoo-container{background:var(--code-bg,#f8f9fa);border-radius:12px;padding:1.5rem;border:1px solid var(--border,#e1e5e9);transition:all .3s ease;min-height:200px}.twikoo-container:hover{border-color:var(--theme,#007acc);box-shadow:0 4px 12px rgba(0,122,204,.1)}.twikoo-loading{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 1rem;color:var(--secondary,#666)}.loading-spinner{width:32px;height:32px;border:3px solid var(--border,#e1e5e9);border-top:3px solid var(--theme,#007acc);border-radius:50%;animation:spin 1s linear infinite;margin-bottom:1rem}@keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}.twikoo-error{text-align:center;padding:2rem;color:var(--secondary,#666)}.error-content{display:flex;flex-direction:column;align-items:center;gap:1rem}.error-icon{width:2rem;height:2rem;color:#dc3545}@media(prefers-color-scheme:dark){.comments-title{color:var(--primary,#ffffff)}.twikoo-container{background:var(--code-bg,#2d3748);border-color:var(--border,#4a5568)}}@media(max-width:768px){.comments-section{margin:2rem 0 1rem}.twikoo-container{padding:1rem;border-radius:8px}.comments-title{font-size:1.25rem}}</style><script src=https://cdn.staticfile.org/twikoo/1.6.16/twikoo.all.min.js></script><script>(function(){const e=document.getElementById("twikoo-loading"),t=document.getElementById("twikoo-error"),n=document.getElementById("twikoo");twikoo.init({envId:"https://twikoo-vercel-navy.vercel.app/",el:"#twikoo",onCommentLoaded:function(){e&&(e.style.display="none")}}).then(function(){e&&(e.style.display="none")}).catch(function(n){console.error("Twikoo 初始化失败:",n),e&&(e.style.display="none"),t&&(t.style.display="block")}),setTimeout(function(){e&&e.style.display!=="none"&&(e.style.display="none",t&&(t.style.display="block"))},5e3)})()</script></article></main><footer class=footer><span>&copy; 2025 <a href=https://wellzhi.github.io/>wellzhi</a></span> ·
+<span>Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light"),theme=""):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"),theme="dark"),mermaidTextContents.forEach((e,t)=>{document.getElementsByClassName("language-mermaid")[t].removeAttribute("data-processed"),document.getElementsByClassName("language-mermaid")[t].innerHTML=e}),mermaid.initialize({theme,startOnLoad:!0}),mermaid.init(void 0,".language-mermaid")})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="copy";function s(){t.innerHTML="copied!",setTimeout(()=>{t.innerHTML="copy"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script><script>localStorage.getItem("pref-theme")=="dark"?theme="dark":theme="",mermaidTextContents=Array.from(document.getElementsByClassName("language-mermaid")).map(e=>e.innerHTML),mermaid.initialize({theme,startOnLoad:!0}),mermaid.init(void 0,".language-mermaid")</script></body></html>

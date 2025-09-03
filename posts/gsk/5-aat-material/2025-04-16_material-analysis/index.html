@@ -1,0 +1,244 @@
+<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>Material Analysis | wellzhi</title>
+<meta name=keywords content><meta name=description content="一、来源
+资料分析题目材料一般有以下两个来源
+
+国家统计局
+地方统计局
+
+二、难点
+
+读不懂 —— 统计术语
+找不着 —— 结构阅读
+列不对 —— 重点题型
+算得慢 —— 速算技巧
+
+三、速算
+1.截位直除法
+flowchart LR
+    A[截位直除法] --> B[看选项]
+    
+    B --> C{首项相同？}
+    C -->|否| D[差距大，截两位]
+    C -->|是| E{看第二位差}
+
+    E -->|第二位差 > 首位| F[差距大，截两位]
+    E -->|第二位差 <= 首位| G[差距小，截三位]
+
+看选项，差距大截两位、差距小截三位
+看式子，一步除截分母、多步除都要截
+看答案，能不算就不算
+
+四、题型
+增长量N+1、N-1原则
+已知现期、增长率，求增长量
+
+求增长率百化分(N是分母)
+增长量=现期/N+1， 减少量=现期/N-1
+
+flowchart LR
+    A[已知现期量和增长率r] --> B[求增长率r百化分]
+    B --> C[确定N值<br>N = 100/增长率百分数]
+    
+    B --> D{r 正负?}
+    
+    D -->|r正| E[增长量 = 现期量/N+1]
+    D -->|r负| F[减少量 = 现期量/N-1]
+    
+    E --> G[最终增长量]
+    F --> G
+    
+    style A fill:#d4f1f9,stroke:#333
+    style B fill:#d5f5e3,stroke:#333
+    style C fill:#d5f5e3,stroke:#333
+    style D fill:#fdebd0,stroke:#333
+    style E fill:#ffcccc,stroke:#333
+    style F fill:#ffcccc,stroke:#333
+    style G fill:#d4f1f9,stroke:#333
+练习1：老邓资产300亿，同比增长50%，求同比增量？
+解答：N=2, 300/(2+1)=100亿
+练习2：老邓身高2米4，同比增长20%，求同比增量？
+解答：N=5, 2.4/(5+1)=40厘米
+练习3：老邓体重200斤，同比减少25%，求同比减少量？
+解答：N=4, 200/(4-1)约为66斤
+增长率百化分之取中法
+如果遇到百分数左右难取舍，取中即可
+$15.4\% ≈ \frac{1}{6.5}$"><meta name=author content="wellzhi"><link rel=canonical href=https://wellzhi.github.io/posts/gsk/5-aat-material/2025-04-16_material-analysis/><link crossorigin=anonymous href=/assets/css/stylesheet.b54291e20a5b433add2181af00208e3e72d99f37b405cd9f3ff373c992518ba6.css integrity="sha256-tUKR4gpbQzrdIYGvACCOPnLZnze0Bc2fP/NzyZJRi6Y=" rel="preload stylesheet" as=style><script crossorigin=anonymous src=/assets/js/mermaid.min.af2e2ae7d64e037e8a582c3ba35b128209a6f8350c3825cda07833979e0d827c.js></script><link rel=icon href=https://wellzhi.github.io/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://wellzhi.github.io/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://wellzhi.github.io/favicon-32x32.png><link rel=apple-touch-icon href=https://wellzhi.github.io/apple-touch-icon.png><link rel=mask-icon href=https://wellzhi.github.io/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=en href=https://wellzhi.github.io/posts/gsk/5-aat-material/2025-04-16_material-analysis/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><meta property="og:url" content="https://wellzhi.github.io/posts/gsk/5-aat-material/2025-04-16_material-analysis/"><meta property="og:site_name" content="wellzhi"><meta property="og:title" content="Material Analysis"><meta property="og:description" content="一、来源 资料分析题目材料一般有以下两个来源
+国家统计局 地方统计局 二、难点 读不懂 —— 统计术语 找不着 —— 结构阅读 列不对 —— 重点题型 算得慢 —— 速算技巧 三、速算 1.截位直除法 flowchart LR A[截位直除法] --> B[看选项] B --> C{首项相同？} C -->|否| D[差距大，截两位] C -->|是| E{看第二位差} E -->|第二位差 > 首位| F[差距大，截两位] E -->|第二位差 <= 首位| G[差距小，截三位] 看选项，差距大截两位、差距小截三位 看式子，一步除截分母、多步除都要截 看答案，能不算就不算 四、题型 增长量N+1、N-1原则 已知现期、增长率，求增长量
+求增长率百化分(N是分母) 增长量=现期/N+1， 减少量=现期/N-1 flowchart LR A[已知现期量和增长率r] --> B[求增长率r百化分] B --> C[确定N值<br>N = 100/增长率百分数] B --> D{r 正负?} D -->|r正| E[增长量 = 现期量/N+1] D -->|r负| F[减少量 = 现期量/N-1] E --> G[最终增长量] F --> G style A fill:#d4f1f9,stroke:#333 style B fill:#d5f5e3,stroke:#333 style C fill:#d5f5e3,stroke:#333 style D fill:#fdebd0,stroke:#333 style E fill:#ffcccc,stroke:#333 style F fill:#ffcccc,stroke:#333 style G fill:#d4f1f9,stroke:#333 练习1：老邓资产300亿，同比增长50%，求同比增量？ 解答：N=2, 300/(2+1)=100亿 练习2：老邓身高2米4，同比增长20%，求同比增量？ 解答：N=5, 2.4/(5+1)=40厘米 练习3：老邓体重200斤，同比减少25%，求同比减少量？ 解答：N=4, 200/(4-1)约为66斤 增长率百化分之取中法 如果遇到百分数左右难取舍，取中即可 $15.4\% ≈ \frac{1}{6.5}$"><meta property="og:locale" content="zh-cn"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2025-04-16T10:40:03+08:00"><meta property="article:modified_time" content="2025-04-16T10:40:03+08:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="Material Analysis"><meta name=twitter:description content="一、来源
+资料分析题目材料一般有以下两个来源
+
+国家统计局
+地方统计局
+
+二、难点
+
+读不懂 —— 统计术语
+找不着 —— 结构阅读
+列不对 —— 重点题型
+算得慢 —— 速算技巧
+
+三、速算
+1.截位直除法
+flowchart LR
+    A[截位直除法] --> B[看选项]
+    
+    B --> C{首项相同？}
+    C -->|否| D[差距大，截两位]
+    C -->|是| E{看第二位差}
+
+    E -->|第二位差 > 首位| F[差距大，截两位]
+    E -->|第二位差 <= 首位| G[差距小，截三位]
+
+看选项，差距大截两位、差距小截三位
+看式子，一步除截分母、多步除都要截
+看答案，能不算就不算
+
+四、题型
+增长量N+1、N-1原则
+已知现期、增长率，求增长量
+
+求增长率百化分(N是分母)
+增长量=现期/N+1， 减少量=现期/N-1
+
+flowchart LR
+    A[已知现期量和增长率r] --> B[求增长率r百化分]
+    B --> C[确定N值<br>N = 100/增长率百分数]
+    
+    B --> D{r 正负?}
+    
+    D -->|r正| E[增长量 = 现期量/N+1]
+    D -->|r负| F[减少量 = 现期量/N-1]
+    
+    E --> G[最终增长量]
+    F --> G
+    
+    style A fill:#d4f1f9,stroke:#333
+    style B fill:#d5f5e3,stroke:#333
+    style C fill:#d5f5e3,stroke:#333
+    style D fill:#fdebd0,stroke:#333
+    style E fill:#ffcccc,stroke:#333
+    style F fill:#ffcccc,stroke:#333
+    style G fill:#d4f1f9,stroke:#333
+练习1：老邓资产300亿，同比增长50%，求同比增量？
+解答：N=2, 300/(2+1)=100亿
+练习2：老邓身高2米4，同比增长20%，求同比增量？
+解答：N=5, 2.4/(5+1)=40厘米
+练习3：老邓体重200斤，同比减少25%，求同比减少量？
+解答：N=4, 200/(4-1)约为66斤
+增长率百化分之取中法
+如果遇到百分数左右难取舍，取中即可
+$15.4\% ≈ \frac{1}{6.5}$"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://wellzhi.github.io/posts/"},{"@type":"ListItem","position":2,"name":"GSK","item":"https://wellzhi.github.io/posts/gsk/"},{"@type":"ListItem","position":3,"name":"AAT-material","item":"https://wellzhi.github.io/posts/gsk/5-aat-material/"},{"@type":"ListItem","position":4,"name":"Material Analysis","item":"https://wellzhi.github.io/posts/gsk/5-aat-material/2025-04-16_material-analysis/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Material Analysis","name":"Material Analysis","description":"一、来源 资料分析题目材料一般有以下两个来源\n国家统计局 地方统计局 二、难点 读不懂 —— 统计术语 找不着 —— 结构阅读 列不对 —— 重点题型 算得慢 —— 速算技巧 三、速算 1.截位直除法 flowchart LR A[截位直除法] --\u0026gt; B[看选项] B --\u0026gt; C{首项相同？} C --\u0026gt;|否| D[差距大，截两位] C --\u0026gt;|是| E{看第二位差} E --\u0026gt;|第二位差 \u0026gt; 首位| F[差距大，截两位] E --\u0026gt;|第二位差 \u0026lt;= 首位| G[差距小，截三位] 看选项，差距大截两位、差距小截三位 看式子，一步除截分母、多步除都要截 看答案，能不算就不算 四、题型 增长量N+1、N-1原则 已知现期、增长率，求增长量\n求增长率百化分(N是分母) 增长量=现期/N+1， 减少量=现期/N-1 flowchart LR A[已知现期量和增长率r] --\u0026gt; B[求增长率r百化分] B --\u0026gt; C[确定N值\u0026lt;br\u0026gt;N = 100/增长率百分数] B --\u0026gt; D{r 正负?} D --\u0026gt;|r正| E[增长量 = 现期量/N+1] D --\u0026gt;|r负| F[减少量 = 现期量/N-1] E --\u0026gt; G[最终增长量] F --\u0026gt; G style A fill:#d4f1f9,stroke:#333 style B fill:#d5f5e3,stroke:#333 style C fill:#d5f5e3,stroke:#333 style D fill:#fdebd0,stroke:#333 style E fill:#ffcccc,stroke:#333 style F fill:#ffcccc,stroke:#333 style G fill:#d4f1f9,stroke:#333 练习1：老邓资产300亿，同比增长50%，求同比增量？ 解答：N=2, 300/(2+1)=100亿 练习2：老邓身高2米4，同比增长20%，求同比增量？ 解答：N=5, 2.4/(5+1)=40厘米 练习3：老邓体重200斤，同比减少25%，求同比减少量？ 解答：N=4, 200/(4-1)约为66斤 增长率百化分之取中法 如果遇到百分数左右难取舍，取中即可 $15.4\\% ≈ \\frac{1}{6.5}$\n","keywords":[],"articleBody":"一、来源 资料分析题目材料一般有以下两个来源\n国家统计局 地方统计局 二、难点 读不懂 —— 统计术语 找不着 —— 结构阅读 列不对 —— 重点题型 算得慢 —— 速算技巧 三、速算 1.截位直除法 flowchart LR A[截位直除法] --\u003e B[看选项] B --\u003e C{首项相同？} C --\u003e|否| D[差距大，截两位] C --\u003e|是| E{看第二位差} E --\u003e|第二位差 \u003e 首位| F[差距大，截两位] E --\u003e|第二位差 \u003c= 首位| G[差距小，截三位] 看选项，差距大截两位、差距小截三位 看式子，一步除截分母、多步除都要截 看答案，能不算就不算 四、题型 增长量N+1、N-1原则 已知现期、增长率，求增长量\n求增长率百化分(N是分母) 增长量=现期/N+1， 减少量=现期/N-1 flowchart LR A[已知现期量和增长率r] --\u003e B[求增长率r百化分] B --\u003e C[确定N值\nN = 100/增长率百分数] B --\u003e D{r 正负?} D --\u003e|r正| E[增长量 = 现期量/N+1] D --\u003e|r负| F[减少量 = 现期量/N-1] E --\u003e G[最终增长量] F --\u003e G style A fill:#d4f1f9,stroke:#333 style B fill:#d5f5e3,stroke:#333 style C fill:#d5f5e3,stroke:#333 style D fill:#fdebd0,stroke:#333 style E fill:#ffcccc,stroke:#333 style F fill:#ffcccc,stroke:#333 style G fill:#d4f1f9,stroke:#333 练习1：老邓资产300亿，同比增长50%，求同比增量？ 解答：N=2, 300/(2+1)=100亿 练习2：老邓身高2米4，同比增长20%，求同比增量？ 解答：N=5, 2.4/(5+1)=40厘米 练习3：老邓体重200斤，同比减少25%，求同比减少量？ 解答：N=4, 200/(4-1)约为66斤 增长率百化分之取中法 如果遇到百分数左右难取舍，取中即可 $15.4\\% ≈ \\frac{1}{6.5}$\n$18.4\\% ≈ \\frac{1}{5.5}$\n增长量比大小 识别：增长量排序或增长+多/少\n题型1: 已知现期量和基期量：增长量=现期-基期\n柱形图可以看高度差 题型2: 已知现期量和增长率：大大则大，一大一小看乘积（/看倍数），例外情况需验算\n已知一组数据，每个数据已知现期量、增长率（有正负），比较增长量大小\n现期量大，且增幅大，其增长量大； 现期量大，且降幅大，其减少量大。 flowchart LR %% 主逻辑框架 - 简化节点标识并改进布局 B{现期量与增长率\n对比情况} B --\u003e|\"两者均较大\"| C[\"✅ 大大则大\n直接判定增长量更大\"] B --\u003e|\"一大一小\"| D[\"➰ 计算乘积\n现期量×增长率\"] %% 例外条件分支 - 改进分支逻辑显示 D --\u003e E{\"需要验算？\"} E --\u003e|\"增长率差异\u003e20%\"| F[\"⚠️ 精确计算:\n增长量=现期量×增长率/(1+增长率)\"] E --\u003e|\"乘积值接近\"| F E --\u003e|\"无特殊情况\"| G[\"采用乘积比较结果\"] %% 添加标题和注释 T[开始] --\u003e B %% 样式优化 - 增强视觉区分度 classDef title fill:#d4e6f1,stroke:#2874a6,stroke-width:3px,font-weight:bold,font-size:14px; classDef normal fill:#f0f7ff,stroke:#4a90e2,stroke-width:2px,font-size:12px; classDef exception fill:#fff3e0,stroke:#ffa726,stroke-width:2px,font-size:12px; classDef decision fill:#e8f8f5,stroke:#16a085,stroke-width:2px,font-size:12px; class T title class B,D decision class C,G normal class E,F exception %% 链接样式 linkStyle 0,3,6 stroke:#2ecc71,stroke-width:2px; linkStyle 1,2 stroke:#3498db,stroke-width:2px; linkStyle 4,5 stroke:#e67e22,stroke-width:2px; 1.增长率比较 识别：增长率排序或增长+最快/慢\ngraph LR A[增长率比较] --\u003e B[现期量+基期量]--\u003e B1[现期量/基期量,倍数越大r越大] A --\u003e C[现期量+增长量] C --\u003e |注意：不需要计算基期量| E[增长量/现期量,值越大r越大]:::red classDef red fill:#eeffee,stroke:#f00,stroke-width:2px,color:#f00; 已知增长量和现期量，不算基期量可以比较$r$大小？ $r = \\frac{增量}{基期量} = \\frac{增量}{现期量 - 增量} = \\frac{\\frac{增量}{现期量}}{1 - \\frac{增量}{现期量}} = \\frac{k}{1 - k}$\n则 $k 越大 → r 越大$\n增量为负数时，结论依然成立： 增量越大（更接近0的负数）， $Δ/Q$ 比值越大，对应增长率$r$下降幅度越小（即$r$相对更大）。数学逻辑未改变，但需注意负数大小比较的方向。\n2021年数据​​： ​企业​​：参保人数23317万人，比上年增加1050万人 ​​机关事业​​：参保人数6387万人，比上年增加155万人 ​​灵活就业等其他​​：参保人数4751万人，比上年增加325万人 判断“2020年，三类职工医保参保人员中，灵活就业等其他人员参保人数同比增速最快。”（A） A. 正确　B. 错误 题型：问三类人员谁的同比增速最快--增长率比较 方法：直接比 增长量/现期量 大小 2. 特殊增长率 graph LR A[特殊增长率] --\u003e B[间隔增长率] A --\u003e C[年均增长率] A --\u003e D[混合增长率] 2.1 间隔增长率 【例 1】（2024 四川）2022年，全国软件和信息技术服务业规模以上企业超 3.5 万家，累计完成软件业务收入 108126 亿元，同比增长 11.2%，增速较上年同期回落 6.5 个百分点。 2022 年，全国软件和信息技术服务业规模以上企业累计完成软件业务收入约比 2020 年增长了： A.16% B.23% C.29% D.31% 1. 2021年的增长率: 11.2%+6.5%=17.7% ​2. ​复合增长率计算​​： 假设2020年收入为A，则： 2021年收入：A×(1+17.7%) 2022年收入：A×(1+17.7%)×(1+11.2%) 总增长率：(1+17.7%)×(1+11.2%)−1=1.177×1.112−1≈1.3088−1=30.88% ​3. 答案：D 速算技巧：$r_{间隔} = r_1 + r_2 + r_1 \\cdot r_2$ 重要说明：如果$r_1$和$r_2$均小于10%（$r_1*r_2 \u003c 1\\% $）， 可以忽略$r_1 \\cdot r_2$计算，上述公式变为：$r_{间隔} = r_1 + r_2$ 解题： $r_1 = 17.7\\%$和$r_2=11.2\\%$，则 $r_{间隔} = r_1 + r_2 = 28.9\\%$，排除 AB $r_1 \\cdot r_2 ≈ 1.8 \\% $，排除 C，D 正确\n2.2 年均增长率 2.3 混合增长率 五、统计学概念 基期\n现期\n基期量\n现期量\n增长量\n同比\n环比\n增长率\n增幅\n增长幅度\n增长率\n增长率比大小 年均增长率 间隔增长率 间隔增长倍数 混合增长率 增长量\n增长量比大小 年均增长量 间隔增长量 间隔增长倍数 平均数\n现期平均数 基期平均数 平均增长率 平均增长倍数 基尼系数 衡量收入分配差距\n取值范围在0到1之间： 0表示收入完全平等（所有人收入相同） 1表示收入完全不平等（一个人占有全部收入） 国际警戒线为0.4 基尼系数越大，表示收入分配差距越大 通常用来衡量一个国家或地区的贫富差距程度 恩格尔系数 食品支出总额占个人消费支出总额的比重\n60%以上：贫困 50-59%：温饱 40-49%：小康 30-39%：富裕 20-29%：极其富裕 基础百化分表 基础百化分表（1-20）（仅保留需技巧记忆项）\n分数 近似百分数 记忆规则 1/6 16.7% 与1/16互换（16.7%→1/6） 1/7 14.3% 与1/14互换（14.3%→1/7） 1/9 11.1% 整数部分+分母=20（11+9） 1/11 9.1% 整数部分+分母=20（9+11） 1/12 8.3% 整数部分+分母=20（8+12） 1/13 7.7% 整数部分+分母=20（7+13） 1/14 7.1% 与1/7互换（7.1%→1/14） 1/15 6.7% 特殊记忆“567” 1/16 6.25% 与1/6互换（6.25%→1/16） 1/17 5.9% 5.0369等差数列（5.9→5.6→5.3） 1/18 5.6% ↑同上 1/19 5.3% ↑同上 $当r\u003e0(增长率为正),基期 = \\frac{现期}{1+r}=现期*(1-r)$\n1. 同比与环比 同比：和去年同时期相比 环比：和上一个统计周期相比 2. 基期量计算 已知现期量、增长量，基期 = 现期 - 增长量 已知现期量、增长率，$基期 = \\frac{现期}{1+r}$ 3. 增长量计算 增长量N+1与N-1原则 $增长量N \\pm 1 原则$\n已知现期、增长率，求增长量 第一步：求增长率的百化分，例如：$r=25\\% 、\\frac{1}{4} = 25\\%$，所以 $N=4 \\%$ 第二步： $增长量 = \\dfrac{现期}{N + 1}, 减少量 = \\dfrac{现期}{N - 1}$\n化除为乘 已知现期量、增长率，$基期 = \\frac{现期}{1+r}，当|r| \\leq 5\\%$： $当增长率为正,基期 = \\frac{现期}{1+r}=现期*(1-r)$ $当增长率为负,基期 = \\frac{现期}{1-r}=现期*(1+r)，r为增长率绝对值$\n4. 增长率计算 题型识别： 问增长率或增长/下降+%(选项)\n已知现期、基期，求增长率：$r = \\frac{增量}{ 基期} = \\frac{ 现期 - 基期}{ 基期} = \\frac{ 增量}{ 现期 - 增量}$ 已知现期、基期，求增长率：$r = \\frac{增量}{ 基期} = \\frac{ 现期 - 基期}{ 基期} = \\frac{ 现期}{ 基期}-1$ 5. 增长率的比较 题型识别： 增长率排序、增长率增长+最快/最慢\n方法一：已知现期、基期，求现期/基期的倍数越大，增长率r越大 方法二：已知现期、增长量，求增量/现期 越大，增长率r越大（不需要算基期量） ","wordCount":"530","inLanguage":"en","datePublished":"2025-04-16T10:40:03+08:00","dateModified":"2025-04-16T10:40:03+08:00","author":[{"@type":"Person","name":"wellzhi"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://wellzhi.github.io/posts/gsk/5-aat-material/2025-04-16_material-analysis/"},"publisher":{"@type":"Organization","name":"wellzhi","logo":{"@type":"ImageObject","url":"https://wellzhi.github.io/favicon.ico"}}}</script><script id=MathJax-script async src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js></script><script>MathJax={tex:{displayMath:[["\\[","\\]"],["$$","$$"]],inlineMath:[["\\(","\\)"],["$","$"]]}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://wellzhi.github.io/ accesskey=h title="wellzhi (Alt + H)">wellzhi</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme"><svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu><li><a href=https://wellzhi.github.io/ title=Home><span>Home</span></a></li><li><a href=https://wellzhi.github.io/posts/ title=Post><span>Post</span></a></li><li><a href=https://wellzhi.github.io/archives title=Archive><span>Archive</span></a></li><li><a href=https://wellzhi.github.io/tags title=Tags><span>Tags</span></a></li><li><a href=https://wellzhi.github.io/search title="Search (Alt + /)" accesskey=/><span>Search</span></a></li><li><a href=https://wellzhi.github.io/about/ title=About><span>About</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><div class=breadcrumbs><a href=https://wellzhi.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://wellzhi.github.io/posts/>Posts</a>&nbsp;»&nbsp;<a href=https://wellzhi.github.io/posts/gsk/>GSK</a>&nbsp;»&nbsp;<a href=https://wellzhi.github.io/posts/gsk/5-aat-material/>AAT-material</a></div><h1 class="post-title entry-hint-parent">Material Analysis</h1></header><div class=toc><details><summary accesskey=c title="(Alt + C)"><span class=details>Table of Contents</span></summary><div class=inner><ul><li><a href=#%e4%b8%80%e6%9d%a5%e6%ba%90 aria-label=一、来源>一、来源</a></li><li><a href=#%e4%ba%8c%e9%9a%be%e7%82%b9 aria-label=二、难点>二、难点</a></li><li><a href=#%e4%b8%89%e9%80%9f%e7%ae%97 aria-label=三、速算>三、速算</a><ul><li><a href=#1%e6%88%aa%e4%bd%8d%e7%9b%b4%e9%99%a4%e6%b3%95 aria-label=1.截位直除法>1.截位直除法</a></li></ul></li><li><a href=#%e5%9b%9b%e9%a2%98%e5%9e%8b aria-label=四、题型>四、题型</a><ul><li><a href=#%e5%a2%9e%e9%95%bf%e9%87%8fn1n-1%e5%8e%9f%e5%88%99 aria-label=增长量N+1、N-1原则>增长量N+1、N-1原则</a><ul><li><a href=#%e5%a2%9e%e9%95%bf%e7%8e%87%e7%99%be%e5%8c%96%e5%88%86%e4%b9%8b%e5%8f%96%e4%b8%ad%e6%b3%95 aria-label=增长率百化分之取中法>增长率百化分之取中法</a></li></ul></li><li><a href=#%e5%a2%9e%e9%95%bf%e9%87%8f%e6%af%94%e5%a4%a7%e5%b0%8f aria-label=增长量比大小>增长量比大小</a></li><li><a href=#1%e5%a2%9e%e9%95%bf%e7%8e%87%e6%af%94%e8%be%83 aria-label=1.增长率比较>1.增长率比较</a></li><li><a href=#%e5%b7%b2%e7%9f%a5%e5%a2%9e%e9%95%bf%e9%87%8f%e5%92%8c%e7%8e%b0%e6%9c%9f%e9%87%8f%e4%b8%8d%e7%ae%97%e5%9f%ba%e6%9c%9f%e9%87%8f%e5%8f%af%e4%bb%a5%e6%af%94%e8%be%83%e5%a4%a7%e5%b0%8f aria-label=已知增长量和现期量，不算基期量可以比较$r$大小？>已知增长量和现期量，不算基期量可以比较$r$大小？</a></li><li><a href=#2-%e7%89%b9%e6%ae%8a%e5%a2%9e%e9%95%bf%e7%8e%87 aria-label="2. 特殊增长率">2. 特殊增长率</a></li><li><a href=#21-%e9%97%b4%e9%9a%94%e5%a2%9e%e9%95%bf%e7%8e%87 aria-label="2.1 间隔增长率">2.1 间隔增长率</a></li><li><a href=#22-%e5%b9%b4%e5%9d%87%e5%a2%9e%e9%95%bf%e7%8e%87 aria-label="2.2 年均增长率">2.2 年均增长率</a></li><li><a href=#23-%e6%b7%b7%e5%90%88%e5%a2%9e%e9%95%bf%e7%8e%87 aria-label="2.3 混合增长率">2.3 混合增长率</a></li></ul></li><li><a href=#%e4%ba%94%e7%bb%9f%e8%ae%a1%e5%ad%a6%e6%a6%82%e5%bf%b5 aria-label=五、统计学概念>五、统计学概念</a></li><li><a href=#%e5%9f%ba%e7%a1%80%e7%99%be%e5%8c%96%e5%88%86%e8%a1%a8 aria-label=基础百化分表>基础百化分表</a></li><li><a href=#1-%e5%90%8c%e6%af%94%e4%b8%8e%e7%8e%af%e6%af%94 aria-label="1. 同比与环比">1. 同比与环比</a></li><li><a href=#2-%e5%9f%ba%e6%9c%9f%e9%87%8f%e8%ae%a1%e7%ae%97 aria-label="2. 基期量计算">2. 基期量计算</a></li><li><a href=#3-%e5%a2%9e%e9%95%bf%e9%87%8f%e8%ae%a1%e7%ae%97 aria-label="3. 增长量计算">3. 增长量计算</a><ul><li><a href=#%e5%a2%9e%e9%95%bf%e9%87%8fn1%e4%b8%8en-1%e5%8e%9f%e5%88%99 aria-label=增长量N+1与N-1原则>增长量N+1与N-1原则</a></li><li><a href=#%e5%8c%96%e9%99%a4%e4%b8%ba%e4%b9%98 aria-label=化除为乘>化除为乘</a></li></ul></li><li><a href=#4-%e5%a2%9e%e9%95%bf%e7%8e%87%e8%ae%a1%e7%ae%97 aria-label="4. 增长率计算">4. 增长率计算</a></li><li><a href=#5-%e5%a2%9e%e9%95%bf%e7%8e%87%e7%9a%84%e6%af%94%e8%be%83 aria-label="5. 增长率的比较">5. 增长率的比较</a></li></ul></div></details></div><div class=post-content><h2 id=一来源>一、来源<a hidden class=anchor aria-hidden=true href=#一来源>#</a></h2><p>资料分析题目材料一般有以下两个来源</p><ul><li><a href=https://www.stats.gov.cn/>国家统计局</a></li><li>地方统计局</li></ul><h2 id=二难点>二、难点<a hidden class=anchor aria-hidden=true href=#二难点>#</a></h2><ul><li>读不懂 —— 统计术语</li><li>找不着 —— 结构阅读</li><li>列不对 —— 重点题型</li><li>算得慢 —— 速算技巧</li></ul><h2 id=三速算>三、速算<a hidden class=anchor aria-hidden=true href=#三速算>#</a></h2><h3 id=1截位直除法>1.截位直除法<a hidden class=anchor aria-hidden=true href=#1截位直除法>#</a></h3><pre tabindex=0><code class=language-mermaid data-lang=mermaid>flowchart LR
+    A[截位直除法] --&gt; B[看选项]
+    
+    B --&gt; C{首项相同？}
+    C --&gt;|否| D[差距大，截两位]
+    C --&gt;|是| E{看第二位差}
+
+    E --&gt;|第二位差 &gt; 首位| F[差距大，截两位]
+    E --&gt;|第二位差 &lt;= 首位| G[差距小，截三位]
+</code></pre><ol><li>看选项，差距大截两位、差距小截三位</li><li>看式子，一步除截分母、多步除都要截</li><li>看答案，能不算就不算</li></ol><h2 id=四题型>四、题型<a hidden class=anchor aria-hidden=true href=#四题型>#</a></h2><h3 id=增长量n1n-1原则>增长量N+1、N-1原则<a hidden class=anchor aria-hidden=true href=#增长量n1n-1原则>#</a></h3><p>已知现期、增长率，求增长量</p><ol><li>求增长率百化分(N是分母)</li><li>增长量=现期/N+1， 减少量=现期/N-1</li></ol><pre tabindex=0><code class=language-mermaid data-lang=mermaid>flowchart LR
+    A[已知现期量和增长率r] --&gt; B[求增长率r百化分]
+    B --&gt; C[确定N值&lt;br&gt;N = 100/增长率百分数]
+    
+    B --&gt; D{r 正负?}
+    
+    D --&gt;|r正| E[增长量 = 现期量/N+1]
+    D --&gt;|r负| F[减少量 = 现期量/N-1]
+    
+    E --&gt; G[最终增长量]
+    F --&gt; G
+    
+    style A fill:#d4f1f9,stroke:#333
+    style B fill:#d5f5e3,stroke:#333
+    style C fill:#d5f5e3,stroke:#333
+    style D fill:#fdebd0,stroke:#333
+    style E fill:#ffcccc,stroke:#333
+    style F fill:#ffcccc,stroke:#333
+    style G fill:#d4f1f9,stroke:#333
+</code></pre><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-plaintext data-lang=plaintext><span style=display:flex><span>练习1：老邓资产300亿，同比增长50%，求同比增量？
+</span></span><span style=display:flex><span>解答：N=2, 300/(2+1)=100亿
+</span></span><span style=display:flex><span>练习2：老邓身高2米4，同比增长20%，求同比增量？
+</span></span><span style=display:flex><span>解答：N=5, 2.4/(5+1)=40厘米
+</span></span><span style=display:flex><span>练习3：老邓体重200斤，同比减少25%，求同比减少量？
+</span></span><span style=display:flex><span>解答：N=4, 200/(4-1)约为66斤
+</span></span></code></pre></div><h4 id=增长率百化分之取中法>增长率百化分之取中法<a hidden class=anchor aria-hidden=true href=#增长率百化分之取中法>#</a></h4><p>如果遇到百分数左右难取舍，取中即可
+$15.4\% ≈ \frac{1}{6.5}$</p><p>$18.4\% ≈ \frac{1}{5.5}$</p><h3 id=增长量比大小>增长量比大小<a hidden class=anchor aria-hidden=true href=#增长量比大小>#</a></h3><p>识别：增长量排序或增长+多/少</p><p>题型1: 已知现期量和基期量：增长量=现期-基期</p><ul><li>柱形图可以看高度差</li></ul><p>题型2: 已知现期量和增长率：大大则大，一大一小看乘积（/看倍数），例外情况需验算</p><p>已知一组数据，每个数据已知现期量、增长率（有正负），比较增长量大小</p><ul><li>现期量大，且增幅大，其增长量大；</li><li>现期量大，且降幅大，其减少量大。</li></ul><pre tabindex=0><code class=language-mermaid data-lang=mermaid>flowchart LR
+    %% 主逻辑框架 - 简化节点标识并改进布局
+    B{现期量与增长率&lt;br&gt;对比情况}
+    B --&gt;|&#34;两者均较大&#34;| C[&#34;✅ 大大则大&lt;br&gt;直接判定增长量更大&#34;]
+    B --&gt;|&#34;一大一小&#34;| D[&#34;➰ 计算乘积&lt;br&gt;现期量×增长率&#34;]
+    
+    %% 例外条件分支 - 改进分支逻辑显示
+    D --&gt; E{&#34;需要验算？&#34;}
+    E --&gt;|&#34;增长率差异&gt;20%&#34;| F[&#34;⚠️ 精确计算:&lt;br&gt;增长量=现期量×增长率/(1+增长率)&#34;]
+    E --&gt;|&#34;乘积值接近&#34;| F
+    E --&gt;|&#34;无特殊情况&#34;| G[&#34;采用乘积比较结果&#34;]
+    
+    %% 添加标题和注释
+    T[开始] --&gt; B
+    
+    %% 样式优化 - 增强视觉区分度
+    classDef title fill:#d4e6f1,stroke:#2874a6,stroke-width:3px,font-weight:bold,font-size:14px;
+    classDef normal fill:#f0f7ff,stroke:#4a90e2,stroke-width:2px,font-size:12px;
+    classDef exception fill:#fff3e0,stroke:#ffa726,stroke-width:2px,font-size:12px;
+    classDef decision fill:#e8f8f5,stroke:#16a085,stroke-width:2px,font-size:12px;
+    
+    class T title
+    class B,D decision
+    class C,G normal
+    class E,F exception
+    
+    %% 链接样式
+    linkStyle 0,3,6 stroke:#2ecc71,stroke-width:2px;
+    linkStyle 1,2 stroke:#3498db,stroke-width:2px;
+    linkStyle 4,5 stroke:#e67e22,stroke-width:2px;
+</code></pre><h3 id=1增长率比较>1.增长率比较<a hidden class=anchor aria-hidden=true href=#1增长率比较>#</a></h3><p>识别：增长率排序或增长+最快/慢</p><pre tabindex=0><code class=language-mermaid data-lang=mermaid>
+graph LR
+    A[增长率比较] --&gt; B[现期量+基期量]--&gt; B1[现期量/基期量,倍数越大r越大]
+    A --&gt; C[现期量+增长量]
+    C --&gt; |注意：不需要计算基期量| E[增长量/现期量,值越大r越大]:::red
+    
+    classDef red fill:#eeffee,stroke:#f00,stroke-width:2px,color:#f00;
+</code></pre><hr><h3 id=已知增长量和现期量不算基期量可以比较大小>已知增长量和现期量，不算基期量可以比较$r$大小？<a hidden class=anchor aria-hidden=true href=#已知增长量和现期量不算基期量可以比较大小>#</a></h3><p>$r = \frac{增量}{基期量} = \frac{增量}{现期量 - 增量} = \frac{\frac{增量}{现期量}}{1 - \frac{增量}{现期量}} = \frac{k}{1 - k}$</p><p>则 $k 越大 → r 越大$</p><p>增量为负数时，结论依然成立：
+增量越大（更接近0的负数）， $Δ/Q$ 比值越大，对应增长率$r$下降幅度越小（即$r$相对更大）。数学逻辑未改变，但需注意负数大小比较的方向。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-plaintext data-lang=plaintext><span style=display:flex><span>2021年数据​​：
+</span></span><span style=display:flex><span>​企业​​：参保人数23317万人，比上年增加1050万人
+</span></span><span style=display:flex><span>​​机关事业​​：参保人数6387万人，比上年增加155万人
+</span></span><span style=display:flex><span>​​灵活就业等其他​​：参保人数4751万人，比上年增加325万人
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>判断“2020年，三类职工医保参保人员中，灵活就业等其他人员参保人数同比增速最快。”（A）
+</span></span><span style=display:flex><span>A. 正确　　　B. 错误
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>题型：问三类人员谁的同比增速最快--增长率比较
+</span></span><span style=display:flex><span>方法：直接比 增长量/现期量 大小
+</span></span></code></pre></div><hr><h3 id=2-特殊增长率>2. 特殊增长率<a hidden class=anchor aria-hidden=true href=#2-特殊增长率>#</a></h3><pre tabindex=0><code class=language-mermaid data-lang=mermaid>graph LR
+    A[特殊增长率] --&gt; B[间隔增长率]
+    A --&gt; C[年均增长率]
+    A --&gt; D[混合增长率]
+</code></pre><h3 id=21-间隔增长率>2.1 间隔增长率<a hidden class=anchor aria-hidden=true href=#21-间隔增长率>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-plaintext data-lang=plaintext><span style=display:flex><span>【例 1】（2024 四川）2022年，全国软件和信息技术服务业规模以上企业超 3.5 万家，累计完成软件业务收入 108126 亿元，同比增长 11.2%，增速较上年同期回落 6.5 个百分点。
+</span></span><span style=display:flex><span>2022 年，全国软件和信息技术服务业规模以上企业累计完成软件业务收入约比 2020 年增长了：
+</span></span><span style=display:flex><span>A.16% B.23% C.29% D.31%
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>1. 2021年的增长率: 11.2%+6.5%=17.7%
+</span></span><span style=display:flex><span>​2. ​复合增长率计算​​：
+</span></span><span style=display:flex><span>    假设2020年收入为A，则：
+</span></span><span style=display:flex><span>    2021年收入：A×(1+17.7%)
+</span></span><span style=display:flex><span>    2022年收入：A×(1+17.7%)×(1+11.2%)
+</span></span><span style=display:flex><span>    总增长率：(1+17.7%)×(1+11.2%)−1=1.177×1.112−1≈1.3088−1=30.88%
+</span></span><span style=display:flex><span>​3. 答案：D
+</span></span></code></pre></div><p><b>速算技巧</b>：$r_{间隔} = r_1 + r_2 + r_1 \cdot r_2$
+<b>重要说明</b>：如果$r_1$和$r_2$均小于10%（$r_1*r_2 < 1\% $）， 可以忽略$r_1 \cdot r_2$计算，上述公式变为：$r_{间隔} = r_1 + r_2$
+<b>解题</b>：
+$r_1 = 17.7\%$和$r_2=11.2\%$，则 $r_{间隔} = r_1 + r_2 = 28.9\%$，排除 AB
+$r_1 \cdot r_2 ≈ 1.8 \% $，排除 C，D 正确</p><h3 id=22-年均增长率>2.2 年均增长率<a hidden class=anchor aria-hidden=true href=#22-年均增长率>#</a></h3><h3 id=23-混合增长率>2.3 混合增长率<a hidden class=anchor aria-hidden=true href=#23-混合增长率>#</a></h3><h2 id=五统计学概念>五、统计学概念<a hidden class=anchor aria-hidden=true href=#五统计学概念>#</a></h2><ul><li><p>基期</p></li><li><p>现期</p></li><li><p>基期量</p></li><li><p>现期量</p></li><li><p>增长量</p></li><li><p>同比</p></li><li><p>环比</p></li><li><p>增长率</p></li><li><p>增幅</p></li><li><p>增长幅度</p></li><li><p>增长率</p><ul><li>增长率比大小</li><li>年均增长率</li><li>间隔增长率</li><li>间隔增长倍数</li><li>混合增长率</li></ul></li><li><p>增长量</p><ul><li>增长量比大小</li><li>年均增长量</li><li>间隔增长量</li><li>间隔增长倍数</li></ul></li><li><p>平均数</p><ul><li>现期平均数</li><li>基期平均数</li><li>平均增长率</li><li>平均增长倍数</li></ul></li><li><p>基尼系数
+衡量收入分配差距</p><ul><li>取值范围在0到1之间：</li><li>0表示收入完全平等（所有人收入相同）</li><li>1表示收入完全不平等（一个人占有全部收入）</li><li>国际警戒线为0.4</li><li>基尼系数越大，表示收入分配差距越大</li><li>通常用来衡量一个国家或地区的贫富差距程度</li></ul></li><li><p>恩格尔系数
+食品支出总额占个人消费支出总额的比重</p><ul><li>60%以上：贫困</li><li>50-59%：温饱</li><li>40-49%：小康</li><li>30-39%：富裕</li><li>20-29%：极其富裕</li></ul></li></ul><h2 id=基础百化分表>基础百化分表<a hidden class=anchor aria-hidden=true href=#基础百化分表>#</a></h2><p>基础百化分表（1-20）（仅保留需技巧记忆项）</p><table><thead><tr><th>分数</th><th>近似百分数</th><th>记忆规则</th></tr></thead><tbody><tr><td>1/6</td><td>16.7%</td><td>与1/16互换（16.7%→1/6）</td></tr><tr><td>1/7</td><td>14.3%</td><td>与1/14互换（14.3%→1/7）</td></tr><tr><td>1/9</td><td>11.1%</td><td>整数部分+分母=20（11+9）</td></tr><tr><td>1/11</td><td>9.1%</td><td>整数部分+分母=20（9+11）</td></tr><tr><td>1/12</td><td>8.3%</td><td>整数部分+分母=20（8+12）</td></tr><tr><td>1/13</td><td>7.7%</td><td>整数部分+分母=20（7+13）</td></tr><tr><td>1/14</td><td>7.1%</td><td>与1/7互换（7.1%→1/14）</td></tr><tr><td>1/15</td><td>6.7%</td><td>特殊记忆“567”</td></tr><tr><td>1/16</td><td>6.25%</td><td>与1/6互换（6.25%→1/16）</td></tr><tr><td>1/17</td><td>5.9%</td><td>5.0369等差数列（5.9→5.6→5.3）</td></tr><tr><td>1/18</td><td>5.6%</td><td>↑同上</td></tr><tr><td>1/19</td><td>5.3%</td><td>↑同上</td></tr></tbody></table><p><img alt=baihuafen.png loading=lazy src=https://notespace.oss-cn-guangzhou.aliyuncs.com/images/baihuafen.png></p><p>$当r>0(增长率为正),基期 = \frac{现期}{1+r}=现期*(1-r)$</p><h2 id=1-同比与环比>1. 同比与环比<a hidden class=anchor aria-hidden=true href=#1-同比与环比>#</a></h2><ul><li>同比：和去年同时期相比</li><li>环比：和上一个统计周期相比</li></ul><h2 id=2-基期量计算>2. 基期量计算<a hidden class=anchor aria-hidden=true href=#2-基期量计算>#</a></h2><ul><li>已知现期量、增长量，基期 = 现期 - 增长量</li><li>已知现<font color=#c00000>期量、增长率</font>，$基期 = \frac{现期}{1+r}$</li></ul><h2 id=3-增长量计算>3. 增长量计算<a hidden class=anchor aria-hidden=true href=#3-增长量计算>#</a></h2><h3 id=增长量n1与n-1原则>增长量N+1与N-1原则<a hidden class=anchor aria-hidden=true href=#增长量n1与n-1原则>#</a></h3><p>$增长量N \pm 1 原则$</p><p>已知现期、增长率，求增长量
+第一步：求增长率的<a href=./%E9%80%9F%E7%AE%97%E6%8A%80%E5%B7%A7#%E7%99%BE%E5%8C%96%E5%88%86>百化分</a>，例如：$r=25\% 、\frac{1}{4} = 25\%$，所以 $N=4 \%$
+第二步： $增长量 = \dfrac{现期}{N + 1}, 减少量 = \dfrac{现期}{N - 1}$</p><h3 id=化除为乘>化除为乘<a hidden class=anchor aria-hidden=true href=#化除为乘>#</a></h3><p>已知现<font color=#c00000>期量、增长率</font>，$基期 = \frac{现期}{1+r}，当|r| \leq 5\%$：
+$当增长率为正,基期 = \frac{现期}{1+r}=现期*(1-r)$
+$当增长率为负,基期 = \frac{现期}{1-r}=现期*(1+r)，r为增长率绝对值$</p><h2 id=4-增长率计算>4. 增长率计算<a hidden class=anchor aria-hidden=true href=#4-增长率计算>#</a></h2><p>题型识别： 问增长率或增长/下降+%(选项)</p><ul><li>已知现期、基期，求增长率：$r = \frac{增量}{ 基期} = \frac{ 现期 - 基期}{ 基期} = \frac{ 增量}{ 现期 - 增量}$</li><li>已知现期、基期，求增长率：$r = \frac{增量}{ 基期} = \frac{ 现期 - 基期}{ 基期} = \frac{ 现期}{ 基期}-1$</li></ul><h2 id=5-增长率的比较>5. 增长率的比较<a hidden class=anchor aria-hidden=true href=#5-增长率的比较>#</a></h2><p>题型识别： 增长率排序、增长率增长+最快/最慢</p><ul><li>方法一：已知<font color=#ff0000>现期、基期</font>，求<font color=#00b050>现期/基期</font>的倍数越大，增长率r越大</li><li>方法二：已知<font color=#ff0000>现期、增长量</font>，求<font color=#00b050>增量/现期 </font>越大，增长率r越大（不需要算基期量）</li></ul></div><footer class=post-footer><ul class=post-tags></ul></footer><div class=comments-section><div class=comments-header><h3 class=comments-title><svg class="comments-icon" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+评论区</h3><div class=comments-divider></div></div><div id=twikoo-loading class=twikoo-loading><div class=loading-spinner></div><p>评论加载中...</p></div><div id=twikoo class=twikoo-container></div><div id=twikoo-error class=twikoo-error style=display:none><div class=error-content><svg class="error-icon" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg><p>评论加载失败，请刷新页面重试</p></div></div></div><style>.comments-section{margin:3rem 0 2rem;padding:0;max-width:100%}.comments-header{margin-bottom:2rem}.comments-title{display:flex;align-items:center;gap:.5rem;font-size:1.5rem;font-weight:600;color:var(--primary,#1a1a1a);margin:0 0 1rem}.comments-icon{width:1.5rem;height:1.5rem;color:var(--theme,#007acc)}.comments-divider{height:2px;background:linear-gradient(90deg,var(--theme,#007acc) 0%,transparent 100%);border-radius:1px;width:60px}.twikoo-container{background:var(--code-bg,#f8f9fa);border-radius:12px;padding:1.5rem;border:1px solid var(--border,#e1e5e9);transition:all .3s ease;min-height:200px}.twikoo-container:hover{border-color:var(--theme,#007acc);box-shadow:0 4px 12px rgba(0,122,204,.1)}.twikoo-loading{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 1rem;color:var(--secondary,#666)}.loading-spinner{width:32px;height:32px;border:3px solid var(--border,#e1e5e9);border-top:3px solid var(--theme,#007acc);border-radius:50%;animation:spin 1s linear infinite;margin-bottom:1rem}@keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}.twikoo-error{text-align:center;padding:2rem;color:var(--secondary,#666)}.error-content{display:flex;flex-direction:column;align-items:center;gap:1rem}.error-icon{width:2rem;height:2rem;color:#dc3545}@media(prefers-color-scheme:dark){.comments-title{color:var(--primary,#ffffff)}.twikoo-container{background:var(--code-bg,#2d3748);border-color:var(--border,#4a5568)}}@media(max-width:768px){.comments-section{margin:2rem 0 1rem}.twikoo-container{padding:1rem;border-radius:8px}.comments-title{font-size:1.25rem}}</style><script src=https://cdn.staticfile.org/twikoo/1.6.16/twikoo.all.min.js></script><script>(function(){const e=document.getElementById("twikoo-loading"),t=document.getElementById("twikoo-error"),n=document.getElementById("twikoo");twikoo.init({envId:"https://twikoo-vercel-navy.vercel.app/",el:"#twikoo",onCommentLoaded:function(){e&&(e.style.display="none")}}).then(function(){e&&(e.style.display="none")}).catch(function(n){console.error("Twikoo 初始化失败:",n),e&&(e.style.display="none"),t&&(t.style.display="block")}),setTimeout(function(){e&&e.style.display!=="none"&&(e.style.display="none",t&&(t.style.display="block"))},5e3)})()</script></article></main><footer class=footer><span>&copy; 2025 <a href=https://wellzhi.github.io/>wellzhi</a></span> ·
+<span>Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light"),theme=""):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"),theme="dark"),mermaidTextContents.forEach((e,t)=>{document.getElementsByClassName("language-mermaid")[t].removeAttribute("data-processed"),document.getElementsByClassName("language-mermaid")[t].innerHTML=e}),mermaid.initialize({theme,startOnLoad:!0}),mermaid.init(void 0,".language-mermaid")})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="copy";function s(){t.innerHTML="copied!",setTimeout(()=>{t.innerHTML="copy"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script><script>localStorage.getItem("pref-theme")=="dark"?theme="dark":theme="",mermaidTextContents=Array.from(document.getElementsByClassName("language-mermaid")).map(e=>e.innerHTML),mermaid.initialize({theme,startOnLoad:!0}),mermaid.init(void 0,".language-mermaid")</script></body></html>

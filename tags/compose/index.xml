@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Compose on wellzhi</title><link>https://wellzhi.github.io/tags/compose/</link><description>Recent content in Compose on wellzhi</description><generator>Hugo -- 0.147.2</generator><language>zh-cn</language><lastBuildDate>Sat, 07 Aug 2010 00:00:00 +0000</lastBuildDate><atom:link href="https://wellzhi.github.io/tags/compose/index.xml" rel="self" type="application/rss+xml"/><item><title>Docker Compose 常用命令</title><link>https://wellzhi.github.io/posts/tech/2010-08-07_docker-compose/</link><pubDate>Sat, 07 Aug 2010 00:00:00 +0000</pubDate><guid>https://wellzhi.github.io/posts/tech/2010-08-07_docker-compose/</guid><description>&lt;p>以下是 &lt;strong>Docker Compose&lt;/strong> 的常用命令分类整理，结合功能场景归纳为 &lt;strong>5 类核心操作&lt;/strong>，并附关键参数说明与示例，方便快速查阅：&lt;/p>
+&lt;hr>
+&lt;h3 id="-一核心生命周期管理">🚀 &lt;strong>一、核心生命周期管理&lt;/strong>&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align: left">命令&lt;/th>
+&lt;th style="text-align: left">功能&lt;/th>
+&lt;th style="text-align: left">常用参数&lt;/th>
+&lt;th style="text-align: left">示例&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align: left">&lt;code>docker compose up&lt;/code>&lt;/td>
+&lt;td style="text-align: left">构建镜像、创建并启动所有服务&lt;/td>
+&lt;td style="text-align: left">&lt;code>-d&lt;/code> 后台运行&lt;br>&lt;code>--build&lt;/code> 强制重建镜像&lt;br>&lt;code>--force-recreate&lt;/code> 强制重建容器&lt;br>&lt;code>--scale SERVICE=NUM&lt;/code> 扩缩容&lt;/td>
+&lt;td style="text-align: left">&lt;code>docker compose up -d --build&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">&lt;code>docker compose down&lt;/code>&lt;/td>
+&lt;td style="text-align: left">停止并删除容器、网络、卷&lt;/td>
+&lt;td style="text-align: left">&lt;code>-v&lt;/code> 删除数据卷&lt;br>&lt;code>--rmi all&lt;/code> 删除所有镜像&lt;br>&lt;code>--remove-orphans&lt;/code> 清理未定义容器&lt;/td>
+&lt;td style="text-align: left">&lt;code>docker compose down -v --remove-orphans&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h3 id="-二服务状态控制">⚙️ &lt;strong>二、服务状态控制&lt;/strong>&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align: left">命令&lt;/th>
+&lt;th style="text-align: left">功能&lt;/th>
+&lt;th style="text-align: left">常用参数&lt;/th>
+&lt;th style="text-align: left">示例&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align: left">&lt;code>docker compose start&lt;/code>&lt;/td>
+&lt;td style="text-align: left">启动已存在的容器&lt;/td>
+&lt;td style="text-align: left">&lt;code>&amp;lt;服务名&amp;gt;&lt;/code> 指定服务&lt;/td>
+&lt;td style="text-align: left">&lt;code>docker compose start web&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">&lt;code>docker compose stop&lt;/code>&lt;/td>
+&lt;td style="text-align: left">停止运行中的容器（保留容器）&lt;/td>
+&lt;td style="text-align: left">&lt;code>-t &amp;lt;秒&amp;gt;&lt;/code> 超时时间&lt;/td>
+&lt;td style="text-align: left">&lt;code>docker compose stop -t 5&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">&lt;code>docker compose restart&lt;/code>&lt;/td>
+&lt;td style="text-align: left">重启服务（先停后启）&lt;/td>
+&lt;td style="text-align: left">&lt;code>-t &amp;lt;秒&amp;gt;&lt;/code> 超时时间&lt;/td>
+&lt;td style="text-align: left">&lt;code>docker compose restart api&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">&lt;code>docker compose pause&lt;/code>&lt;br>&lt;code>docker compose unpause&lt;/code>&lt;/td>
+&lt;td style="text-align: left">暂停/恢复服务运行&lt;/td>
+&lt;td style="text-align: left">-&lt;/td>
+&lt;td style="text-align: left">&lt;code>docker compose pause db&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h3 id="-三日志与调试">🔍 &lt;strong>三、日志与调试&lt;/strong>&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align: left">命令&lt;/th>
+&lt;th style="text-align: left">功能&lt;/th>
+&lt;th style="text-align: left">常用参数&lt;/th>
+&lt;th style="text-align: left">示例&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align: left">&lt;code>docker compose logs&lt;/code>&lt;/td>
+&lt;td style="text-align: left">查看服务日志&lt;/td>
+&lt;td style="text-align: left">&lt;code>-f&lt;/code> 实时跟踪&lt;br>&lt;code>--tail &amp;lt;行数&amp;gt;&lt;/code> 显示最后N行&lt;br>&lt;code>&amp;lt;服务名&amp;gt;&lt;/code> 指定服务&lt;/td>
+&lt;td style="text-align: left">&lt;code>docker compose logs -f --tail 100 web&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">&lt;code>docker compose exec&lt;/code>&lt;/td>
+&lt;td style="text-align: left">在运行中的容器内执行命令&lt;/td>
+&lt;td style="text-align: left">&lt;code>-d&lt;/code> 后台执行&lt;br>&lt;code>--user&lt;/code> 指定用户&lt;br>&lt;code>-T&lt;/code> 禁用TTY&lt;/td>
+&lt;td style="text-align: left">&lt;code>docker compose exec -u root db psql -U postgres&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">&lt;code>docker compose ps&lt;/code>&lt;/td>
+&lt;td style="text-align: left">列出所有服务的运行状态&lt;/td>
+&lt;td style="text-align: left">&lt;code>-a&lt;/code> 显示所有容器&lt;/td>
+&lt;td style="text-align: left">&lt;code>docker compose ps -a&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">&lt;code>docker compose port&lt;/code>&lt;/td>
+&lt;td style="text-align: left">查看容器端口映射的宿主机端口&lt;/td>
+&lt;td style="text-align: left">&lt;code>--protocol=tcp/udp&lt;/code> 指定协议&lt;/td>
+&lt;td style="text-align: left">&lt;code>docker compose port web 80&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h3 id="-四构建与配置">🛠️ &lt;strong>四、构建与配置&lt;/strong>&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align: left">命令&lt;/th>
+&lt;th style="text-align: left">功能&lt;/th>
+&lt;th style="text-align: left">常用参数&lt;/th>
+&lt;th style="text-align: left">示例&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align: left">&lt;code>docker compose build&lt;/code>&lt;/td>
+&lt;td style="text-align: left">构建或重新构建服务镜像&lt;/td>
+&lt;td style="text-align: left">&lt;code>--no-cache&lt;/code> 禁用缓存&lt;br>&lt;code>--pull&lt;/code> 拉取最新基础镜像&lt;/td>
+&lt;td style="text-align: left">&lt;code>docker compose build --no-cache api&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">&lt;code>docker compose pull&lt;/code>&lt;/td>
+&lt;td style="text-align: left">拉取服务依赖的镜像&lt;/td>
+&lt;td style="text-align: left">&lt;code>--ignore-pull-failures&lt;/code> 忽略错误&lt;/td>
+&lt;td style="text-align: left">&lt;code>docker compose pull --ignore-pull-failures&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">&lt;code>docker compose config&lt;/code>&lt;/td>
+&lt;td style="text-align: left">验证并输出最终配置（调试YAML文件）&lt;/td>
+&lt;td style="text-align: left">&lt;code>-q&lt;/code> 仅验证&lt;br>&lt;code>--services&lt;/code> 列出服务&lt;/td>
+&lt;td style="text-align: left">&lt;code>docker compose config --services&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">&lt;code>docker compose run&lt;/code>&lt;/td>
+&lt;td style="text-align: left">启动新容器执行一次性命令（如数据库迁移）&lt;/td>
+&lt;td style="text-align: left">&lt;code>--rm&lt;/code> 执行后删除容器&lt;br>&lt;code>-e KEY=VAL&lt;/code> 设置环境变量&lt;/td>
+&lt;td style="text-align: left">&lt;code>docker compose run --rm web python manage.py migrate&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h3 id="-五其他实用命令">🧩 &lt;strong>五、其他实用命令&lt;/strong>&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align: left">命令&lt;/th>
+&lt;th style="text-align: left">功能&lt;/th>
+&lt;th style="text-align: left">说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align: left">&lt;code>docker compose scale&lt;/code>&lt;/td>
+&lt;td style="text-align: left">设置服务副本数（旧版）&lt;/td>
+&lt;td style="text-align: left">新版推荐用 &lt;code>up --scale&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">&lt;code>docker compose kill&lt;/code>&lt;/td>
+&lt;td style="text-align: left">强制终止服务（发送SIGKILL）&lt;/td>
+&lt;td style="text-align: left">&lt;code>-s SIGNAL&lt;/code> 指定信号，如 &lt;code>SIGINT&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">&lt;code>docker compose images&lt;/code>&lt;/td>
+&lt;td style="text-align: left">列出服务使用的镜像&lt;/td>
+&lt;td style="text-align: left">-&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">&lt;code>docker compose push&lt;/code>&lt;/td>
+&lt;td style="text-align: left">推送服务镜像到仓库&lt;/td>
+&lt;td style="text-align: left">&lt;code>--ignore-push-failures&lt;/code> 忽略推送错误&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h3 id="-速查表高频命令组合">📌 &lt;strong>速查表：高频命令组合&lt;/strong>&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align: left">场景&lt;/th>
+&lt;th style="text-align: left">命令示例&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align: left">启动服务（后台运行）&lt;/td>
+&lt;td style="text-align: left">&lt;code>docker compose up -d&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">停止并清理所有资源&lt;/td>
+&lt;td style="text-align: left">&lt;code>docker compose down -v --rmi all&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">查看实时日志&lt;/td>
+&lt;td style="text-align: left">&lt;code>docker compose logs -f --tail 50 web&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">进入容器执行命令&lt;/td>
+&lt;td style="text-align: left">&lt;code>docker compose exec web bash&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">验证配置文件语法&lt;/td>
+&lt;td style="text-align: left">&lt;code>docker compose config -q&lt;/code>（无输出表示正确）&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h3 id="-使用技巧">💡 &lt;strong>使用技巧&lt;/strong>&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>多环境配置&lt;/strong>：用 &lt;code>-f&lt;/code> 指定多个文件（如开发/生产环境）：&lt;/p></description></item></channel></rss>

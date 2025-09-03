@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>教程 on wellzhi</title><link>https://wellzhi.github.io/tags/%E6%95%99%E7%A8%8B/</link><description>Recent content in 教程 on wellzhi</description><generator>Hugo -- 0.147.2</generator><language>zh-cn</language><lastBuildDate>Fri, 01 Jan 2010 04:14:54 -0800</lastBuildDate><atom:link href="https://wellzhi.github.io/tags/%E6%95%99%E7%A8%8B/index.xml" rel="self" type="application/rss+xml"/><item><title>Markdown语法教程</title><link>https://wellzhi.github.io/posts/tech/2010-08-11_markdown/</link><pubDate>Fri, 01 Jan 2010 04:14:54 -0800</pubDate><guid>https://wellzhi.github.io/posts/tech/2010-08-11_markdown/</guid><description>&lt;p>Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档。本教程将介绍 Markdown 的基本语法。&lt;/p>
+&lt;h2 id="1-标题">1. 标题&lt;/h2>
+&lt;p>Markdown 支持两种标题的语法，类 Setext 和类 atx 形式。&lt;/p>
+&lt;h3 id="atx-风格标题">ATX 风格标题&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span># 一级标题
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">## 二级标题
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">### 三级标题
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#### 四级标题
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">##### 五级标题
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">###### 六级标题
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="setext-风格标题">Setext 风格标题&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>一级标题
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>========
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>二级标题
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>--------
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="2-段落和换行">2. 段落和换行&lt;/h2>
+&lt;p>段落是由一个或多个连续的文本行组成，它的前后要有一个以上的空行。&lt;/p>
+&lt;p>要在段落内强制换行，可以在行尾插入两个或以上的空格，然后回车。&lt;/p>
+&lt;h2 id="3-文本样式">3. 文本样式&lt;/h2>
+&lt;h3 id="强调">强调&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>*斜体文本* 或 &lt;span style="font-style:italic">_斜体文本_&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="font-weight:bold">**粗体文本**&lt;/span> 或 &lt;span style="font-weight:bold">__粗体文本__&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="font-style:italic">**&lt;/span>*粗斜体文本*** 或 &lt;span style="font-weight:bold">___粗斜体文本___&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>效果：&lt;/p>
+&lt;ul>
+&lt;li>&lt;em>斜体文本&lt;/em>&lt;/li>
+&lt;li>&lt;strong>粗体文本&lt;/strong>&lt;/li>
+&lt;li>&lt;em>&lt;strong>粗斜体文本&lt;/strong>&lt;/em>&lt;/li>
+&lt;/ul>
+&lt;h3 id="删除线">删除线&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>~~删除的文本~~
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>效果：&lt;del>删除的文本&lt;/del>&lt;/p>
+&lt;h2 id="4-列表">4. 列表&lt;/h2>
+&lt;h3 id="无序列表">无序列表&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">-&lt;/span> 项目1
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">-&lt;/span> 项目2
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">-&lt;/span> 子项目1
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">-&lt;/span> 子项目2
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">-&lt;/span> 项目3
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>或者使用 * 或 +：
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">*&lt;/span> 项目1
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">*&lt;/span> 项目2
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>+ 项目1
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>+ 项目2
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="有序列表">有序列表&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">1.&lt;/span> 第一项
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">2.&lt;/span> 第二项
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">1.&lt;/span> 子项目1
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">2.&lt;/span> 子项目2
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">3.&lt;/span> 第三项
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="任务列表">任务列表&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">- [x]&lt;/span> 已完成的任务
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">- [ ]&lt;/span> 未完成的任务
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">- [ ]&lt;/span> 另一个未完成的任务
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>效果：&lt;/p></description></item></channel></rss>

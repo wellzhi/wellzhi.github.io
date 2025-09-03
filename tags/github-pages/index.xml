@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>GitHub Pages on wellzhi</title><link>https://wellzhi.github.io/tags/github-pages/</link><description>Recent content in GitHub Pages on wellzhi</description><generator>Hugo -- 0.147.2</generator><language>zh-cn</language><lastBuildDate>Mon, 04 Jan 2010 15:09:06 +0800</lastBuildDate><atom:link href="https://wellzhi.github.io/tags/github-pages/index.xml" rel="self" type="application/rss+xml"/><item><title>Config Gihub Theme as Hugo</title><link>https://wellzhi.github.io/posts/tech/2010-01-04_config-github-theme-as-hugo/</link><pubDate>Mon, 04 Jan 2010 15:09:06 +0800</pubDate><guid>https://wellzhi.github.io/posts/tech/2010-01-04_config-github-theme-as-hugo/</guid><description>&lt;p>将 GitHub Pages 配置为使用 Hugo 主题 PaperMod，需要以下步骤：&lt;/p>
+&lt;h3 id="1-安装和配置-hugo">1. 安装和配置 Hugo&lt;/h3>
+&lt;p>如果尚未安装 Hugo，先完成以下操作：&lt;/p>
+&lt;p>安装 Hugo&lt;/p>
+&lt;ul>
+&lt;li>在 macOS 上：brew install hugo&lt;/li>
+&lt;li>在其他平台上，请根据 Hugo 官方文档 安装。&lt;/li>
+&lt;/ul>
+&lt;p>初始化 Hugo 项目&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>hugo new site my-website
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>cd my-website
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="2-添加-papermod-主题">2. 添加 PaperMod 主题&lt;/h3>
+&lt;p>将 PaperMod 主题添加到你的 Hugo 项目中：&lt;/p>
+&lt;p>克隆主题&lt;/p>
+&lt;p>在项目根目录运行：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>git init
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git submodule add https://github.com/adityatelange/hugo-PaperMod.git themes/hugo-PaperMod
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>编辑配置文件&lt;/p>
+&lt;p>在项目根目录的 config.toml 中设置主题：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>theme &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;hugo-PaperMod&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>配置主题参数&lt;/p>
+&lt;p>PaperMod 提供丰富的配置选项，可根据需求编辑 config.toml 文件。以下是一个示例：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>baseURL &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;https://yourusername.github.io&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>languageCode &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;en-us&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>title &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;My Hugo Website&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>theme &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;hugo-PaperMod&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>params&lt;span style="color:#f92672">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> defaultTheme &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;auto&amp;#34;&lt;/span> &lt;span style="color:#75715e"># 主题模式 (auto, light, dark)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> showReadingTime &lt;span style="color:#f92672">=&lt;/span> true
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> showWordCount &lt;span style="color:#f92672">=&lt;/span> true
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> disableSearch &lt;span style="color:#f92672">=&lt;/span> false
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>menu&lt;span style="color:#f92672">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">[[&lt;/span>menu.main&lt;span style="color:#f92672">]]&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> name &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Home&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> url &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;/&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> weight &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">[[&lt;/span>menu.main&lt;span style="color:#f92672">]]&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> name &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;About&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> url &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;/about/&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> weight &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">2&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="3-添加内容">3. 添加内容&lt;/h3>
+&lt;p>使用 Hugo 创建内容，例如：&lt;/p></description></item></channel></rss>

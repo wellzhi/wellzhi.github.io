@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>AAT-material on wellzhi</title><link>https://wellzhi.github.io/posts/gsk/5-aat-material/</link><description>Recent content in AAT-material on wellzhi</description><generator>Hugo -- 0.147.2</generator><language>zh-cn</language><lastBuildDate>Wed, 16 Apr 2025 10:40:03 +0800</lastBuildDate><atom:link href="https://wellzhi.github.io/posts/gsk/5-aat-material/index.xml" rel="self" type="application/rss+xml"/><item><title>Material Analysis</title><link>https://wellzhi.github.io/posts/gsk/5-aat-material/2025-04-16_material-analysis/</link><pubDate>Wed, 16 Apr 2025 10:40:03 +0800</pubDate><guid>https://wellzhi.github.io/posts/gsk/5-aat-material/2025-04-16_material-analysis/</guid><description>&lt;h2 id="一来源">一、来源&lt;/h2>
+&lt;p>资料分析题目材料一般有以下两个来源&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://www.stats.gov.cn/">国家统计局&lt;/a>&lt;/li>
+&lt;li>地方统计局&lt;/li>
+&lt;/ul>
+&lt;h2 id="二难点">二、难点&lt;/h2>
+&lt;ul>
+&lt;li>读不懂 —— 统计术语&lt;/li>
+&lt;li>找不着 —— 结构阅读&lt;/li>
+&lt;li>列不对 —— 重点题型&lt;/li>
+&lt;li>算得慢 —— 速算技巧&lt;/li>
+&lt;/ul>
+&lt;h2 id="三速算">三、速算&lt;/h2>
+&lt;h3 id="1截位直除法">1.截位直除法&lt;/h3>
+&lt;pre tabindex="0">&lt;code class="language-mermaid" data-lang="mermaid">flowchart LR
+A[截位直除法] --&amp;gt; B[看选项]
+B --&amp;gt; C{首项相同？}
+C --&amp;gt;|否| D[差距大，截两位]
+C --&amp;gt;|是| E{看第二位差}
+E --&amp;gt;|第二位差 &amp;gt; 首位| F[差距大，截两位]
+E --&amp;gt;|第二位差 &amp;lt;= 首位| G[差距小，截三位]
+&lt;/code>&lt;/pre>&lt;ol>
+&lt;li>看选项，差距大截两位、差距小截三位&lt;/li>
+&lt;li>看式子，一步除截分母、多步除都要截&lt;/li>
+&lt;li>看答案，能不算就不算&lt;/li>
+&lt;/ol>
+&lt;h2 id="四题型">四、题型&lt;/h2>
+&lt;h3 id="增长量n1n-1原则">增长量N+1、N-1原则&lt;/h3>
+&lt;p>已知现期、增长率，求增长量&lt;/p>
+&lt;ol>
+&lt;li>求增长率百化分(N是分母)&lt;/li>
+&lt;li>增长量=现期/N+1， 减少量=现期/N-1&lt;/li>
+&lt;/ol>
+&lt;pre tabindex="0">&lt;code class="language-mermaid" data-lang="mermaid">flowchart LR
+A[已知现期量和增长率r] --&amp;gt; B[求增长率r百化分]
+B --&amp;gt; C[确定N值&amp;lt;br&amp;gt;N = 100/增长率百分数]
+B --&amp;gt; D{r 正负?}
+D --&amp;gt;|r正| E[增长量 = 现期量/N+1]
+D --&amp;gt;|r负| F[减少量 = 现期量/N-1]
+E --&amp;gt; G[最终增长量]
+F --&amp;gt; G
+style A fill:#d4f1f9,stroke:#333
+style B fill:#d5f5e3,stroke:#333
+style C fill:#d5f5e3,stroke:#333
+style D fill:#fdebd0,stroke:#333
+style E fill:#ffcccc,stroke:#333
+style F fill:#ffcccc,stroke:#333
+style G fill:#d4f1f9,stroke:#333
+&lt;/code>&lt;/pre>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-plaintext" data-lang="plaintext">&lt;span style="display:flex;">&lt;span>练习1：老邓资产300亿，同比增长50%，求同比增量？
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>解答：N=2, 300/(2+1)=100亿
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>练习2：老邓身高2米4，同比增长20%，求同比增量？
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>解答：N=5, 2.4/(5+1)=40厘米
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>练习3：老邓体重200斤，同比减少25%，求同比减少量？
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>解答：N=4, 200/(4-1)约为66斤
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="增长率百化分之取中法">增长率百化分之取中法&lt;/h4>
+&lt;p>如果遇到百分数左右难取舍，取中即可
+$15.4\% ≈ \frac{1}{6.5}$&lt;/p></description></item></channel></rss>

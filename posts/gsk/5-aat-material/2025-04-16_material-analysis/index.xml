@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>material on wellzhi</title>
+    <link>http://localhost:1313/posts/gsk/5-aat-material/2025-04-16_material-analysis/</link>
+    <description>Recent content in material on wellzhi</description>
+    <generator>Hugo -- 0.147.2</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 16 Aug 2025 10:40:03 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/posts/gsk/5-aat-material/2025-04-16_material-analysis/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Question Type</title>
+      <link>http://localhost:1313/posts/gsk/5-aat-material/2025-04-16_material-analysis/question-type/</link>
+      <pubDate>Sat, 16 Aug 2025 10:40:03 +0800</pubDate>
+      <guid>http://localhost:1313/posts/gsk/5-aat-material/2025-04-16_material-analysis/question-type/</guid>
+      <description>&lt;h2 id=&#34;常用概念&#34;&gt;常用概念&lt;/h2&gt;
+&lt;h3 id=&#34;1-增长率-vs-贡献率&#34;&gt;1. 增长率 vs 贡献率&lt;/h3&gt;
+&lt;p&gt;$拉动增长率 = \dfrac{部分增长量}{总体基期量}$&lt;/p&gt;
+&lt;p&gt;$ 增长贡献率 = \dfrac{部分增长量}{总体增长量}$&lt;/p&gt;
+&lt;p&gt;$拉动增长率 = 增长贡献率 * 总体增长率r$&lt;/p&gt;
+&lt;h3 id=&#34;2--产销率&#34;&gt;2.  产销率&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;注意事项：&lt;em&gt;产销率是销售数量除以生产数量, 不要搞反了&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;$产销率 = \dfrac{已销售产品数}{已生产产品数} \times 100\%$&lt;/p&gt;
+&lt;h2 id=&#34;常考题型&#34;&gt;常考题型&lt;/h2&gt;
+&lt;h3 id=&#34;1--两期平均数&#34;&gt;1.  两期平均数&lt;/h3&gt;
+&lt;h4 id=&#34;题型一升降判断问平均数比去年升高降低&#34;&gt;题型一：升降判断——问平均数比去年升高/降低&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;a＞b，上升；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;a＜b，下降；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;a=b，不变。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;题型二增长量计算问平均数升降单位&#34;&gt;题型二：增长量计算——问平均数升降+单位&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;1、判升降（a＞b，上升；a＜b，下降）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;2、套公式：$ \dfrac{A}{B}*\dfrac{a-b}{1+a}$&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;题型三增长率计算问平均数升降&#34;&gt;题型三：增长率计算——问平均数升降+%&lt;/h4&gt;
+&lt;p&gt;套公式即可——$r=\dfrac{a-b}{1+b}$&lt;/p&gt;
+&lt;h3 id=&#34;2-乘积增长率&#34;&gt;2. 乘积增长率&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;应用于：$*A = B * C*$，已知 $B、C$ 增长率分别为 $r_B， r_C$，求 $A$ 的增长率 $r_A$&lt;/li&gt;
+&lt;li&gt;公式:：$*r_A = r_B + r_C + r_B * r_C$ （同间隔增长率）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;例：小麦单产增长20%，种植面积增长10%，则总产量增长率？ 
+答：总产量 = 单产 * 面积 ， 考虑乘积增长率r，
+总产量 =20%+10%+20%*10%=30%+2%=32%
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;3-间隔增长率&#34;&gt;3. 间隔增长率&lt;/h3&gt;
+&lt;h4 id=&#34;题型一-已知两年平均增长率其中一年增长率求另一年增长率&#34;&gt;题型一： 已知两年平均增长率、其中一年增长率，求另一年增长率&lt;/h4&gt;
+&lt;p&gt;已知两年平均增长率  $r_均$，今年同比增长率 $r_1$，求去年同比增长率 $r_2$&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

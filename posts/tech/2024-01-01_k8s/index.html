@@ -1,0 +1,1148 @@
+<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>Kubernetes使用指南 | wellzhi</title>
+<meta name=keywords content="Kubernetes,容器化,微服务,分布式系统,云原生"><meta name=description content="
+1. Kubernetes简介
+1.1 什么是Kubernetes
+Kubernetes（简称K8s）是一个开源的容器编排平台，用于自动化部署、扩展和管理容器化应用程序。它最初由Google开发，现在由Cloud Native Computing Foundation（CNCF）维护。
+1.2 核心特性
+
+自动化部署和回滚：支持应用的自动化部署和版本回滚
+服务发现和负载均衡：自动分配IP地址和DNS名称，并在多个容器间分配负载
+存储编排：自动挂载存储系统，包括本地存储、公有云存储等
+自我修复：重启失败的容器，替换和重新调度节点上的容器
+密钥和配置管理：管理敏感信息和应用配置
+水平扩展：根据CPU使用率或其他指标自动扩展应用
+
+1.3 使用场景
+
+微服务架构部署
+容器化应用管理
+多云和混合云部署
+DevOps和CI/CD流水线
+大规模应用编排
+
+2. 核心概念与架构
+2.1 集群架构
+Kubernetes集群由以下组件组成：
+2.1.1 Master节点
+
+API Server：集群的统一入口，提供RESTful API
+etcd：分布式键值存储，保存集群状态数据
+Controller Manager：运行控制器进程，管理集群状态
+Scheduler：负责Pod的调度决策
+
+2.1.2 Worker节点
+
+kubelet：节点代理，管理Pod生命周期
+kube-proxy：网络代理，实现服务的网络规则
+Container Runtime：容器运行时（如Docker、containerd）
+
+2.2 核心对象
+2.2.1 Pod
+最小的部署单元，包含一个或多个容器："><meta name=author content="wellzhi"><link rel=canonical href=https://wellzhi.github.io/posts/tech/2024-01-01_k8s/><link crossorigin=anonymous href=/assets/css/stylesheet.b54291e20a5b433add2181af00208e3e72d99f37b405cd9f3ff373c992518ba6.css integrity="sha256-tUKR4gpbQzrdIYGvACCOPnLZnze0Bc2fP/NzyZJRi6Y=" rel="preload stylesheet" as=style><script crossorigin=anonymous src=/assets/js/mermaid.min.af2e2ae7d64e037e8a582c3ba35b128209a6f8350c3825cda07833979e0d827c.js></script><link rel=icon href=https://wellzhi.github.io/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://wellzhi.github.io/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://wellzhi.github.io/favicon-32x32.png><link rel=apple-touch-icon href=https://wellzhi.github.io/apple-touch-icon.png><link rel=mask-icon href=https://wellzhi.github.io/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=en href=https://wellzhi.github.io/posts/tech/2024-01-01_k8s/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><meta property="og:url" content="https://wellzhi.github.io/posts/tech/2024-01-01_k8s/"><meta property="og:site_name" content="wellzhi"><meta property="og:title" content="Kubernetes使用指南"><meta property="og:description" content=" 1. Kubernetes简介 1.1 什么是Kubernetes Kubernetes（简称K8s）是一个开源的容器编排平台，用于自动化部署、扩展和管理容器化应用程序。它最初由Google开发，现在由Cloud Native Computing Foundation（CNCF）维护。
+1.2 核心特性 自动化部署和回滚：支持应用的自动化部署和版本回滚 服务发现和负载均衡：自动分配IP地址和DNS名称，并在多个容器间分配负载 存储编排：自动挂载存储系统，包括本地存储、公有云存储等 自我修复：重启失败的容器，替换和重新调度节点上的容器 密钥和配置管理：管理敏感信息和应用配置 水平扩展：根据CPU使用率或其他指标自动扩展应用 1.3 使用场景 微服务架构部署 容器化应用管理 多云和混合云部署 DevOps和CI/CD流水线 大规模应用编排 2. 核心概念与架构 2.1 集群架构 Kubernetes集群由以下组件组成：
+2.1.1 Master节点 API Server：集群的统一入口，提供RESTful API etcd：分布式键值存储，保存集群状态数据 Controller Manager：运行控制器进程，管理集群状态 Scheduler：负责Pod的调度决策 2.1.2 Worker节点 kubelet：节点代理，管理Pod生命周期 kube-proxy：网络代理，实现服务的网络规则 Container Runtime：容器运行时（如Docker、containerd） 2.2 核心对象 2.2.1 Pod 最小的部署单元，包含一个或多个容器："><meta property="og:locale" content="zh-cn"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2024-01-01T04:14:54-08:00"><meta property="article:modified_time" content="2024-01-01T04:14:54-08:00"><meta property="article:tag" content="Kubernetes"><meta property="article:tag" content="容器化"><meta property="article:tag" content="微服务"><meta property="article:tag" content="分布式系统"><meta property="article:tag" content="云原生"><meta name=twitter:card content="summary"><meta name=twitter:title content="Kubernetes使用指南"><meta name=twitter:description content="
+1. Kubernetes简介
+1.1 什么是Kubernetes
+Kubernetes（简称K8s）是一个开源的容器编排平台，用于自动化部署、扩展和管理容器化应用程序。它最初由Google开发，现在由Cloud Native Computing Foundation（CNCF）维护。
+1.2 核心特性
+
+自动化部署和回滚：支持应用的自动化部署和版本回滚
+服务发现和负载均衡：自动分配IP地址和DNS名称，并在多个容器间分配负载
+存储编排：自动挂载存储系统，包括本地存储、公有云存储等
+自我修复：重启失败的容器，替换和重新调度节点上的容器
+密钥和配置管理：管理敏感信息和应用配置
+水平扩展：根据CPU使用率或其他指标自动扩展应用
+
+1.3 使用场景
+
+微服务架构部署
+容器化应用管理
+多云和混合云部署
+DevOps和CI/CD流水线
+大规模应用编排
+
+2. 核心概念与架构
+2.1 集群架构
+Kubernetes集群由以下组件组成：
+2.1.1 Master节点
+
+API Server：集群的统一入口，提供RESTful API
+etcd：分布式键值存储，保存集群状态数据
+Controller Manager：运行控制器进程，管理集群状态
+Scheduler：负责Pod的调度决策
+
+2.1.2 Worker节点
+
+kubelet：节点代理，管理Pod生命周期
+kube-proxy：网络代理，实现服务的网络规则
+Container Runtime：容器运行时（如Docker、containerd）
+
+2.2 核心对象
+2.2.1 Pod
+最小的部署单元，包含一个或多个容器："><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://wellzhi.github.io/posts/"},{"@type":"ListItem","position":2,"name":"Tech","item":"https://wellzhi.github.io/posts/tech/"},{"@type":"ListItem","position":3,"name":"Kubernetes使用指南","item":"https://wellzhi.github.io/posts/tech/2024-01-01_k8s/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Kubernetes使用指南","name":"Kubernetes使用指南","description":" 1. Kubernetes简介 1.1 什么是Kubernetes Kubernetes（简称K8s）是一个开源的容器编排平台，用于自动化部署、扩展和管理容器化应用程序。它最初由Google开发，现在由Cloud Native Computing Foundation（CNCF）维护。\n1.2 核心特性 自动化部署和回滚：支持应用的自动化部署和版本回滚 服务发现和负载均衡：自动分配IP地址和DNS名称，并在多个容器间分配负载 存储编排：自动挂载存储系统，包括本地存储、公有云存储等 自我修复：重启失败的容器，替换和重新调度节点上的容器 密钥和配置管理：管理敏感信息和应用配置 水平扩展：根据CPU使用率或其他指标自动扩展应用 1.3 使用场景 微服务架构部署 容器化应用管理 多云和混合云部署 DevOps和CI/CD流水线 大规模应用编排 2. 核心概念与架构 2.1 集群架构 Kubernetes集群由以下组件组成：\n2.1.1 Master节点 API Server：集群的统一入口，提供RESTful API etcd：分布式键值存储，保存集群状态数据 Controller Manager：运行控制器进程，管理集群状态 Scheduler：负责Pod的调度决策 2.1.2 Worker节点 kubelet：节点代理，管理Pod生命周期 kube-proxy：网络代理，实现服务的网络规则 Container Runtime：容器运行时（如Docker、containerd） 2.2 核心对象 2.2.1 Pod 最小的部署单元，包含一个或多个容器：\n","keywords":["Kubernetes","容器化","微服务","分布式系统","云原生"],"articleBody":" 1. Kubernetes简介 1.1 什么是Kubernetes Kubernetes（简称K8s）是一个开源的容器编排平台，用于自动化部署、扩展和管理容器化应用程序。它最初由Google开发，现在由Cloud Native Computing Foundation（CNCF）维护。\n1.2 核心特性 自动化部署和回滚：支持应用的自动化部署和版本回滚 服务发现和负载均衡：自动分配IP地址和DNS名称，并在多个容器间分配负载 存储编排：自动挂载存储系统，包括本地存储、公有云存储等 自我修复：重启失败的容器，替换和重新调度节点上的容器 密钥和配置管理：管理敏感信息和应用配置 水平扩展：根据CPU使用率或其他指标自动扩展应用 1.3 使用场景 微服务架构部署 容器化应用管理 多云和混合云部署 DevOps和CI/CD流水线 大规模应用编排 2. 核心概念与架构 2.1 集群架构 Kubernetes集群由以下组件组成：\n2.1.1 Master节点 API Server：集群的统一入口，提供RESTful API etcd：分布式键值存储，保存集群状态数据 Controller Manager：运行控制器进程，管理集群状态 Scheduler：负责Pod的调度决策 2.1.2 Worker节点 kubelet：节点代理，管理Pod生命周期 kube-proxy：网络代理，实现服务的网络规则 Container Runtime：容器运行时（如Docker、containerd） 2.2 核心对象 2.2.1 Pod 最小的部署单元，包含一个或多个容器：\napiVersion: v1 kind: Pod metadata: name: nginx-pod labels: app: nginx spec: containers: - name: nginx image: nginx:1.20 ports: - containerPort: 80 resources: requests: memory: \"64Mi\" cpu: \"250m\" limits: memory: \"128Mi\" cpu: \"500m\" 2.2.2 Service 为Pod提供稳定的网络访问：\napiVersion: v1 kind: Service metadata: name: nginx-service spec: selector: app: nginx ports: - protocol: TCP port: 80 targetPort: 80 type: ClusterIP 2.2.3 Deployment 管理Pod的副本和更新：\napiVersion: apps/v1 kind: Deployment metadata: name: nginx-deployment spec: replicas: 3 selector: matchLabels: app: nginx template: metadata: labels: app: nginx spec: containers: - name: nginx image: nginx:1.20 ports: - containerPort: 80 3. 环境搭建与安装 3.1 本地开发环境 3.1.1 使用Minikube # 安装Minikube curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64 sudo install minikube-darwin-amd64 /usr/local/bin/minikube # 启动集群 minikube start --driver=docker # 验证安装 kubectl cluster-info kubectl get nodes 3.1.2 使用Kind # 安装Kind go install sigs.k8s.io/kind@v0.17.0 # 创建集群 kind create cluster --name my-cluster # 配置kubectl kubectl cluster-info --context kind-my-cluster 3.2 生产环境安装 3.2.1 使用kubeadm # 安装Docker sudo apt-get update sudo apt-get install -y docker.io sudo systemctl enable docker sudo systemctl start docker # 安装kubeadm、kubelet、kubectl curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add - echo \"deb https://apt.kubernetes.io/ kubernetes-xenial main\" | sudo tee /etc/apt/sources.list.d/kubernetes.list sudo apt-get update sudo apt-get install -y kubelet kubeadm kubectl sudo apt-mark hold kubelet kubeadm kubectl # 初始化Master节点 sudo kubeadm init --pod-network-cidr=10.244.0.0/16 # 配置kubectl mkdir -p $HOME/.kube sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config sudo chown $(id -u):$(id -g) $HOME/.kube/config # 安装网络插件（Flannel） kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml 4. 基础资源对象 4.1 Namespace 命名空间用于资源隔离：\napiVersion: v1 kind: Namespace metadata: name: development labels: env: dev # 创建命名空间 kubectl create namespace development # 查看命名空间 kubectl get namespaces # 在指定命名空间中操作 kubectl get pods -n development 4.2 Labels和Selectors 标签用于资源分类和选择：\napiVersion: v1 kind: Pod metadata: name: web-pod labels: app: web version: v1.0 environment: production spec: containers: - name: web image: nginx:1.20 # 基于标签查询 kubectl get pods -l app=web kubectl get pods -l environment=production,version=v1.0 # 添加标签 kubectl label pods web-pod tier=frontend # 删除标签 kubectl label pods web-pod tier- 4.3 Annotations 注解用于存储非标识性元数据：\napiVersion: v1 kind: Pod metadata: name: annotated-pod annotations: description: \"This is a web server pod\" version: \"1.0.0\" maintainer: \"team@example.com\" spec: containers: - name: web image: nginx:1.20 5. 工作负载管理 5.1 ReplicaSet 确保指定数量的Pod副本运行：\napiVersion: apps/v1 kind: ReplicaSet metadata: name: nginx-replicaset spec: replicas: 3 selector: matchLabels: app: nginx template: metadata: labels: app: nginx spec: containers: - name: nginx image: nginx:1.20 ports: - containerPort: 80 5.2 Deployment 提供声明式更新和回滚功能：\napiVersion: apps/v1 kind: Deployment metadata: name: nginx-deployment spec: replicas: 3 strategy: type: RollingUpdate rollingUpdate: maxSurge: 1 maxUnavailable: 1 selector: matchLabels: app: nginx template: metadata: labels: app: nginx spec: containers: - name: nginx image: nginx:1.20 ports: - containerPort: 80 livenessProbe: httpGet: path: / port: 80 initialDelaySeconds: 30 periodSeconds: 10 readinessProbe: httpGet: path: / port: 80 initialDelaySeconds: 5 periodSeconds: 5 # 部署应用 kubectl apply -f nginx-deployment.yaml # 查看部署状态 kubectl get deployments kubectl rollout status deployment/nginx-deployment # 更新镜像 kubectl set image deployment/nginx-deployment nginx=nginx:1.21 # 查看更新历史 kubectl rollout history deployment/nginx-deployment # 回滚到上一个版本 kubectl rollout undo deployment/nginx-deployment # 回滚到指定版本 kubectl rollout undo deployment/nginx-deployment --to-revision=2 # 扩缩容 kubectl scale deployment nginx-deployment --replicas=5 5.3 StatefulSet 无状态服务和有状态服务分别适用于哪些场景？\n无状态服务适用于不需要数据持久化的场景，例如Nginx和Tomcat。 有状态服务适用于需要数据持久化的场景，例如MySQL数据库。Kafka 和ZooKeeper 管理有状态应用：\napiVersion: apps/v1 kind: StatefulSet metadata: name: mysql-statefulset spec: serviceName: mysql replicas: 3 selector: matchLabels: app: mysql template: metadata: labels: app: mysql spec: containers: - name: mysql image: mysql:8.0 env: - name: MYSQL_ROOT_PASSWORD value: \"password\" ports: - containerPort: 3306 volumeMounts: - name: mysql-storage mountPath: /var/lib/mysql volumeClaimTemplates: - metadata: name: mysql-storage spec: accessModes: [\"ReadWriteOnce\"] resources: requests: storage: 10Gi 5.4 DaemonSet 在每个节点上运行一个Pod副本：\napiVersion: apps/v1 kind: DaemonSet metadata: name: fluentd-daemonset spec: selector: matchLabels: app: fluentd template: metadata: labels: app: fluentd spec: containers: - name: fluentd image: fluentd:v1.14 volumeMounts: - name: varlog mountPath: /var/log - name: varlibdockercontainers mountPath: /var/lib/docker/containers readOnly: true volumes: - name: varlog hostPath: path: /var/log - name: varlibdockercontainers hostPath: path: /var/lib/docker/containers 5.5 Job和CronJob 5.5.1 Job 运行一次性任务：\napiVersion: batch/v1 kind: Job metadata: name: pi-calculation spec: template: spec: containers: - name: pi image: perl command: [\"perl\", \"-Mbignum=bpi\", \"-wle\", \"print bpi(2000)\"] restartPolicy: Never backoffLimit: 4 5.5.2 CronJob 定时任务：\napiVersion: batch/v1 kind: CronJob metadata: name: backup-cronjob spec: schedule: \"0 2 * * *\" # 每天凌晨2点执行 jobTemplate: spec: template: spec: containers: - name: backup image: backup-tool:latest command: - /bin/sh - -c - \"echo 'Running backup at $(date)'\" restartPolicy: OnFailure 6. 服务发现与负载均衡 6.1 Service类型 6.1.1 ClusterIP 集群内部访问：\napiVersion: v1 kind: Service metadata: name: nginx-clusterip spec: type: ClusterIP selector: app: nginx ports: - port: 80 targetPort: 80 protocol: TCP 6.1.2 NodePort 通过节点端口访问：\napiVersion: v1 kind: Service metadata: name: nginx-nodeport spec: type: NodePort selector: app: nginx ports: - port: 80 targetPort: 80 nodePort: 30080 protocol: TCP 6.1.3 LoadBalancer 云平台负载均衡器：\napiVersion: v1 kind: Service metadata: name: nginx-loadbalancer spec: type: LoadBalancer selector: app: nginx ports: - port: 80 targetPort: 80 protocol: TCP 6.2 Ingress HTTP/HTTPS路由管理：\napiVersion: networking.k8s.io/v1 kind: Ingress metadata: name: nginx-ingress annotations: nginx.ingress.kubernetes.io/rewrite-target: / spec: rules: - host: example.com http: paths: - path: / pathType: Prefix backend: service: name: nginx-service port: number: 80 - host: api.example.com http: paths: - path: /api pathType: Prefix backend: service: name: api-service port: number: 8080 6.3 Ingress Controller 安装Nginx Ingress Controller：\n# 安装Nginx Ingress Controller kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.5.1/deploy/static/provider/cloud/deploy.yaml # 验证安装 kubectl get pods -n ingress-nginx kubectl get svc -n ingress-nginx 7. 存储管理 7.1 Volume类型 7.1.1 EmptyDir 临时存储：\napiVersion: v1 kind: Pod metadata: name: emptydir-pod spec: containers: - name: app image: nginx volumeMounts: - name: cache-volume mountPath: /cache volumes: - name: cache-volume emptyDir: {} 7.1.2 HostPath 主机路径挂载：\napiVersion: v1 kind: Pod metadata: name: hostpath-pod spec: containers: - name: app image: nginx volumeMounts: - name: host-volume mountPath: /host-data volumes: - name: host-volume hostPath: path: /data type: Directory 7.2 PersistentVolume和PersistentVolumeClaim 7.2.1 PersistentVolume apiVersion: v1 kind: PersistentVolume metadata: name: pv-example spec: capacity: storage: 10Gi accessModes: - ReadWriteOnce persistentVolumeReclaimPolicy: Retain storageClassName: manual hostPath: path: /mnt/data 7.2.2 PersistentVolumeClaim apiVersion: v1 kind: PersistentVolumeClaim metadata: name: pvc-example spec: accessModes: - ReadWriteOnce resources: requests: storage: 5Gi storageClassName: manual 7.2.3 使用PVC的Pod apiVersion: v1 kind: Pod metadata: name: pvc-pod spec: containers: - name: app image: nginx volumeMounts: - name: storage mountPath: /usr/share/nginx/html volumes: - name: storage persistentVolumeClaim: claimName: pvc-example 7.3 StorageClass 动态存储供应：\napiVersion: storage.k8s.io/v1 kind: StorageClass metadata: name: fast-ssd provisioner: kubernetes.io/aws-ebs parameters: type: gp2 replication-type: none allowVolumeExpansion: true volumeBindingMode: WaitForFirstConsumer 8. 配置管理 8.1 ConfigMap 存储非敏感配置数据：\napiVersion: v1 kind: ConfigMap metadata: name: app-config data: database_url: \"mysql://localhost:3306/mydb\" debug_mode: \"true\" app.properties: | server.port=8080 server.servlet.context-path=/api logging.level.root=INFO 使用ConfigMap：\napiVersion: v1 kind: Pod metadata: name: configmap-pod spec: containers: - name: app image: myapp:latest env: - name: DATABASE_URL valueFrom: configMapKeyRef: name: app-config key: database_url - name: DEBUG_MODE valueFrom: configMapKeyRef: name: app-config key: debug_mode volumeMounts: - name: config-volume mountPath: /etc/config volumes: - name: config-volume configMap: name: app-config 8.2 Secret 存储敏感数据：\napiVersion: v1 kind: Secret metadata: name: app-secret type: Opaque data: username: YWRtaW4= # base64编码的\"admin\" password: MWYyZDFlMmU2N2Rm # base64编码的密码 # 创建Secret kubectl create secret generic app-secret \\ --from-literal=username=admin \\ --from-literal=password=secretpassword # 从文件创建Secret kubectl create secret generic ssl-secret \\ --from-file=tls.crt=server.crt \\ --from-file=tls.key=server.key 使用Secret：\napiVersion: v1 kind: Pod metadata: name: secret-pod spec: containers: - name: app image: myapp:latest env: - name: DB_USERNAME valueFrom: secretKeyRef: name: app-secret key: username - name: DB_PASSWORD valueFrom: secretKeyRef: name: app-secret key: password volumeMounts: - name: secret-volume mountPath: /etc/secrets readOnly: true volumes: - name: secret-volume secret: secretName: app-secret 9. 网络管理 9.1 网络策略 控制Pod间的网络通信：\napiVersion: networking.k8s.io/v1 kind: NetworkPolicy metadata: name: deny-all namespace: production spec: podSelector: {} policyTypes: - Ingress - Egress 允许特定流量的网络策略：\napiVersion: networking.k8s.io/v1 kind: NetworkPolicy metadata: name: allow-frontend-to-backend spec: podSelector: matchLabels: app: backend policyTypes: - Ingress ingress: - from: - podSelector: matchLabels: app: frontend ports: - protocol: TCP port: 8080 9.2 DNS配置 自定义DNS配置：\napiVersion: v1 kind: Pod metadata: name: dns-config-pod spec: containers: - name: app image: nginx dnsPolicy: \"None\" dnsConfig: nameservers: - 8.8.8.8 - 8.8.4.4 searches: - example.com options: - name: ndots value: \"2\" 10. 安全管理 10.1 ServiceAccount 为Pod提供身份认证：\napiVersion: v1 kind: ServiceAccount metadata: name: my-service-account namespace: default apiVersion: v1 kind: Pod metadata: name: sa-pod spec: serviceAccountName: my-service-account containers: - name: app image: nginx 10.2 RBAC 基于角色的访问控制：\n10.2.1 Role和RoleBinding apiVersion: rbac.authorization.k8s.io/v1 kind: Role metadata: namespace: default name: pod-reader rules: - apiGroups: [\"\"] resources: [\"pods\"] verbs: [\"get\", \"watch\", \"list\"] --- apiVersion: rbac.authorization.k8s.io/v1 kind: RoleBinding metadata: name: read-pods namespace: default subjects: - kind: ServiceAccount name: my-service-account namespace: default roleRef: kind: Role name: pod-reader apiGroup: rbac.authorization.k8s.io 10.2.2 ClusterRole和ClusterRoleBinding apiVersion: rbac.authorization.k8s.io/v1 kind: ClusterRole metadata: name: cluster-reader rules: - apiGroups: [\"\"] resources: [\"nodes\", \"namespaces\"] verbs: [\"get\", \"list\"] --- apiVersion: rbac.authorization.k8s.io/v1 kind: ClusterRoleBinding metadata: name: read-cluster subjects: - kind: ServiceAccount name: my-service-account namespace: default roleRef: kind: ClusterRole name: cluster-reader apiGroup: rbac.authorization.k8s.io 10.3 Pod Security Standards apiVersion: v1 kind: Pod metadata: name: secure-pod spec: securityContext: runAsNonRoot: true runAsUser: 1000 fsGroup: 2000 containers: - name: app image: nginx securityContext: allowPrivilegeEscalation: false readOnlyRootFilesystem: true capabilities: drop: - ALL volumeMounts: - name: tmp mountPath: /tmp volumes: - name: tmp emptyDir: {} 11. 监控与日志 11.1 资源监控 11.1.1 Metrics Server # 安装Metrics Server kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml # 查看节点资源使用 kubectl top nodes # 查看Pod资源使用 kubectl top pods 11.1.2 Prometheus监控 apiVersion: apps/v1 kind: Deployment metadata: name: prometheus spec: replicas: 1 selector: matchLabels: app: prometheus template: metadata: labels: app: prometheus spec: containers: - name: prometheus image: prom/prometheus:latest ports: - containerPort: 9090 volumeMounts: - name: config mountPath: /etc/prometheus volumes: - name: config configMap: name: prometheus-config 11.2 日志管理 11.2.1 查看Pod日志 # 查看Pod日志 kubectl logs pod-name # 查看特定容器日志 kubectl logs pod-name -c container-name # 实时查看日志 kubectl logs -f pod-name # 查看前N行日志 kubectl logs --tail=100 pod-name 11.2.2 ELK Stack部署 apiVersion: apps/v1 kind: Deployment metadata: name: elasticsearch spec: replicas: 1 selector: matchLabels: app: elasticsearch template: metadata: labels: app: elasticsearch spec: containers: - name: elasticsearch image: docker.elastic.co/elasticsearch/elasticsearch:7.15.0 env: - name: discovery.type value: single-node - name: ES_JAVA_OPTS value: \"-Xms512m -Xmx512m\" ports: - containerPort: 9200 12. 高级特性 12.1 Horizontal Pod Autoscaler (HPA) 基于CPU使用率自动扩缩容：\napiVersion: autoscaling/v2 kind: HorizontalPodAutoscaler metadata: name: nginx-hpa spec: scaleTargetRef: apiVersion: apps/v1 kind: Deployment name: nginx-deployment minReplicas: 2 maxReplicas: 10 metrics: - type: Resource resource: name: cpu target: type: Utilization averageUtilization: 70 - type: Resource resource: name: memory target: type: Utilization averageUtilization: 80 12.2 Vertical Pod Autoscaler (VPA) apiVersion: autoscaling.k8s.io/v1 kind: VerticalPodAutoscaler metadata: name: nginx-vpa spec: targetRef: apiVersion: apps/v1 kind: Deployment name: nginx-deployment updatePolicy: updateMode: \"Auto\" resourcePolicy: containerPolicies: - containerName: nginx maxAllowed: cpu: 1 memory: 500Mi minAllowed: cpu: 100m memory: 50Mi 12.3 Custom Resource Definitions (CRD) apiVersion: apiextensions.k8s.io/v1 kind: CustomResourceDefinition metadata: name: applications.example.com spec: group: example.com versions: - name: v1 served: true storage: true schema: openAPIV3Schema: type: object properties: spec: type: object properties: image: type: string replicas: type: integer minimum: 1 maximum: 10 scope: Namespaced names: plural: applications singular: application kind: Application 12.4 Operators 使用Operator管理复杂应用：\napiVersion: example.com/v1 kind: Application metadata: name: my-app spec: image: myapp:v1.0 replicas: 3 database: type: mysql version: \"8.0\" storage: 10Gi 13. 故障排查 13.1 常用调试命令 # 查看集群状态 kubectl cluster-info kubectl get nodes kubectl get componentstatuses # 查看资源状态 kubectl get pods --all-namespaces kubectl get events --sort-by=.metadata.creationTimestamp # 详细描述资源 kubectl describe pod pod-name kubectl describe node node-name # 查看日志 kubectl logs pod-name kubectl logs -f deployment/app-name # 进入容器调试 kubectl exec -it pod-name -- /bin/bash kubectl exec -it pod-name -c container-name -- /bin/sh # 端口转发 kubectl port-forward pod/pod-name 8080:80 kubectl port-forward service/service-name 8080:80 # 复制文件 kubectl cp pod-name:/path/to/file /local/path kubectl cp /local/path pod-name:/path/to/file 13.2 常见问题排查 13.2.1 Pod启动失败 # 查看Pod状态和事件 kubectl get pods kubectl describe pod pod-name kubectl get events --field-selector involvedObject.name=pod-name # 查看容器日志 kubectl logs pod-name kubectl logs pod-name --previous # 查看上一次运行的日志 13.2.2 服务访问问题 # 检查Service和Endpoints kubectl get svc kubectl get endpoints kubectl describe svc service-name # 测试服务连通性 kubectl run test-pod --image=busybox --rm -it -- /bin/sh # 在test-pod中执行 wget -qO- http://service-name:port nslookup service-name 13.2.3 网络问题 # 检查网络策略 kubectl get networkpolicies kubectl describe networkpolicy policy-name # 检查DNS kubectl get pods -n kube-system | grep dns kubectl logs -n kube-system deployment/coredns 13.3 性能调优 13.3.1 资源限制调优 apiVersion: v1 kind: Pod metadata: name: optimized-pod spec: containers: - name: app image: myapp:latest resources: requests: memory: \"256Mi\" cpu: \"250m\" limits: memory: \"512Mi\" cpu: \"500m\" livenessProbe: httpGet: path: /health port: 8080 initialDelaySeconds: 30 periodSeconds: 10 timeoutSeconds: 5 failureThreshold: 3 readinessProbe: httpGet: path: /ready port: 8080 initialDelaySeconds: 5 periodSeconds: 5 timeoutSeconds: 3 failureThreshold: 3 14. 最佳实践 14.1 资源管理最佳实践 始终设置资源请求和限制 使用命名空间进行资源隔离 合理使用标签和选择器 定期清理未使用的资源 14.2 安全最佳实践 使用非root用户运行容器 启用RBAC并遵循最小权限原则 定期更新镜像和补丁 使用Secret管理敏感信息 启用网络策略 14.3 部署最佳实践 使用声明式配置 实施滚动更新策略 配置健康检查 使用多副本提高可用性 实施监控和日志记录 14.4 配置管理最佳实践 # 良好的Deployment配置示例 apiVersion: apps/v1 kind: Deployment metadata: name: production-app labels: app: production-app version: v1.0 spec: replicas: 3 strategy: type: RollingUpdate rollingUpdate: maxSurge: 1 maxUnavailable: 0 selector: matchLabels: app: production-app template: metadata: labels: app: production-app version: v1.0 spec: securityContext: runAsNonRoot: true runAsUser: 1000 containers: - name: app image: myapp:v1.0 imagePullPolicy: Always ports: - containerPort: 8080 name: http env: - name: ENV value: \"production\" envFrom: - configMapRef: name: app-config - secretRef: name: app-secrets resources: requests: memory: \"256Mi\" cpu: \"250m\" limits: memory: \"512Mi\" cpu: \"500m\" livenessProbe: httpGet: path: /health port: 8080 initialDelaySeconds: 30 periodSeconds: 10 readinessProbe: httpGet: path: /ready port: 8080 initialDelaySeconds: 5 periodSeconds: 5 volumeMounts: - name: app-storage mountPath: /data volumes: - name: app-storage persistentVolumeClaim: claimName: app-pvc 15. 生产环境部署 15.1 高可用集群架构 # 高可用etcd配置 apiVersion: v1 kind: Pod metadata: name: etcd namespace: kube-system spec: containers: - name: etcd image: k8s.gcr.io/etcd:3.5.0-0 command: - etcd - --name=etcd-1 - --data-dir=/var/lib/etcd - --listen-client-urls=https://0.0.0.0:2379 - --advertise-client-urls=https://10.0.0.1:2379 - --listen-peer-urls=https://0.0.0.0:2380 - --initial-advertise-peer-urls=https://10.0.0.1:2380 - --initial-cluster=etcd-1=https://10.0.0.1:2380,etcd-2=https://10.0.0.2:2380,etcd-3=https://10.0.0.3:2380 - --initial-cluster-state=new - --cert-file=/etc/kubernetes/pki/etcd/server.crt - --key-file=/etc/kubernetes/pki/etcd/server.key - --trusted-ca-file=/etc/kubernetes/pki/etcd/ca.crt - --peer-cert-file=/etc/kubernetes/pki/etcd/peer.crt - --peer-key-file=/etc/kubernetes/pki/etcd/peer.key - --peer-trusted-ca-file=/etc/kubernetes/pki/etcd/ca.crt 15.2 备份和恢复 15.2.1 etcd备份 #!/bin/bash # etcd备份脚本 ETCDCTL_API=3 etcdctl snapshot save /backup/etcd-snapshot-$(date +%Y%m%d-%H%M%S).db \\ --endpoints=https://127.0.0.1:2379 \\ --cacert=/etc/kubernetes/pki/etcd/ca.crt \\ --cert=/etc/kubernetes/pki/etcd/server.crt \\ --key=/etc/kubernetes/pki/etcd/server.key # 验证备份 ETCDCTL_API=3 etcdctl snapshot status /backup/etcd-snapshot-$(date +%Y%m%d-%H%M%S).db 15.2.2 etcd恢复 #!/bin/bash # etcd恢复脚本 ETCDCTL_API=3 etcdctl snapshot restore /backup/etcd-snapshot.db \\ --data-dir=/var/lib/etcd-restore \\ --name=etcd-1 \\ --initial-cluster=etcd-1=https://10.0.0.1:2380 \\ --initial-advertise-peer-urls=https://10.0.0.1:2380 15.3 监控和告警 # Prometheus告警规则 apiVersion: v1 kind: ConfigMap metadata: name: prometheus-rules data: kubernetes.rules: | groups: - name: kubernetes rules: - alert: PodCrashLooping expr: rate(kube_pod_container_status_restarts_total[15m]) \u003e 0 for: 5m labels: severity: warning annotations: summary: \"Pod {{ $labels.pod }} is crash looping\" description: \"Pod {{ $labels.pod }} in namespace {{ $labels.namespace }} is restarting frequently\" - alert: NodeNotReady expr: kube_node_status_condition{condition=\"Ready\",status=\"true\"} == 0 for: 5m labels: severity: critical annotations: summary: \"Node {{ $labels.node }} is not ready\" description: \"Node {{ $labels.node }} has been not ready for more than 5 minutes\" 15.4 升级策略 #!/bin/bash # Kubernetes集群升级脚本 # 1. 升级控制平面 sudo kubeadm upgrade plan sudo kubeadm upgrade apply v1.25.0 # 2. 升级kubelet和kubectl sudo apt-mark unhold kubelet kubectl sudo apt-get update sudo apt-get install -y kubelet=1.25.0-00 kubectl=1.25.0-00 sudo apt-mark hold kubelet kubectl # 3. 重启kubelet sudo systemctl daemon-reload sudo systemctl restart kubelet # 4. 验证升级 kubectl get nodes kubectl version ","wordCount":"2349","inLanguage":"en","datePublished":"2024-01-01T04:14:54-08:00","dateModified":"2024-01-01T04:14:54-08:00","author":{"@type":"Person","name":"wellzhi"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://wellzhi.github.io/posts/tech/2024-01-01_k8s/"},"publisher":{"@type":"Organization","name":"wellzhi","logo":{"@type":"ImageObject","url":"https://wellzhi.github.io/favicon.ico"}}}</script><script id=MathJax-script async src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js></script><script>MathJax={tex:{displayMath:[["\\[","\\]"],["$$","$$"]],inlineMath:[["\\(","\\)"],["$","$"]]}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://wellzhi.github.io/ accesskey=h title="wellzhi (Alt + H)">wellzhi</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme"><svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu><li><a href=https://wellzhi.github.io/ title=Home><span>Home</span></a></li><li><a href=https://wellzhi.github.io/posts/ title=Post><span>Post</span></a></li><li><a href=https://wellzhi.github.io/archives title=Archive><span>Archive</span></a></li><li><a href=https://wellzhi.github.io/tags title=Tags><span>Tags</span></a></li><li><a href=https://wellzhi.github.io/search title="Search (Alt + /)" accesskey=/><span>Search</span></a></li><li><a href=https://wellzhi.github.io/about/ title=About><span>About</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><div class=breadcrumbs><a href=https://wellzhi.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://wellzhi.github.io/posts/>Posts</a>&nbsp;»&nbsp;<a href=https://wellzhi.github.io/posts/tech/>Tech</a></div><h1 class="post-title entry-hint-parent">Kubernetes使用指南</h1></header><div class=toc><details><summary accesskey=c title="(Alt + C)"><span class=details>Table of Contents</span></summary><div class=inner><ul><li><a href=#1-kubernetes%e7%ae%80%e4%bb%8b aria-label="1. Kubernetes简介">1. Kubernetes简介</a><ul><li><a href=#11-%e4%bb%80%e4%b9%88%e6%98%afkubernetes aria-label="1.1 什么是Kubernetes">1.1 什么是Kubernetes</a></li><li><a href=#12-%e6%a0%b8%e5%bf%83%e7%89%b9%e6%80%a7 aria-label="1.2 核心特性">1.2 核心特性</a></li><li><a href=#13-%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af aria-label="1.3 使用场景">1.3 使用场景</a></li></ul></li><li><a href=#2-%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5%e4%b8%8e%e6%9e%b6%e6%9e%84 aria-label="2. 核心概念与架构">2. 核心概念与架构</a><ul><li><a href=#21-%e9%9b%86%e7%be%a4%e6%9e%b6%e6%9e%84 aria-label="2.1 集群架构">2.1 集群架构</a><ul><li><a href=#211-master%e8%8a%82%e7%82%b9 aria-label="2.1.1 Master节点">2.1.1 Master节点</a></li><li><a href=#212-worker%e8%8a%82%e7%82%b9 aria-label="2.1.2 Worker节点">2.1.2 Worker节点</a></li></ul></li><li><a href=#22-%e6%a0%b8%e5%bf%83%e5%af%b9%e8%b1%a1 aria-label="2.2 核心对象">2.2 核心对象</a><ul><li><a href=#221-pod aria-label="2.2.1 Pod">2.2.1 Pod</a></li><li><a href=#222-service aria-label="2.2.2 Service">2.2.2 Service</a></li><li><a href=#223-deployment aria-label="2.2.3 Deployment">2.2.3 Deployment</a></li></ul></li></ul></li><li><a href=#3-%e7%8e%af%e5%a2%83%e6%90%ad%e5%bb%ba%e4%b8%8e%e5%ae%89%e8%a3%85 aria-label="3. 环境搭建与安装">3. 环境搭建与安装</a><ul><li><a href=#31-%e6%9c%ac%e5%9c%b0%e5%bc%80%e5%8f%91%e7%8e%af%e5%a2%83 aria-label="3.1 本地开发环境">3.1 本地开发环境</a><ul><li><a href=#311-%e4%bd%bf%e7%94%a8minikube aria-label="3.1.1 使用Minikube">3.1.1 使用Minikube</a></li><li><a href=#312-%e4%bd%bf%e7%94%a8kind aria-label="3.1.2 使用Kind">3.1.2 使用Kind</a></li></ul></li><li><a href=#32-%e7%94%9f%e4%ba%a7%e7%8e%af%e5%a2%83%e5%ae%89%e8%a3%85 aria-label="3.2 生产环境安装">3.2 生产环境安装</a><ul><li><a href=#321-%e4%bd%bf%e7%94%a8kubeadm aria-label="3.2.1 使用kubeadm">3.2.1 使用kubeadm</a></li></ul></li></ul></li><li><a href=#4-%e5%9f%ba%e7%a1%80%e8%b5%84%e6%ba%90%e5%af%b9%e8%b1%a1 aria-label="4. 基础资源对象">4. 基础资源对象</a><ul><li><a href=#41-namespace aria-label="4.1 Namespace">4.1 Namespace</a></li><li><a href=#42-labels%e5%92%8cselectors aria-label="4.2 Labels和Selectors">4.2 Labels和Selectors</a></li><li><a href=#43-annotations aria-label="4.3 Annotations">4.3 Annotations</a></li></ul></li><li><a href=#5-%e5%b7%a5%e4%bd%9c%e8%b4%9f%e8%bd%bd%e7%ae%a1%e7%90%86 aria-label="5. 工作负载管理">5. 工作负载管理</a><ul><li><a href=#51-replicaset aria-label="5.1 ReplicaSet">5.1 ReplicaSet</a></li><li><a href=#52-deployment aria-label="5.2 Deployment">5.2 Deployment</a></li><li><a href=#53-statefulset aria-label="5.3 StatefulSet">5.3 StatefulSet</a></li><li><a href=#54-daemonset aria-label="5.4 DaemonSet">5.4 DaemonSet</a></li><li><a href=#55-job%e5%92%8ccronjob aria-label="5.5 Job和CronJob">5.5 Job和CronJob</a><ul><li><a href=#551-job aria-label="5.5.1 Job">5.5.1 Job</a></li><li><a href=#552-cronjob aria-label="5.5.2 CronJob">5.5.2 CronJob</a></li></ul></li></ul></li><li><a href=#6-%e6%9c%8d%e5%8a%a1%e5%8f%91%e7%8e%b0%e4%b8%8e%e8%b4%9f%e8%bd%bd%e5%9d%87%e8%a1%a1 aria-label="6. 服务发现与负载均衡">6. 服务发现与负载均衡</a><ul><li><a href=#61-service%e7%b1%bb%e5%9e%8b aria-label="6.1 Service类型">6.1 Service类型</a><ul><li><a href=#611-clusterip aria-label="6.1.1 ClusterIP">6.1.1 ClusterIP</a></li><li><a href=#612-nodeport aria-label="6.1.2 NodePort">6.1.2 NodePort</a></li><li><a href=#613-loadbalancer aria-label="6.1.3 LoadBalancer">6.1.3 LoadBalancer</a></li></ul></li><li><a href=#62-ingress aria-label="6.2 Ingress">6.2 Ingress</a></li><li><a href=#63-ingress-controller aria-label="6.3 Ingress Controller">6.3 Ingress Controller</a></li></ul></li><li><a href=#7-%e5%ad%98%e5%82%a8%e7%ae%a1%e7%90%86 aria-label="7. 存储管理">7. 存储管理</a><ul><li><a href=#71-volume%e7%b1%bb%e5%9e%8b aria-label="7.1 Volume类型">7.1 Volume类型</a><ul><li><a href=#711-emptydir aria-label="7.1.1 EmptyDir">7.1.1 EmptyDir</a></li><li><a href=#712-hostpath aria-label="7.1.2 HostPath">7.1.2 HostPath</a></li></ul></li><li><a href=#72-persistentvolume%e5%92%8cpersistentvolumeclaim aria-label="7.2 PersistentVolume和PersistentVolumeClaim">7.2 PersistentVolume和PersistentVolumeClaim</a><ul><li><a href=#721-persistentvolume aria-label="7.2.1 PersistentVolume">7.2.1 PersistentVolume</a></li><li><a href=#722-persistentvolumeclaim aria-label="7.2.2 PersistentVolumeClaim">7.2.2 PersistentVolumeClaim</a></li><li><a href=#723-%e4%bd%bf%e7%94%a8pvc%e7%9a%84pod aria-label="7.2.3 使用PVC的Pod">7.2.3 使用PVC的Pod</a></li></ul></li><li><a href=#73-storageclass aria-label="7.3 StorageClass">7.3 StorageClass</a></li></ul></li><li><a href=#8-%e9%85%8d%e7%bd%ae%e7%ae%a1%e7%90%86 aria-label="8. 配置管理">8. 配置管理</a><ul><li><a href=#81-configmap aria-label="8.1 ConfigMap">8.1 ConfigMap</a></li><li><a href=#82-secret aria-label="8.2 Secret">8.2 Secret</a></li></ul></li><li><a href=#9-%e7%bd%91%e7%bb%9c%e7%ae%a1%e7%90%86 aria-label="9. 网络管理">9. 网络管理</a><ul><li><a href=#91-%e7%bd%91%e7%bb%9c%e7%ad%96%e7%95%a5 aria-label="9.1 网络策略">9.1 网络策略</a></li><li><a href=#92-dns%e9%85%8d%e7%bd%ae aria-label="9.2 DNS配置">9.2 DNS配置</a></li></ul></li><li><a href=#10-%e5%ae%89%e5%85%a8%e7%ae%a1%e7%90%86 aria-label="10. 安全管理">10. 安全管理</a><ul><li><a href=#101-serviceaccount aria-label="10.1 ServiceAccount">10.1 ServiceAccount</a></li><li><a href=#102-rbac aria-label="10.2 RBAC">10.2 RBAC</a><ul><li><a href=#1021-role%e5%92%8crolebinding aria-label="10.2.1 Role和RoleBinding">10.2.1 Role和RoleBinding</a></li><li><a href=#1022-clusterrole%e5%92%8cclusterrolebinding aria-label="10.2.2 ClusterRole和ClusterRoleBinding">10.2.2 ClusterRole和ClusterRoleBinding</a></li></ul></li><li><a href=#103-pod-security-standards aria-label="10.3 Pod Security Standards">10.3 Pod Security Standards</a></li></ul></li><li><a href=#11-%e7%9b%91%e6%8e%a7%e4%b8%8e%e6%97%a5%e5%bf%97 aria-label="11. 监控与日志">11. 监控与日志</a><ul><li><a href=#111-%e8%b5%84%e6%ba%90%e7%9b%91%e6%8e%a7 aria-label="11.1 资源监控">11.1 资源监控</a><ul><li><a href=#1111-metrics-server aria-label="11.1.1 Metrics Server">11.1.1 Metrics Server</a></li><li><a href=#1112-prometheus%e7%9b%91%e6%8e%a7 aria-label="11.1.2 Prometheus监控">11.1.2 Prometheus监控</a></li></ul></li><li><a href=#112-%e6%97%a5%e5%bf%97%e7%ae%a1%e7%90%86 aria-label="11.2 日志管理">11.2 日志管理</a><ul><li><a href=#1121-%e6%9f%a5%e7%9c%8bpod%e6%97%a5%e5%bf%97 aria-label="11.2.1 查看Pod日志">11.2.1 查看Pod日志</a></li><li><a href=#1122-elk-stack%e9%83%a8%e7%bd%b2 aria-label="11.2.2 ELK Stack部署">11.2.2 ELK Stack部署</a></li></ul></li></ul></li><li><a href=#12-%e9%ab%98%e7%ba%a7%e7%89%b9%e6%80%a7 aria-label="12. 高级特性">12. 高级特性</a><ul><li><a href=#121-horizontal-pod-autoscaler-hpa aria-label="12.1 Horizontal Pod Autoscaler (HPA)">12.1 Horizontal Pod Autoscaler (HPA)</a></li><li><a href=#122-vertical-pod-autoscaler-vpa aria-label="12.2 Vertical Pod Autoscaler (VPA)">12.2 Vertical Pod Autoscaler (VPA)</a></li><li><a href=#123-custom-resource-definitions-crd aria-label="12.3 Custom Resource Definitions (CRD)">12.3 Custom Resource Definitions (CRD)</a></li><li><a href=#124-operators aria-label="12.4 Operators">12.4 Operators</a></li></ul></li><li><a href=#13-%e6%95%85%e9%9a%9c%e6%8e%92%e6%9f%a5 aria-label="13. 故障排查">13. 故障排查</a><ul><li><a href=#131-%e5%b8%b8%e7%94%a8%e8%b0%83%e8%af%95%e5%91%bd%e4%bb%a4 aria-label="13.1 常用调试命令">13.1 常用调试命令</a></li><li><a href=#132-%e5%b8%b8%e8%a7%81%e9%97%ae%e9%a2%98%e6%8e%92%e6%9f%a5 aria-label="13.2 常见问题排查">13.2 常见问题排查</a><ul><li><a href=#1321-pod%e5%90%af%e5%8a%a8%e5%a4%b1%e8%b4%a5 aria-label="13.2.1 Pod启动失败">13.2.1 Pod启动失败</a></li><li><a href=#1322-%e6%9c%8d%e5%8a%a1%e8%ae%bf%e9%97%ae%e9%97%ae%e9%a2%98 aria-label="13.2.2 服务访问问题">13.2.2 服务访问问题</a></li><li><a href=#1323-%e7%bd%91%e7%bb%9c%e9%97%ae%e9%a2%98 aria-label="13.2.3 网络问题">13.2.3 网络问题</a></li></ul></li><li><a href=#133-%e6%80%a7%e8%83%bd%e8%b0%83%e4%bc%98 aria-label="13.3 性能调优">13.3 性能调优</a><ul><li><a href=#1331-%e8%b5%84%e6%ba%90%e9%99%90%e5%88%b6%e8%b0%83%e4%bc%98 aria-label="13.3.1 资源限制调优">13.3.1 资源限制调优</a></li></ul></li></ul></li><li><a href=#14-%e6%9c%80%e4%bd%b3%e5%ae%9e%e8%b7%b5 aria-label="14. 最佳实践">14. 最佳实践</a><ul><li><a href=#141-%e8%b5%84%e6%ba%90%e7%ae%a1%e7%90%86%e6%9c%80%e4%bd%b3%e5%ae%9e%e8%b7%b5 aria-label="14.1 资源管理最佳实践">14.1 资源管理最佳实践</a></li><li><a href=#142-%e5%ae%89%e5%85%a8%e6%9c%80%e4%bd%b3%e5%ae%9e%e8%b7%b5 aria-label="14.2 安全最佳实践">14.2 安全最佳实践</a></li><li><a href=#143-%e9%83%a8%e7%bd%b2%e6%9c%80%e4%bd%b3%e5%ae%9e%e8%b7%b5 aria-label="14.3 部署最佳实践">14.3 部署最佳实践</a></li><li><a href=#144-%e9%85%8d%e7%bd%ae%e7%ae%a1%e7%90%86%e6%9c%80%e4%bd%b3%e5%ae%9e%e8%b7%b5 aria-label="14.4 配置管理最佳实践">14.4 配置管理最佳实践</a></li></ul></li><li><a href=#15-%e7%94%9f%e4%ba%a7%e7%8e%af%e5%a2%83%e9%83%a8%e7%bd%b2 aria-label="15. 生产环境部署">15. 生产环境部署</a><ul><li><a href=#151-%e9%ab%98%e5%8f%af%e7%94%a8%e9%9b%86%e7%be%a4%e6%9e%b6%e6%9e%84 aria-label="15.1 高可用集群架构">15.1 高可用集群架构</a></li><li><a href=#152-%e5%a4%87%e4%bb%bd%e5%92%8c%e6%81%a2%e5%a4%8d aria-label="15.2 备份和恢复">15.2 备份和恢复</a><ul><li><a href=#1521-etcd%e5%a4%87%e4%bb%bd aria-label="15.2.1 etcd备份">15.2.1 etcd备份</a></li><li><a href=#1522-etcd%e6%81%a2%e5%a4%8d aria-label="15.2.2 etcd恢复">15.2.2 etcd恢复</a></li></ul></li><li><a href=#153-%e7%9b%91%e6%8e%a7%e5%92%8c%e5%91%8a%e8%ad%a6 aria-label="15.3 监控和告警">15.3 监控和告警</a></li><li><a href=#154-%e5%8d%87%e7%ba%a7%e7%ad%96%e7%95%a5 aria-label="15.4 升级策略">15.4 升级策略</a></li></ul></li></ul></div></details></div><div class=post-content><h2 id=1-kubernetes简介>1. Kubernetes简介<a hidden class=anchor aria-hidden=true href=#1-kubernetes简介>#</a></h2><h3 id=11-什么是kubernetes>1.1 什么是Kubernetes<a hidden class=anchor aria-hidden=true href=#11-什么是kubernetes>#</a></h3><p>Kubernetes（简称K8s）是一个开源的容器编排平台，用于自动化部署、扩展和管理容器化应用程序。它最初由Google开发，现在由Cloud Native Computing Foundation（CNCF）维护。</p><h3 id=12-核心特性>1.2 核心特性<a hidden class=anchor aria-hidden=true href=#12-核心特性>#</a></h3><ul><li><strong>自动化部署和回滚</strong>：支持应用的自动化部署和版本回滚</li><li><strong>服务发现和负载均衡</strong>：自动分配IP地址和DNS名称，并在多个容器间分配负载</li><li><strong>存储编排</strong>：自动挂载存储系统，包括本地存储、公有云存储等</li><li><strong>自我修复</strong>：重启失败的容器，替换和重新调度节点上的容器</li><li><strong>密钥和配置管理</strong>：管理敏感信息和应用配置</li><li><strong>水平扩展</strong>：根据CPU使用率或其他指标自动扩展应用</li></ul><h3 id=13-使用场景>1.3 使用场景<a hidden class=anchor aria-hidden=true href=#13-使用场景>#</a></h3><ul><li>微服务架构部署</li><li>容器化应用管理</li><li>多云和混合云部署</li><li>DevOps和CI/CD流水线</li><li>大规模应用编排</li></ul><h2 id=2-核心概念与架构>2. 核心概念与架构<a hidden class=anchor aria-hidden=true href=#2-核心概念与架构>#</a></h2><h3 id=21-集群架构>2.1 集群架构<a hidden class=anchor aria-hidden=true href=#21-集群架构>#</a></h3><p>Kubernetes集群由以下组件组成：</p><h4 id=211-master节点>2.1.1 Master节点<a hidden class=anchor aria-hidden=true href=#211-master节点>#</a></h4><ul><li><strong>API Server</strong>：集群的统一入口，提供RESTful API</li><li><strong>etcd</strong>：分布式键值存储，保存集群状态数据</li><li><strong>Controller Manager</strong>：运行控制器进程，管理集群状态</li><li><strong>Scheduler</strong>：负责Pod的调度决策</li></ul><h4 id=212-worker节点>2.1.2 Worker节点<a hidden class=anchor aria-hidden=true href=#212-worker节点>#</a></h4><ul><li><strong>kubelet</strong>：节点代理，管理Pod生命周期</li><li><strong>kube-proxy</strong>：网络代理，实现服务的网络规则</li><li><strong>Container Runtime</strong>：容器运行时（如Docker、containerd）</li></ul><h3 id=22-核心对象>2.2 核心对象<a hidden class=anchor aria-hidden=true href=#22-核心对象>#</a></h3><h4 id=221-pod>2.2.1 Pod<a hidden class=anchor aria-hidden=true href=#221-pod>#</a></h4><p>最小的部署单元，包含一个或多个容器：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Pod</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>nginx-pod</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>labels</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>app</span>: <span style=color:#ae81ff>nginx</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>containers</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>nginx</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>nginx:1.20</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>ports</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>containerPort</span>: <span style=color:#ae81ff>80</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>resources</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>requests</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>memory</span>: <span style=color:#e6db74>&#34;64Mi&#34;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>cpu</span>: <span style=color:#e6db74>&#34;250m&#34;</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>limits</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>memory</span>: <span style=color:#e6db74>&#34;128Mi&#34;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>cpu</span>: <span style=color:#e6db74>&#34;500m&#34;</span>
+</span></span></code></pre></div><h4 id=222-service>2.2.2 Service<a hidden class=anchor aria-hidden=true href=#222-service>#</a></h4><p>为Pod提供稳定的网络访问：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Service</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>nginx-service</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>selector</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>app</span>: <span style=color:#ae81ff>nginx</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>ports</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>protocol</span>: <span style=color:#ae81ff>TCP</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>port</span>: <span style=color:#ae81ff>80</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>targetPort</span>: <span style=color:#ae81ff>80</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>type</span>: <span style=color:#ae81ff>ClusterIP</span>
+</span></span></code></pre></div><h4 id=223-deployment>2.2.3 Deployment<a hidden class=anchor aria-hidden=true href=#223-deployment>#</a></h4><p>管理Pod的副本和更新：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>apps/v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Deployment</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>nginx-deployment</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>replicas</span>: <span style=color:#ae81ff>3</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>selector</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>matchLabels</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>app</span>: <span style=color:#ae81ff>nginx</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>template</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>labels</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>app</span>: <span style=color:#ae81ff>nginx</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>containers</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>nginx</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>image</span>: <span style=color:#ae81ff>nginx:1.20</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>ports</span>:
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>containerPort</span>: <span style=color:#ae81ff>80</span>
+</span></span></code></pre></div><h2 id=3-环境搭建与安装>3. 环境搭建与安装<a hidden class=anchor aria-hidden=true href=#3-环境搭建与安装>#</a></h2><h3 id=31-本地开发环境>3.1 本地开发环境<a hidden class=anchor aria-hidden=true href=#31-本地开发环境>#</a></h3><h4 id=311-使用minikube>3.1.1 使用Minikube<a hidden class=anchor aria-hidden=true href=#311-使用minikube>#</a></h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 安装Minikube</span>
+</span></span><span style=display:flex><span>curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64
+</span></span><span style=display:flex><span>sudo install minikube-darwin-amd64 /usr/local/bin/minikube
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 启动集群</span>
+</span></span><span style=display:flex><span>minikube start --driver<span style=color:#f92672>=</span>docker
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 验证安装</span>
+</span></span><span style=display:flex><span>kubectl cluster-info
+</span></span><span style=display:flex><span>kubectl get nodes
+</span></span></code></pre></div><h4 id=312-使用kind>3.1.2 使用Kind<a hidden class=anchor aria-hidden=true href=#312-使用kind>#</a></h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 安装Kind</span>
+</span></span><span style=display:flex><span>go install sigs.k8s.io/kind@v0.17.0
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 创建集群</span>
+</span></span><span style=display:flex><span>kind create cluster --name my-cluster
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 配置kubectl</span>
+</span></span><span style=display:flex><span>kubectl cluster-info --context kind-my-cluster
+</span></span></code></pre></div><h3 id=32-生产环境安装>3.2 生产环境安装<a hidden class=anchor aria-hidden=true href=#32-生产环境安装>#</a></h3><h4 id=321-使用kubeadm>3.2.1 使用kubeadm<a hidden class=anchor aria-hidden=true href=#321-使用kubeadm>#</a></h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 安装Docker</span>
+</span></span><span style=display:flex><span>sudo apt-get update
+</span></span><span style=display:flex><span>sudo apt-get install -y docker.io
+</span></span><span style=display:flex><span>sudo systemctl enable docker
+</span></span><span style=display:flex><span>sudo systemctl start docker
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 安装kubeadm、kubelet、kubectl</span>
+</span></span><span style=display:flex><span>curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#34;deb https://apt.kubernetes.io/ kubernetes-xenial main&#34;</span> | sudo tee /etc/apt/sources.list.d/kubernetes.list
+</span></span><span style=display:flex><span>sudo apt-get update
+</span></span><span style=display:flex><span>sudo apt-get install -y kubelet kubeadm kubectl
+</span></span><span style=display:flex><span>sudo apt-mark hold kubelet kubeadm kubectl
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 初始化Master节点</span>
+</span></span><span style=display:flex><span>sudo kubeadm init --pod-network-cidr<span style=color:#f92672>=</span>10.244.0.0/16
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 配置kubectl</span>
+</span></span><span style=display:flex><span>mkdir -p $HOME/.kube
+</span></span><span style=display:flex><span>sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+</span></span><span style=display:flex><span>sudo chown <span style=color:#66d9ef>$(</span>id -u<span style=color:#66d9ef>)</span>:<span style=color:#66d9ef>$(</span>id -g<span style=color:#66d9ef>)</span> $HOME/.kube/config
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 安装网络插件（Flannel）</span>
+</span></span><span style=display:flex><span>kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+</span></span></code></pre></div><h2 id=4-基础资源对象>4. 基础资源对象<a hidden class=anchor aria-hidden=true href=#4-基础资源对象>#</a></h2><h3 id=41-namespace>4.1 Namespace<a hidden class=anchor aria-hidden=true href=#41-namespace>#</a></h3><p>命名空间用于资源隔离：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Namespace</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>development</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>labels</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>env</span>: <span style=color:#ae81ff>dev</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 创建命名空间</span>
+</span></span><span style=display:flex><span>kubectl create namespace development
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看命名空间</span>
+</span></span><span style=display:flex><span>kubectl get namespaces
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 在指定命名空间中操作</span>
+</span></span><span style=display:flex><span>kubectl get pods -n development
+</span></span></code></pre></div><h3 id=42-labels和selectors>4.2 Labels和Selectors<a hidden class=anchor aria-hidden=true href=#42-labels和selectors>#</a></h3><p>标签用于资源分类和选择：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Pod</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>web-pod</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>labels</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>app</span>: <span style=color:#ae81ff>web</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>version</span>: <span style=color:#ae81ff>v1.0</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>environment</span>: <span style=color:#ae81ff>production</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>containers</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>web</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>nginx:1.20</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 基于标签查询</span>
+</span></span><span style=display:flex><span>kubectl get pods -l app<span style=color:#f92672>=</span>web
+</span></span><span style=display:flex><span>kubectl get pods -l environment<span style=color:#f92672>=</span>production,version<span style=color:#f92672>=</span>v1.0
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 添加标签</span>
+</span></span><span style=display:flex><span>kubectl label pods web-pod tier<span style=color:#f92672>=</span>frontend
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 删除标签</span>
+</span></span><span style=display:flex><span>kubectl label pods web-pod tier-
+</span></span></code></pre></div><h3 id=43-annotations>4.3 Annotations<a hidden class=anchor aria-hidden=true href=#43-annotations>#</a></h3><p>注解用于存储非标识性元数据：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Pod</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>annotated-pod</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>annotations</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>description</span>: <span style=color:#e6db74>&#34;This is a web server pod&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>version</span>: <span style=color:#e6db74>&#34;1.0.0&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>maintainer</span>: <span style=color:#e6db74>&#34;team@example.com&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>containers</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>web</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>nginx:1.20</span>
+</span></span></code></pre></div><h2 id=5-工作负载管理>5. 工作负载管理<a hidden class=anchor aria-hidden=true href=#5-工作负载管理>#</a></h2><h3 id=51-replicaset>5.1 ReplicaSet<a hidden class=anchor aria-hidden=true href=#51-replicaset>#</a></h3><p>确保指定数量的Pod副本运行：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>apps/v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>ReplicaSet</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>nginx-replicaset</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>replicas</span>: <span style=color:#ae81ff>3</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>selector</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>matchLabels</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>app</span>: <span style=color:#ae81ff>nginx</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>template</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>labels</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>app</span>: <span style=color:#ae81ff>nginx</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>containers</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>nginx</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>image</span>: <span style=color:#ae81ff>nginx:1.20</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>ports</span>:
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>containerPort</span>: <span style=color:#ae81ff>80</span>
+</span></span></code></pre></div><h3 id=52-deployment>5.2 Deployment<a hidden class=anchor aria-hidden=true href=#52-deployment>#</a></h3><p>提供声明式更新和回滚功能：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>apps/v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Deployment</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>nginx-deployment</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>replicas</span>: <span style=color:#ae81ff>3</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>strategy</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>type</span>: <span style=color:#ae81ff>RollingUpdate</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>rollingUpdate</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>maxSurge</span>: <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>maxUnavailable</span>: <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>selector</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>matchLabels</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>app</span>: <span style=color:#ae81ff>nginx</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>template</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>labels</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>app</span>: <span style=color:#ae81ff>nginx</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>containers</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>nginx</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>image</span>: <span style=color:#ae81ff>nginx:1.20</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>ports</span>:
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>containerPort</span>: <span style=color:#ae81ff>80</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>livenessProbe</span>:
+</span></span><span style=display:flex><span>          <span style=color:#f92672>httpGet</span>:
+</span></span><span style=display:flex><span>            <span style=color:#f92672>path</span>: <span style=color:#ae81ff>/</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>port</span>: <span style=color:#ae81ff>80</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>initialDelaySeconds</span>: <span style=color:#ae81ff>30</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>periodSeconds</span>: <span style=color:#ae81ff>10</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>readinessProbe</span>:
+</span></span><span style=display:flex><span>          <span style=color:#f92672>httpGet</span>:
+</span></span><span style=display:flex><span>            <span style=color:#f92672>path</span>: <span style=color:#ae81ff>/</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>port</span>: <span style=color:#ae81ff>80</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>initialDelaySeconds</span>: <span style=color:#ae81ff>5</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>periodSeconds</span>: <span style=color:#ae81ff>5</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 部署应用</span>
+</span></span><span style=display:flex><span>kubectl apply -f nginx-deployment.yaml
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看部署状态</span>
+</span></span><span style=display:flex><span>kubectl get deployments
+</span></span><span style=display:flex><span>kubectl rollout status deployment/nginx-deployment
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 更新镜像</span>
+</span></span><span style=display:flex><span>kubectl set image deployment/nginx-deployment nginx<span style=color:#f92672>=</span>nginx:1.21
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看更新历史</span>
+</span></span><span style=display:flex><span>kubectl rollout history deployment/nginx-deployment
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 回滚到上一个版本</span>
+</span></span><span style=display:flex><span>kubectl rollout undo deployment/nginx-deployment
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 回滚到指定版本</span>
+</span></span><span style=display:flex><span>kubectl rollout undo deployment/nginx-deployment --to-revision<span style=color:#f92672>=</span><span style=color:#ae81ff>2</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 扩缩容</span>
+</span></span><span style=display:flex><span>kubectl scale deployment nginx-deployment --replicas<span style=color:#f92672>=</span><span style=color:#ae81ff>5</span>
+</span></span></code></pre></div><h3 id=53-statefulset>5.3 StatefulSet<a hidden class=anchor aria-hidden=true href=#53-statefulset>#</a></h3><p>无状态服务和有状态服务分别适用于哪些场景？</p><ul><li>无状态服务适用于不需要数据持久化的场景，例如Nginx和Tomcat。</li><li>有状态服务适用于需要数据持久化的场景，例如MySQL数据库。Kafka 和ZooKeeper</li></ul><p>管理有状态应用：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>apps/v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>StatefulSet</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>mysql-statefulset</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>serviceName</span>: <span style=color:#ae81ff>mysql</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>replicas</span>: <span style=color:#ae81ff>3</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>selector</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>matchLabels</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>app</span>: <span style=color:#ae81ff>mysql</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>template</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>labels</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>app</span>: <span style=color:#ae81ff>mysql</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>containers</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>mysql</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>image</span>: <span style=color:#ae81ff>mysql:8.0</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>env</span>:
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>MYSQL_ROOT_PASSWORD</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>value</span>: <span style=color:#e6db74>&#34;password&#34;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>ports</span>:
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>containerPort</span>: <span style=color:#ae81ff>3306</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>volumeMounts</span>:
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>mysql-storage</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>mountPath</span>: <span style=color:#ae81ff>/var/lib/mysql</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>volumeClaimTemplates</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>name</span>: <span style=color:#ae81ff>mysql-storage</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>accessModes</span>: [<span style=color:#e6db74>&#34;ReadWriteOnce&#34;</span>]
+</span></span><span style=display:flex><span>      <span style=color:#f92672>resources</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>requests</span>:
+</span></span><span style=display:flex><span>          <span style=color:#f92672>storage</span>: <span style=color:#ae81ff>10Gi</span>
+</span></span></code></pre></div><h3 id=54-daemonset>5.4 DaemonSet<a hidden class=anchor aria-hidden=true href=#54-daemonset>#</a></h3><p>在每个节点上运行一个Pod副本：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>apps/v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>DaemonSet</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>fluentd-daemonset</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>selector</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>matchLabels</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>app</span>: <span style=color:#ae81ff>fluentd</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>template</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>labels</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>app</span>: <span style=color:#ae81ff>fluentd</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>containers</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>fluentd</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>image</span>: <span style=color:#ae81ff>fluentd:v1.14</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>volumeMounts</span>:
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>varlog</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>mountPath</span>: <span style=color:#ae81ff>/var/log</span>
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>varlibdockercontainers</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>mountPath</span>: <span style=color:#ae81ff>/var/lib/docker/containers</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>readOnly</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>volumes</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>varlog</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>hostPath</span>:
+</span></span><span style=display:flex><span>          <span style=color:#f92672>path</span>: <span style=color:#ae81ff>/var/log</span>
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>varlibdockercontainers</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>hostPath</span>:
+</span></span><span style=display:flex><span>          <span style=color:#f92672>path</span>: <span style=color:#ae81ff>/var/lib/docker/containers</span>
+</span></span></code></pre></div><h3 id=55-job和cronjob>5.5 Job和CronJob<a hidden class=anchor aria-hidden=true href=#55-job和cronjob>#</a></h3><h4 id=551-job>5.5.1 Job<a hidden class=anchor aria-hidden=true href=#551-job>#</a></h4><p>运行一次性任务：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>batch/v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Job</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>pi-calculation</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>template</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>containers</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>pi</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>image</span>: <span style=color:#ae81ff>perl</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>command</span>: [<span style=color:#e6db74>&#34;perl&#34;</span>, <span style=color:#e6db74>&#34;-Mbignum=bpi&#34;</span>, <span style=color:#e6db74>&#34;-wle&#34;</span>, <span style=color:#e6db74>&#34;print bpi(2000)&#34;</span>]
+</span></span><span style=display:flex><span>      <span style=color:#f92672>restartPolicy</span>: <span style=color:#ae81ff>Never</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>backoffLimit</span>: <span style=color:#ae81ff>4</span>
+</span></span></code></pre></div><h4 id=552-cronjob>5.5.2 CronJob<a hidden class=anchor aria-hidden=true href=#552-cronjob>#</a></h4><p>定时任务：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>batch/v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>CronJob</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>backup-cronjob</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>schedule</span>: <span style=color:#e6db74>&#34;0 2 * * *&#34;</span>  <span style=color:#75715e># 每天凌晨2点执行</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>jobTemplate</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>template</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>          <span style=color:#f92672>containers</span>:
+</span></span><span style=display:flex><span>          - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>backup</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>image</span>: <span style=color:#ae81ff>backup-tool:latest</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>command</span>:
+</span></span><span style=display:flex><span>            - <span style=color:#ae81ff>/bin/sh</span>
+</span></span><span style=display:flex><span>            - -<span style=color:#ae81ff>c</span>
+</span></span><span style=display:flex><span>            - <span style=color:#e6db74>&#34;echo &#39;Running backup at $(date)&#39;&#34;</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>restartPolicy</span>: <span style=color:#ae81ff>OnFailure</span>
+</span></span></code></pre></div><h2 id=6-服务发现与负载均衡>6. 服务发现与负载均衡<a hidden class=anchor aria-hidden=true href=#6-服务发现与负载均衡>#</a></h2><h3 id=61-service类型>6.1 Service类型<a hidden class=anchor aria-hidden=true href=#61-service类型>#</a></h3><h4 id=611-clusterip>6.1.1 ClusterIP<a hidden class=anchor aria-hidden=true href=#611-clusterip>#</a></h4><p>集群内部访问：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Service</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>nginx-clusterip</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>type</span>: <span style=color:#ae81ff>ClusterIP</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>selector</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>app</span>: <span style=color:#ae81ff>nginx</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>ports</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>port</span>: <span style=color:#ae81ff>80</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>targetPort</span>: <span style=color:#ae81ff>80</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>protocol</span>: <span style=color:#ae81ff>TCP</span>
+</span></span></code></pre></div><h4 id=612-nodeport>6.1.2 NodePort<a hidden class=anchor aria-hidden=true href=#612-nodeport>#</a></h4><p>通过节点端口访问：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Service</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>nginx-nodeport</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>type</span>: <span style=color:#ae81ff>NodePort</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>selector</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>app</span>: <span style=color:#ae81ff>nginx</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>ports</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>port</span>: <span style=color:#ae81ff>80</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>targetPort</span>: <span style=color:#ae81ff>80</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>nodePort</span>: <span style=color:#ae81ff>30080</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>protocol</span>: <span style=color:#ae81ff>TCP</span>
+</span></span></code></pre></div><h4 id=613-loadbalancer>6.1.3 LoadBalancer<a hidden class=anchor aria-hidden=true href=#613-loadbalancer>#</a></h4><p>云平台负载均衡器：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Service</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>nginx-loadbalancer</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>type</span>: <span style=color:#ae81ff>LoadBalancer</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>selector</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>app</span>: <span style=color:#ae81ff>nginx</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>ports</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>port</span>: <span style=color:#ae81ff>80</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>targetPort</span>: <span style=color:#ae81ff>80</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>protocol</span>: <span style=color:#ae81ff>TCP</span>
+</span></span></code></pre></div><h3 id=62-ingress>6.2 Ingress<a hidden class=anchor aria-hidden=true href=#62-ingress>#</a></h3><p>HTTP/HTTPS路由管理：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>networking.k8s.io/v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Ingress</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>nginx-ingress</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>annotations</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>nginx.ingress.kubernetes.io/rewrite-target</span>: <span style=color:#ae81ff>/</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>rules</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>host</span>: <span style=color:#ae81ff>example.com</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>http</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>paths</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>path</span>: <span style=color:#ae81ff>/</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>pathType</span>: <span style=color:#ae81ff>Prefix</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>backend</span>:
+</span></span><span style=display:flex><span>          <span style=color:#f92672>service</span>:
+</span></span><span style=display:flex><span>            <span style=color:#f92672>name</span>: <span style=color:#ae81ff>nginx-service</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>port</span>:
+</span></span><span style=display:flex><span>              <span style=color:#f92672>number</span>: <span style=color:#ae81ff>80</span>
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>host</span>: <span style=color:#ae81ff>api.example.com</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>http</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>paths</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>path</span>: <span style=color:#ae81ff>/api</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>pathType</span>: <span style=color:#ae81ff>Prefix</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>backend</span>:
+</span></span><span style=display:flex><span>          <span style=color:#f92672>service</span>:
+</span></span><span style=display:flex><span>            <span style=color:#f92672>name</span>: <span style=color:#ae81ff>api-service</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>port</span>:
+</span></span><span style=display:flex><span>              <span style=color:#f92672>number</span>: <span style=color:#ae81ff>8080</span>
+</span></span></code></pre></div><h3 id=63-ingress-controller>6.3 Ingress Controller<a hidden class=anchor aria-hidden=true href=#63-ingress-controller>#</a></h3><p>安装Nginx Ingress Controller：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 安装Nginx Ingress Controller</span>
+</span></span><span style=display:flex><span>kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.5.1/deploy/static/provider/cloud/deploy.yaml
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 验证安装</span>
+</span></span><span style=display:flex><span>kubectl get pods -n ingress-nginx
+</span></span><span style=display:flex><span>kubectl get svc -n ingress-nginx
+</span></span></code></pre></div><h2 id=7-存储管理>7. 存储管理<a hidden class=anchor aria-hidden=true href=#7-存储管理>#</a></h2><h3 id=71-volume类型>7.1 Volume类型<a hidden class=anchor aria-hidden=true href=#71-volume类型>#</a></h3><h4 id=711-emptydir>7.1.1 EmptyDir<a hidden class=anchor aria-hidden=true href=#711-emptydir>#</a></h4><p>临时存储：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Pod</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>emptydir-pod</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>containers</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>app</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>nginx</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>volumeMounts</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>cache-volume</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>mountPath</span>: <span style=color:#ae81ff>/cache</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>volumes</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>cache-volume</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>emptyDir</span>: {}
+</span></span></code></pre></div><h4 id=712-hostpath>7.1.2 HostPath<a hidden class=anchor aria-hidden=true href=#712-hostpath>#</a></h4><p>主机路径挂载：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Pod</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>hostpath-pod</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>containers</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>app</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>nginx</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>volumeMounts</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>host-volume</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>mountPath</span>: <span style=color:#ae81ff>/host-data</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>volumes</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>host-volume</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>hostPath</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>path</span>: <span style=color:#ae81ff>/data</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>type</span>: <span style=color:#ae81ff>Directory</span>
+</span></span></code></pre></div><h3 id=72-persistentvolume和persistentvolumeclaim>7.2 PersistentVolume和PersistentVolumeClaim<a hidden class=anchor aria-hidden=true href=#72-persistentvolume和persistentvolumeclaim>#</a></h3><h4 id=721-persistentvolume>7.2.1 PersistentVolume<a hidden class=anchor aria-hidden=true href=#721-persistentvolume>#</a></h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>PersistentVolume</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>pv-example</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>capacity</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>storage</span>: <span style=color:#ae81ff>10Gi</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>accessModes</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>ReadWriteOnce</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>persistentVolumeReclaimPolicy</span>: <span style=color:#ae81ff>Retain</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>storageClassName</span>: <span style=color:#ae81ff>manual</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>hostPath</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>path</span>: <span style=color:#ae81ff>/mnt/data</span>
+</span></span></code></pre></div><h4 id=722-persistentvolumeclaim>7.2.2 PersistentVolumeClaim<a hidden class=anchor aria-hidden=true href=#722-persistentvolumeclaim>#</a></h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>PersistentVolumeClaim</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>pvc-example</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>accessModes</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>ReadWriteOnce</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>resources</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>requests</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>storage</span>: <span style=color:#ae81ff>5Gi</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>storageClassName</span>: <span style=color:#ae81ff>manual</span>
+</span></span></code></pre></div><h4 id=723-使用pvc的pod>7.2.3 使用PVC的Pod<a hidden class=anchor aria-hidden=true href=#723-使用pvc的pod>#</a></h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Pod</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>pvc-pod</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>containers</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>app</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>nginx</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>volumeMounts</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>storage</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>mountPath</span>: <span style=color:#ae81ff>/usr/share/nginx/html</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>volumes</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>storage</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>persistentVolumeClaim</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>claimName</span>: <span style=color:#ae81ff>pvc-example</span>
+</span></span></code></pre></div><h3 id=73-storageclass>7.3 StorageClass<a hidden class=anchor aria-hidden=true href=#73-storageclass>#</a></h3><p>动态存储供应：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>storage.k8s.io/v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>StorageClass</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>fast-ssd</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>provisioner</span>: <span style=color:#ae81ff>kubernetes.io/aws-ebs</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>parameters</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>type</span>: <span style=color:#ae81ff>gp2</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>replication-type</span>: <span style=color:#ae81ff>none</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>allowVolumeExpansion</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>volumeBindingMode</span>: <span style=color:#ae81ff>WaitForFirstConsumer</span>
+</span></span></code></pre></div><h2 id=8-配置管理>8. 配置管理<a hidden class=anchor aria-hidden=true href=#8-配置管理>#</a></h2><h3 id=81-configmap>8.1 ConfigMap<a hidden class=anchor aria-hidden=true href=#81-configmap>#</a></h3><p>存储非敏感配置数据：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>ConfigMap</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>app-config</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>data</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>database_url</span>: <span style=color:#e6db74>&#34;mysql://localhost:3306/mydb&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>debug_mode</span>: <span style=color:#e6db74>&#34;true&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>app.properties</span>: |<span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    server.port=8080
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    server.servlet.context-path=/api
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    logging.level.root=INFO</span>
+</span></span></code></pre></div><p>使用ConfigMap：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Pod</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>configmap-pod</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>containers</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>app</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>myapp:latest</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>env</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>DATABASE_URL</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>valueFrom</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>configMapKeyRef</span>:
+</span></span><span style=display:flex><span>          <span style=color:#f92672>name</span>: <span style=color:#ae81ff>app-config</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>key</span>: <span style=color:#ae81ff>database_url</span>
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>DEBUG_MODE</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>valueFrom</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>configMapKeyRef</span>:
+</span></span><span style=display:flex><span>          <span style=color:#f92672>name</span>: <span style=color:#ae81ff>app-config</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>key</span>: <span style=color:#ae81ff>debug_mode</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>volumeMounts</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>config-volume</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>mountPath</span>: <span style=color:#ae81ff>/etc/config</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>volumes</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>config-volume</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>configMap</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>name</span>: <span style=color:#ae81ff>app-config</span>
+</span></span></code></pre></div><h3 id=82-secret>8.2 Secret<a hidden class=anchor aria-hidden=true href=#82-secret>#</a></h3><p>存储敏感数据：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Secret</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>app-secret</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>type</span>: <span style=color:#ae81ff>Opaque</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>data</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>username</span>: <span style=color:#ae81ff>YWRtaW4= </span> <span style=color:#75715e># base64编码的&#34;admin&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>password</span>: <span style=color:#ae81ff>MWYyZDFlMmU2N2Rm </span> <span style=color:#75715e># base64编码的密码</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 创建Secret</span>
+</span></span><span style=display:flex><span>kubectl create secret generic app-secret <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  --from-literal<span style=color:#f92672>=</span>username<span style=color:#f92672>=</span>admin <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  --from-literal<span style=color:#f92672>=</span>password<span style=color:#f92672>=</span>secretpassword
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 从文件创建Secret</span>
+</span></span><span style=display:flex><span>kubectl create secret generic ssl-secret <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  --from-file<span style=color:#f92672>=</span>tls.crt<span style=color:#f92672>=</span>server.crt <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  --from-file<span style=color:#f92672>=</span>tls.key<span style=color:#f92672>=</span>server.key
+</span></span></code></pre></div><p>使用Secret：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Pod</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>secret-pod</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>containers</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>app</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>myapp:latest</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>env</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>DB_USERNAME</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>valueFrom</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>secretKeyRef</span>:
+</span></span><span style=display:flex><span>          <span style=color:#f92672>name</span>: <span style=color:#ae81ff>app-secret</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>key</span>: <span style=color:#ae81ff>username</span>
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>DB_PASSWORD</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>valueFrom</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>secretKeyRef</span>:
+</span></span><span style=display:flex><span>          <span style=color:#f92672>name</span>: <span style=color:#ae81ff>app-secret</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>key</span>: <span style=color:#ae81ff>password</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>volumeMounts</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>secret-volume</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>mountPath</span>: <span style=color:#ae81ff>/etc/secrets</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>readOnly</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>volumes</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>secret-volume</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>secret</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>secretName</span>: <span style=color:#ae81ff>app-secret</span>
+</span></span></code></pre></div><h2 id=9-网络管理>9. 网络管理<a hidden class=anchor aria-hidden=true href=#9-网络管理>#</a></h2><h3 id=91-网络策略>9.1 网络策略<a hidden class=anchor aria-hidden=true href=#91-网络策略>#</a></h3><p>控制Pod间的网络通信：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>networking.k8s.io/v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>NetworkPolicy</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>deny-all</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>namespace</span>: <span style=color:#ae81ff>production</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>podSelector</span>: {}
+</span></span><span style=display:flex><span>  <span style=color:#f92672>policyTypes</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#ae81ff>Ingress</span>
+</span></span><span style=display:flex><span>  - <span style=color:#ae81ff>Egress</span>
+</span></span></code></pre></div><p>允许特定流量的网络策略：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>networking.k8s.io/v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>NetworkPolicy</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>allow-frontend-to-backend</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>podSelector</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>matchLabels</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>app</span>: <span style=color:#ae81ff>backend</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>policyTypes</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#ae81ff>Ingress</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>ingress</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>from</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>podSelector</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>matchLabels</span>:
+</span></span><span style=display:flex><span>          <span style=color:#f92672>app</span>: <span style=color:#ae81ff>frontend</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>ports</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>protocol</span>: <span style=color:#ae81ff>TCP</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>port</span>: <span style=color:#ae81ff>8080</span>
+</span></span></code></pre></div><h3 id=92-dns配置>9.2 DNS配置<a hidden class=anchor aria-hidden=true href=#92-dns配置>#</a></h3><p>自定义DNS配置：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Pod</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>dns-config-pod</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>containers</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>app</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>nginx</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>dnsPolicy</span>: <span style=color:#e6db74>&#34;None&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>dnsConfig</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>nameservers</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>8.8.8.8</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>8.8.4.4</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>searches</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>example.com</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>options</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>ndots</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>value</span>: <span style=color:#e6db74>&#34;2&#34;</span>
+</span></span></code></pre></div><h2 id=10-安全管理>10. 安全管理<a hidden class=anchor aria-hidden=true href=#10-安全管理>#</a></h2><h3 id=101-serviceaccount>10.1 ServiceAccount<a hidden class=anchor aria-hidden=true href=#101-serviceaccount>#</a></h3><p>为Pod提供身份认证：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>ServiceAccount</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>my-service-account</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>namespace</span>: <span style=color:#ae81ff>default</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Pod</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>sa-pod</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>serviceAccountName</span>: <span style=color:#ae81ff>my-service-account</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>containers</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>app</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>nginx</span>
+</span></span></code></pre></div><h3 id=102-rbac>10.2 RBAC<a hidden class=anchor aria-hidden=true href=#102-rbac>#</a></h3><p>基于角色的访问控制：</p><h4 id=1021-role和rolebinding>10.2.1 Role和RoleBinding<a hidden class=anchor aria-hidden=true href=#1021-role和rolebinding>#</a></h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>rbac.authorization.k8s.io/v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Role</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>namespace</span>: <span style=color:#ae81ff>default</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>pod-reader</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>rules</span>:
+</span></span><span style=display:flex><span>- <span style=color:#f92672>apiGroups</span>: [<span style=color:#e6db74>&#34;&#34;</span>]
+</span></span><span style=display:flex><span>  <span style=color:#f92672>resources</span>: [<span style=color:#e6db74>&#34;pods&#34;</span>]
+</span></span><span style=display:flex><span>  <span style=color:#f92672>verbs</span>: [<span style=color:#e6db74>&#34;get&#34;</span>, <span style=color:#e6db74>&#34;watch&#34;</span>, <span style=color:#e6db74>&#34;list&#34;</span>]
+</span></span><span style=display:flex><span>---
+</span></span><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>rbac.authorization.k8s.io/v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>RoleBinding</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>read-pods</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>namespace</span>: <span style=color:#ae81ff>default</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>subjects</span>:
+</span></span><span style=display:flex><span>- <span style=color:#f92672>kind</span>: <span style=color:#ae81ff>ServiceAccount</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>my-service-account</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>namespace</span>: <span style=color:#ae81ff>default</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>roleRef</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Role</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>pod-reader</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>apiGroup</span>: <span style=color:#ae81ff>rbac.authorization.k8s.io</span>
+</span></span></code></pre></div><h4 id=1022-clusterrole和clusterrolebinding>10.2.2 ClusterRole和ClusterRoleBinding<a hidden class=anchor aria-hidden=true href=#1022-clusterrole和clusterrolebinding>#</a></h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>rbac.authorization.k8s.io/v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>ClusterRole</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>cluster-reader</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>rules</span>:
+</span></span><span style=display:flex><span>- <span style=color:#f92672>apiGroups</span>: [<span style=color:#e6db74>&#34;&#34;</span>]
+</span></span><span style=display:flex><span>  <span style=color:#f92672>resources</span>: [<span style=color:#e6db74>&#34;nodes&#34;</span>, <span style=color:#e6db74>&#34;namespaces&#34;</span>]
+</span></span><span style=display:flex><span>  <span style=color:#f92672>verbs</span>: [<span style=color:#e6db74>&#34;get&#34;</span>, <span style=color:#e6db74>&#34;list&#34;</span>]
+</span></span><span style=display:flex><span>---
+</span></span><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>rbac.authorization.k8s.io/v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>ClusterRoleBinding</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>read-cluster</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>subjects</span>:
+</span></span><span style=display:flex><span>- <span style=color:#f92672>kind</span>: <span style=color:#ae81ff>ServiceAccount</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>my-service-account</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>namespace</span>: <span style=color:#ae81ff>default</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>roleRef</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>kind</span>: <span style=color:#ae81ff>ClusterRole</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>cluster-reader</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>apiGroup</span>: <span style=color:#ae81ff>rbac.authorization.k8s.io</span>
+</span></span></code></pre></div><h3 id=103-pod-security-standards>10.3 Pod Security Standards<a hidden class=anchor aria-hidden=true href=#103-pod-security-standards>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Pod</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>secure-pod</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>securityContext</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>runAsNonRoot</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>runAsUser</span>: <span style=color:#ae81ff>1000</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>fsGroup</span>: <span style=color:#ae81ff>2000</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>containers</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>app</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>nginx</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>securityContext</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>allowPrivilegeEscalation</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>readOnlyRootFilesystem</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>capabilities</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>drop</span>:
+</span></span><span style=display:flex><span>        - <span style=color:#ae81ff>ALL</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>volumeMounts</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>tmp</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>mountPath</span>: <span style=color:#ae81ff>/tmp</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>volumes</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>tmp</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>emptyDir</span>: {}
+</span></span></code></pre></div><h2 id=11-监控与日志>11. 监控与日志<a hidden class=anchor aria-hidden=true href=#11-监控与日志>#</a></h2><h3 id=111-资源监控>11.1 资源监控<a hidden class=anchor aria-hidden=true href=#111-资源监控>#</a></h3><h4 id=1111-metrics-server>11.1.1 Metrics Server<a hidden class=anchor aria-hidden=true href=#1111-metrics-server>#</a></h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 安装Metrics Server</span>
+</span></span><span style=display:flex><span>kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看节点资源使用</span>
+</span></span><span style=display:flex><span>kubectl top nodes
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看Pod资源使用</span>
+</span></span><span style=display:flex><span>kubectl top pods
+</span></span></code></pre></div><h4 id=1112-prometheus监控>11.1.2 Prometheus监控<a hidden class=anchor aria-hidden=true href=#1112-prometheus监控>#</a></h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>apps/v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Deployment</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>prometheus</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>replicas</span>: <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>selector</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>matchLabels</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>app</span>: <span style=color:#ae81ff>prometheus</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>template</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>labels</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>app</span>: <span style=color:#ae81ff>prometheus</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>containers</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>prometheus</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>image</span>: <span style=color:#ae81ff>prom/prometheus:latest</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>ports</span>:
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>containerPort</span>: <span style=color:#ae81ff>9090</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>volumeMounts</span>:
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>config</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>mountPath</span>: <span style=color:#ae81ff>/etc/prometheus</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>volumes</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>config</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>configMap</span>:
+</span></span><span style=display:flex><span>          <span style=color:#f92672>name</span>: <span style=color:#ae81ff>prometheus-config</span>
+</span></span></code></pre></div><h3 id=112-日志管理>11.2 日志管理<a hidden class=anchor aria-hidden=true href=#112-日志管理>#</a></h3><h4 id=1121-查看pod日志>11.2.1 查看Pod日志<a hidden class=anchor aria-hidden=true href=#1121-查看pod日志>#</a></h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 查看Pod日志</span>
+</span></span><span style=display:flex><span>kubectl logs pod-name
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看特定容器日志</span>
+</span></span><span style=display:flex><span>kubectl logs pod-name -c container-name
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 实时查看日志</span>
+</span></span><span style=display:flex><span>kubectl logs -f pod-name
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看前N行日志</span>
+</span></span><span style=display:flex><span>kubectl logs --tail<span style=color:#f92672>=</span><span style=color:#ae81ff>100</span> pod-name
+</span></span></code></pre></div><h4 id=1122-elk-stack部署>11.2.2 ELK Stack部署<a hidden class=anchor aria-hidden=true href=#1122-elk-stack部署>#</a></h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>apps/v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Deployment</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>elasticsearch</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>replicas</span>: <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>selector</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>matchLabels</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>app</span>: <span style=color:#ae81ff>elasticsearch</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>template</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>labels</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>app</span>: <span style=color:#ae81ff>elasticsearch</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>containers</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>elasticsearch</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>image</span>: <span style=color:#ae81ff>docker.elastic.co/elasticsearch/elasticsearch:7.15.0</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>env</span>:
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>discovery.type</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>value</span>: <span style=color:#ae81ff>single-node</span>
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>ES_JAVA_OPTS</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>value</span>: <span style=color:#e6db74>&#34;-Xms512m -Xmx512m&#34;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>ports</span>:
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>containerPort</span>: <span style=color:#ae81ff>9200</span>
+</span></span></code></pre></div><h2 id=12-高级特性>12. 高级特性<a hidden class=anchor aria-hidden=true href=#12-高级特性>#</a></h2><h3 id=121-horizontal-pod-autoscaler-hpa>12.1 Horizontal Pod Autoscaler (HPA)<a hidden class=anchor aria-hidden=true href=#121-horizontal-pod-autoscaler-hpa>#</a></h3><p>基于CPU使用率自动扩缩容：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>autoscaling/v2</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>HorizontalPodAutoscaler</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>nginx-hpa</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>scaleTargetRef</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>apps/v1</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Deployment</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>name</span>: <span style=color:#ae81ff>nginx-deployment</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>minReplicas</span>: <span style=color:#ae81ff>2</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>maxReplicas</span>: <span style=color:#ae81ff>10</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>metrics</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>type</span>: <span style=color:#ae81ff>Resource</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>resource</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>name</span>: <span style=color:#ae81ff>cpu</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>target</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>type</span>: <span style=color:#ae81ff>Utilization</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>averageUtilization</span>: <span style=color:#ae81ff>70</span>
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>type</span>: <span style=color:#ae81ff>Resource</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>resource</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>name</span>: <span style=color:#ae81ff>memory</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>target</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>type</span>: <span style=color:#ae81ff>Utilization</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>averageUtilization</span>: <span style=color:#ae81ff>80</span>
+</span></span></code></pre></div><h3 id=122-vertical-pod-autoscaler-vpa>12.2 Vertical Pod Autoscaler (VPA)<a hidden class=anchor aria-hidden=true href=#122-vertical-pod-autoscaler-vpa>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>autoscaling.k8s.io/v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>VerticalPodAutoscaler</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>nginx-vpa</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>targetRef</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>apps/v1</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Deployment</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>name</span>: <span style=color:#ae81ff>nginx-deployment</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>updatePolicy</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>updateMode</span>: <span style=color:#e6db74>&#34;Auto&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>resourcePolicy</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>containerPolicies</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>containerName</span>: <span style=color:#ae81ff>nginx</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>maxAllowed</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>cpu</span>: <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>memory</span>: <span style=color:#ae81ff>500Mi</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>minAllowed</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>cpu</span>: <span style=color:#ae81ff>100m</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>memory</span>: <span style=color:#ae81ff>50Mi</span>
+</span></span></code></pre></div><h3 id=123-custom-resource-definitions-crd>12.3 Custom Resource Definitions (CRD)<a hidden class=anchor aria-hidden=true href=#123-custom-resource-definitions-crd>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>apiextensions.k8s.io/v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>CustomResourceDefinition</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>applications.example.com</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>group</span>: <span style=color:#ae81ff>example.com</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>versions</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>v1</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>served</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>storage</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>schema</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>openAPIV3Schema</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>type</span>: <span style=color:#ae81ff>object</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>properties</span>:
+</span></span><span style=display:flex><span>          <span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>            <span style=color:#f92672>type</span>: <span style=color:#ae81ff>object</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>properties</span>:
+</span></span><span style=display:flex><span>              <span style=color:#f92672>image</span>:
+</span></span><span style=display:flex><span>                <span style=color:#f92672>type</span>: <span style=color:#ae81ff>string</span>
+</span></span><span style=display:flex><span>              <span style=color:#f92672>replicas</span>:
+</span></span><span style=display:flex><span>                <span style=color:#f92672>type</span>: <span style=color:#ae81ff>integer</span>
+</span></span><span style=display:flex><span>                <span style=color:#f92672>minimum</span>: <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>                <span style=color:#f92672>maximum</span>: <span style=color:#ae81ff>10</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>scope</span>: <span style=color:#ae81ff>Namespaced</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>names</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>plural</span>: <span style=color:#ae81ff>applications</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>singular</span>: <span style=color:#ae81ff>application</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Application</span>
+</span></span></code></pre></div><h3 id=124-operators>12.4 Operators<a hidden class=anchor aria-hidden=true href=#124-operators>#</a></h3><p>使用Operator管理复杂应用：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>example.com/v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Application</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>my-app</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>image</span>: <span style=color:#ae81ff>myapp:v1.0</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>replicas</span>: <span style=color:#ae81ff>3</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>database</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>type</span>: <span style=color:#ae81ff>mysql</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>version</span>: <span style=color:#e6db74>&#34;8.0&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>storage</span>: <span style=color:#ae81ff>10Gi</span>
+</span></span></code></pre></div><h2 id=13-故障排查>13. 故障排查<a hidden class=anchor aria-hidden=true href=#13-故障排查>#</a></h2><h3 id=131-常用调试命令>13.1 常用调试命令<a hidden class=anchor aria-hidden=true href=#131-常用调试命令>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 查看集群状态</span>
+</span></span><span style=display:flex><span>kubectl cluster-info
+</span></span><span style=display:flex><span>kubectl get nodes
+</span></span><span style=display:flex><span>kubectl get componentstatuses
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看资源状态</span>
+</span></span><span style=display:flex><span>kubectl get pods --all-namespaces
+</span></span><span style=display:flex><span>kubectl get events --sort-by<span style=color:#f92672>=</span>.metadata.creationTimestamp
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 详细描述资源</span>
+</span></span><span style=display:flex><span>kubectl describe pod pod-name
+</span></span><span style=display:flex><span>kubectl describe node node-name
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看日志</span>
+</span></span><span style=display:flex><span>kubectl logs pod-name
+</span></span><span style=display:flex><span>kubectl logs -f deployment/app-name
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 进入容器调试</span>
+</span></span><span style=display:flex><span>kubectl exec -it pod-name -- /bin/bash
+</span></span><span style=display:flex><span>kubectl exec -it pod-name -c container-name -- /bin/sh
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 端口转发</span>
+</span></span><span style=display:flex><span>kubectl port-forward pod/pod-name 8080:80
+</span></span><span style=display:flex><span>kubectl port-forward service/service-name 8080:80
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 复制文件</span>
+</span></span><span style=display:flex><span>kubectl cp pod-name:/path/to/file /local/path
+</span></span><span style=display:flex><span>kubectl cp /local/path pod-name:/path/to/file
+</span></span></code></pre></div><h3 id=132-常见问题排查>13.2 常见问题排查<a hidden class=anchor aria-hidden=true href=#132-常见问题排查>#</a></h3><h4 id=1321-pod启动失败>13.2.1 Pod启动失败<a hidden class=anchor aria-hidden=true href=#1321-pod启动失败>#</a></h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 查看Pod状态和事件</span>
+</span></span><span style=display:flex><span>kubectl get pods
+</span></span><span style=display:flex><span>kubectl describe pod pod-name
+</span></span><span style=display:flex><span>kubectl get events --field-selector involvedObject.name<span style=color:#f92672>=</span>pod-name
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看容器日志</span>
+</span></span><span style=display:flex><span>kubectl logs pod-name
+</span></span><span style=display:flex><span>kubectl logs pod-name --previous  <span style=color:#75715e># 查看上一次运行的日志</span>
+</span></span></code></pre></div><h4 id=1322-服务访问问题>13.2.2 服务访问问题<a hidden class=anchor aria-hidden=true href=#1322-服务访问问题>#</a></h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 检查Service和Endpoints</span>
+</span></span><span style=display:flex><span>kubectl get svc
+</span></span><span style=display:flex><span>kubectl get endpoints
+</span></span><span style=display:flex><span>kubectl describe svc service-name
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 测试服务连通性</span>
+</span></span><span style=display:flex><span>kubectl run test-pod --image<span style=color:#f92672>=</span>busybox --rm -it -- /bin/sh
+</span></span><span style=display:flex><span><span style=color:#75715e># 在test-pod中执行</span>
+</span></span><span style=display:flex><span>wget -qO- http://service-name:port
+</span></span><span style=display:flex><span>nslookup service-name
+</span></span></code></pre></div><h4 id=1323-网络问题>13.2.3 网络问题<a hidden class=anchor aria-hidden=true href=#1323-网络问题>#</a></h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 检查网络策略</span>
+</span></span><span style=display:flex><span>kubectl get networkpolicies
+</span></span><span style=display:flex><span>kubectl describe networkpolicy policy-name
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 检查DNS</span>
+</span></span><span style=display:flex><span>kubectl get pods -n kube-system | grep dns
+</span></span><span style=display:flex><span>kubectl logs -n kube-system deployment/coredns
+</span></span></code></pre></div><h3 id=133-性能调优>13.3 性能调优<a hidden class=anchor aria-hidden=true href=#133-性能调优>#</a></h3><h4 id=1331-资源限制调优>13.3.1 资源限制调优<a hidden class=anchor aria-hidden=true href=#1331-资源限制调优>#</a></h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Pod</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>optimized-pod</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>containers</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>app</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>myapp:latest</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>resources</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>requests</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>memory</span>: <span style=color:#e6db74>&#34;256Mi&#34;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>cpu</span>: <span style=color:#e6db74>&#34;250m&#34;</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>limits</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>memory</span>: <span style=color:#e6db74>&#34;512Mi&#34;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>cpu</span>: <span style=color:#e6db74>&#34;500m&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>livenessProbe</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>httpGet</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>path</span>: <span style=color:#ae81ff>/health</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>port</span>: <span style=color:#ae81ff>8080</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>initialDelaySeconds</span>: <span style=color:#ae81ff>30</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>periodSeconds</span>: <span style=color:#ae81ff>10</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>timeoutSeconds</span>: <span style=color:#ae81ff>5</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>failureThreshold</span>: <span style=color:#ae81ff>3</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>readinessProbe</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>httpGet</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>path</span>: <span style=color:#ae81ff>/ready</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>port</span>: <span style=color:#ae81ff>8080</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>initialDelaySeconds</span>: <span style=color:#ae81ff>5</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>periodSeconds</span>: <span style=color:#ae81ff>5</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>timeoutSeconds</span>: <span style=color:#ae81ff>3</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>failureThreshold</span>: <span style=color:#ae81ff>3</span>
+</span></span></code></pre></div><h2 id=14-最佳实践>14. 最佳实践<a hidden class=anchor aria-hidden=true href=#14-最佳实践>#</a></h2><h3 id=141-资源管理最佳实践>14.1 资源管理最佳实践<a hidden class=anchor aria-hidden=true href=#141-资源管理最佳实践>#</a></h3><ol><li><strong>始终设置资源请求和限制</strong></li><li><strong>使用命名空间进行资源隔离</strong></li><li><strong>合理使用标签和选择器</strong></li><li><strong>定期清理未使用的资源</strong></li></ol><h3 id=142-安全最佳实践>14.2 安全最佳实践<a hidden class=anchor aria-hidden=true href=#142-安全最佳实践>#</a></h3><ol><li><strong>使用非root用户运行容器</strong></li><li><strong>启用RBAC并遵循最小权限原则</strong></li><li><strong>定期更新镜像和补丁</strong></li><li><strong>使用Secret管理敏感信息</strong></li><li><strong>启用网络策略</strong></li></ol><h3 id=143-部署最佳实践>14.3 部署最佳实践<a hidden class=anchor aria-hidden=true href=#143-部署最佳实践>#</a></h3><ol><li><strong>使用声明式配置</strong></li><li><strong>实施滚动更新策略</strong></li><li><strong>配置健康检查</strong></li><li><strong>使用多副本提高可用性</strong></li><li><strong>实施监控和日志记录</strong></li></ol><h3 id=144-配置管理最佳实践>14.4 配置管理最佳实践<a hidden class=anchor aria-hidden=true href=#144-配置管理最佳实践>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#75715e># 良好的Deployment配置示例</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>apps/v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Deployment</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>production-app</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>labels</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>app</span>: <span style=color:#ae81ff>production-app</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>version</span>: <span style=color:#ae81ff>v1.0</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>replicas</span>: <span style=color:#ae81ff>3</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>strategy</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>type</span>: <span style=color:#ae81ff>RollingUpdate</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>rollingUpdate</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>maxSurge</span>: <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>maxUnavailable</span>: <span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>selector</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>matchLabels</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>app</span>: <span style=color:#ae81ff>production-app</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>template</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>labels</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>app</span>: <span style=color:#ae81ff>production-app</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>version</span>: <span style=color:#ae81ff>v1.0</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>securityContext</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>runAsNonRoot</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>runAsUser</span>: <span style=color:#ae81ff>1000</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>containers</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>app</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>image</span>: <span style=color:#ae81ff>myapp:v1.0</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>imagePullPolicy</span>: <span style=color:#ae81ff>Always</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>ports</span>:
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>containerPort</span>: <span style=color:#ae81ff>8080</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>name</span>: <span style=color:#ae81ff>http</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>env</span>:
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>ENV</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>value</span>: <span style=color:#e6db74>&#34;production&#34;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>envFrom</span>:
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>configMapRef</span>:
+</span></span><span style=display:flex><span>            <span style=color:#f92672>name</span>: <span style=color:#ae81ff>app-config</span>
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>secretRef</span>:
+</span></span><span style=display:flex><span>            <span style=color:#f92672>name</span>: <span style=color:#ae81ff>app-secrets</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>resources</span>:
+</span></span><span style=display:flex><span>          <span style=color:#f92672>requests</span>:
+</span></span><span style=display:flex><span>            <span style=color:#f92672>memory</span>: <span style=color:#e6db74>&#34;256Mi&#34;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>cpu</span>: <span style=color:#e6db74>&#34;250m&#34;</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>limits</span>:
+</span></span><span style=display:flex><span>            <span style=color:#f92672>memory</span>: <span style=color:#e6db74>&#34;512Mi&#34;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>cpu</span>: <span style=color:#e6db74>&#34;500m&#34;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>livenessProbe</span>:
+</span></span><span style=display:flex><span>          <span style=color:#f92672>httpGet</span>:
+</span></span><span style=display:flex><span>            <span style=color:#f92672>path</span>: <span style=color:#ae81ff>/health</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>port</span>: <span style=color:#ae81ff>8080</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>initialDelaySeconds</span>: <span style=color:#ae81ff>30</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>periodSeconds</span>: <span style=color:#ae81ff>10</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>readinessProbe</span>:
+</span></span><span style=display:flex><span>          <span style=color:#f92672>httpGet</span>:
+</span></span><span style=display:flex><span>            <span style=color:#f92672>path</span>: <span style=color:#ae81ff>/ready</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>port</span>: <span style=color:#ae81ff>8080</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>initialDelaySeconds</span>: <span style=color:#ae81ff>5</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>periodSeconds</span>: <span style=color:#ae81ff>5</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>volumeMounts</span>:
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>app-storage</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>mountPath</span>: <span style=color:#ae81ff>/data</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>volumes</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>app-storage</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>persistentVolumeClaim</span>:
+</span></span><span style=display:flex><span>          <span style=color:#f92672>claimName</span>: <span style=color:#ae81ff>app-pvc</span>
+</span></span></code></pre></div><h2 id=15-生产环境部署>15. 生产环境部署<a hidden class=anchor aria-hidden=true href=#15-生产环境部署>#</a></h2><h3 id=151-高可用集群架构>15.1 高可用集群架构<a hidden class=anchor aria-hidden=true href=#151-高可用集群架构>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#75715e># 高可用etcd配置</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Pod</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>etcd</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>namespace</span>: <span style=color:#ae81ff>kube-system</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>containers</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>etcd</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>k8s.gcr.io/etcd:3.5.0-0</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>command</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>etcd</span>
+</span></span><span style=display:flex><span>    - --<span style=color:#ae81ff>name=etcd-1</span>
+</span></span><span style=display:flex><span>    - --<span style=color:#ae81ff>data-dir=/var/lib/etcd</span>
+</span></span><span style=display:flex><span>    - --<span style=color:#ae81ff>listen-client-urls=https://0.0.0.0:2379</span>
+</span></span><span style=display:flex><span>    - --<span style=color:#ae81ff>advertise-client-urls=https://10.0.0.1:2379</span>
+</span></span><span style=display:flex><span>    - --<span style=color:#ae81ff>listen-peer-urls=https://0.0.0.0:2380</span>
+</span></span><span style=display:flex><span>    - --<span style=color:#ae81ff>initial-advertise-peer-urls=https://10.0.0.1:2380</span>
+</span></span><span style=display:flex><span>    - --<span style=color:#ae81ff>initial-cluster=etcd-1=https://10.0.0.1:2380,etcd-2=https://10.0.0.2:2380,etcd-3=https://10.0.0.3:2380</span>
+</span></span><span style=display:flex><span>    - --<span style=color:#ae81ff>initial-cluster-state=new</span>
+</span></span><span style=display:flex><span>    - --<span style=color:#ae81ff>cert-file=/etc/kubernetes/pki/etcd/server.crt</span>
+</span></span><span style=display:flex><span>    - --<span style=color:#ae81ff>key-file=/etc/kubernetes/pki/etcd/server.key</span>
+</span></span><span style=display:flex><span>    - --<span style=color:#ae81ff>trusted-ca-file=/etc/kubernetes/pki/etcd/ca.crt</span>
+</span></span><span style=display:flex><span>    - --<span style=color:#ae81ff>peer-cert-file=/etc/kubernetes/pki/etcd/peer.crt</span>
+</span></span><span style=display:flex><span>    - --<span style=color:#ae81ff>peer-key-file=/etc/kubernetes/pki/etcd/peer.key</span>
+</span></span><span style=display:flex><span>    - --<span style=color:#ae81ff>peer-trusted-ca-file=/etc/kubernetes/pki/etcd/ca.crt</span>
+</span></span></code></pre></div><h3 id=152-备份和恢复>15.2 备份和恢复<a hidden class=anchor aria-hidden=true href=#152-备份和恢复>#</a></h3><h4 id=1521-etcd备份>15.2.1 etcd备份<a hidden class=anchor aria-hidden=true href=#1521-etcd备份>#</a></h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e>#!/bin/bash
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#75715e># etcd备份脚本</span>
+</span></span><span style=display:flex><span>ETCDCTL_API<span style=color:#f92672>=</span><span style=color:#ae81ff>3</span> etcdctl snapshot save /backup/etcd-snapshot-<span style=color:#66d9ef>$(</span>date +%Y%m%d-%H%M%S<span style=color:#66d9ef>)</span>.db <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  --endpoints<span style=color:#f92672>=</span>https://127.0.0.1:2379 <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  --cacert<span style=color:#f92672>=</span>/etc/kubernetes/pki/etcd/ca.crt <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  --cert<span style=color:#f92672>=</span>/etc/kubernetes/pki/etcd/server.crt <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  --key<span style=color:#f92672>=</span>/etc/kubernetes/pki/etcd/server.key
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 验证备份</span>
+</span></span><span style=display:flex><span>ETCDCTL_API<span style=color:#f92672>=</span><span style=color:#ae81ff>3</span> etcdctl snapshot status /backup/etcd-snapshot-<span style=color:#66d9ef>$(</span>date +%Y%m%d-%H%M%S<span style=color:#66d9ef>)</span>.db
+</span></span></code></pre></div><h4 id=1522-etcd恢复>15.2.2 etcd恢复<a hidden class=anchor aria-hidden=true href=#1522-etcd恢复>#</a></h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e>#!/bin/bash
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#75715e># etcd恢复脚本</span>
+</span></span><span style=display:flex><span>ETCDCTL_API<span style=color:#f92672>=</span><span style=color:#ae81ff>3</span> etcdctl snapshot restore /backup/etcd-snapshot.db <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  --data-dir<span style=color:#f92672>=</span>/var/lib/etcd-restore <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  --name<span style=color:#f92672>=</span>etcd-1 <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  --initial-cluster<span style=color:#f92672>=</span>etcd-1<span style=color:#f92672>=</span>https://10.0.0.1:2380 <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  --initial-advertise-peer-urls<span style=color:#f92672>=</span>https://10.0.0.1:2380
+</span></span></code></pre></div><h3 id=153-监控和告警>15.3 监控和告警<a hidden class=anchor aria-hidden=true href=#153-监控和告警>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#75715e># Prometheus告警规则</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>ConfigMap</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>prometheus-rules</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>data</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>kubernetes.rules</span>: |<span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    groups:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    - name: kubernetes
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      rules:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      - alert: PodCrashLooping
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        expr: rate(kube_pod_container_status_restarts_total[15m]) &gt; 0
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        for: 5m
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        labels:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          severity: warning
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        annotations:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          summary: &#34;Pod {{ $labels.pod }} is crash looping&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          description: &#34;Pod {{ $labels.pod }} in namespace {{ $labels.namespace }} is restarting frequently&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      - alert: NodeNotReady
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        expr: kube_node_status_condition{condition=&#34;Ready&#34;,status=&#34;true&#34;} == 0
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        for: 5m
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        labels:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          severity: critical
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        annotations:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          summary: &#34;Node {{ $labels.node }} is not ready&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          description: &#34;Node {{ $labels.node }} has been not ready for more than 5 minutes&#34;</span>
+</span></span></code></pre></div><h3 id=154-升级策略>15.4 升级策略<a hidden class=anchor aria-hidden=true href=#154-升级策略>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e>#!/bin/bash
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#75715e># Kubernetes集群升级脚本</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 1. 升级控制平面</span>
+</span></span><span style=display:flex><span>sudo kubeadm upgrade plan
+</span></span><span style=display:flex><span>sudo kubeadm upgrade apply v1.25.0
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 2. 升级kubelet和kubectl</span>
+</span></span><span style=display:flex><span>sudo apt-mark unhold kubelet kubectl
+</span></span><span style=display:flex><span>sudo apt-get update
+</span></span><span style=display:flex><span>sudo apt-get install -y kubelet<span style=color:#f92672>=</span>1.25.0-00 kubectl<span style=color:#f92672>=</span>1.25.0-00
+</span></span><span style=display:flex><span>sudo apt-mark hold kubelet kubectl
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 3. 重启kubelet</span>
+</span></span><span style=display:flex><span>sudo systemctl daemon-reload
+</span></span><span style=display:flex><span>sudo systemctl restart kubelet
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 4. 验证升级</span>
+</span></span><span style=display:flex><span>kubectl get nodes
+</span></span><span style=display:flex><span>kubectl version
+</span></span></code></pre></div></div><footer class=post-footer><ul class=post-tags><li><a href=https://wellzhi.github.io/tags/kubernetes/>Kubernetes</a></li><li><a href=https://wellzhi.github.io/tags/%E5%AE%B9%E5%99%A8%E5%8C%96/>容器化</a></li><li><a href=https://wellzhi.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/>微服务</a></li><li><a href=https://wellzhi.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/>分布式系统</a></li><li><a href=https://wellzhi.github.io/tags/%E4%BA%91%E5%8E%9F%E7%94%9F/>云原生</a></li></ul></footer><div class=comments-section><div class=comments-header><h3 class=comments-title><svg class="comments-icon" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+评论区</h3><div class=comments-divider></div></div><div id=twikoo-loading class=twikoo-loading><div class=loading-spinner></div><p>评论加载中...</p></div><div id=twikoo class=twikoo-container></div><div id=twikoo-error class=twikoo-error style=display:none><div class=error-content><svg class="error-icon" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg><p>评论加载失败，请刷新页面重试</p></div></div></div><style>.comments-section{margin:3rem 0 2rem;padding:0;max-width:100%}.comments-header{margin-bottom:2rem}.comments-title{display:flex;align-items:center;gap:.5rem;font-size:1.5rem;font-weight:600;color:var(--primary,#1a1a1a);margin:0 0 1rem}.comments-icon{width:1.5rem;height:1.5rem;color:var(--theme,#007acc)}.comments-divider{height:2px;background:linear-gradient(90deg,var(--theme,#007acc) 0%,transparent 100%);border-radius:1px;width:60px}.twikoo-container{background:var(--code-bg,#f8f9fa);border-radius:12px;padding:1.5rem;border:1px solid var(--border,#e1e5e9);transition:all .3s ease;min-height:200px}.twikoo-container:hover{border-color:var(--theme,#007acc);box-shadow:0 4px 12px rgba(0,122,204,.1)}.twikoo-loading{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 1rem;color:var(--secondary,#666)}.loading-spinner{width:32px;height:32px;border:3px solid var(--border,#e1e5e9);border-top:3px solid var(--theme,#007acc);border-radius:50%;animation:spin 1s linear infinite;margin-bottom:1rem}@keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}.twikoo-error{text-align:center;padding:2rem;color:var(--secondary,#666)}.error-content{display:flex;flex-direction:column;align-items:center;gap:1rem}.error-icon{width:2rem;height:2rem;color:#dc3545}@media(prefers-color-scheme:dark){.comments-title{color:var(--primary,#ffffff)}.twikoo-container{background:var(--code-bg,#2d3748);border-color:var(--border,#4a5568)}}@media(max-width:768px){.comments-section{margin:2rem 0 1rem}.twikoo-container{padding:1rem;border-radius:8px}.comments-title{font-size:1.25rem}}</style><script src=https://cdn.staticfile.org/twikoo/1.6.16/twikoo.all.min.js></script><script>(function(){const e=document.getElementById("twikoo-loading"),t=document.getElementById("twikoo-error"),n=document.getElementById("twikoo");twikoo.init({envId:"https://twikoo-vercel-navy.vercel.app/",el:"#twikoo",onCommentLoaded:function(){e&&(e.style.display="none")}}).then(function(){e&&(e.style.display="none")}).catch(function(n){console.error("Twikoo 初始化失败:",n),e&&(e.style.display="none"),t&&(t.style.display="block")}),setTimeout(function(){e&&e.style.display!=="none"&&(e.style.display="none",t&&(t.style.display="block"))},5e3)})()</script></article></main><footer class=footer><span>&copy; 2025 <a href=https://wellzhi.github.io/>wellzhi</a></span> ·
+<span>Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light"),theme=""):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"),theme="dark"),mermaidTextContents.forEach((e,t)=>{document.getElementsByClassName("language-mermaid")[t].removeAttribute("data-processed"),document.getElementsByClassName("language-mermaid")[t].innerHTML=e}),mermaid.initialize({theme,startOnLoad:!0}),mermaid.init(void 0,".language-mermaid")})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="copy";function s(){t.innerHTML="copied!",setTimeout(()=>{t.innerHTML="copy"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script><script>localStorage.getItem("pref-theme")=="dark"?theme="dark":theme="",mermaidTextContents=Array.from(document.getElementsByClassName("language-mermaid")).map(e=>e.innerHTML),mermaid.initialize({theme,startOnLoad:!0}),mermaid.init(void 0,".language-mermaid")</script></body></html>

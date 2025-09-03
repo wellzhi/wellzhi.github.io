@@ -1,0 +1,866 @@
+<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>Redis常用命令 | wellzhi</title>
+<meta name=keywords content="Redis,缓存,Docker,命令,数据库"><meta name=description content="Redis 是一个开源的内存数据结构存储系统，它被广泛用于缓存、会话存储、实时分析等场景。本文详细介绍了Redis的常用命令，包括数据结构操作、事务管理、持久化配置以及集群管理等实用技巧。"><meta name=author content="wellzhi"><link rel=canonical href=https://wellzhi.github.io/posts/tech/2012-08-05_redis/><link crossorigin=anonymous href=/assets/css/stylesheet.b54291e20a5b433add2181af00208e3e72d99f37b405cd9f3ff373c992518ba6.css integrity="sha256-tUKR4gpbQzrdIYGvACCOPnLZnze0Bc2fP/NzyZJRi6Y=" rel="preload stylesheet" as=style><script crossorigin=anonymous src=/assets/js/mermaid.min.af2e2ae7d64e037e8a582c3ba35b128209a6f8350c3825cda07833979e0d827c.js></script><link rel=icon href=https://wellzhi.github.io/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://wellzhi.github.io/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://wellzhi.github.io/favicon-32x32.png><link rel=apple-touch-icon href=https://wellzhi.github.io/apple-touch-icon.png><link rel=mask-icon href=https://wellzhi.github.io/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=en href=https://wellzhi.github.io/posts/tech/2012-08-05_redis/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><meta property="og:url" content="https://wellzhi.github.io/posts/tech/2012-08-05_redis/"><meta property="og:site_name" content="wellzhi"><meta property="og:title" content="Redis常用命令"><meta property="og:description" content="Redis 是一个开源的内存数据结构存储系统，它被广泛用于缓存、会话存储、实时分析等场景。本文详细介绍了Redis的常用命令，包括数据结构操作、事务管理、持久化配置以及集群管理等实用技巧。"><meta property="og:locale" content="zh-cn"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2012-08-05T00:00:00+08:00"><meta property="article:modified_time" content="2012-08-05T00:00:00+08:00"><meta property="article:tag" content="Redis"><meta property="article:tag" content="缓存"><meta property="article:tag" content="Docker"><meta property="article:tag" content="命令"><meta property="article:tag" content="数据库"><meta name=twitter:card content="summary"><meta name=twitter:title content="Redis常用命令"><meta name=twitter:description content="Redis 是一个开源的内存数据结构存储系统，它被广泛用于缓存、会话存储、实时分析等场景。本文详细介绍了Redis的常用命令，包括数据结构操作、事务管理、持久化配置以及集群管理等实用技巧。"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://wellzhi.github.io/posts/"},{"@type":"ListItem","position":2,"name":"Tech","item":"https://wellzhi.github.io/posts/tech/"},{"@type":"ListItem","position":3,"name":"Redis常用命令","item":"https://wellzhi.github.io/posts/tech/2012-08-05_redis/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Redis常用命令","name":"Redis常用命令","description":"Redis 是一个开源的内存数据结构存储系统，它被广泛用于缓存、会话存储、实时分析等场景。本文详细介绍了Redis的常用命令，包括数据结构操作、事务管理、持久化配置以及集群管理等实用技巧。","keywords":["Redis","缓存","Docker","命令","数据库"],"articleBody":"1. 简介 Redis（Remote Dictionary Server）是一个开源的内存数据结构存储系统，它可以用作数据库、缓存和消息代理。Redis 支持多种数据结构，如字符串、哈希、列表、集合、有序集合等，并提供了丰富的操作命令。本文将详细介绍Redis的常用命令，快速掌握基本操作和高级特性。\n2. 连接与基本操作 2.1 连接Redis # 连接本地Redis（默认端口6379） redis-cli # 连接指定主机和端口 redis-cli -h hostname -p port # 使用密码连接 redis-cli -h hostname -p port -a password # 连接并选择数据库 redis-cli -h hostname -p port -n database_number 2.2 基本命令 # 测试连接 PING # 查看服务器信息 INFO # 选择数据库（0-15） SELECT 0 # 查看当前数据库键的数量 DBSIZE # 清空当前数据库 FLUSHDB # 清空所有数据库 FLUSHALL # 退出 QUIT 3. 键（Key）操作 3.1 键的基本操作 # 查看所有键 KEYS * # 查看匹配模式的键 KEYS pattern KEYS user:* KEYS *name* # 检查键是否存在 EXISTS key EXISTS username # 删除键 DEL key [key ...] DEL username email # 重命名键 RENAME old_key new_key RENAME username user_name # 仅当新键不存在时重命名 RENAMENX old_key new_key 3.2 键的过期时间 # 设置键的过期时间（秒） EXPIRE key seconds EXPIRE session:123 3600 # 设置键的过期时间（毫秒） PEXPIRE key milliseconds PEXPIRE session:123 3600000 # 设置键的过期时间戳（秒） EXPIREAT key timestamp EXPIREAT session:123 1609459200 # 设置键的过期时间戳（毫秒） PEXPIREAT key milliseconds-timestamp # 查看键的剩余生存时间（秒） TTL key TTL session:123 # 查看键的剩余生存时间（毫秒） PTTL key # 移除键的过期时间 PERSIST key PERSIST session:123 3.3 键的类型和信息 # 查看键的数据类型 TYPE key TYPE username # 随机返回一个键 RANDOMKEY # 查看键的内存使用情况 MEMORY USAGE key MEMORY USAGE username 4. 字符串（String）操作 4.1 基本字符串操作 # 设置字符串值 SET key value SET username \"john_doe\" # 获取字符串值 GET key GET username # 设置多个键值对 MSET key1 value1 key2 value2 MSET name \"John\" age \"25\" city \"New York\" # 获取多个键的值 MGET key1 key2 key3 MGET name age city # 仅当键不存在时设置 SETNX key value SETNX username \"jane_doe\" # 设置键值并指定过期时间 SETEX key seconds value SETEX session:123 3600 \"user_data\" # 设置键值并指定过期时间（毫秒） PSETEX key milliseconds value PSETEX session:123 3600000 \"user_data\" 4.2 字符串操作 # 追加字符串 APPEND key value APPEND message \" World\" # 获取字符串长度 STRLEN key STRLEN message # 获取子字符串 GETRANGE key start end GETRANGE message 0 4 # 设置子字符串 SETRANGE key offset value SETRANGE message 6 \"Redis\" # 获取并设置新值 GETSET key value GETSET counter 0 4.3 数值操作 # 递增 INCR key INCR counter # 递减 DECR key DECR counter # 按指定值递增 INCRBY key increment INCRBY counter 5 # 按指定值递减 DECRBY key decrement DECRBY counter 3 # 浮点数递增 INCRBYFLOAT key increment INCRBYFLOAT price 10.5 5. 哈希（Hash）操作 5.1 基本哈希操作 # 设置哈希字段 HSET key field value HSET user:1 name \"John\" HSET user:1 age 25 # 获取哈希字段值 HGET key field HGET user:1 name # 设置多个哈希字段 HMSET key field1 value1 field2 value2 HMSET user:1 name \"John\" age 25 city \"New York\" # 获取多个哈希字段值 HMGET key field1 field2 HMGET user:1 name age # 获取所有字段和值 HGETALL key HGETALL user:1 # 仅当字段不存在时设置 HSETNX key field value HSETNX user:1 email \"john@example.com\" 5.2 哈希字段操作 # 删除哈希字段 HDEL key field [field ...] HDEL user:1 age city # 检查字段是否存在 HEXISTS key field HEXISTS user:1 name # 获取所有字段名 HKEYS key HKEYS user:1 # 获取所有字段值 HVALS key HVALS user:1 # 获取字段数量 HLEN key HLEN user:1 # 获取字段值的字符串长度 HSTRLEN key field HSTRLEN user:1 name 5.3 哈希数值操作 # 字段值递增 HINCRBY key field increment HINCRBY user:1 age 1 # 字段值浮点递增 HINCRBYFLOAT key field increment HINCRBYFLOAT user:1 score 10.5 6. 列表（List）操作 6.1 基本列表操作 # 从左侧推入元素 LPUSH key element [element ...] LPUSH mylist \"world\" \"hello\" # 从右侧推入元素 RPUSH key element [element ...] RPUSH mylist \"redis\" \"tutorial\" # 从左侧弹出元素 LPOP key LPOP mylist # 从右侧弹出元素 RPOP key RPOP mylist # 获取列表长度 LLEN key LLEN mylist # 获取列表范围内的元素 LRANGE key start stop LRANGE mylist 0 -1 # 获取所有元素 LRANGE mylist 0 2 # 获取前3个元素 6.2 列表索引操作 # 获取指定索引的元素 LINDEX key index LINDEX mylist 0 # 设置指定索引的元素值 LSET key index element LSET mylist 0 \"new_value\" # 在指定元素前/后插入新元素 LINSERT key BEFORE|AFTER pivot element LINSERT mylist BEFORE \"world\" \"beautiful\" LINSERT mylist AFTER \"hello\" \"wonderful\" 6.3 列表修剪和删除 # 保留指定范围内的元素 LTRIM key start stop LTRIM mylist 1 -1 # 删除指定值的元素 LREM key count element LREM mylist 2 \"hello\" # 删除2个\"hello\" LREM mylist -1 \"world\" # 从尾部删除1个\"world\" LREM mylist 0 \"redis\" # 删除所有\"redis\" 6.4 阻塞操作 # 阻塞式左侧弹出 BLPOP key [key ...] timeout BLPOP mylist 10 # 阻塞式右侧弹出 BRPOP key [key ...] timeout BRPOP mylist 10 # 阻塞式右侧弹出并左侧推入另一个列表 BRPOPLPUSH source destination timeout BRPOPLPUSH list1 list2 10 7. 集合（Set）操作 7.1 基本集合操作 # 添加成员 SADD key member [member ...] SADD myset \"apple\" \"banana\" \"orange\" # 获取所有成员 SMEMBERS key SMEMBERS myset # 检查成员是否存在 SISMEMBER key member SISMEMBER myset \"apple\" # 获取集合大小 SCARD key SCARD myset # 删除成员 SREM key member [member ...] SREM myset \"banana\" # 随机获取成员 SRANDMEMBER key [count] SRANDMEMBER myset SRANDMEMBER myset 2 # 随机弹出成员 SPOP key [count] SPOP myset SPOP myset 2 7.2 集合运算 # 交集 SINTER key [key ...] SINTER set1 set2 # 并集 SUNION key [key ...] SUNION set1 set2 # 差集 SDIFF key [key ...] SDIFF set1 set2 # 交集并存储到新集合 SINTERSTORE destination key [key ...] SINTERSTORE result_set set1 set2 # 并集并存储到新集合 SUNIONSTORE destination key [key ...] SUNIONSTORE result_set set1 set2 # 差集并存储到新集合 SDIFFSTORE destination key [key ...] SDIFFSTORE result_set set1 set2 7.3 集合移动 # 移动成员到另一个集合 SMOVE source destination member SMOVE set1 set2 \"apple\" 8. 有序集合（Sorted Set）操作 8.1 基本有序集合操作 # 添加成员 ZADD key [NX|XX] [CH] [INCR] score member [score member ...] ZADD leaderboard 100 \"player1\" 200 \"player2\" 150 \"player3\" # 获取成员分数 ZSCORE key member ZSCORE leaderboard \"player1\" # 获取成员排名（从0开始，分数从低到高） ZRANK key member ZRANK leaderboard \"player1\" # 获取成员排名（从0开始，分数从高到低） ZREVRANK key member ZREVRANK leaderboard \"player1\" # 获取有序集合大小 ZCARD key ZCARD leaderboard # 删除成员 ZREM key member [member ...] ZREM leaderboard \"player1\" 8.2 范围查询 # 按排名范围获取成员（分数从低到高） ZRANGE key start stop [WITHSCORES] ZRANGE leaderboard 0 2 ZRANGE leaderboard 0 2 WITHSCORES # 按排名范围获取成员（分数从高到低） ZREVRANGE key start stop [WITHSCORES] ZREVRANGE leaderboard 0 2 WITHSCORES # 按分数范围获取成员 ZRANGEBYSCORE key min max [WITHSCORES] [LIMIT offset count] ZRANGEBYSCORE leaderboard 100 200 ZRANGEBYSCORE leaderboard 100 200 WITHSCORES ZRANGEBYSCORE leaderboard 100 200 LIMIT 0 10 # 按分数范围获取成员（从高到低） ZREVRANGEBYSCORE key max min [WITHSCORES] [LIMIT offset count] ZREVRANGEBYSCORE leaderboard 200 100 WITHSCORES 8.3 分数操作 # 增加成员分数 ZINCRBY key increment member ZINCRBY leaderboard 10 \"player1\" # 统计分数范围内的成员数量 ZCOUNT key min max ZCOUNT leaderboard 100 200 # 删除排名范围内的成员 ZREMRANGEBYRANK key start stop ZREMRANGEBYRANK leaderboard 0 2 # 删除分数范围内的成员 ZREMRANGEBYSCORE key min max ZREMRANGEBYSCORE leaderboard 100 150 8.4 有序集合运算 # 交集 ZINTERSTORE destination numkeys key [key ...] [WEIGHTS weight [weight ...]] [AGGREGATE SUM|MIN|MAX] ZINTERSTORE result 2 zset1 zset2 # 并集 ZUNIONSTORE destination numkeys key [key ...] [WEIGHTS weight [weight ...]] [AGGREGATE SUM|MIN|MAX] ZUNIONSTORE result 2 zset1 zset2 9. 事务管理 9.1 基本事务操作 # 开始事务 MULTI # 执行事务 EXEC # 取消事务 DISCARD # 监视键（乐观锁） WATCH key [key ...] # 取消监视 UNWATCH 9.2 事务示例 # 转账事务示例 WATCH account:1 account:2 MULTI DECRBY account:1 100 INCRBY account:2 100 EXEC # 如果在WATCH和EXEC之间，被监视的键被修改，事务将被取消 10. 发布订阅 10.1 基本发布订阅 # 订阅频道 SUBSCRIBE channel [channel ...] SUBSCRIBE news sports # 取消订阅 UNSUBSCRIBE [channel [channel ...]] UNSUBSCRIBE news # 发布消息 PUBLISH channel message PUBLISH news \"Breaking news!\" # 模式订阅 PSUBSCRIBE pattern [pattern ...] PSUBSCRIBE news:* # 取消模式订阅 PUNSUBSCRIBE [pattern [pattern ...]] PUNSUBSCRIBE news:* 10.2 发布订阅信息 # 查看活跃频道 PUBSUB CHANNELS [pattern] PUBSUB CHANNELS PUBSUB CHANNELS news:* # 查看频道订阅数 PUBSUB NUMSUB [channel [channel ...]] PUBSUB NUMSUB news sports # 查看模式订阅数 PUBSUB NUMPAT 11. 持久化配置 11.1 RDB持久化 # 手动触发RDB快照 SAVE # 异步触发RDB快照 BGSAVE # 查看最后一次成功保存的时间 LASTSAVE # 配置自动保存（在redis.conf中） # save 900 1 # 900秒内至少1个键被修改 # save 300 10 # 300秒内至少10个键被修改 # save 60 10000 # 60秒内至少10000个键被修改 11.2 AOF持久化 # 手动重写AOF文件 BGREWRITEAOF # 配置AOF（在redis.conf中） # appendonly yes # appendfilename \"appendonly.aof\" # appendfsync everysec # always, everysec, no 11.3 持久化相关配置 # redis.conf 持久化配置示例 # RDB配置 save 900 1 save 300 10 save 60 10000 stop-writes-on-bgsave-error yes rdbcompression yes rdbchecksum yes dbfilename dump.rdb dir /var/lib/redis # AOF配置 appendonly yes appendfilename \"appendonly.aof\" appendfsync everysec no-appendfsync-on-rewrite no auto-aof-rewrite-percentage 100 auto-aof-rewrite-min-size 64mb aof-load-truncated yes 12. 集群管理 12.1 Redis Sentinel（哨兵模式） # 启动Sentinel redis-sentinel /path/to/sentinel.conf # Sentinel配置文件示例 # sentinel.conf port 26379 sentinel monitor mymaster 127.0.0.1 6379 2 sentinel down-after-milliseconds mymaster 5000 sentinel failover-timeout mymaster 10000 sentinel parallel-syncs mymaster 1 12.2 Redis Cluster（集群模式） # 创建集群 redis-cli --cluster create 127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005 --cluster-replicas 1 # 检查集群状态 redis-cli --cluster check 127.0.0.1:7000 # 查看集群信息 redis-cli -c -p 7000 CLUSTER INFO CLUSTER NODES # 添加节点 redis-cli --cluster add-node 127.0.0.1:7006 127.0.0.1:7000 # 删除节点 redis-cli --cluster del-node 127.0.0.1:7000 node_id # 重新分片 redis-cli --cluster reshard 127.0.0.1:7000 12.3 集群相关命令 # 集群信息 CLUSTER INFO # 集群节点 CLUSTER NODES # 集群状态 CLUSTER SLOTS # 键所在的槽 CLUSTER KEYSLOT key # 槽中的键数量 CLUSTER COUNTKEYSINSLOT slot # 获取槽中的键 CLUSTER GETKEYSINSLOT slot count 13. Redis Docker 容器管理 13.1 运行Redis容器 # 基本运行 docker run --name redis-container -d redis:7.0 # 指定端口和密码 docker run --name redis-container \\ -p 6379:6379 \\ -d redis:7.0 \\ redis-server --requirepass mypassword # 使用配置文件 docker run --name redis-container \\ -p 6379:6379 \\ -v /path/to/redis.conf:/usr/local/etc/redis/redis.conf \\ -v redis-data:/data \\ -d redis:7.0 \\ redis-server /usr/local/etc/redis/redis.conf # 持久化数据 docker run --name redis-container \\ -p 6379:6379 \\ -v redis-data:/data \\ -d redis:7.0 \\ redis-server --appendonly yes 13.2 Docker Compose 配置 # docker-compose.yml version: '3.8' services: redis: image: redis:7.0 container_name: redis-container restart: always ports: - \"6379:6379\" volumes: - redis-data:/data - ./redis.conf:/usr/local/etc/redis/redis.conf command: redis-server /usr/local/etc/redis/redis.conf environment: - REDIS_PASSWORD=mypassword networks: - app-network redis-commander: image: rediscommander/redis-commander:latest container_name: redis-commander restart: always ports: - \"8081:8081\" environment: - REDIS_HOSTS=local:redis:6379 - REDIS_PASSWORD=mypassword depends_on: - redis networks: - app-network volumes: redis-data: networks: app-network: driver: bridge 13.3 Redis集群Docker配置 # redis-cluster-compose.yml version: '3.8' services: redis-node-1: image: redis:7.0 container_name: redis-node-1 ports: - \"7001:6379\" - \"17001:16379\" volumes: - ./redis-cluster.conf:/usr/local/etc/redis/redis.conf command: redis-server /usr/local/etc/redis/redis.conf networks: - redis-cluster redis-node-2: image: redis:7.0 container_name: redis-node-2 ports: - \"7002:6379\" - \"17002:16379\" volumes: - ./redis-cluster.conf:/usr/local/etc/redis/redis.conf command: redis-server /usr/local/etc/redis/redis.conf networks: - redis-cluster redis-node-3: image: redis:7.0 container_name: redis-node-3 ports: - \"7003:6379\" - \"17003:16379\" volumes: - ./redis-cluster.conf:/usr/local/etc/redis/redis.conf command: redis-server /usr/local/etc/redis/redis.conf networks: - redis-cluster redis-node-4: image: redis:7.0 container_name: redis-node-4 ports: - \"7004:6379\" - \"17004:16379\" volumes: - ./redis-cluster.conf:/usr/local/etc/redis/redis.conf command: redis-server /usr/local/etc/redis/redis.conf networks: - redis-cluster redis-node-5: image: redis:7.0 container_name: redis-node-5 ports: - \"7005:6379\" - \"17005:16379\" volumes: - ./redis-cluster.conf:/usr/local/etc/redis/redis.conf command: redis-server /usr/local/etc/redis/redis.conf networks: - redis-cluster redis-node-6: image: redis:7.0 container_name: redis-node-6 ports: - \"7006:6379\" - \"17006:16379\" volumes: - ./redis-cluster.conf:/usr/local/etc/redis/redis.conf command: redis-server /usr/local/etc/redis/redis.conf networks: - redis-cluster networks: redis-cluster: driver: bridge 13.4 容器管理命令 # 启动容器 docker start redis-container # 停止容器 docker stop redis-container # 重启容器 docker restart redis-container # 查看容器状态 docker ps docker ps -a # 查看容器日志 docker logs redis-container docker logs -f redis-container # 实时查看 # 进入容器 docker exec -it redis-container bash docker exec -it redis-container redis-cli # 连接Redis（带密码） docker exec -it redis-container redis-cli -a mypassword # 删除容器 docker rm redis-container docker rm -f redis-container # 强制删除 13.5 数据备份和恢复（Docker） # 备份Redis数据 docker exec redis-container redis-cli BGSAVE docker cp redis-container:/data/dump.rdb ./backup/ # 恢复Redis数据 docker cp ./backup/dump.rdb redis-container:/data/ docker restart redis-container # 备份数据卷 docker run --rm -v redis-data:/data -v $(pwd):/backup alpine tar czf /backup/redis-backup.tar.gz -C /data . # 恢复数据卷 docker run --rm -v redis-data:/data -v $(pwd):/backup alpine tar xzf /backup/redis-backup.tar.gz -C /data 14. 性能监控和优化 14.1 性能监控命令 # 实时监控Redis命令 MONITOR # 查看Redis统计信息 INFO INFO server INFO memory INFO stats INFO replication INFO cpu # 查看慢查询日志 SLOWLOG GET [count] SLOWLOG GET 10 # 查看慢查询日志长度 SLOWLOG LEN # 重置慢查询日志 SLOWLOG RESET # 查看客户端连接 CLIENT LIST # 查看内存使用情况 MEMORY STATS MEMORY USAGE key # 内存分析 MEMORY DOCTOR 14.2 性能配置优化 # redis.conf 性能优化配置 # 内存配置 maxmemory 2gb maxmemory-policy allkeys-lru # 网络配置 tcp-keepalive 300 timeout 0 tcp-backlog 511 # 慢查询配置 slowlog-log-slower-than 10000 slowlog-max-len 128 # 客户端配置 maxclients 10000 # 后台任务配置 lazy-expire-disabled no lazyfree-lazy-eviction yes lazyfree-lazy-expire yes lazyfree-lazy-server-del yes # 哈希配置 hash-max-ziplist-entries 512 hash-max-ziplist-value 64 # 列表配置 list-max-ziplist-size -2 list-compress-depth 0 # 集合配置 set-max-intset-entries 512 # 有序集合配置 zset-max-ziplist-entries 128 zset-max-ziplist-value 64 14.3 内存优化 # 查看内存使用情况 INFO memory # 手动触发内存清理 MEMORY PURGE # 分析大键 redis-cli --bigkeys # 分析内存使用 redis-cli --memkeys # 查看键的内存使用 MEMORY USAGE key [SAMPLES count] 15. 安全配置 15.1 认证和授权 # 设置密码 CONFIG SET requirepass mypassword # 使用密码认证 AUTH password # 重命名危险命令（在redis.conf中） # rename-command FLUSHDB \"\" # rename-command FLUSHALL \"\" # rename-command CONFIG \"CONFIG_9a90f2b4c2d3e5f6\" 15.2 网络安全 # redis.conf 安全配置 # 绑定IP地址 bind 127.0.0.1 192.168.1.100 # 保护模式 protected-mode yes # 端口配置 port 6379 # 禁用危险命令 rename-command FLUSHDB \"\" rename-command FLUSHALL \"\" rename-command EVAL \"\" rename-command DEBUG \"\" rename-command CONFIG \"CONFIG_a1b2c3d4e5f6\" 16. 常用工具和技巧 16.1 Redis客户端工具 # redis-cli 常用选项 redis-cli -h hostname -p port -a password -n database # 执行命令并退出 redis-cli -h hostname -p port -a password -c \"GET key\" # 批量执行命令 echo \"SET key1 value1\\nSET key2 value2\" | redis-cli -h hostname -p port -a password # 从文件执行命令 redis-cli -h hostname -p port -a password \u003c commands.txt # 导出数据 redis-cli -h hostname -p port -a password --rdb dump.rdb # 实时监控 redis-cli -h hostname -p port -a password --latency redis-cli -h hostname -p port -a password --latency-history redis-cli -h hostname -p port -a password --latency-dist 16.2 数据迁移工具 # redis-dump-load npm install -g redis-dump-load redis-dump-load -h source_host -p source_port -a source_password -d destination_host:destination_port:destination_password # redis-migrate-tool ./redis-migrate-tool -c config.conf # 使用MIGRATE命令 MIGRATE host port key destination-db timeout [COPY | REPLACE] MIGRATE 192.168.1.100 6379 mykey 0 5000 16.3 实用技巧 # 批量删除键 redis-cli KEYS \"pattern*\" | xargs redis-cli DEL # 统计键的数量 redis-cli INFO keyspace # 查找大键 redis-cli --bigkeys # 扫描键 SCAN cursor [MATCH pattern] [COUNT count] SCAN 0 MATCH user:* COUNT 100 # 扫描哈希字段 HSCAN key cursor [MATCH pattern] [COUNT count] HSCAN user:1 0 MATCH name* COUNT 10 # 扫描集合成员 SSCAN key cursor [MATCH pattern] [COUNT count] SSCAN myset 0 MATCH a* COUNT 10 # 扫描有序集合成员 ZSCAN key cursor [MATCH pattern] [COUNT count] ZSCAN leaderboard 0 MATCH player* COUNT 10 17. 注意事项 合理选择数据结构：根据业务需求选择最适合的Redis数据结构 设置合理的过期时间：避免内存泄漏，合理设置键的TTL 监控性能指标：定期检查慢查询、内存使用情况等 配置持久化策略：根据数据重要性选择RDB或AOF持久化 安全配置：设置密码、绑定IP、重命名危险命令 集群部署：对于高可用需求，使用Sentinel或Cluster模式 容器化部署：使用Docker简化Redis的部署和管理 ","wordCount":"2108","inLanguage":"en","datePublished":"2012-08-05T00:00:00+08:00","dateModified":"2012-08-05T00:00:00+08:00","author":[{"@type":"Person","name":"wellzhi"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://wellzhi.github.io/posts/tech/2012-08-05_redis/"},"publisher":{"@type":"Organization","name":"wellzhi","logo":{"@type":"ImageObject","url":"https://wellzhi.github.io/favicon.ico"}}}</script><script id=MathJax-script async src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js></script><script>MathJax={tex:{displayMath:[["\\[","\\]"],["$$","$$"]],inlineMath:[["\\(","\\)"],["$","$"]]}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://wellzhi.github.io/ accesskey=h title="wellzhi (Alt + H)">wellzhi</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme"><svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu><li><a href=https://wellzhi.github.io/ title=Home><span>Home</span></a></li><li><a href=https://wellzhi.github.io/posts/ title=Post><span>Post</span></a></li><li><a href=https://wellzhi.github.io/archives title=Archive><span>Archive</span></a></li><li><a href=https://wellzhi.github.io/tags title=Tags><span>Tags</span></a></li><li><a href=https://wellzhi.github.io/search title="Search (Alt + /)" accesskey=/><span>Search</span></a></li><li><a href=https://wellzhi.github.io/about/ title=About><span>About</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><div class=breadcrumbs><a href=https://wellzhi.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://wellzhi.github.io/posts/>Posts</a>&nbsp;»&nbsp;<a href=https://wellzhi.github.io/posts/tech/>Tech</a></div><h1 class="post-title entry-hint-parent">Redis常用命令</h1></header><div class=toc><details open><summary accesskey=c title="(Alt + C)"><span class=details>Table of Contents</span></summary><div class=inner><ul><li><a href=#1-%e7%ae%80%e4%bb%8b aria-label="1. 简介">1. 简介</a></li><li><a href=#2-%e8%bf%9e%e6%8e%a5%e4%b8%8e%e5%9f%ba%e6%9c%ac%e6%93%8d%e4%bd%9c aria-label="2. 连接与基本操作">2. 连接与基本操作</a><ul><li><a href=#21-%e8%bf%9e%e6%8e%a5redis aria-label="2.1 连接Redis">2.1 连接Redis</a></li><li><a href=#22-%e5%9f%ba%e6%9c%ac%e5%91%bd%e4%bb%a4 aria-label="2.2 基本命令">2.2 基本命令</a></li></ul></li><li><a href=#3-%e9%94%aekey%e6%93%8d%e4%bd%9c aria-label="3. 键（Key）操作">3. 键（Key）操作</a><ul><li><a href=#31-%e9%94%ae%e7%9a%84%e5%9f%ba%e6%9c%ac%e6%93%8d%e4%bd%9c aria-label="3.1 键的基本操作">3.1 键的基本操作</a></li><li><a href=#32-%e9%94%ae%e7%9a%84%e8%bf%87%e6%9c%9f%e6%97%b6%e9%97%b4 aria-label="3.2 键的过期时间">3.2 键的过期时间</a></li><li><a href=#33-%e9%94%ae%e7%9a%84%e7%b1%bb%e5%9e%8b%e5%92%8c%e4%bf%a1%e6%81%af aria-label="3.3 键的类型和信息">3.3 键的类型和信息</a></li></ul></li><li><a href=#4-%e5%ad%97%e7%ac%a6%e4%b8%b2string%e6%93%8d%e4%bd%9c aria-label="4. 字符串（String）操作">4. 字符串（String）操作</a><ul><li><a href=#41-%e5%9f%ba%e6%9c%ac%e5%ad%97%e7%ac%a6%e4%b8%b2%e6%93%8d%e4%bd%9c aria-label="4.1 基本字符串操作">4.1 基本字符串操作</a></li><li><a href=#42-%e5%ad%97%e7%ac%a6%e4%b8%b2%e6%93%8d%e4%bd%9c aria-label="4.2 字符串操作">4.2 字符串操作</a></li><li><a href=#43-%e6%95%b0%e5%80%bc%e6%93%8d%e4%bd%9c aria-label="4.3 数值操作">4.3 数值操作</a></li></ul></li><li><a href=#5-%e5%93%88%e5%b8%8chash%e6%93%8d%e4%bd%9c aria-label="5. 哈希（Hash）操作">5. 哈希（Hash）操作</a><ul><li><a href=#51-%e5%9f%ba%e6%9c%ac%e5%93%88%e5%b8%8c%e6%93%8d%e4%bd%9c aria-label="5.1 基本哈希操作">5.1 基本哈希操作</a></li><li><a href=#52-%e5%93%88%e5%b8%8c%e5%ad%97%e6%ae%b5%e6%93%8d%e4%bd%9c aria-label="5.2 哈希字段操作">5.2 哈希字段操作</a></li><li><a href=#53-%e5%93%88%e5%b8%8c%e6%95%b0%e5%80%bc%e6%93%8d%e4%bd%9c aria-label="5.3 哈希数值操作">5.3 哈希数值操作</a></li></ul></li><li><a href=#6-%e5%88%97%e8%a1%a8list%e6%93%8d%e4%bd%9c aria-label="6. 列表（List）操作">6. 列表（List）操作</a><ul><li><a href=#61-%e5%9f%ba%e6%9c%ac%e5%88%97%e8%a1%a8%e6%93%8d%e4%bd%9c aria-label="6.1 基本列表操作">6.1 基本列表操作</a></li><li><a href=#62-%e5%88%97%e8%a1%a8%e7%b4%a2%e5%bc%95%e6%93%8d%e4%bd%9c aria-label="6.2 列表索引操作">6.2 列表索引操作</a></li><li><a href=#63-%e5%88%97%e8%a1%a8%e4%bf%ae%e5%89%aa%e5%92%8c%e5%88%a0%e9%99%a4 aria-label="6.3 列表修剪和删除">6.3 列表修剪和删除</a></li><li><a href=#64-%e9%98%bb%e5%a1%9e%e6%93%8d%e4%bd%9c aria-label="6.4 阻塞操作">6.4 阻塞操作</a></li></ul></li><li><a href=#7-%e9%9b%86%e5%90%88set%e6%93%8d%e4%bd%9c aria-label="7. 集合（Set）操作">7. 集合（Set）操作</a><ul><li><a href=#71-%e5%9f%ba%e6%9c%ac%e9%9b%86%e5%90%88%e6%93%8d%e4%bd%9c aria-label="7.1 基本集合操作">7.1 基本集合操作</a></li><li><a href=#72-%e9%9b%86%e5%90%88%e8%bf%90%e7%ae%97 aria-label="7.2 集合运算">7.2 集合运算</a></li><li><a href=#73-%e9%9b%86%e5%90%88%e7%a7%bb%e5%8a%a8 aria-label="7.3 集合移动">7.3 集合移动</a></li></ul></li><li><a href=#8-%e6%9c%89%e5%ba%8f%e9%9b%86%e5%90%88sorted-set%e6%93%8d%e4%bd%9c aria-label="8. 有序集合（Sorted Set）操作">8. 有序集合（Sorted Set）操作</a><ul><li><a href=#81-%e5%9f%ba%e6%9c%ac%e6%9c%89%e5%ba%8f%e9%9b%86%e5%90%88%e6%93%8d%e4%bd%9c aria-label="8.1 基本有序集合操作">8.1 基本有序集合操作</a></li><li><a href=#82-%e8%8c%83%e5%9b%b4%e6%9f%a5%e8%af%a2 aria-label="8.2 范围查询">8.2 范围查询</a></li><li><a href=#83-%e5%88%86%e6%95%b0%e6%93%8d%e4%bd%9c aria-label="8.3 分数操作">8.3 分数操作</a></li><li><a href=#84-%e6%9c%89%e5%ba%8f%e9%9b%86%e5%90%88%e8%bf%90%e7%ae%97 aria-label="8.4 有序集合运算">8.4 有序集合运算</a></li></ul></li><li><a href=#9-%e4%ba%8b%e5%8a%a1%e7%ae%a1%e7%90%86 aria-label="9. 事务管理">9. 事务管理</a><ul><li><a href=#91-%e5%9f%ba%e6%9c%ac%e4%ba%8b%e5%8a%a1%e6%93%8d%e4%bd%9c aria-label="9.1 基本事务操作">9.1 基本事务操作</a></li><li><a href=#92-%e4%ba%8b%e5%8a%a1%e7%a4%ba%e4%be%8b aria-label="9.2 事务示例">9.2 事务示例</a></li></ul></li><li><a href=#10-%e5%8f%91%e5%b8%83%e8%ae%a2%e9%98%85 aria-label="10. 发布订阅">10. 发布订阅</a><ul><li><a href=#101-%e5%9f%ba%e6%9c%ac%e5%8f%91%e5%b8%83%e8%ae%a2%e9%98%85 aria-label="10.1 基本发布订阅">10.1 基本发布订阅</a></li><li><a href=#102-%e5%8f%91%e5%b8%83%e8%ae%a2%e9%98%85%e4%bf%a1%e6%81%af aria-label="10.2 发布订阅信息">10.2 发布订阅信息</a></li></ul></li><li><a href=#11-%e6%8c%81%e4%b9%85%e5%8c%96%e9%85%8d%e7%bd%ae aria-label="11. 持久化配置">11. 持久化配置</a><ul><li><a href=#111-rdb%e6%8c%81%e4%b9%85%e5%8c%96 aria-label="11.1 RDB持久化">11.1 RDB持久化</a></li><li><a href=#112-aof%e6%8c%81%e4%b9%85%e5%8c%96 aria-label="11.2 AOF持久化">11.2 AOF持久化</a></li><li><a href=#113-%e6%8c%81%e4%b9%85%e5%8c%96%e7%9b%b8%e5%85%b3%e9%85%8d%e7%bd%ae aria-label="11.3 持久化相关配置">11.3 持久化相关配置</a></li></ul></li><li><a href=#12-%e9%9b%86%e7%be%a4%e7%ae%a1%e7%90%86 aria-label="12. 集群管理">12. 集群管理</a><ul><li><a href=#121-redis-sentinel%e5%93%a8%e5%85%b5%e6%a8%a1%e5%bc%8f aria-label="12.1 Redis Sentinel（哨兵模式）">12.1 Redis Sentinel（哨兵模式）</a></li><li><a href=#122-redis-cluster%e9%9b%86%e7%be%a4%e6%a8%a1%e5%bc%8f aria-label="12.2 Redis Cluster（集群模式）">12.2 Redis Cluster（集群模式）</a></li><li><a href=#123-%e9%9b%86%e7%be%a4%e7%9b%b8%e5%85%b3%e5%91%bd%e4%bb%a4 aria-label="12.3 集群相关命令">12.3 集群相关命令</a></li></ul></li><li><a href=#13-redis-docker-%e5%ae%b9%e5%99%a8%e7%ae%a1%e7%90%86 aria-label="13. Redis Docker 容器管理">13. Redis Docker 容器管理</a><ul><li><a href=#131-%e8%bf%90%e8%a1%8credis%e5%ae%b9%e5%99%a8 aria-label="13.1 运行Redis容器">13.1 运行Redis容器</a></li><li><a href=#132-docker-compose-%e9%85%8d%e7%bd%ae aria-label="13.2 Docker Compose 配置">13.2 Docker Compose 配置</a></li><li><a href=#133-redis%e9%9b%86%e7%be%a4docker%e9%85%8d%e7%bd%ae aria-label="13.3 Redis集群Docker配置">13.3 Redis集群Docker配置</a></li><li><a href=#134-%e5%ae%b9%e5%99%a8%e7%ae%a1%e7%90%86%e5%91%bd%e4%bb%a4 aria-label="13.4 容器管理命令">13.4 容器管理命令</a></li><li><a href=#135-%e6%95%b0%e6%8d%ae%e5%a4%87%e4%bb%bd%e5%92%8c%e6%81%a2%e5%a4%8ddocker aria-label="13.5 数据备份和恢复（Docker）">13.5 数据备份和恢复（Docker）</a></li></ul></li><li><a href=#14-%e6%80%a7%e8%83%bd%e7%9b%91%e6%8e%a7%e5%92%8c%e4%bc%98%e5%8c%96 aria-label="14. 性能监控和优化">14. 性能监控和优化</a><ul><li><a href=#141-%e6%80%a7%e8%83%bd%e7%9b%91%e6%8e%a7%e5%91%bd%e4%bb%a4 aria-label="14.1 性能监控命令">14.1 性能监控命令</a></li><li><a href=#142-%e6%80%a7%e8%83%bd%e9%85%8d%e7%bd%ae%e4%bc%98%e5%8c%96 aria-label="14.2 性能配置优化">14.2 性能配置优化</a></li><li><a href=#143-%e5%86%85%e5%ad%98%e4%bc%98%e5%8c%96 aria-label="14.3 内存优化">14.3 内存优化</a></li></ul></li><li><a href=#15-%e5%ae%89%e5%85%a8%e9%85%8d%e7%bd%ae aria-label="15. 安全配置">15. 安全配置</a><ul><li><a href=#151-%e8%ae%a4%e8%af%81%e5%92%8c%e6%8e%88%e6%9d%83 aria-label="15.1 认证和授权">15.1 认证和授权</a></li><li><a href=#152-%e7%bd%91%e7%bb%9c%e5%ae%89%e5%85%a8 aria-label="15.2 网络安全">15.2 网络安全</a></li></ul></li><li><a href=#16-%e5%b8%b8%e7%94%a8%e5%b7%a5%e5%85%b7%e5%92%8c%e6%8a%80%e5%b7%a7 aria-label="16. 常用工具和技巧">16. 常用工具和技巧</a><ul><li><a href=#161-redis%e5%ae%a2%e6%88%b7%e7%ab%af%e5%b7%a5%e5%85%b7 aria-label="16.1 Redis客户端工具">16.1 Redis客户端工具</a></li><li><a href=#162-%e6%95%b0%e6%8d%ae%e8%bf%81%e7%a7%bb%e5%b7%a5%e5%85%b7 aria-label="16.2 数据迁移工具">16.2 数据迁移工具</a></li><li><a href=#163-%e5%ae%9e%e7%94%a8%e6%8a%80%e5%b7%a7 aria-label="16.3 实用技巧">16.3 实用技巧</a></li></ul></li><li><a href=#17-%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9 aria-label="17. 注意事项">17. 注意事项</a></li></ul></div></details></div><div class=post-content><h2 id=1-简介>1. 简介<a hidden class=anchor aria-hidden=true href=#1-简介>#</a></h2><p>Redis（Remote Dictionary Server）是一个开源的内存数据结构存储系统，它可以用作数据库、缓存和消息代理。Redis 支持多种数据结构，如字符串、哈希、列表、集合、有序集合等，并提供了丰富的操作命令。本文将详细介绍Redis的常用命令，快速掌握基本操作和高级特性。</p><h2 id=2-连接与基本操作>2. 连接与基本操作<a hidden class=anchor aria-hidden=true href=#2-连接与基本操作>#</a></h2><h3 id=21-连接redis>2.1 连接Redis<a hidden class=anchor aria-hidden=true href=#21-连接redis>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 连接本地Redis（默认端口6379）</span>
+</span></span><span style=display:flex><span>redis-cli
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 连接指定主机和端口</span>
+</span></span><span style=display:flex><span>redis-cli -h hostname -p port
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 使用密码连接</span>
+</span></span><span style=display:flex><span>redis-cli -h hostname -p port -a password
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 连接并选择数据库</span>
+</span></span><span style=display:flex><span>redis-cli -h hostname -p port -n database_number
+</span></span></code></pre></div><h3 id=22-基本命令>2.2 基本命令<a hidden class=anchor aria-hidden=true href=#22-基本命令>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 测试连接</span>
+</span></span><span style=display:flex><span>PING
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看服务器信息</span>
+</span></span><span style=display:flex><span>INFO
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 选择数据库（0-15）</span>
+</span></span><span style=display:flex><span>SELECT <span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看当前数据库键的数量</span>
+</span></span><span style=display:flex><span>DBSIZE
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 清空当前数据库</span>
+</span></span><span style=display:flex><span>FLUSHDB
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 清空所有数据库</span>
+</span></span><span style=display:flex><span>FLUSHALL
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 退出</span>
+</span></span><span style=display:flex><span>QUIT
+</span></span></code></pre></div><h2 id=3-键key操作>3. 键（Key）操作<a hidden class=anchor aria-hidden=true href=#3-键key操作>#</a></h2><h3 id=31-键的基本操作>3.1 键的基本操作<a hidden class=anchor aria-hidden=true href=#31-键的基本操作>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 查看所有键</span>
+</span></span><span style=display:flex><span>KEYS *
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看匹配模式的键</span>
+</span></span><span style=display:flex><span>KEYS pattern
+</span></span><span style=display:flex><span>KEYS user:*
+</span></span><span style=display:flex><span>KEYS *name*
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 检查键是否存在</span>
+</span></span><span style=display:flex><span>EXISTS key
+</span></span><span style=display:flex><span>EXISTS username
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 删除键</span>
+</span></span><span style=display:flex><span>DEL key <span style=color:#f92672>[</span>key ...<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>DEL username email
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 重命名键</span>
+</span></span><span style=display:flex><span>RENAME old_key new_key
+</span></span><span style=display:flex><span>RENAME username user_name
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 仅当新键不存在时重命名</span>
+</span></span><span style=display:flex><span>RENAMENX old_key new_key
+</span></span></code></pre></div><h3 id=32-键的过期时间>3.2 键的过期时间<a hidden class=anchor aria-hidden=true href=#32-键的过期时间>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 设置键的过期时间（秒）</span>
+</span></span><span style=display:flex><span>EXPIRE key seconds
+</span></span><span style=display:flex><span>EXPIRE session:123 <span style=color:#ae81ff>3600</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 设置键的过期时间（毫秒）</span>
+</span></span><span style=display:flex><span>PEXPIRE key milliseconds
+</span></span><span style=display:flex><span>PEXPIRE session:123 <span style=color:#ae81ff>3600000</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 设置键的过期时间戳（秒）</span>
+</span></span><span style=display:flex><span>EXPIREAT key timestamp
+</span></span><span style=display:flex><span>EXPIREAT session:123 <span style=color:#ae81ff>1609459200</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 设置键的过期时间戳（毫秒）</span>
+</span></span><span style=display:flex><span>PEXPIREAT key milliseconds-timestamp
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看键的剩余生存时间（秒）</span>
+</span></span><span style=display:flex><span>TTL key
+</span></span><span style=display:flex><span>TTL session:123
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看键的剩余生存时间（毫秒）</span>
+</span></span><span style=display:flex><span>PTTL key
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 移除键的过期时间</span>
+</span></span><span style=display:flex><span>PERSIST key
+</span></span><span style=display:flex><span>PERSIST session:123
+</span></span></code></pre></div><h3 id=33-键的类型和信息>3.3 键的类型和信息<a hidden class=anchor aria-hidden=true href=#33-键的类型和信息>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 查看键的数据类型</span>
+</span></span><span style=display:flex><span>TYPE key
+</span></span><span style=display:flex><span>TYPE username
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 随机返回一个键</span>
+</span></span><span style=display:flex><span>RANDOMKEY
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看键的内存使用情况</span>
+</span></span><span style=display:flex><span>MEMORY USAGE key
+</span></span><span style=display:flex><span>MEMORY USAGE username
+</span></span></code></pre></div><h2 id=4-字符串string操作>4. 字符串（String）操作<a hidden class=anchor aria-hidden=true href=#4-字符串string操作>#</a></h2><h3 id=41-基本字符串操作>4.1 基本字符串操作<a hidden class=anchor aria-hidden=true href=#41-基本字符串操作>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 设置字符串值</span>
+</span></span><span style=display:flex><span>SET key value
+</span></span><span style=display:flex><span>SET username <span style=color:#e6db74>&#34;john_doe&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 获取字符串值</span>
+</span></span><span style=display:flex><span>GET key
+</span></span><span style=display:flex><span>GET username
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 设置多个键值对</span>
+</span></span><span style=display:flex><span>MSET key1 value1 key2 value2
+</span></span><span style=display:flex><span>MSET name <span style=color:#e6db74>&#34;John&#34;</span> age <span style=color:#e6db74>&#34;25&#34;</span> city <span style=color:#e6db74>&#34;New York&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 获取多个键的值</span>
+</span></span><span style=display:flex><span>MGET key1 key2 key3
+</span></span><span style=display:flex><span>MGET name age city
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 仅当键不存在时设置</span>
+</span></span><span style=display:flex><span>SETNX key value
+</span></span><span style=display:flex><span>SETNX username <span style=color:#e6db74>&#34;jane_doe&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 设置键值并指定过期时间</span>
+</span></span><span style=display:flex><span>SETEX key seconds value
+</span></span><span style=display:flex><span>SETEX session:123 <span style=color:#ae81ff>3600</span> <span style=color:#e6db74>&#34;user_data&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 设置键值并指定过期时间（毫秒）</span>
+</span></span><span style=display:flex><span>PSETEX key milliseconds value
+</span></span><span style=display:flex><span>PSETEX session:123 <span style=color:#ae81ff>3600000</span> <span style=color:#e6db74>&#34;user_data&#34;</span>
+</span></span></code></pre></div><h3 id=42-字符串操作>4.2 字符串操作<a hidden class=anchor aria-hidden=true href=#42-字符串操作>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 追加字符串</span>
+</span></span><span style=display:flex><span>APPEND key value
+</span></span><span style=display:flex><span>APPEND message <span style=color:#e6db74>&#34; World&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 获取字符串长度</span>
+</span></span><span style=display:flex><span>STRLEN key
+</span></span><span style=display:flex><span>STRLEN message
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 获取子字符串</span>
+</span></span><span style=display:flex><span>GETRANGE key start end
+</span></span><span style=display:flex><span>GETRANGE message <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>4</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 设置子字符串</span>
+</span></span><span style=display:flex><span>SETRANGE key offset value
+</span></span><span style=display:flex><span>SETRANGE message <span style=color:#ae81ff>6</span> <span style=color:#e6db74>&#34;Redis&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 获取并设置新值</span>
+</span></span><span style=display:flex><span>GETSET key value
+</span></span><span style=display:flex><span>GETSET counter <span style=color:#ae81ff>0</span>
+</span></span></code></pre></div><h3 id=43-数值操作>4.3 数值操作<a hidden class=anchor aria-hidden=true href=#43-数值操作>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 递增</span>
+</span></span><span style=display:flex><span>INCR key
+</span></span><span style=display:flex><span>INCR counter
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 递减</span>
+</span></span><span style=display:flex><span>DECR key
+</span></span><span style=display:flex><span>DECR counter
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 按指定值递增</span>
+</span></span><span style=display:flex><span>INCRBY key increment
+</span></span><span style=display:flex><span>INCRBY counter <span style=color:#ae81ff>5</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 按指定值递减</span>
+</span></span><span style=display:flex><span>DECRBY key decrement
+</span></span><span style=display:flex><span>DECRBY counter <span style=color:#ae81ff>3</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 浮点数递增</span>
+</span></span><span style=display:flex><span>INCRBYFLOAT key increment
+</span></span><span style=display:flex><span>INCRBYFLOAT price 10.5
+</span></span></code></pre></div><h2 id=5-哈希hash操作>5. 哈希（Hash）操作<a hidden class=anchor aria-hidden=true href=#5-哈希hash操作>#</a></h2><h3 id=51-基本哈希操作>5.1 基本哈希操作<a hidden class=anchor aria-hidden=true href=#51-基本哈希操作>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 设置哈希字段</span>
+</span></span><span style=display:flex><span>HSET key field value
+</span></span><span style=display:flex><span>HSET user:1 name <span style=color:#e6db74>&#34;John&#34;</span>
+</span></span><span style=display:flex><span>HSET user:1 age <span style=color:#ae81ff>25</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 获取哈希字段值</span>
+</span></span><span style=display:flex><span>HGET key field
+</span></span><span style=display:flex><span>HGET user:1 name
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 设置多个哈希字段</span>
+</span></span><span style=display:flex><span>HMSET key field1 value1 field2 value2
+</span></span><span style=display:flex><span>HMSET user:1 name <span style=color:#e6db74>&#34;John&#34;</span> age <span style=color:#ae81ff>25</span> city <span style=color:#e6db74>&#34;New York&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 获取多个哈希字段值</span>
+</span></span><span style=display:flex><span>HMGET key field1 field2
+</span></span><span style=display:flex><span>HMGET user:1 name age
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 获取所有字段和值</span>
+</span></span><span style=display:flex><span>HGETALL key
+</span></span><span style=display:flex><span>HGETALL user:1
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 仅当字段不存在时设置</span>
+</span></span><span style=display:flex><span>HSETNX key field value
+</span></span><span style=display:flex><span>HSETNX user:1 email <span style=color:#e6db74>&#34;john@example.com&#34;</span>
+</span></span></code></pre></div><h3 id=52-哈希字段操作>5.2 哈希字段操作<a hidden class=anchor aria-hidden=true href=#52-哈希字段操作>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 删除哈希字段</span>
+</span></span><span style=display:flex><span>HDEL key field <span style=color:#f92672>[</span>field ...<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>HDEL user:1 age city
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 检查字段是否存在</span>
+</span></span><span style=display:flex><span>HEXISTS key field
+</span></span><span style=display:flex><span>HEXISTS user:1 name
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 获取所有字段名</span>
+</span></span><span style=display:flex><span>HKEYS key
+</span></span><span style=display:flex><span>HKEYS user:1
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 获取所有字段值</span>
+</span></span><span style=display:flex><span>HVALS key
+</span></span><span style=display:flex><span>HVALS user:1
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 获取字段数量</span>
+</span></span><span style=display:flex><span>HLEN key
+</span></span><span style=display:flex><span>HLEN user:1
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 获取字段值的字符串长度</span>
+</span></span><span style=display:flex><span>HSTRLEN key field
+</span></span><span style=display:flex><span>HSTRLEN user:1 name
+</span></span></code></pre></div><h3 id=53-哈希数值操作>5.3 哈希数值操作<a hidden class=anchor aria-hidden=true href=#53-哈希数值操作>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 字段值递增</span>
+</span></span><span style=display:flex><span>HINCRBY key field increment
+</span></span><span style=display:flex><span>HINCRBY user:1 age <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 字段值浮点递增</span>
+</span></span><span style=display:flex><span>HINCRBYFLOAT key field increment
+</span></span><span style=display:flex><span>HINCRBYFLOAT user:1 score 10.5
+</span></span></code></pre></div><h2 id=6-列表list操作>6. 列表（List）操作<a hidden class=anchor aria-hidden=true href=#6-列表list操作>#</a></h2><h3 id=61-基本列表操作>6.1 基本列表操作<a hidden class=anchor aria-hidden=true href=#61-基本列表操作>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 从左侧推入元素</span>
+</span></span><span style=display:flex><span>LPUSH key element <span style=color:#f92672>[</span>element ...<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>LPUSH mylist <span style=color:#e6db74>&#34;world&#34;</span> <span style=color:#e6db74>&#34;hello&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 从右侧推入元素</span>
+</span></span><span style=display:flex><span>RPUSH key element <span style=color:#f92672>[</span>element ...<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>RPUSH mylist <span style=color:#e6db74>&#34;redis&#34;</span> <span style=color:#e6db74>&#34;tutorial&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 从左侧弹出元素</span>
+</span></span><span style=display:flex><span>LPOP key
+</span></span><span style=display:flex><span>LPOP mylist
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 从右侧弹出元素</span>
+</span></span><span style=display:flex><span>RPOP key
+</span></span><span style=display:flex><span>RPOP mylist
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 获取列表长度</span>
+</span></span><span style=display:flex><span>LLEN key
+</span></span><span style=display:flex><span>LLEN mylist
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 获取列表范围内的元素</span>
+</span></span><span style=display:flex><span>LRANGE key start stop
+</span></span><span style=display:flex><span>LRANGE mylist <span style=color:#ae81ff>0</span> -1  <span style=color:#75715e># 获取所有元素</span>
+</span></span><span style=display:flex><span>LRANGE mylist <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>2</span>   <span style=color:#75715e># 获取前3个元素</span>
+</span></span></code></pre></div><h3 id=62-列表索引操作>6.2 列表索引操作<a hidden class=anchor aria-hidden=true href=#62-列表索引操作>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 获取指定索引的元素</span>
+</span></span><span style=display:flex><span>LINDEX key index
+</span></span><span style=display:flex><span>LINDEX mylist <span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 设置指定索引的元素值</span>
+</span></span><span style=display:flex><span>LSET key index element
+</span></span><span style=display:flex><span>LSET mylist <span style=color:#ae81ff>0</span> <span style=color:#e6db74>&#34;new_value&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 在指定元素前/后插入新元素</span>
+</span></span><span style=display:flex><span>LINSERT key BEFORE|AFTER pivot element
+</span></span><span style=display:flex><span>LINSERT mylist BEFORE <span style=color:#e6db74>&#34;world&#34;</span> <span style=color:#e6db74>&#34;beautiful&#34;</span>
+</span></span><span style=display:flex><span>LINSERT mylist AFTER <span style=color:#e6db74>&#34;hello&#34;</span> <span style=color:#e6db74>&#34;wonderful&#34;</span>
+</span></span></code></pre></div><h3 id=63-列表修剪和删除>6.3 列表修剪和删除<a hidden class=anchor aria-hidden=true href=#63-列表修剪和删除>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 保留指定范围内的元素</span>
+</span></span><span style=display:flex><span>LTRIM key start stop
+</span></span><span style=display:flex><span>LTRIM mylist <span style=color:#ae81ff>1</span> -1
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 删除指定值的元素</span>
+</span></span><span style=display:flex><span>LREM key count element
+</span></span><span style=display:flex><span>LREM mylist <span style=color:#ae81ff>2</span> <span style=color:#e6db74>&#34;hello&#34;</span>  <span style=color:#75715e># 删除2个&#34;hello&#34;</span>
+</span></span><span style=display:flex><span>LREM mylist -1 <span style=color:#e6db74>&#34;world&#34;</span> <span style=color:#75715e># 从尾部删除1个&#34;world&#34;</span>
+</span></span><span style=display:flex><span>LREM mylist <span style=color:#ae81ff>0</span> <span style=color:#e6db74>&#34;redis&#34;</span>  <span style=color:#75715e># 删除所有&#34;redis&#34;</span>
+</span></span></code></pre></div><h3 id=64-阻塞操作>6.4 阻塞操作<a hidden class=anchor aria-hidden=true href=#64-阻塞操作>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 阻塞式左侧弹出</span>
+</span></span><span style=display:flex><span>BLPOP key <span style=color:#f92672>[</span>key ...<span style=color:#f92672>]</span> timeout
+</span></span><span style=display:flex><span>BLPOP mylist <span style=color:#ae81ff>10</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 阻塞式右侧弹出</span>
+</span></span><span style=display:flex><span>BRPOP key <span style=color:#f92672>[</span>key ...<span style=color:#f92672>]</span> timeout
+</span></span><span style=display:flex><span>BRPOP mylist <span style=color:#ae81ff>10</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 阻塞式右侧弹出并左侧推入另一个列表</span>
+</span></span><span style=display:flex><span>BRPOPLPUSH source destination timeout
+</span></span><span style=display:flex><span>BRPOPLPUSH list1 list2 <span style=color:#ae81ff>10</span>
+</span></span></code></pre></div><h2 id=7-集合set操作>7. 集合（Set）操作<a hidden class=anchor aria-hidden=true href=#7-集合set操作>#</a></h2><h3 id=71-基本集合操作>7.1 基本集合操作<a hidden class=anchor aria-hidden=true href=#71-基本集合操作>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 添加成员</span>
+</span></span><span style=display:flex><span>SADD key member <span style=color:#f92672>[</span>member ...<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>SADD myset <span style=color:#e6db74>&#34;apple&#34;</span> <span style=color:#e6db74>&#34;banana&#34;</span> <span style=color:#e6db74>&#34;orange&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 获取所有成员</span>
+</span></span><span style=display:flex><span>SMEMBERS key
+</span></span><span style=display:flex><span>SMEMBERS myset
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 检查成员是否存在</span>
+</span></span><span style=display:flex><span>SISMEMBER key member
+</span></span><span style=display:flex><span>SISMEMBER myset <span style=color:#e6db74>&#34;apple&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 获取集合大小</span>
+</span></span><span style=display:flex><span>SCARD key
+</span></span><span style=display:flex><span>SCARD myset
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 删除成员</span>
+</span></span><span style=display:flex><span>SREM key member <span style=color:#f92672>[</span>member ...<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>SREM myset <span style=color:#e6db74>&#34;banana&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 随机获取成员</span>
+</span></span><span style=display:flex><span>SRANDMEMBER key <span style=color:#f92672>[</span>count<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>SRANDMEMBER myset
+</span></span><span style=display:flex><span>SRANDMEMBER myset <span style=color:#ae81ff>2</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 随机弹出成员</span>
+</span></span><span style=display:flex><span>SPOP key <span style=color:#f92672>[</span>count<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>SPOP myset
+</span></span><span style=display:flex><span>SPOP myset <span style=color:#ae81ff>2</span>
+</span></span></code></pre></div><h3 id=72-集合运算>7.2 集合运算<a hidden class=anchor aria-hidden=true href=#72-集合运算>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 交集</span>
+</span></span><span style=display:flex><span>SINTER key <span style=color:#f92672>[</span>key ...<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>SINTER set1 set2
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 并集</span>
+</span></span><span style=display:flex><span>SUNION key <span style=color:#f92672>[</span>key ...<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>SUNION set1 set2
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 差集</span>
+</span></span><span style=display:flex><span>SDIFF key <span style=color:#f92672>[</span>key ...<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>SDIFF set1 set2
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 交集并存储到新集合</span>
+</span></span><span style=display:flex><span>SINTERSTORE destination key <span style=color:#f92672>[</span>key ...<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>SINTERSTORE result_set set1 set2
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 并集并存储到新集合</span>
+</span></span><span style=display:flex><span>SUNIONSTORE destination key <span style=color:#f92672>[</span>key ...<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>SUNIONSTORE result_set set1 set2
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 差集并存储到新集合</span>
+</span></span><span style=display:flex><span>SDIFFSTORE destination key <span style=color:#f92672>[</span>key ...<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>SDIFFSTORE result_set set1 set2
+</span></span></code></pre></div><h3 id=73-集合移动>7.3 集合移动<a hidden class=anchor aria-hidden=true href=#73-集合移动>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 移动成员到另一个集合</span>
+</span></span><span style=display:flex><span>SMOVE source destination member
+</span></span><span style=display:flex><span>SMOVE set1 set2 <span style=color:#e6db74>&#34;apple&#34;</span>
+</span></span></code></pre></div><h2 id=8-有序集合sorted-set操作>8. 有序集合（Sorted Set）操作<a hidden class=anchor aria-hidden=true href=#8-有序集合sorted-set操作>#</a></h2><h3 id=81-基本有序集合操作>8.1 基本有序集合操作<a hidden class=anchor aria-hidden=true href=#81-基本有序集合操作>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 添加成员</span>
+</span></span><span style=display:flex><span>ZADD key <span style=color:#f92672>[</span>NX|XX<span style=color:#f92672>]</span> <span style=color:#f92672>[</span>CH<span style=color:#f92672>]</span> <span style=color:#f92672>[</span>INCR<span style=color:#f92672>]</span> score member <span style=color:#f92672>[</span>score member ...<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>ZADD leaderboard <span style=color:#ae81ff>100</span> <span style=color:#e6db74>&#34;player1&#34;</span> <span style=color:#ae81ff>200</span> <span style=color:#e6db74>&#34;player2&#34;</span> <span style=color:#ae81ff>150</span> <span style=color:#e6db74>&#34;player3&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 获取成员分数</span>
+</span></span><span style=display:flex><span>ZSCORE key member
+</span></span><span style=display:flex><span>ZSCORE leaderboard <span style=color:#e6db74>&#34;player1&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 获取成员排名（从0开始，分数从低到高）</span>
+</span></span><span style=display:flex><span>ZRANK key member
+</span></span><span style=display:flex><span>ZRANK leaderboard <span style=color:#e6db74>&#34;player1&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 获取成员排名（从0开始，分数从高到低）</span>
+</span></span><span style=display:flex><span>ZREVRANK key member
+</span></span><span style=display:flex><span>ZREVRANK leaderboard <span style=color:#e6db74>&#34;player1&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 获取有序集合大小</span>
+</span></span><span style=display:flex><span>ZCARD key
+</span></span><span style=display:flex><span>ZCARD leaderboard
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 删除成员</span>
+</span></span><span style=display:flex><span>ZREM key member <span style=color:#f92672>[</span>member ...<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>ZREM leaderboard <span style=color:#e6db74>&#34;player1&#34;</span>
+</span></span></code></pre></div><h3 id=82-范围查询>8.2 范围查询<a hidden class=anchor aria-hidden=true href=#82-范围查询>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 按排名范围获取成员（分数从低到高）</span>
+</span></span><span style=display:flex><span>ZRANGE key start stop <span style=color:#f92672>[</span>WITHSCORES<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>ZRANGE leaderboard <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>2</span>
+</span></span><span style=display:flex><span>ZRANGE leaderboard <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>2</span> WITHSCORES
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 按排名范围获取成员（分数从高到低）</span>
+</span></span><span style=display:flex><span>ZREVRANGE key start stop <span style=color:#f92672>[</span>WITHSCORES<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>ZREVRANGE leaderboard <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>2</span> WITHSCORES
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 按分数范围获取成员</span>
+</span></span><span style=display:flex><span>ZRANGEBYSCORE key min max <span style=color:#f92672>[</span>WITHSCORES<span style=color:#f92672>]</span> <span style=color:#f92672>[</span>LIMIT offset count<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>ZRANGEBYSCORE leaderboard <span style=color:#ae81ff>100</span> <span style=color:#ae81ff>200</span>
+</span></span><span style=display:flex><span>ZRANGEBYSCORE leaderboard <span style=color:#ae81ff>100</span> <span style=color:#ae81ff>200</span> WITHSCORES
+</span></span><span style=display:flex><span>ZRANGEBYSCORE leaderboard <span style=color:#ae81ff>100</span> <span style=color:#ae81ff>200</span> LIMIT <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>10</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 按分数范围获取成员（从高到低）</span>
+</span></span><span style=display:flex><span>ZREVRANGEBYSCORE key max min <span style=color:#f92672>[</span>WITHSCORES<span style=color:#f92672>]</span> <span style=color:#f92672>[</span>LIMIT offset count<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>ZREVRANGEBYSCORE leaderboard <span style=color:#ae81ff>200</span> <span style=color:#ae81ff>100</span> WITHSCORES
+</span></span></code></pre></div><h3 id=83-分数操作>8.3 分数操作<a hidden class=anchor aria-hidden=true href=#83-分数操作>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 增加成员分数</span>
+</span></span><span style=display:flex><span>ZINCRBY key increment member
+</span></span><span style=display:flex><span>ZINCRBY leaderboard <span style=color:#ae81ff>10</span> <span style=color:#e6db74>&#34;player1&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 统计分数范围内的成员数量</span>
+</span></span><span style=display:flex><span>ZCOUNT key min max
+</span></span><span style=display:flex><span>ZCOUNT leaderboard <span style=color:#ae81ff>100</span> <span style=color:#ae81ff>200</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 删除排名范围内的成员</span>
+</span></span><span style=display:flex><span>ZREMRANGEBYRANK key start stop
+</span></span><span style=display:flex><span>ZREMRANGEBYRANK leaderboard <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>2</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 删除分数范围内的成员</span>
+</span></span><span style=display:flex><span>ZREMRANGEBYSCORE key min max
+</span></span><span style=display:flex><span>ZREMRANGEBYSCORE leaderboard <span style=color:#ae81ff>100</span> <span style=color:#ae81ff>150</span>
+</span></span></code></pre></div><h3 id=84-有序集合运算>8.4 有序集合运算<a hidden class=anchor aria-hidden=true href=#84-有序集合运算>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 交集</span>
+</span></span><span style=display:flex><span>ZINTERSTORE destination numkeys key <span style=color:#f92672>[</span>key ...<span style=color:#f92672>]</span> <span style=color:#f92672>[</span>WEIGHTS weight <span style=color:#f92672>[</span>weight ...<span style=color:#f92672>]]</span> <span style=color:#f92672>[</span>AGGREGATE SUM|MIN|MAX<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>ZINTERSTORE result <span style=color:#ae81ff>2</span> zset1 zset2
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 并集</span>
+</span></span><span style=display:flex><span>ZUNIONSTORE destination numkeys key <span style=color:#f92672>[</span>key ...<span style=color:#f92672>]</span> <span style=color:#f92672>[</span>WEIGHTS weight <span style=color:#f92672>[</span>weight ...<span style=color:#f92672>]]</span> <span style=color:#f92672>[</span>AGGREGATE SUM|MIN|MAX<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>ZUNIONSTORE result <span style=color:#ae81ff>2</span> zset1 zset2
+</span></span></code></pre></div><h2 id=9-事务管理>9. 事务管理<a hidden class=anchor aria-hidden=true href=#9-事务管理>#</a></h2><h3 id=91-基本事务操作>9.1 基本事务操作<a hidden class=anchor aria-hidden=true href=#91-基本事务操作>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 开始事务</span>
+</span></span><span style=display:flex><span>MULTI
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 执行事务</span>
+</span></span><span style=display:flex><span>EXEC
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 取消事务</span>
+</span></span><span style=display:flex><span>DISCARD
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 监视键（乐观锁）</span>
+</span></span><span style=display:flex><span>WATCH key <span style=color:#f92672>[</span>key ...<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 取消监视</span>
+</span></span><span style=display:flex><span>UNWATCH
+</span></span></code></pre></div><h3 id=92-事务示例>9.2 事务示例<a hidden class=anchor aria-hidden=true href=#92-事务示例>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 转账事务示例</span>
+</span></span><span style=display:flex><span>WATCH account:1 account:2
+</span></span><span style=display:flex><span>MULTI
+</span></span><span style=display:flex><span>DECRBY account:1 <span style=color:#ae81ff>100</span>
+</span></span><span style=display:flex><span>INCRBY account:2 <span style=color:#ae81ff>100</span>
+</span></span><span style=display:flex><span>EXEC
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 如果在WATCH和EXEC之间，被监视的键被修改，事务将被取消</span>
+</span></span></code></pre></div><h2 id=10-发布订阅>10. 发布订阅<a hidden class=anchor aria-hidden=true href=#10-发布订阅>#</a></h2><h3 id=101-基本发布订阅>10.1 基本发布订阅<a hidden class=anchor aria-hidden=true href=#101-基本发布订阅>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 订阅频道</span>
+</span></span><span style=display:flex><span>SUBSCRIBE channel <span style=color:#f92672>[</span>channel ...<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>SUBSCRIBE news sports
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 取消订阅</span>
+</span></span><span style=display:flex><span>UNSUBSCRIBE <span style=color:#f92672>[</span>channel <span style=color:#f92672>[</span>channel ...<span style=color:#f92672>]]</span>
+</span></span><span style=display:flex><span>UNSUBSCRIBE news
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 发布消息</span>
+</span></span><span style=display:flex><span>PUBLISH channel message
+</span></span><span style=display:flex><span>PUBLISH news <span style=color:#e6db74>&#34;Breaking news!&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 模式订阅</span>
+</span></span><span style=display:flex><span>PSUBSCRIBE pattern <span style=color:#f92672>[</span>pattern ...<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>PSUBSCRIBE news:*
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 取消模式订阅</span>
+</span></span><span style=display:flex><span>PUNSUBSCRIBE <span style=color:#f92672>[</span>pattern <span style=color:#f92672>[</span>pattern ...<span style=color:#f92672>]]</span>
+</span></span><span style=display:flex><span>PUNSUBSCRIBE news:*
+</span></span></code></pre></div><h3 id=102-发布订阅信息>10.2 发布订阅信息<a hidden class=anchor aria-hidden=true href=#102-发布订阅信息>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 查看活跃频道</span>
+</span></span><span style=display:flex><span>PUBSUB CHANNELS <span style=color:#f92672>[</span>pattern<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>PUBSUB CHANNELS
+</span></span><span style=display:flex><span>PUBSUB CHANNELS news:*
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看频道订阅数</span>
+</span></span><span style=display:flex><span>PUBSUB NUMSUB <span style=color:#f92672>[</span>channel <span style=color:#f92672>[</span>channel ...<span style=color:#f92672>]]</span>
+</span></span><span style=display:flex><span>PUBSUB NUMSUB news sports
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看模式订阅数</span>
+</span></span><span style=display:flex><span>PUBSUB NUMPAT
+</span></span></code></pre></div><h2 id=11-持久化配置>11. 持久化配置<a hidden class=anchor aria-hidden=true href=#11-持久化配置>#</a></h2><h3 id=111-rdb持久化>11.1 RDB持久化<a hidden class=anchor aria-hidden=true href=#111-rdb持久化>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 手动触发RDB快照</span>
+</span></span><span style=display:flex><span>SAVE
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 异步触发RDB快照</span>
+</span></span><span style=display:flex><span>BGSAVE
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看最后一次成功保存的时间</span>
+</span></span><span style=display:flex><span>LASTSAVE
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 配置自动保存（在redis.conf中）</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># save 900 1      # 900秒内至少1个键被修改</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># save 300 10     # 300秒内至少10个键被修改</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># save 60 10000   # 60秒内至少10000个键被修改</span>
+</span></span></code></pre></div><h3 id=112-aof持久化>11.2 AOF持久化<a hidden class=anchor aria-hidden=true href=#112-aof持久化>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 手动重写AOF文件</span>
+</span></span><span style=display:flex><span>BGREWRITEAOF
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 配置AOF（在redis.conf中）</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># appendonly yes</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># appendfilename &#34;appendonly.aof&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># appendfsync everysec  # always, everysec, no</span>
+</span></span></code></pre></div><h3 id=113-持久化相关配置>11.3 持久化相关配置<a hidden class=anchor aria-hidden=true href=#113-持久化相关配置>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ini data-lang=ini><span style=display:flex><span><span style=color:#75715e># redis.conf 持久化配置示例</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># RDB配置</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>save 900 1</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>save 300 10</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>save 60 10000</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>stop-writes-on-bgsave-error yes</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>rdbcompression yes</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>rdbchecksum yes</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>dbfilename dump.rdb</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>dir /var/lib/redis</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># AOF配置</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>appendonly yes</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>appendfilename &#34;appendonly.aof&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>appendfsync everysec</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>no-appendfsync-on-rewrite no</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>auto-aof-rewrite-percentage 100</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>auto-aof-rewrite-min-size 64mb</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>aof-load-truncated yes</span>
+</span></span></code></pre></div><h2 id=12-集群管理>12. 集群管理<a hidden class=anchor aria-hidden=true href=#12-集群管理>#</a></h2><h3 id=121-redis-sentinel哨兵模式>12.1 Redis Sentinel（哨兵模式）<a hidden class=anchor aria-hidden=true href=#121-redis-sentinel哨兵模式>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 启动Sentinel</span>
+</span></span><span style=display:flex><span>redis-sentinel /path/to/sentinel.conf
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Sentinel配置文件示例</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># sentinel.conf</span>
+</span></span><span style=display:flex><span>port <span style=color:#ae81ff>26379</span>
+</span></span><span style=display:flex><span>sentinel monitor mymaster 127.0.0.1 <span style=color:#ae81ff>6379</span> <span style=color:#ae81ff>2</span>
+</span></span><span style=display:flex><span>sentinel down-after-milliseconds mymaster <span style=color:#ae81ff>5000</span>
+</span></span><span style=display:flex><span>sentinel failover-timeout mymaster <span style=color:#ae81ff>10000</span>
+</span></span><span style=display:flex><span>sentinel parallel-syncs mymaster <span style=color:#ae81ff>1</span>
+</span></span></code></pre></div><h3 id=122-redis-cluster集群模式>12.2 Redis Cluster（集群模式）<a hidden class=anchor aria-hidden=true href=#122-redis-cluster集群模式>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 创建集群</span>
+</span></span><span style=display:flex><span>redis-cli --cluster create 127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005 --cluster-replicas <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 检查集群状态</span>
+</span></span><span style=display:flex><span>redis-cli --cluster check 127.0.0.1:7000
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看集群信息</span>
+</span></span><span style=display:flex><span>redis-cli -c -p <span style=color:#ae81ff>7000</span>
+</span></span><span style=display:flex><span>CLUSTER INFO
+</span></span><span style=display:flex><span>CLUSTER NODES
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 添加节点</span>
+</span></span><span style=display:flex><span>redis-cli --cluster add-node 127.0.0.1:7006 127.0.0.1:7000
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 删除节点</span>
+</span></span><span style=display:flex><span>redis-cli --cluster del-node 127.0.0.1:7000 node_id
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 重新分片</span>
+</span></span><span style=display:flex><span>redis-cli --cluster reshard 127.0.0.1:7000
+</span></span></code></pre></div><h3 id=123-集群相关命令>12.3 集群相关命令<a hidden class=anchor aria-hidden=true href=#123-集群相关命令>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 集群信息</span>
+</span></span><span style=display:flex><span>CLUSTER INFO
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 集群节点</span>
+</span></span><span style=display:flex><span>CLUSTER NODES
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 集群状态</span>
+</span></span><span style=display:flex><span>CLUSTER SLOTS
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 键所在的槽</span>
+</span></span><span style=display:flex><span>CLUSTER KEYSLOT key
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 槽中的键数量</span>
+</span></span><span style=display:flex><span>CLUSTER COUNTKEYSINSLOT slot
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 获取槽中的键</span>
+</span></span><span style=display:flex><span>CLUSTER GETKEYSINSLOT slot count
+</span></span></code></pre></div><h2 id=13-redis-docker-容器管理>13. Redis Docker 容器管理<a hidden class=anchor aria-hidden=true href=#13-redis-docker-容器管理>#</a></h2><h3 id=131-运行redis容器>13.1 运行Redis容器<a hidden class=anchor aria-hidden=true href=#131-运行redis容器>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 基本运行</span>
+</span></span><span style=display:flex><span>docker run --name redis-container -d redis:7.0
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 指定端口和密码</span>
+</span></span><span style=display:flex><span>docker run --name redis-container <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  -p 6379:6379 <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  -d redis:7.0 <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  redis-server --requirepass mypassword
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 使用配置文件</span>
+</span></span><span style=display:flex><span>docker run --name redis-container <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  -p 6379:6379 <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  -v /path/to/redis.conf:/usr/local/etc/redis/redis.conf <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  -v redis-data:/data <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  -d redis:7.0 <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  redis-server /usr/local/etc/redis/redis.conf
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 持久化数据</span>
+</span></span><span style=display:flex><span>docker run --name redis-container <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  -p 6379:6379 <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  -v redis-data:/data <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  -d redis:7.0 <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  redis-server --appendonly yes
+</span></span></code></pre></div><h3 id=132-docker-compose-配置>13.2 Docker Compose 配置<a hidden class=anchor aria-hidden=true href=#132-docker-compose-配置>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#75715e># docker-compose.yml</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>version</span>: <span style=color:#e6db74>&#39;3.8&#39;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>services</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>redis</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>redis:7.0</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>container_name</span>: <span style=color:#ae81ff>redis-container</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>restart</span>: <span style=color:#ae81ff>always</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>ports</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#e6db74>&#34;6379:6379&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>volumes</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>redis-data:/data</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>./redis.conf:/usr/local/etc/redis/redis.conf</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>command</span>: <span style=color:#ae81ff>redis-server /usr/local/etc/redis/redis.conf</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>environment</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>REDIS_PASSWORD=mypassword</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>networks</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>app-network</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>redis-commander</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>rediscommander/redis-commander:latest</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>container_name</span>: <span style=color:#ae81ff>redis-commander</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>restart</span>: <span style=color:#ae81ff>always</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>ports</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#e6db74>&#34;8081:8081&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>environment</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>REDIS_HOSTS=local:redis:6379</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>REDIS_PASSWORD=mypassword</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>depends_on</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>redis</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>networks</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>app-network</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>volumes</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>redis-data</span>:
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>networks</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>app-network</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>driver</span>: <span style=color:#ae81ff>bridge</span>
+</span></span></code></pre></div><h3 id=133-redis集群docker配置>13.3 Redis集群Docker配置<a hidden class=anchor aria-hidden=true href=#133-redis集群docker配置>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#75715e># redis-cluster-compose.yml</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>version</span>: <span style=color:#e6db74>&#39;3.8&#39;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>services</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>redis-node-1</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>redis:7.0</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>container_name</span>: <span style=color:#ae81ff>redis-node-1</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>ports</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#e6db74>&#34;7001:6379&#34;</span>
+</span></span><span style=display:flex><span>      - <span style=color:#e6db74>&#34;17001:16379&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>volumes</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>./redis-cluster.conf:/usr/local/etc/redis/redis.conf</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>command</span>: <span style=color:#ae81ff>redis-server /usr/local/etc/redis/redis.conf</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>networks</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>redis-cluster</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>redis-node-2</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>redis:7.0</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>container_name</span>: <span style=color:#ae81ff>redis-node-2</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>ports</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#e6db74>&#34;7002:6379&#34;</span>
+</span></span><span style=display:flex><span>      - <span style=color:#e6db74>&#34;17002:16379&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>volumes</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>./redis-cluster.conf:/usr/local/etc/redis/redis.conf</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>command</span>: <span style=color:#ae81ff>redis-server /usr/local/etc/redis/redis.conf</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>networks</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>redis-cluster</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>redis-node-3</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>redis:7.0</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>container_name</span>: <span style=color:#ae81ff>redis-node-3</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>ports</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#e6db74>&#34;7003:6379&#34;</span>
+</span></span><span style=display:flex><span>      - <span style=color:#e6db74>&#34;17003:16379&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>volumes</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>./redis-cluster.conf:/usr/local/etc/redis/redis.conf</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>command</span>: <span style=color:#ae81ff>redis-server /usr/local/etc/redis/redis.conf</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>networks</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>redis-cluster</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>redis-node-4</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>redis:7.0</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>container_name</span>: <span style=color:#ae81ff>redis-node-4</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>ports</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#e6db74>&#34;7004:6379&#34;</span>
+</span></span><span style=display:flex><span>      - <span style=color:#e6db74>&#34;17004:16379&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>volumes</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>./redis-cluster.conf:/usr/local/etc/redis/redis.conf</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>command</span>: <span style=color:#ae81ff>redis-server /usr/local/etc/redis/redis.conf</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>networks</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>redis-cluster</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>redis-node-5</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>redis:7.0</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>container_name</span>: <span style=color:#ae81ff>redis-node-5</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>ports</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#e6db74>&#34;7005:6379&#34;</span>
+</span></span><span style=display:flex><span>      - <span style=color:#e6db74>&#34;17005:16379&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>volumes</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>./redis-cluster.conf:/usr/local/etc/redis/redis.conf</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>command</span>: <span style=color:#ae81ff>redis-server /usr/local/etc/redis/redis.conf</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>networks</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>redis-cluster</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>redis-node-6</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>redis:7.0</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>container_name</span>: <span style=color:#ae81ff>redis-node-6</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>ports</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#e6db74>&#34;7006:6379&#34;</span>
+</span></span><span style=display:flex><span>      - <span style=color:#e6db74>&#34;17006:16379&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>volumes</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>./redis-cluster.conf:/usr/local/etc/redis/redis.conf</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>command</span>: <span style=color:#ae81ff>redis-server /usr/local/etc/redis/redis.conf</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>networks</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>redis-cluster</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>networks</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>redis-cluster</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>driver</span>: <span style=color:#ae81ff>bridge</span>
+</span></span></code></pre></div><h3 id=134-容器管理命令>13.4 容器管理命令<a hidden class=anchor aria-hidden=true href=#134-容器管理命令>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 启动容器</span>
+</span></span><span style=display:flex><span>docker start redis-container
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 停止容器</span>
+</span></span><span style=display:flex><span>docker stop redis-container
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 重启容器</span>
+</span></span><span style=display:flex><span>docker restart redis-container
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看容器状态</span>
+</span></span><span style=display:flex><span>docker ps
+</span></span><span style=display:flex><span>docker ps -a
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看容器日志</span>
+</span></span><span style=display:flex><span>docker logs redis-container
+</span></span><span style=display:flex><span>docker logs -f redis-container  <span style=color:#75715e># 实时查看</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 进入容器</span>
+</span></span><span style=display:flex><span>docker exec -it redis-container bash
+</span></span><span style=display:flex><span>docker exec -it redis-container redis-cli
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 连接Redis（带密码）</span>
+</span></span><span style=display:flex><span>docker exec -it redis-container redis-cli -a mypassword
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 删除容器</span>
+</span></span><span style=display:flex><span>docker rm redis-container
+</span></span><span style=display:flex><span>docker rm -f redis-container  <span style=color:#75715e># 强制删除</span>
+</span></span></code></pre></div><h3 id=135-数据备份和恢复docker>13.5 数据备份和恢复（Docker）<a hidden class=anchor aria-hidden=true href=#135-数据备份和恢复docker>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 备份Redis数据</span>
+</span></span><span style=display:flex><span>docker exec redis-container redis-cli BGSAVE
+</span></span><span style=display:flex><span>docker cp redis-container:/data/dump.rdb ./backup/
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 恢复Redis数据</span>
+</span></span><span style=display:flex><span>docker cp ./backup/dump.rdb redis-container:/data/
+</span></span><span style=display:flex><span>docker restart redis-container
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 备份数据卷</span>
+</span></span><span style=display:flex><span>docker run --rm -v redis-data:/data -v <span style=color:#66d9ef>$(</span>pwd<span style=color:#66d9ef>)</span>:/backup alpine tar czf /backup/redis-backup.tar.gz -C /data .
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 恢复数据卷</span>
+</span></span><span style=display:flex><span>docker run --rm -v redis-data:/data -v <span style=color:#66d9ef>$(</span>pwd<span style=color:#66d9ef>)</span>:/backup alpine tar xzf /backup/redis-backup.tar.gz -C /data
+</span></span></code></pre></div><h2 id=14-性能监控和优化>14. 性能监控和优化<a hidden class=anchor aria-hidden=true href=#14-性能监控和优化>#</a></h2><h3 id=141-性能监控命令>14.1 性能监控命令<a hidden class=anchor aria-hidden=true href=#141-性能监控命令>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 实时监控Redis命令</span>
+</span></span><span style=display:flex><span>MONITOR
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看Redis统计信息</span>
+</span></span><span style=display:flex><span>INFO
+</span></span><span style=display:flex><span>INFO server
+</span></span><span style=display:flex><span>INFO memory
+</span></span><span style=display:flex><span>INFO stats
+</span></span><span style=display:flex><span>INFO replication
+</span></span><span style=display:flex><span>INFO cpu
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看慢查询日志</span>
+</span></span><span style=display:flex><span>SLOWLOG GET <span style=color:#f92672>[</span>count<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>SLOWLOG GET <span style=color:#ae81ff>10</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看慢查询日志长度</span>
+</span></span><span style=display:flex><span>SLOWLOG LEN
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 重置慢查询日志</span>
+</span></span><span style=display:flex><span>SLOWLOG RESET
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看客户端连接</span>
+</span></span><span style=display:flex><span>CLIENT LIST
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看内存使用情况</span>
+</span></span><span style=display:flex><span>MEMORY STATS
+</span></span><span style=display:flex><span>MEMORY USAGE key
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 内存分析</span>
+</span></span><span style=display:flex><span>MEMORY DOCTOR
+</span></span></code></pre></div><h3 id=142-性能配置优化>14.2 性能配置优化<a hidden class=anchor aria-hidden=true href=#142-性能配置优化>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ini data-lang=ini><span style=display:flex><span><span style=color:#75715e># redis.conf 性能优化配置</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 内存配置</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>maxmemory 2gb</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>maxmemory-policy allkeys-lru</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 网络配置</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>tcp-keepalive 300</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>timeout 0</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>tcp-backlog 511</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 慢查询配置</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>slowlog-log-slower-than 10000</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>slowlog-max-len 128</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 客户端配置</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>maxclients 10000</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 后台任务配置</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>lazy-expire-disabled no</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>lazyfree-lazy-eviction yes</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>lazyfree-lazy-expire yes</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>lazyfree-lazy-server-del yes</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 哈希配置</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>hash-max-ziplist-entries 512</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>hash-max-ziplist-value 64</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 列表配置</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>list-max-ziplist-size -2</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>list-compress-depth 0</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 集合配置</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>set-max-intset-entries 512</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 有序集合配置</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>zset-max-ziplist-entries 128</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>zset-max-ziplist-value 64</span>
+</span></span></code></pre></div><h3 id=143-内存优化>14.3 内存优化<a hidden class=anchor aria-hidden=true href=#143-内存优化>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 查看内存使用情况</span>
+</span></span><span style=display:flex><span>INFO memory
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 手动触发内存清理</span>
+</span></span><span style=display:flex><span>MEMORY PURGE
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 分析大键</span>
+</span></span><span style=display:flex><span>redis-cli --bigkeys
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 分析内存使用</span>
+</span></span><span style=display:flex><span>redis-cli --memkeys
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看键的内存使用</span>
+</span></span><span style=display:flex><span>MEMORY USAGE key <span style=color:#f92672>[</span>SAMPLES count<span style=color:#f92672>]</span>
+</span></span></code></pre></div><h2 id=15-安全配置>15. 安全配置<a hidden class=anchor aria-hidden=true href=#15-安全配置>#</a></h2><h3 id=151-认证和授权>15.1 认证和授权<a hidden class=anchor aria-hidden=true href=#151-认证和授权>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 设置密码</span>
+</span></span><span style=display:flex><span>CONFIG SET requirepass mypassword
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 使用密码认证</span>
+</span></span><span style=display:flex><span>AUTH password
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 重命名危险命令（在redis.conf中）</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># rename-command FLUSHDB &#34;&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># rename-command FLUSHALL &#34;&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># rename-command CONFIG &#34;CONFIG_9a90f2b4c2d3e5f6&#34;</span>
+</span></span></code></pre></div><h3 id=152-网络安全>15.2 网络安全<a hidden class=anchor aria-hidden=true href=#152-网络安全>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ini data-lang=ini><span style=display:flex><span><span style=color:#75715e># redis.conf 安全配置</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 绑定IP地址</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>bind 127.0.0.1 192.168.1.100</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 保护模式</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>protected-mode yes</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 端口配置</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>port 6379</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 禁用危险命令</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>rename-command FLUSHDB &#34;&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>rename-command FLUSHALL &#34;&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>rename-command EVAL &#34;&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>rename-command DEBUG &#34;&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>rename-command CONFIG &#34;CONFIG_a1b2c3d4e5f6&#34;</span>
+</span></span></code></pre></div><h2 id=16-常用工具和技巧>16. 常用工具和技巧<a hidden class=anchor aria-hidden=true href=#16-常用工具和技巧>#</a></h2><h3 id=161-redis客户端工具>16.1 Redis客户端工具<a hidden class=anchor aria-hidden=true href=#161-redis客户端工具>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># redis-cli 常用选项</span>
+</span></span><span style=display:flex><span>redis-cli -h hostname -p port -a password -n database
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 执行命令并退出</span>
+</span></span><span style=display:flex><span>redis-cli -h hostname -p port -a password -c <span style=color:#e6db74>&#34;GET key&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 批量执行命令</span>
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#34;SET key1 value1\nSET key2 value2&#34;</span> | redis-cli -h hostname -p port -a password
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 从文件执行命令</span>
+</span></span><span style=display:flex><span>redis-cli -h hostname -p port -a password &lt; commands.txt
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 导出数据</span>
+</span></span><span style=display:flex><span>redis-cli -h hostname -p port -a password --rdb dump.rdb
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 实时监控</span>
+</span></span><span style=display:flex><span>redis-cli -h hostname -p port -a password --latency
+</span></span><span style=display:flex><span>redis-cli -h hostname -p port -a password --latency-history
+</span></span><span style=display:flex><span>redis-cli -h hostname -p port -a password --latency-dist
+</span></span></code></pre></div><h3 id=162-数据迁移工具>16.2 数据迁移工具<a hidden class=anchor aria-hidden=true href=#162-数据迁移工具>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># redis-dump-load</span>
+</span></span><span style=display:flex><span>npm install -g redis-dump-load
+</span></span><span style=display:flex><span>redis-dump-load -h source_host -p source_port -a source_password -d destination_host:destination_port:destination_password
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># redis-migrate-tool</span>
+</span></span><span style=display:flex><span>./redis-migrate-tool -c config.conf
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 使用MIGRATE命令</span>
+</span></span><span style=display:flex><span>MIGRATE host port key destination-db timeout <span style=color:#f92672>[</span>COPY | REPLACE<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>MIGRATE 192.168.1.100 <span style=color:#ae81ff>6379</span> mykey <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>5000</span>
+</span></span></code></pre></div><h3 id=163-实用技巧>16.3 实用技巧<a hidden class=anchor aria-hidden=true href=#163-实用技巧>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 批量删除键</span>
+</span></span><span style=display:flex><span>redis-cli KEYS <span style=color:#e6db74>&#34;pattern*&#34;</span> | xargs redis-cli DEL
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 统计键的数量</span>
+</span></span><span style=display:flex><span>redis-cli INFO keyspace
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查找大键</span>
+</span></span><span style=display:flex><span>redis-cli --bigkeys
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 扫描键</span>
+</span></span><span style=display:flex><span>SCAN cursor <span style=color:#f92672>[</span>MATCH pattern<span style=color:#f92672>]</span> <span style=color:#f92672>[</span>COUNT count<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>SCAN <span style=color:#ae81ff>0</span> MATCH user:* COUNT <span style=color:#ae81ff>100</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 扫描哈希字段</span>
+</span></span><span style=display:flex><span>HSCAN key cursor <span style=color:#f92672>[</span>MATCH pattern<span style=color:#f92672>]</span> <span style=color:#f92672>[</span>COUNT count<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>HSCAN user:1 <span style=color:#ae81ff>0</span> MATCH name* COUNT <span style=color:#ae81ff>10</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 扫描集合成员</span>
+</span></span><span style=display:flex><span>SSCAN key cursor <span style=color:#f92672>[</span>MATCH pattern<span style=color:#f92672>]</span> <span style=color:#f92672>[</span>COUNT count<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>SSCAN myset <span style=color:#ae81ff>0</span> MATCH a* COUNT <span style=color:#ae81ff>10</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 扫描有序集合成员</span>
+</span></span><span style=display:flex><span>ZSCAN key cursor <span style=color:#f92672>[</span>MATCH pattern<span style=color:#f92672>]</span> <span style=color:#f92672>[</span>COUNT count<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>ZSCAN leaderboard <span style=color:#ae81ff>0</span> MATCH player* COUNT <span style=color:#ae81ff>10</span>
+</span></span></code></pre></div><h2 id=17-注意事项>17. 注意事项<a hidden class=anchor aria-hidden=true href=#17-注意事项>#</a></h2><ol><li><strong>合理选择数据结构</strong>：根据业务需求选择最适合的Redis数据结构</li><li><strong>设置合理的过期时间</strong>：避免内存泄漏，合理设置键的TTL</li><li><strong>监控性能指标</strong>：定期检查慢查询、内存使用情况等</li><li><strong>配置持久化策略</strong>：根据数据重要性选择RDB或AOF持久化</li><li><strong>安全配置</strong>：设置密码、绑定IP、重命名危险命令</li><li><strong>集群部署</strong>：对于高可用需求，使用Sentinel或Cluster模式</li><li><strong>容器化部署</strong>：使用Docker简化Redis的部署和管理</li></ol></div><footer class=post-footer><ul class=post-tags><li><a href=https://wellzhi.github.io/tags/redis/>Redis</a></li><li><a href=https://wellzhi.github.io/tags/%E7%BC%93%E5%AD%98/>缓存</a></li><li><a href=https://wellzhi.github.io/tags/docker/>Docker</a></li><li><a href=https://wellzhi.github.io/tags/%E5%91%BD%E4%BB%A4/>命令</a></li><li><a href=https://wellzhi.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/>数据库</a></li></ul></footer></article></main><footer class=footer><span>&copy; 2025 <a href=https://wellzhi.github.io/>wellzhi</a></span> ·
+<span>Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light"),theme=""):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"),theme="dark"),mermaidTextContents.forEach((e,t)=>{document.getElementsByClassName("language-mermaid")[t].removeAttribute("data-processed"),document.getElementsByClassName("language-mermaid")[t].innerHTML=e}),mermaid.initialize({theme,startOnLoad:!0}),mermaid.init(void 0,".language-mermaid")})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="copy";function s(){t.innerHTML="copied!",setTimeout(()=>{t.innerHTML="copy"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script><script>localStorage.getItem("pref-theme")=="dark"?theme="dark":theme="",mermaidTextContents=Array.from(document.getElementsByClassName("language-mermaid")).map(e=>e.innerHTML),mermaid.initialize({theme,startOnLoad:!0}),mermaid.init(void 0,".language-mermaid")</script></body></html>

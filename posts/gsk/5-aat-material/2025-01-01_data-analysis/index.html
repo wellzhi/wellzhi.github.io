@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>资分 | wellzhi</title>
+<meta name="keywords" content="">
+<meta name="description" content="第一章 实用速算技巧
+1.0 总体
+方法概览
+
+加法： 尾数法 高位叠加
+减法： 分段法 基准值
+乘法： 小分互换 乘法拆分 乘法放缩
+除法： 拆分 除法放缩
+
+Tip
+
+Tip1：巧用等差数列求和
+Tip2：相邻百位数减法时，可插入基准值
+Tip3：过程中抵消误差
+Tip4：除法分类
+Tip5：50%附近的拆分，分母尽量是偶数，注意同进同舍
+Tip6：拆分还可拆 1/3、1/4
+
+1.1 加法技巧——尾数法、高位叠加法
+1.1.1 尾数法
+
+【例 2】 
+外国来华申请量排名前 10 位的国家或地区分别是美国、日本、韩国、英国、德国、英属维尔京群岛、法国、意大利、瑞士、澳大利亚，申请量分别为 26060 件、19715件、6318 件、5588 件、3796 件、3461 件、3243 件、2865 件、2124 件、2085 件。
+问题：2011 年，外国来华商标申请量排名前 10 位的国家或地区的申请量之和为：
+A．75255 件 B．75525 件
+C．76215 件 D．79585 件
+
+解析：: 申请量为具体件数，数值精确，直接尾数加。但注意，选项末尾都是 5，要用末两位尾数来计算。60&#43;15=75 18&#43;88=106 96&#43;61=157 43&#43;65=108 24&#43;85=109，五个数加和尾数为 55，定位 A 项。
+1.1.2 高位叠加
+">
+<meta name="author" content="wellzhi">
+<link rel="canonical" href="http://localhost:1313/posts/gsk/5-aat-material/2025-01-01_data-analysis/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.b54291e20a5b433add2181af00208e3e72d99f37b405cd9f3ff373c992518ba6.css" integrity="sha256-tUKR4gpbQzrdIYGvACCOPnLZnze0Bc2fP/NzyZJRi6Y=" rel="preload stylesheet" as="style">
+<script crossorigin="anonymous" src="/assets/js/mermaid.min.af2e2ae7d64e037e8a582c3ba35b128209a6f8350c3825cda07833979e0d827c.js"></script>
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/gsk/5-aat-material/2025-01-01_data-analysis/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+    
+    
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+MathJax = {
+  tex: {
+    displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+    inlineMath: [['\\(', '\\)'], ['$', '$']]      
+  }
+};
+</script>
+    
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="wellzhi (Alt + H)">wellzhi</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/" title="Home">
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/posts/" title="Post">
+                    <span>Post</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/gsk/">GSK</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/gsk/5-aat-material/">AAT-material</a></div>
+    <h1 class="post-title entry-hint-parent">
+      资分
+      <span class="entry-hint" title="Draft">
+        <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" fill="currentColor">
+          <path
+            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
+        </svg>
+      </span>
+    </h1>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e7%ac%ac%e4%b8%80%e7%ab%a0-%e5%ae%9e%e7%94%a8%e9%80%9f%e7%ae%97%e6%8a%80%e5%b7%a7" aria-label="第一章 实用速算技巧">第一章 实用速算技巧</a><ul>
+                        
+                <li>
+                    <a href="#10-%e6%80%bb%e4%bd%93" aria-label="1.0 总体">1.0 总体</a><ul>
+                        
+                <li>
+                    <a href="#%e6%96%b9%e6%b3%95%e6%a6%82%e8%a7%88" aria-label="方法概览">方法概览</a></li>
+                <li>
+                    <a href="#tip" aria-label="Tip">Tip</a></li></ul>
+                </li>
+                <li>
+                    <a href="#11-%e5%8a%a0%e6%b3%95%e6%8a%80%e5%b7%a7%e5%b0%be%e6%95%b0%e6%b3%95%e9%ab%98%e4%bd%8d%e5%8f%a0%e5%8a%a0%e6%b3%95" aria-label="1.1 加法技巧——尾数法、高位叠加法">1.1 加法技巧——尾数法、高位叠加法</a><ul>
+                        
+                <li>
+                    <a href="#111-%e5%b0%be%e6%95%b0%e6%b3%95" aria-label="1.1.1 尾数法">1.1.1 尾数法</a></li>
+                <li>
+                    <a href="#112-%e9%ab%98%e4%bd%8d%e5%8f%a0%e5%8a%a0" aria-label="1.1.2 高位叠加">1.1.2 高位叠加</a></li></ul>
+                </li>
+                <li>
+                    <a href="#12-%e5%87%8f%e6%b3%95%e6%8a%80%e5%b7%a7%e5%88%86%e6%ae%b5%e6%b3%95" aria-label="1.2 减法技巧&ndash;分段法">1.2 减法技巧&ndash;分段法</a></li>
+                <li>
+                    <a href="#13-%e4%b9%98%e6%b3%95%e6%8a%80%e5%b7%a7%e5%b0%8f%e5%88%86%e4%ba%92%e6%8d%a2%e6%b3%95%e6%8b%86%e5%88%86%e6%b3%95%e6%94%be%e7%bc%a9%e6%b3%95" aria-label="1.3 乘法技巧&ndash;小分互换法、拆分法、放缩法">1.3 乘法技巧&ndash;小分互换法、拆分法、放缩法</a><ul>
+                        
+                <li>
+                    <a href="#131-%e5%b0%8f%e5%88%86%e4%ba%92%e6%8d%a2%e6%b3%95" aria-label="1.3.1 小分互换法">1.3.1 小分互换法</a></li>
+                <li>
+                    <a href="#132-%e6%8b%86%e5%88%86%e6%b3%95" aria-label="1.3.2 拆分法">1.3.2 拆分法</a></li>
+                <li>
+                    <a href="#133-%e6%94%be%e7%bc%a9%e6%b3%95" aria-label="1.3.3 放缩法">1.3.3 放缩法</a></li></ul>
+                </li>
+                <li>
+                    <a href="#14-%e9%99%a4%e6%b3%95%e6%8a%80%e5%b7%a7%e6%8b%86%e5%88%86%e6%b3%95%e6%94%be%e7%bc%a9%e6%b3%95" aria-label="1.4 除法技巧&ndash;拆分法、放缩法">1.4 除法技巧&ndash;拆分法、放缩法</a><ul>
+                        
+                <li>
+                    <a href="#141-%e6%8b%86%e5%88%86%e6%b3%95" aria-label="1.4.1 拆分法">1.4.1 拆分法</a></li>
+                <li>
+                    <a href="#142-%e9%99%a4%e6%b3%95%e6%94%be%e7%bc%a9" aria-label="1.4.2 除法放缩">1.4.2 除法放缩</a></li></ul>
+                </li>
+                <li>
+                    <a href="#15-415-%e4%bb%bd%e6%95%b0%e6%b3%95" aria-label="1.5 415 份数法">1.5 415 份数法</a><ul>
+                        
+                <li>
+                    <a href="#abrx-%e5%9b%9b%e9%87%8f%e5%85%b3%e7%b3%bb" aria-label="ABRX 四量关系">ABRX 四量关系</a></li>
+                <li>
+                    <a href="#%e9%80%82%e7%94%a8%e8%8c%83%e5%9b%b4" aria-label="适用范围">适用范围</a></li>
+                <li>
+                    <a href="#%e6%96%b9%e6%b3%95%e8%af%a6%e8%a7%a3" aria-label="方法详解">方法详解</a></li>
+                <li>
+                    <a href="#%e4%be%8b%e5%ad%90" aria-label="例子">例子</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h1 id="第一章-实用速算技巧">第一章 实用速算技巧<a hidden class="anchor" aria-hidden="true" href="#第一章-实用速算技巧">#</a></h1>
+<h2 id="10-总体">1.0 总体<a hidden class="anchor" aria-hidden="true" href="#10-总体">#</a></h2>
+<h3 id="方法概览">方法概览<a hidden class="anchor" aria-hidden="true" href="#方法概览">#</a></h3>
+<ul>
+<li>加法： 尾数法 高位叠加</li>
+<li>减法： 分段法 基准值</li>
+<li>乘法： 小分互换 乘法拆分 乘法放缩</li>
+<li>除法： 拆分 除法放缩</li>
+</ul>
+<h3 id="tip">Tip<a hidden class="anchor" aria-hidden="true" href="#tip">#</a></h3>
+<ul>
+<li>Tip1：巧用等差数列求和</li>
+<li>Tip2：相邻百位数减法时，可插入基准值</li>
+<li>Tip3：过程中抵消误差</li>
+<li>Tip4：除法分类</li>
+<li>Tip5：50%附近的拆分，分母尽量是偶数，注意同进同舍</li>
+<li>Tip6：拆分还可拆 1/3、1/4</li>
+</ul>
+<h2 id="11-加法技巧尾数法高位叠加法">1.1 加法技巧——尾数法、高位叠加法<a hidden class="anchor" aria-hidden="true" href="#11-加法技巧尾数法高位叠加法">#</a></h2>
+<h3 id="111-尾数法">1.1.1 尾数法<a hidden class="anchor" aria-hidden="true" href="#111-尾数法">#</a></h3>
+<p><img alt="尾数法" loading="lazy" src="https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153735_be08103d.png"></p>
+<pre tabindex="0"><code>【例 2】 
+外国来华申请量排名前 10 位的国家或地区分别是美国、日本、韩国、英国、德国、英属维尔京群岛、法国、意大利、瑞士、澳大利亚，申请量分别为 26060 件、19715件、6318 件、5588 件、3796 件、3461 件、3243 件、2865 件、2124 件、2085 件。
+问题：2011 年，外国来华商标申请量排名前 10 位的国家或地区的申请量之和为：
+A．75255 件 B．75525 件
+C．76215 件 D．79585 件
+
+解析：: 申请量为具体件数，数值精确，直接尾数加。但注意，选项末尾都是 5，要用末两位尾数来计算。60+15=75 18+88=106 96+61=157 43+65=108 24+85=109，五个数加和尾数为 55，定位 A 项。
+</code></pre><h3 id="112-高位叠加">1.1.2 高位叠加<a hidden class="anchor" aria-hidden="true" href="#112-高位叠加">#</a></h3>
+<p><img alt="高位叠加" loading="lazy" src="https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153735_0229e0fd.png"></p>
+<h2 id="12-减法技巧分段法">1.2 减法技巧&ndash;分段法<a hidden class="anchor" aria-hidden="true" href="#12-减法技巧分段法">#</a></h2>
+<p>将多位数（三位、四位）的减法分成两段，尽可能保证不用借位；若无法保证不借位，可以用负数代替借位。</p>
+<p><img alt="分段法" loading="lazy" src="https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153735_f6be231a.png"></p>
+<h2 id="13-乘法技巧小分互换法拆分法放缩法">1.3 乘法技巧&ndash;小分互换法、拆分法、放缩法<a hidden class="anchor" aria-hidden="true" href="#13-乘法技巧小分互换法拆分法放缩法">#</a></h2>
+<h3 id="131-小分互换法">1.3.1 小分互换法<a hidden class="anchor" aria-hidden="true" href="#131-小分互换法">#</a></h3>
+<p>若乘法中有某个乘数可以近似的转化为某个常见分数，我们可以将多位数乘法转化为简单除法计算;一个数字乘以 5、25、125，可转化为除 2、4、8.
+<img alt="常用小数表" loading="lazy" src="https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153735_4ce9b939.png"></p>
+<p><img alt="小分互换法" loading="lazy" src="https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153735_f006b0ea.png"></p>
+<h3 id="132-拆分法">1.3.2 拆分法<a hidden class="anchor" aria-hidden="true" href="#132-拆分法">#</a></h3>
+<p>若乘法中有某个乘数为百分数且能拆成两个简单数值（50%、10%、5%等），我们可以将该百分数拆成两部分相乘，要擅用“1%”。</p>
+<p><img alt="乘法拆分" loading="lazy" src="https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153735_7bab44d5.png">
+<img alt="乘法拆分例12" loading="lazy" src="https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153736_4c31c62e.png">
+<img alt="乘法拆分例" loading="lazy" src="https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153736_ccae186f.png">
+<img alt="乘法拆分例" loading="lazy" src="https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153736_563e8b70.png"></p>
+<h3 id="133-放缩法">1.3.3 放缩法<a hidden class="anchor" aria-hidden="true" href="#133-放缩法">#</a></h3>
+<p><img alt="放缩法" loading="lazy" src="https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153736_877d5a8e.png"></p>
+<h2 id="14-除法技巧拆分法放缩法">1.4 除法技巧&ndash;拆分法、放缩法<a hidden class="anchor" aria-hidden="true" href="#14-除法技巧拆分法放缩法">#</a></h2>
+<h3 id="141-拆分法">1.4.1 拆分法<a hidden class="anchor" aria-hidden="true" href="#141-拆分法">#</a></h3>
+<p>拆分法是对直除的“优化”，可借助选项“猜”出答案，尤其适合分子位数小于等于分母的除法计算。
+拆分法具体应用：
+一、如果分子在分母的 50%附近，先拆出 50%；
+二、如果分数大小约等于 1（分子分母相差不大），可先拆出 100%；
+三、如果分子很小，可根据实际情况拆出 10%或 5%或 1%;</p>
+<p><img alt="除法拆分法例子" loading="lazy" src="https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153736_0ccb97eb.png"></p>
+<p><img alt="除法拆分法例子2" loading="lazy" src="https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153736_7f7bc57e.png"></p>
+<h3 id="142-除法放缩">1.4.2 除法放缩<a hidden class="anchor" aria-hidden="true" href="#142-除法放缩">#</a></h3>
+<p>除法放缩的原理：分子分母同时扩大或缩小相同的幅度，分式不变。
+除法放缩的适用范围：
+①分母接近整百；
+②多个数乘除中分子分母接近整数倍。
+【注意】分子分母同舍同进。</p>
+<p><img alt="除法放缩法" loading="lazy" src="https://notespace.oss-cn-guangzhou.aliyuncs.com/images/20250828_153736_d024319c.png"></p>
+<h2 id="15-415-份数法">1.5 415 份数法<a hidden class="anchor" aria-hidden="true" href="#15-415-份数法">#</a></h2>
+<h3 id="abrx-四量关系">ABRX 四量关系<a hidden class="anchor" aria-hidden="true" href="#abrx-四量关系">#</a></h3>
+<ul>
+<li>A：基期</li>
+<li>B：现期</li>
+<li>R：增长率（有正负）</li>
+<li>X：增长量（有正负）</li>
+</ul>
+<h3 id="适用范围">适用范围<a hidden class="anchor" aria-hidden="true" href="#适用范围">#</a></h3>
+<p>适用于已知 B、R 求 A、X 时，R 恰好是某个分数（14.3%、16.6%、20%、25%、33%）
+已知现期B、增长率R，求基期A、增长量X。</p>
+<h3 id="方法详解">方法详解<a hidden class="anchor" aria-hidden="true" href="#方法详解">#</a></h3>
+<p>415 份数法是将数量关系转化为份数比例关系，从而简化计算。
+415 份数法中“415”分别代表基期、变化量、现期的份数。</p>
+<p>若增长率为 25%（25%＝1/4），为方便计算我们可以将基期设为 4 份，变化量 X＝AR
+＝1 份，现期为基期和变化量的和，即为 5 份。则基期、变化量、现期的份数分别为 4、1、5。这也是 415 份数法名字的由来。</p>
+<p>【注意】
+① 增长率为负数时变化量 a 也为负数，此时“415 份数法”即变成“4（－1）3 份数法”。
+②很多时候增长率 R 并不与某个分数完全相等，而是将 R 近似的看成某个分数。估算必
+然会产生误差，对于估算出的一份量，规则为“估大则一份变大、估小则一份变小”（把
+23%估算成 1/4，即是估大了，则求出的一份量比实际量要大：把 23%估算成 1/5，即是估小
+了，则求出的一份量比实际量要小）。</p>
+<h3 id="例子">例子<a hidden class="anchor" aria-hidden="true" href="#例子">#</a></h3>
+<hr>
+<p><strong>例1</strong>：现期B=780，增长率R=25.1%，求基期A和变化量X。</p>
+<p>解：增长率 $R = \frac{X}{A}$，其中 $X$ 是变化量，$A$ 是基期值
+$R = 25.1\% \approx \frac{1}{4}$
+根据415份数法，基期 $A$ 为4份，变化量 $X$ 为1份，现期 $B$ 为5份
+$X = \frac{B}{5} = \frac{780}{5} = 156$
+$A = B - X = 780 - 156 = 624$</p>
+<hr>
+<p><strong>例2</strong>：现期B=844，增长率R=-20%，求基期A和变化量X。</p>
+<p>解：增长率 $R = \frac{X}{A}$，其中 $X$ 是变化量，$A$ 是基期值
+$R = -20\% = -\frac{1}{5}$
+根据415份数法（此处为4(-1)3份数法），基期 $A$ 为5份，变化量 $X$ 为-1份，现期 $B$ 为4份
+$X = -\frac{B}{4} = -\frac{844}{4} = -211$，
+$A = B - X = 844 - (-211) = 844 + 211 = 1055$</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+<div class="comments-section">
+  
+  <div class="comments-header">
+    <h3 class="comments-title">
+      <svg class="comments-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+      </svg>
+      评论区
+    </h3>
+    <div class="comments-divider"></div>
+  </div>
+  
+  
+  <div id="twikoo-loading" class="twikoo-loading">
+    <div class="loading-spinner"></div>
+    <p>评论加载中...</p>
+  </div>
+  
+  
+  <div id="twikoo" class="twikoo-container"></div>
+  
+  
+  <div id="twikoo-error" class="twikoo-error" style="display: none;">
+    <div class="error-content">
+      <svg class="error-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="15" y1="9" x2="9" y2="15"></line>
+        <line x1="9" y1="9" x2="15" y2="15"></line>
+      </svg>
+      <p>评论加载失败，请刷新页面重试</p>
+    </div>
+  </div>
+</div>
+
+
+<style>
+.comments-section {
+  margin: 3rem 0 2rem;
+  padding: 0;
+  max-width: 100%;
+}
+
+.comments-header {
+  margin-bottom: 2rem;
+}
+
+.comments-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--primary, #1a1a1a);
+  margin: 0 0 1rem;
+}
+
+.comments-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--theme, #007acc);
+}
+
+.comments-divider {
+  height: 2px;
+  background: linear-gradient(90deg, var(--theme, #007acc) 0%, transparent 100%);
+  border-radius: 1px;
+  width: 60px;
+}
+
+.twikoo-container {
+  background: var(--code-bg, #f8f9fa);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid var(--border, #e1e5e9);
+  transition: all 0.3s ease;
+  min-height: 200px;
+}
+
+.twikoo-container:hover {
+  border-color: var(--theme, #007acc);
+  box-shadow: 0 4px 12px rgba(0, 122, 204, 0.1);
+}
+
+.twikoo-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  color: var(--secondary, #666);
+}
+
+.loading-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--border, #e1e5e9);
+  border-top: 3px solid var(--theme, #007acc);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.twikoo-error {
+  text-align: center;
+  padding: 2rem;
+  color: var(--secondary, #666);
+}
+
+.error-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.error-icon {
+  width: 2rem;
+  height: 2rem;
+  color: #dc3545;
+}
+
+ 
+@media (prefers-color-scheme: dark) {
+  .comments-title {
+    color: var(--primary, #ffffff);
+  }
+  
+  .twikoo-container {
+    background: var(--code-bg, #2d3748);
+    border-color: var(--border, #4a5568);
+  }
+}
+
+ 
+@media (max-width: 768px) {
+  .comments-section {
+    margin: 2rem 0 1rem;
+  }
+  
+  .twikoo-container {
+    padding: 1rem;
+    border-radius: 8px;
+  }
+  
+  .comments-title {
+    font-size: 1.25rem;
+  }
+}
+</style>
+
+
+<script src="https://cdn.staticfile.org/twikoo/1.6.16/twikoo.all.min.js"></script>
+<script>
+(function() {
+  const loadingEl = document.getElementById('twikoo-loading');
+  const errorEl = document.getElementById('twikoo-error');
+  const twikooEl = document.getElementById('twikoo');
+  
+  
+  twikoo.init({ 
+    envId: "https://twikoo-vercel-navy.vercel.app/",
+    el: '#twikoo',
+    onCommentLoaded: function() {
+      
+      if (loadingEl) {
+        loadingEl.style.display = 'none';
+      }
+    }
+  }).then(function() {
+    
+    if (loadingEl) {
+      loadingEl.style.display = 'none';
+    }
+  }).catch(function(error) {
+    
+    console.error('Twikoo 初始化失败:', error);
+    if (loadingEl) {
+      loadingEl.style.display = 'none';
+    }
+    if (errorEl) {
+      errorEl.style.display = 'block';
+    }
+  });
+  
+  
+  setTimeout(function() {
+    if (loadingEl && loadingEl.style.display !== 'none') {
+      loadingEl.style.display = 'none';
+      if (errorEl) {
+        errorEl.style.display = 'block';
+      }
+    }
+  }, 5000);
+})();
+</script>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="http://localhost:1313/">wellzhi</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+            theme = ''
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+            theme = 'dark'
+        }
+
+        mermaidTextContents.forEach((element, index) => {
+            document.getElementsByClassName("language-mermaid")[index].removeAttribute('data-processed')
+            document.getElementsByClassName("language-mermaid")[index].innerHTML = element
+        })
+
+        mermaid.initialize({ theme: theme, startOnLoad: true });
+        mermaid.init(undefined, '.language-mermaid');
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+<script>
+        if (localStorage.getItem("pref-theme") == 'dark') {
+            theme = 'dark'
+        } else {
+            theme = ''
+        }
+        mermaidTextContents = Array.from(document.getElementsByClassName("language-mermaid")).map(value => value.innerHTML)
+        mermaid.initialize({ theme: theme, startOnLoad: true });
+        mermaid.init(undefined, '.language-mermaid');
+    </script>
+</body>
+
+</html>

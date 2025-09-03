@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Python on wellzhi</title><link>https://wellzhi.github.io/tags/python/</link><description>Recent content in Python on wellzhi</description><generator>Hugo -- 0.147.2</generator><language>zh-cn</language><lastBuildDate>Mon, 10 Mar 2025 11:51:06 +0800</lastBuildDate><atom:link href="https://wellzhi.github.io/tags/python/index.xml" rel="self" type="application/rss+xml"/><item><title>uv, a fast package manage tool</title><link>https://wellzhi.github.io/posts/tech/2023-03-10_uv_a_fast_package_manage_tool/</link><pubDate>Mon, 10 Mar 2025 11:51:06 +0800</pubDate><guid>https://wellzhi.github.io/posts/tech/2023-03-10_uv_a_fast_package_manage_tool/</guid><description>&lt;h3 id="一安装与配置">&lt;strong>一、安装与配置&lt;/strong>&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>一键安装&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># macOS/Linux&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>curl -LsSf https://astral.sh/uv/install.sh | sh
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Windows&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>irm https://astral.sh/uv/install.ps1 | iex
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>支持通过 &lt;code>pip&lt;/code> 安装：&lt;code>pip install uv&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>版本验证与更新&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>uv --version &lt;span style="color:#75715e"># 检查版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>uv self update &lt;span style="color:#75715e"># 自动更新到最新版本&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h3 id="二项目管理">&lt;strong>二、项目管理&lt;/strong>&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>初始化项目&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>uv init my_project &lt;span style="color:#75715e"># 创建项目目录并生成配置文件&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>uv init . --python 3.12 &lt;span style="color:#75715e"># 在当前目录初始化并指定 Python 版本&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>生成文件：&lt;code>pyproject.toml&lt;/code>（主依赖）、&lt;code>uv.lock&lt;/code>（精确锁文件）&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>依赖管理&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>uv add requests &lt;span style="color:#75715e"># 添加主依赖&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>uv add --dev pytest &lt;span style="color:#75715e"># 添加开发依赖&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>uv remove flask &lt;span style="color:#75715e"># 移除依赖&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>uv lock &lt;span style="color:#75715e"># 生成/更新锁文件&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>uv sync &lt;span style="color:#75715e"># 同步依赖到虚拟环境&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>运行脚本&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>uv run main.py &lt;span style="color:#75715e"># 自动创建隔离环境并执行脚本&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>uv run --python 3.11 script.py &lt;span style="color:#75715e"># 指定 Python 版本运行&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h3 id="三虚拟环境管理">&lt;strong>三、虚拟环境管理&lt;/strong>&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>创建与激活&lt;/strong>&lt;/p></description></item></channel></rss>
