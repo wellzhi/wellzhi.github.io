@@ -41,4 +41,4 @@
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> url &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;/about/&amp;#34;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> weight &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">2&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="3-添加内容">3. 添加内容&lt;/h3>
-&lt;p>使用 Hugo 创建内容，例如：&lt;/p></description></item><item><title>Leaf Bundle实现内容复用</title><link>https://wellzhi.github.io/posts/tech/2010-01-01_hugo-leaf-bundle/</link><pubDate>Fri, 01 Jan 2010 00:00:00 +0000</pubDate><guid>https://wellzhi.github.io/posts/tech/2010-01-01_hugo-leaf-bundle/</guid><description>使用Leaf Bundle在Hugo+PaperMod中复用子Markdown文件，实现自动嵌入或点击展开内容。</description></item></channel></rss>
+&lt;p>使用 Hugo 创建内容，例如：&lt;/p></description></item></channel></rss>

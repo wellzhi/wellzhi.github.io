@@ -58,18 +58,7 @@ ATX 风格标题 # 一级标题 ## 二级标题 ### 三级标题 #### 四级标�
 3. 文本样式 强调 *斜体文本* 或 _斜体文本_ **粗体文本** 或 __粗体文本__ ***粗斜体文本*** 或 ___粗斜体文本___ 效果：
 斜体文本 粗体文本 粗斜体文本 删除线 ~~删除的文本~~ 效果：删除的文本
 4. 列表 无序列表 - 项目1 - 项目2 - 子项目1 - 子项目2 - 项目3 或者使用 * 或 +： * 项目1 * 项目2 + 项目1 + 项目2 有序列表 1. 第一项 2. 第二项 1. 子项目1 2. 子项目2 3. 第三项 任务列表 - [x] 已完成的任务 - [ ] 未完成的任务 - [ ] 另一个未完成的任务 效果：
-...</p></div><a class=entry-link aria-label="post link to Markdown语法教程" href=https://wellzhi.github.io/posts/tech/2010-08-11_markdown/></a></article><article class=post-entry><header class=entry-header><h2 class=entry-hint-parent>Leaf Bundle实现内容复用</h2></header><div class=entry-content><p>在 Hugo + PaperMod 中，我们经常会遇到这样的需求：
-一篇文章内容很长，希望拆分成多个 Markdown 文件； 希望复用某些固定内容片段，比如免责声明、版权信息等； 希望在文章中点击标题才展开某些内容，而不是直接展开。 本文介绍两种实现方式：resourceinclude（自动嵌入内容）和 collapsible（点击展开内容），并结合 Leaf Bundle 使用。
-先看看最终效果 开篇 这里是前言。
-第一部分 这是来自part1.md文件的内容
-📖 第一部分（点击展开） 这是来自part1.md文件的内容 第二部分 这是来自part2.md文件的内容
-📖 第二部分（点击展开） 这是来自part2.md文件的内容 插图 图片
-附件 下载 PDF
-结尾 谢谢阅读。
-什么是 Leaf Bundle Leaf Bundle（叶子包）是 Hugo 的 Page Bundle 类型之一，其特点是：
-一个目录包含一个 index.md，生成唯一的页面； 同目录下的其他文件（Markdown、图片、PDF 等）属于该页面资源； 子文件不会单独生成页面，可以在主文档中引用。 示例目录结构：
-content/posts/my-post/ ├── index.md # 主文档 ├── part1.md # 子文档 ├── part2.md ├── image1.png └── notes.pdf 方法一：resourceinclude 自动嵌入内容 1. 创建 Shortcode 在项目目录 layouts/shortcodes/resourceinclude.html 中写入：
-...</p></div><a class=entry-link aria-label="post link to Leaf Bundle实现内容复用" href=https://wellzhi.github.io/posts/tech/2010-01-01_hugo-leaf-bundle/></a></article></main><footer class=footer><span>&copy; 2025 <a href=https://wellzhi.github.io/>wellzhi</a></span> ·
+...</p></div><a class=entry-link aria-label="post link to Markdown语法教程" href=https://wellzhi.github.io/posts/tech/2010-08-11_markdown/></a></article></main><footer class=footer><span>&copy; 2025 <a href=https://wellzhi.github.io/>wellzhi</a></span> ·
 <span>Powered by
 <a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
         <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
